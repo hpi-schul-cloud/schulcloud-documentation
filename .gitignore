@@ -3,7 +3,7 @@
 
 # Production
 ## add /build once ci pipeline is ready
-# /build
+/build
 
 # Generated files
 .docusaurus
