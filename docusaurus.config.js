@@ -19,7 +19,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'hpi-schul-cloud', // Usually your GitHub org/user name.
-  projectName: 'hpi-schul-cloud', // Usually your repo name.
+  projectName: 'hpi-schul-cloud.github.io', // Usually your repo name.
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
@@ -43,7 +43,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/hpi-schul-cloud/hpi-schul-cloud/',
+            'https://github.com/hpi-schul-cloud/hpi-schul-cloud.github.io/',
         },
         // NOTE: add back when we want a blog
         // blog: {
