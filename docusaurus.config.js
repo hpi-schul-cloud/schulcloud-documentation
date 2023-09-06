@@ -42,8 +42,9 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/hpi-schul-cloud/hpi-schul-cloud.github.io/',
+          editUrl: ({docPath, versionDocsDirPath}) => {
+            return `https://github.com/hpi-schul-cloud/hpi-schul-cloud.github.io/blob/main/${versionDocsDirPath}/${docPath}`
+          },
         },
         // NOTE: add back when we want a blog
         // blog: {
