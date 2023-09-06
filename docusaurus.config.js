@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Schul-Cloud Documentation',
+  title: 'Schulcloud-Verbund-Software Documentation',
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
 
@@ -66,7 +66,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'Schul-Cloud',
+        title: 'Schulcloud-Verbund-Software',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
