@@ -1,5 +1,9 @@
 # Website
 
+This website is a documentation aggregator for all Schulcloud-Verbung software.
+
+It is deployed at https://hpi-schul-cloud.github.io/docs
+
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
 ### Installation
