@@ -28,6 +28,11 @@ export default function Home(): JSX.Element {
       <HomepageHeader />
       <main>
         {/* <HomepageFeatures /> */}
+        <p style={{margin: '4rem', fontSize: '1.2rem'}}>
+        This documentation serves as a guide to understand the code style, best practices, and implementation details of the project.
+        <br />
+        Whether you are a developer looking to contribute to the project, a team member aiming to understand the project structure, or simply curious about how things work behind the scenes, this documentation is here to help.
+        </p>
       </main>
     </Layout>
   );
