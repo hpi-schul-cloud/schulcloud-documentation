@@ -1,4 +1,4 @@
-https://docusaurus.io/docs/deployment#triggering-deployment-with-github-actions
+# https://docusaurus.io/docs/deployment#triggering-deployment-with-github-actions
 
 name: Deploy to GitHub Pages
 
