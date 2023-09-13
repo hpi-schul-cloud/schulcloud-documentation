@@ -2,7 +2,9 @@
 
 This website is a documentation aggregator for all Schulcloud-Verbund software.
 
-It is deployed at https://hpi-schul-cloud.github.io/
+It is deployed at https://hpi-schul-cloud.github.io/schulcloud-documentation/
+
+**the domain is subject to change**
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
