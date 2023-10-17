@@ -2,9 +2,8 @@
 
 This website is a documentation aggregator for all Schulcloud-Verbund software.
 
-It is deployed at https://hpi-schul-cloud.github.io/schulcloud-documentation/
+It is deployed at https://documentation.dbildungscloud.dev/
 
-**the domain is subject to change**
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
@@ -32,12 +31,14 @@ $ npm run build
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
+### Update the docs
+
+Create a new branch. Change the /docs files.
+
 ### Deployment
 
-Using SSH:
+Create a pull request and once your changes are merged into main the website will automatically deploy the new version.
 
-```
-$ USE_SSH=true DEPLOYMENT_BRANCH=gh-pages npm run deploy
-```
+### Important
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Do not remove the branch `gh-pages`. This branch is auto generated and contains the hosted website.
