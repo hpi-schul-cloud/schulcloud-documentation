@@ -1,7 +1,7 @@
 ---
 sidebar_position: 11
 ---
-# Component-Development Guidelines
+# Component Development Guidelines
 
 ## HTML is not a string {#html-is-not-a-string}
 
