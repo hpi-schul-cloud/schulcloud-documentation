@@ -88,7 +88,7 @@ To make our menu reusable, one approach might be to add an options prop:
 
 This approach has two major problems:
 
-First you probably already notice that we demoted the label from HTML to being just a string again. _(See: HTML is not a string)_
+First you probably already notice that we demoted the label from HTML to being just a string again. _(See: [HTML is not a string](#html-is-not-a-string))_
 
 Second we abstracted the structure of our menu into an Array. This replaces perfectly good HTML with a datastructure.
 
@@ -112,7 +112,7 @@ Additionally, this is much easier to test since we do not have to deal with data
 :::
 Adding these new requirements in the HTML approach is very straightforward. We just have to add a prop to each `my-menu-option` to pick a color. Then we create a new `my-menu-divider` component.
 
-Expanding the datastructure to support colors is easy, but it already starts t become quite difficult to read. The divider will be an actual problem. So far the datastructure was created to represent buttons. By adding the divider config object we will lose any uniformity of our config data. This will make it difficult to read, complicated to test und generally annoying to maintain.
+Expanding the datastructure to support colors is easy, we just have to add a `color`-property. But the divider will be an actual problem. So far the datastructure was created to represent buttons. By adding the divider config object we will lose any uniformity of our config data. This will make it difficult to read, complicated to test und generally annoying to maintain.
 
 Compare the two solutions in code:
 
@@ -129,21 +129,28 @@ Compare the two solutions in code:
 <!-- Datastructure approach -->
 <my-menu 
   :options="[
-             { label: "Option 1", action: callback1, color: 'default' }, 
-             // how is the divider supposed to be represented in data? 
-             { label: "Option 2", action: callback2, color: 'red' },
+             { label: "Option 1", action: callback1, color: 'default', type:'button' }, 
+             { type: 'divider' },
+             { label: "Option 2", action: callback2, color: 'red', type:'button' },
             ]">
 </my-menu>
 ```
+
+We can already see the datastructure approach falling apart. For complex menus this will be completely ineligible and difficult to understand.
+
+Let's add more requirements to get closer to a real world menu.
+
 :::note 
- **New Requirements**
-  * Menu with any number of clickable options
-  * Menu-Options can be colored
-  * Any number of Menu-Dividers can be placed at any position in the menu
-  * Menu-Options should have a disabled state
-  * Menu-Options can be a button or link
-  * Menu-Options can be nested dropdowns
+**New Requirements**
+
+* Menu with any number of clickable options
+* Menu-Options can be colored
+* Any number of Menu-Dividers can be placed at any position in the menu
+* Menu-Options should have a disabled state
+* Menu-Options can be a button or link
+* Menu-Options can be nested dropdowns
 :::
+
 ```html
 <!-- HTML approach -->
 <my-menu>
