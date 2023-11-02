@@ -16,8 +16,7 @@ Usually the api follows the following syntax:
 - The service calls a repository to access the database. 
 - The repository is responsible for the database access.
 
-
-## Responses
+## Responses
 
 When returning a response like this:
 
