@@ -2,7 +2,7 @@
 
 ## Function
 
-### Naming
+### Naming functions
 
 The name of a function should clearly communicate what it does. There should be no need to read the implementation of a function to understand what it does.
 
@@ -27,6 +27,72 @@ A function with the prefix "check..." is checking the condition described in its
 `hasPermission()`,
 
 similar to "is...", the prefix "has..." means that the function is checking a condition, and returns a boolean. It does NOT throw an error.
+
+### Avoid direct returns of computations
+
+avoid directly returning the result of some computation. Instead, use a variable to give the result of the computation a name.
+
+Exceptions can be made when the result of the computation is already clear from the function name, and the function is sufficiently simple to not occlude its meaning.
+
+```typescript
+public doSomething(): FileRecordParams[] {
+    // ... more logic here
+    const fileRecordParams = fileRecords.map((fileRecord) => Mapper.toParams(fileRecord));
+                                        // hint: this empty line can be increase the readability
+    return fileRecordParams;
+}
+
+public getName(): String {
+    return this.name;
+}
+
+public getInfo(): IInfo {
+    // ... more logic here
+    return { name, parentId, parentType }; // but if the return include many keys, please put it first to a const
+}
+```
+
+### avoid directly passing function results as parameters
+
+```typescript
+function badExample(): void {
+    doSomething(this.extractFromParams(params), this.createNewConfiguration());
+}
+
+function goodExample(): void {
+    const neededParams = this.extractFromParams(params);
+    const configuration = this.createNewConfiguration();
+    doSomething(neededParams, configuration);
+}
+```
+
+### explicit return type
+
+```typescript
+public doSomething(): FileRecords[] {
+    //...
+    return fileRecords
+}
+```
+
+## Interfaces
+
+### Avoid the "I" for interfaces
+
+In most cases, it should not matter to the reader/external code wether something is an interface or an implementation. Only prefix the "I" when necessary, or when its specifically important to the external code to know that its an interface, for example when external code is required to implement the interface.
+
+```Typescript
+interface CourseRepo {
+    getById(id): Course
+    // ...
+}
+
+class InMemoryCourseRepo implements CourseRepo {
+    getById(id): Course {
+        return new Course()
+    }
+}
+```
 
 ## Classes
 
@@ -53,10 +119,22 @@ export class Course {
   }
 
   // 3. methods
-  getShortTitle(): string {
+  public getShortTitle(): string {
     // ...
   }
 
   // more methods...
 }
 ```
+
+### Naming classes
+
+Classes should be named in CamelCase. They should have a Suffix with the kind of Object they represent, and from the beginning to the end go from specific to general.
+
+- CourseUc
+
+
+
+## Do not use JsDoc
+
+You should always try to write code in a way that does not require further explanation to understand. Use proper names for functions and variables, and extract code and partial results into functions or variables in order to name them. If you feel like a function needs a JsDoc, treat that as a codesmell, and try to rewrite the code in a way that is more self-explanatory.
