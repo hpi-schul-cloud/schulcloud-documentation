@@ -29,16 +29,16 @@ To facilitate this, your tests should be wrapped in at least two describe levels
 ```TypeScript
 // Name of the unit under test
 describe("Course Service", (() => {
-	// method that is called
-	describe('createCourse', () => {
-    	// a "when..." sentence
-		describe("When a student tries to create a course", (() => {
-			// a "should..." sentence
-				it("should return course", async () => {
-					...
-				});
-		});
-	});
+    // method that is called
+    describe('createCourse', () => {
+        // a "when..." sentence
+        describe("When a student tries to create a course", (() => {
+            // a "should..." sentence
+                it("should return course", async () => {
+                    ...
+                });
+        });
+    });
 });
 ```
 
@@ -60,39 +60,40 @@ Your test should be structured in three seperate areas, each distinguished by at
 
 this is known as the AAA-pattern.
 
-The tests for a unit should cover as much scenarios as possible. Parameters and the combination of parameters can often take numerous values. Therefore it largely differs from case to case what a sufficient amount of scenarios would be. Parameter values that contradict the typescript type definition should be ignored as a test case. 
+The tests for a unit should cover as much scenarios as possible. Parameters and the combination of parameters can often take numerous values. Therefore it largely differs from case to case what a sufficient amount of scenarios would be. Parameter values that contradict the typescript type definition should be ignored as a test case.
 The test coverage report already enforces scenarios that test every possible if/else result in the code. But still some scenarios are not covered by the report and must be tested:
-* All error scenarios: That means one describe block for every call that can reject.
 
-We use different levels of describe blocks to structure the tests in a way, that the tested scenarios could easily be recognized. The outer describe would be the function call itself. Every scenario is added as another describe inside the outer describe. 
+- All error scenarios: That means one describe block for every call that can reject.
+
+We use different levels of describe blocks to structure the tests in a way, that the tested scenarios could easily be recognized. The outer describe would be the function call itself. Every scenario is added as another describe inside the outer describe.
 
 All of the data and mock preparation should happen in a setup function. Every describe scenario only contains one setup function and is called in every test. No further data or mock preparation should be added to the test. Often there will be only one test in every describe scenario, this is perfectly fine with our desired structure.
 
 ```TypeScript
 describe('[method]', () => {
-	describe('when [senario description that is prepared in setup]', () => {
-		const setup = () => {
-			// prepare the data and mocks for this scenario
-		};
+    describe('when [senario description that is prepared in setup]', () => {
+        const setup = () => {
+            // prepare the data and mocks for this scenario
+        };
 
-		it('...', () => {
-			const { } = setup();
-		});
+        it('...', () => {
+            const { } = setup();
+        });
 
-		it('...', () => {
-			const { } = setup();
-		});
-	});          
+        it('...', () => {
+            const { } = setup();
+        });
+    });          
 
-	describe('when [senario description that is prepared in setup]', () => {
-		const setup = () => {
-			// prepare the data and mocks for this scenario
-		};
+    describe('when [senario description that is prepared in setup]', () => {
+        const setup = () => {
+            // prepare the data and mocks for this scenario
+        };
 
-		it('...', () => {
-			const { } = setup();
-		});
-	});
+        it('...', () => {
+            const { } = setup();
+        });
+    });
 });
 ```
 
@@ -103,14 +104,14 @@ describe('[method]', () => {
 When assigning a value to an expect, separate the function call from the expectation to simplify debugging. This later helps when you not know about the return value type or if it's an promise or not. This is good style not only for tests.
 
 ```TypeScript
-	// doSomethingCrazy : retValue
-	it('bad sample', () => {
-		expect(doSomethingCrazy(x,y,z)).to...
-	})
-	it('good sample', () => {
-		const result = doSomethingCrazy(x,y,z)
-		expect(result).to... // here we can simply debug
-	})
+    // doSomethingCrazy : retValue
+    it('bad sample', () => {
+        expect(doSomethingCrazy(x,y,z)).to...
+    })
+    it('good sample', () => {
+        const result = doSomethingCrazy(x,y,z)
+        expect(result).to... // here we can simply debug
+    })
 
 ```
 
@@ -123,22 +124,22 @@ When using asynchronous functions and/opr promises, results must be awaited with
 - never manually set a timeout
 
 ```TypeScript
-	// doSomethingCrazy : Promise<retValue>
-	it('bad async sample', async function (done) => {
-		this.timeout(10000);
-		return doSomethingCrazy(x,y,z).then(result=>{
-			expect(result).to...
-			done() // expected done
-		}).catch(()=>{
-			logger.info(`Could not ... ${error}`);
-			done() // unexpected done, test will always succeed which is wrong
-		})
-	})
-	it('good async sample', async () => {
-		// no timeout set
-		const result = await doSomethingCrazy(x,y,z)
-		expect(result).to...
-	})
+    // doSomethingCrazy : Promise<retValue>
+    it('bad async sample', async function (done) => {
+        this.timeout(10000);
+        return doSomethingCrazy(x,y,z).then(result=>{
+            expect(result).to...
+            done() // expected done
+        }).catch(()=>{
+            logger.info(`Could not ... ${error}`);
+            done() // unexpected done, test will always succeed which is wrong
+        })
+    })
+    it('good async sample', async () => {
+        // no timeout set
+        const result = await doSomethingCrazy(x,y,z)
+        expect(result).to...
+    })
 ```
 
 > Timeouts must not be used, when async handling is correctly defined!
@@ -148,20 +149,20 @@ When using asynchronous functions and/opr promises, results must be awaited with
 When expecting an error, you might take values from an error, test for the error type thrown and must care of promises.
 
 ```TypeScript
-	// doSomethingCrazy : Promise<retValue>
-	it('bad async sample expecting an error', () => {
-		expect(doSomethingCrazy(x,y,z)).to...
-	})
-	it('good async sample expecting an error value', async () => {
-		const code = await doSomethingCrazy(x,y,z).catch(err => err.code)
-		expect(code).to...
-	})
-	it('good sample expecting an error type from a sync function', () => {
-		expect(() => doSomethingCrazySync(wrong, param)).toThrow(BadRequestException);
-	})
-	it('good sample expecting an error type from an async function', async () => {
-		await expect(doSomethingCrazySync(wrong, param)).rejects.toThrow(BadRequestException);
-	})
+    // doSomethingCrazy : Promise<retValue>
+    it('bad async sample expecting an error', () => {
+        expect(doSomethingCrazy(x,y,z)).to...
+    })
+    it('good async sample expecting an error value', async () => {
+        const code = await doSomethingCrazy(x,y,z).catch(err => err.code)
+        expect(code).to...
+    })
+    it('good sample expecting an error type from a sync function', () => {
+        expect(() => doSomethingCrazySync(wrong, param)).toThrow(BadRequestException);
+    })
+    it('good sample expecting an error type from an async function', async () => {
+        await expect(doSomethingCrazySync(wrong, param)).rejects.toThrow(BadRequestException);
+    })
 ```
 
 ## Testing Utilities
@@ -202,28 +203,29 @@ let fut: FeatureUnderTest;
 let mockService: DeepMocked<MockService>;
 
 beforeAll(async () => {
-	const module = await Test.createTestingModule({
-		providers: [
-			FeatureUnderTest,
-			{
-				provide: MockService,
-				useValue: createMock<MockService>(),
-			},
-		],
-	}).compile();
+    const module = await Test.createTestingModule({
+        providers: [
+            FeatureUnderTest,
+            {
+                provide: MockService,
+                useValue: createMock<MockService>(),
+            },
+        ],
+    }).compile();
 
-	fut = module.get(FeatureUnderTest);
-	mockService = module.get(MockService);
+    fut = module.get(FeatureUnderTest);
+    mockService = module.get(MockService);
 });
 
 afterAll(async () => {
-	await module.close();
+    await module.close();
 });
 
 afterEach(() => {
-	jest.resetAllMocks();
+    jest.resetAllMocks();
 })
 ```
+
 The resulting mock has all the functions of the original `Class`, replaced with jest spies. This gives you code completion and type safety, combined with all the features of spies.
 
 `createTestingModule` should only be calld in `beforeAll` and not in `beforeEach` to keep the setup and teardown for each test as simple as possible. Therefore `module.close` should only be called in `afterAll` and not in `afterEach`.
@@ -232,32 +234,34 @@ To generally reset specific mock implementation after each test `jest.resetAllMo
 
 ```Typescript
 describe('somefunction', () => {
-	describe('when service returns user', () => {
-		const setup = () => {
-			const resultUser = userFactory.buildWithId();
+    describe('when service returns user', () => {
+        const setup = () => {
+            const resultUser = userFactory.buildWithId();
 
-			mockService.getUser.mockReturnValueOnce(resultUser);
+            mockService.getUser.mockReturnValueOnce(resultUser);
 
-			return { resultUser };
-		};
+            return { resultUser };
+        };
 
-		it('should call service', async () => {
-			setup();
-			await fut.somefunction();
-			expect(mockService.getUser).toHaveBeenCalled();
-		});
+        it('should call service', async () => {
+            setup();
+            await fut.somefunction();
+            expect(mockService.getUser).toHaveBeenCalled();
+        });
 
-		it('should return user passed by service', async () => {
-			const { resultUser } = setup();
-			const result = await fut.somefunction();
-			expect(result).toEqual(resultUser);
-		});
-	});
+        it('should return user passed by service', async () => {
+            const { resultUser } = setup();
+            const result = await fut.somefunction();
+            expect(result).toEqual(resultUser);
+        });
+    });
 });
 ```
+
 For creating specific mock implementations the helper functions which only mock the implementation once, must be used (e.g. mockReturnValueOnce). With that approach more control over mocked functions can be achieved.
 
-If you want to mock a method that is not part of a dependency you can mock it with `jest.spyOn`. We strongly recommend the use of `jest.spyOn` and not `jest.fn`, because `jest.spyOn` can be restored a lot easier. 
+If you want to mock a method that is not part of a dependency you can mock it with `jest.spyOn`. We strongly recommend the use of `jest.spyOn` and not `jest.fn`, because `jest.spyOn` can be restored a lot easier.
+
 ## Unit Tests vs Integration Tests
 
 In Unit Tests we access directly only the component which is currently testing.
@@ -274,9 +278,7 @@ For the data access layer, integration tests can be used to check the repositori
 For Queries care DRY principle, they should be tested very carefully.
 
 > Use a in-memory database for testing to allow parallel test execution and have isolated execution of tests.
-
 > A test must define the before and after state of the data set clearly and cleanup the database after execution to the before state.
-
 > Instead of using predefined data sets, all preconditions should be defined in code through fixtures.
 
 Our repository layer uses `mikro-orm/EntityManager` to execute the queries.
@@ -286,7 +288,7 @@ Therefore, the `*.repo.integration.spec.js` should be used.
 
 The basic structure of the repo integration test:
 
-#### Preconditions (beforeAll):
+#### Preconditions (beforeAll)
 
 1. Create `Nest JS testing module`:
    1.1 with `MongoMemoryDatabaseModule` defining entities which are used in tests. This will wrap MikroOrmModule.forRoot() with running a MongoDB in memory.
@@ -294,18 +296,18 @@ The basic structure of the repo integration test:
 2. Get repo, orm and entityManager from testing module
 
 ```TypeScript
-	import { MongoMemoryDatabaseModule } from '@src/modules/database';
+    import { MongoMemoryDatabaseModule } from '@src/modules/database';
 
-	let repo: NewsRepo;
-	let em: EntityManager;
-	let testModule: TestingModule;
+    let repo: NewsRepo;
+    let em: EntityManager;
+    let testModule: TestingModule;
 
     beforeAll(async () => {
-    	testModule: TestingModule = await Test.createTestingModule({    (1)
+        testModule: TestingModule = await Test.createTestingModule({    (1)
              imports: [
-                 	MongoMemoryDatabaseModule.forRoot({                 (1.1)
-					entities: [News, CourseNews, ...],
-				}),
+                     MongoMemoryDatabaseModule.forRoot({                 (1.1)
+                    entities: [News, CourseNews, ...],
+                }),
               ],
              providers: [NewsRepo],                                     (1.2)
       }).compile();
@@ -347,7 +349,6 @@ These tests should not have any external dependencies to other layers like datab
 Since a [usecase](./architecture.md#domain-layer) only contains orchestration, its tests should be decoupled from the components it depends on. We thus use unittests to verify the orchestration where necessary
 
 > All Dependencies should be mocked.
-
 > Use Spies to verify necessary steps, such as authorisation checks.
 
 to be documented
@@ -372,4 +373,4 @@ Any external services or servers that are outside our control should be mocked a
 
 ## References
 
-This guide is inspired by https://github.com/goldbergyoni/javascript-testing-best-practices/
+This guide is inspired by [javascript-testing-best-practices by goldbergyoni](https://github.com/goldbergyoni/javascript-testing-best-practices/)

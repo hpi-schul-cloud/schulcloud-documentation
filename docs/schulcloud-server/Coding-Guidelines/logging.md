@@ -8,35 +8,34 @@ The message should be fixed in each loggable. If you want to log further data, p
 
 ```TypeScript
 export class YourLoggable implements Loggable {
-	constructor(private readonly userId: EntityId) {}
+    constructor(private readonly userId: EntityId) {}
 
-	getLogMessage(): LogMessage {
-		return {
-			message: 'I am a log message.',
-			data: { userId: this.userId, },
-		};
-	}
+    getLogMessage(): LogMessage {
+        return {
+            message: 'I am a log message.',
+            data: { userId: this.userId, },
+        };
+    }
 }
-
 ```
 
 ```TypeScript
 import { Logger } from '@src/core/logger';
 
 export class YourUc {
-	constructor(private logger: Logger) {
-		this.logger.setContext(YourUc.name);
-	}
+    constructor(private logger: Logger) {
+        this.logger.setContext(YourUc.name);
+    }
 
-	public sampleUcMethod(user) {
-		this.logger.log(new YourLoggable(userId: user.id));
-	}
+    public sampleUcMethod(user) {
+        this.logger.log(new YourLoggable(userId: user.id));
+    }
 }
 ```
 
 This produces a logging output like
 
-```
+```text
 [NestWinston] Info - 2023-05-31 15:20:30.888   [YourUc] {  message: 'I am a log message.',  data: {   userId: '0000d231816abba584714c9e'  }}
 ```
 

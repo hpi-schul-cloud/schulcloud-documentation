@@ -8,7 +8,7 @@ The name of a function should clearly communicate what it does. There should be 
 
 There are a few keywords that we use with specific meaning:
 
-#### is...
+#### "is..."
 
 `isTask()`, `isPublished()`, `isAuthenticated()`, `isValid()`
 
@@ -16,13 +16,13 @@ A function with the prefix "is..." is checking wether the input belongs to a cer
 
 The function should return a boolean, and have no sideeffects.
 
-#### check...
+#### "check..."
 
 `checkPermission()`, `checkInputIsValid()`
 
 A function with the prefix "check..." is checking the condition described in its name, throwing an error if it does not apply.
 
-#### has...
+#### "has..."
 
 `hasPermission()`,
 

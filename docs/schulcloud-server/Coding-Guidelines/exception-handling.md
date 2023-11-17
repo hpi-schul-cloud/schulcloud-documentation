@@ -1,17 +1,17 @@
 # Exception Handling
 
-![](./img/exception-hierarchy.svg)
+![exception hierarchy](./img/exception-hierarchy.svg)
 
 We separate our business exceptions from technical exceptions. While for technical exceptions, we use the predefined HTTPExceptions from NestJS, business exceptions inherit from abstract BusinessException.
 
 By default, implementations of BusinessException must define
 
 ```JSON
-	code: 500
-	type: "CUSTOM_ERROR_TYPE",
-	title: "Custom Error Type",
-	message: "Human readable details",
-	// additional: optionalData
+code: 500
+type: "CUSTOM_ERROR_TYPE",
+title: "Custom Error Type",
+message: "Human readable details",
+// additional: optionalData
 ```
 
 There is a GlobalErrorFilter provided to handle exceptions, which cares about the response format of exceptions and logging. It overrides the default NestJS APP_FILTER in the core/error-module.
@@ -36,7 +36,6 @@ try {
 }
 ```
 
-
 ## Loggable exceptions
 
 If you want the error log to contain more information than just the exception message, use or create an exception which implements the `Loggable` interface. Don't put data directly in the exception message!
@@ -47,28 +46,29 @@ See example below.
 
 ```TypeScript
 export class UnauthorizedLoggableException extends UnauthorizedException implements Loggable {
-	constructor(private readonly username: string, private readonly systemId?: string) {
-		super();
-	}
+    constructor(private readonly username: string, private readonly systemId?: string) {
+        super();
+    }
 
-	getLogMessage(): ErrorLogMessage {
-		const message = {
-			type: 'UNAUTHORIZED_EXCEPTION',
-			stack: this.stack,
-			data: {
-				userName: this.username,
-				systemId: this.systemId,
-			},
-		};
+    getLogMessage(): ErrorLogMessage {
+        const message = {
+            type: 'UNAUTHORIZED_EXCEPTION',
+            stack: this.stack,
+            data: {
+                userName: this.username,
+                systemId: this.systemId,
+            },
+        };
 
-		return message;
-	}
+        return message;
+    }
 }
 ```
+
 ```TypeScript
 export class YourService {
-	public sampleServiceMethod(username, systemId) {
-		throw new UnauthorizedLoggableException(username, systemId);
-	}
+    public sampleServiceMethod(username, systemId) {
+        throw new UnauthorizedLoggableException(username, systemId);
+    }
 }
 ```
