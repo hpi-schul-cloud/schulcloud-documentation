@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://hpi-schul-cloud.github.io',
+  url: 'https://documentation.dbildungscloud.dev',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -31,6 +31,10 @@ const config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+
+  markdown: {
+    mermaid: true,
   },
 
   presets: [
@@ -157,6 +161,7 @@ const config = {
           // ```
         }),
       ],
+      '@docusaurus/theme-mermaid',
     ],
 };
 

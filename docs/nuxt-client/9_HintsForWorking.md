@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 10
 ---
 
 # Hints for Working
@@ -13,4 +13,4 @@ As UX works with [Figma](https://www.figma.com) you can also easily find the nam
 You can easily access this mode by using the toggle and then see the name of the icon in the left sidebar (see screenshot).
 Afterwards you can either search for the icon on the page above (by using hyphens between words) or directly import it from the library into your component.
 
-![Figma Dev Mode](./figmaDevMode.png)
+![Figma Dev Mode](./assets/figmaDevMode.png)
