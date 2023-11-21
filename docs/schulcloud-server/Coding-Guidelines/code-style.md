@@ -131,10 +131,28 @@ export class Course {
 
 Classes should be named in CamelCase. They should have a Suffix with the kind of Object they represent, and from the beginning to the end go from specific to general.
 
+- CourseController
+- CourseCreateBodyParam
+- CourseCreateQueryParam
+- CourseCreateResponse
+- CourseDtoMapper
 - CourseUc
+- CourseAuthorisationDto
+- CourseDo
+- CourseService
+- CourseRepo
+- CourseEntity
+- CourseEntityMapper
 
-
-
-## Do not use JsDoc
+## Do NOT use JsDoc
 
 You should always try to write code in a way that does not require further explanation to understand. Use proper names for functions and variables, and extract code and partial results into functions or variables in order to name them. If you feel like a function needs a JsDoc, treat that as a codesmell, and try to rewrite the code in a way that is more self-explanatory.
+
+## Do use empty lines
+
+empty lines help to structure code. Use them wherever you want to seperate parts of a function from each other (and think about further extracting functions). Common uses include:
+
+- before return statement
+- before and after an if/else statement
+- between test sections (arrange, act, assert)
+- between "it()" statements in tests
