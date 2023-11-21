@@ -33,10 +33,13 @@ describe("Course Service", (() => {
     describe('createCourse', () => {
         // a "when..." sentence
         describe("When a student tries to create a course", (() => {
+            const setup = () => {
+                // testsetup for the situation that was described
+            }
             // a "should..." sentence
-                it("should return course", async () => {
-                    ...
-                });
+            it("should return course", async () => {
+                ...
+            });
         });
     });
 });
@@ -126,7 +129,6 @@ When using asynchronous functions and/opr promises, results must be awaited with
 ```TypeScript
     // doSomethingCrazy : Promise<retValue>
     it('bad async sample', async function (done) => {
-        this.timeout(10000);
         return doSomethingCrazy(x,y,z).then(result=>{
             expect(result).to...
             done() // expected done
@@ -134,7 +136,8 @@ When using asynchronous functions and/opr promises, results must be awaited with
             logger.info(`Could not ... ${error}`);
             done() // unexpected done, test will always succeed which is wrong
         })
-    })
+    }, 10000 /* timeout in ms */) 
+
     it('good async sample', async () => {
         // no timeout set
         const result = await doSomethingCrazy(x,y,z)
