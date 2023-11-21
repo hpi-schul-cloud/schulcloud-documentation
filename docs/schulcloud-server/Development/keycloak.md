@@ -39,8 +39,8 @@ docker run `
 
 To add ErWIn-IDM identity broker feature via OpenID Connect (OIDC) Identity Provider (IdP) mock follow the steps below. Execute these commands in the repository root.
 
-- Set env vars (or in your .env file) 'OIDCMOCK\_\_BASE_URL' to http://\<your-local-ip\>:4011.
-- To make it work with the nuxt client set the env var HOST=http://localhost:4000
+- Set env vars (or in your .env file) 'OIDCMOCK\_\_BASE_URL' to <http://\<your-local-ip\>:4011>.
+- To make it work with the nuxt client set the env var HOST=<http://localhost:4000>
 - re-trigger `npm run setup:db` and `npm run setup:idm` to reset and apply seed data.
 - start the 'oidc-server-mock' as follows:
 

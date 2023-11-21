@@ -86,7 +86,7 @@ describe('[method]', () => {
         it('...', () => {
             const { } = setup();
         });
-    });          
+    });
 
     describe('when [senario description that is prepared in setup]', () => {
         const setup = () => {
