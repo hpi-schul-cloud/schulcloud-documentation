@@ -25,7 +25,7 @@ The main responsibilities of a controller is to define the REST API interface as
 
 ## JWT-Authentication
 
-For **authentication**, use [guards](https://docs.nestjs.com/guards) like JwtAuthGuard. It can be applied to a whole controller or a single controller method only. Then, [ICurrentUser](/apps/server/src/modules/authentication/interface/jwt-payload.ts) can be injected using the `@CurrentUser()` decorator.
+For **authentication**, use [guards](https://docs.nestjs.com/guards) like JwtAuthGuard. It can be applied to a whole controller or a single controller method only. Then, the authenticated user can be injected using the `@CurrentUser()` decorator.
 
 ## Validation
 

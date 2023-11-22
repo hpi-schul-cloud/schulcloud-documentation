@@ -349,7 +349,7 @@ These tests should not have any external dependencies to other layers like datab
 
 ### Use Case Tests
 
-Since a [usecase](./architecture.md#domain-layer) only contains orchestration, its tests should be decoupled from the components it depends on. We thus use unittests to verify the orchestration where necessary
+Since a [usecase](../architecture.md#domain-layer) only contains orchestration, its tests should be decoupled from the components it depends on. We thus use unittests to verify the orchestration where necessary
 
 > All Dependencies should be mocked.
 > Use Spies to verify necessary steps, such as authorisation checks.
