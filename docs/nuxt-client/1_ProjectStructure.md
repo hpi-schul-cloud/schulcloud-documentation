@@ -11,15 +11,14 @@ toc_max_heading_level: 4
 
 Files should be consistently named like this:
 
-| file content | style      | filename                                                         | comment                                                   |
-| ------------ | ---------- | ---------------------------------------------------------------- | --------------------------------------------------------- |
-| Components   | PascalCase | `YourComponent.vue`                                              | best practice                                             |
-| Layouts      | PascalCase | `YourLayoutName.layout.vue`                                      | best practice                                             |
-| Pinia stores | PascalCase | `@/stores/BoardCardStore.ts`                                     | suggestion: subfolder stores/ include Store in filename   |
-| Composables  | CamelCase  | `confirmationDialog.composable.ts` or `useConfirmationDialog.ts` | **TBD**                                                   |
-| Utils        | CamelCase  | `yourArea.util.ts`                                               | suggestion: move from yourUtil.ts => your.util.ts         |
-| other files  | CamelCase  | `your-filename.ts`                                               |                                                           |
-| test files   |            | `{{ basename }}.unit.ts`                                         | e.g. YourComponent**.unit.ts**, yourArea.util**.unit.ts** |
+| file content | style      | filename                           | comment                                                   |
+| ------------ | ---------- | ---------------------------------- | --------------------------------------------------------- |
+| Components   | PascalCase | `YourComponent.vue`                | best practice                                             |
+| Pinia stores | PascalCase | `BoardCardStore.ts`                | suggestion: subfolder stores/ include Store in filename   |
+| Composables  | CamelCase  | `confirmationDialog.composable.ts` | current convention                                        |
+| Utils        | CamelCase  | `yourArea.util.ts`                 | suggestion: move from yourUtil.ts => your.util.ts         |
+| other files  | CamelCase  | `yourFilename.ts`                  |                                                           |
+| test files   |            | `{{ basename }}.unit.ts`           | e.g. YourComponent**.unit.ts**, yourArea.util**.unit.ts** |
 
 ## Folders
 
@@ -103,7 +102,7 @@ Placed in folder **util**
 2. refactor your feature-module and extract the data part of it into a new data-module
 3. use this new data-module in the original feature and the other module that also needs access
 
-_Note: if you now upfront, which parts will definitly be used outside your feature, implement the data-module upfront_
+_Note: if you know upfront, which parts will definitly be used outside your feature, implement the data-module upfront_
 
 #### Another module needs access to some of your UI-Components that form your feature
 
