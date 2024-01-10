@@ -14,7 +14,7 @@ Files should be consistently named like this:
 | file content | style      | filename                           | comment                                                   |
 | ------------ | ---------- | ---------------------------------- | --------------------------------------------------------- |
 | Components   | PascalCase | `YourComponent.vue`                | best practice                                             |
-| Pinia stores | PascalCase | `BoardCardStore.ts`                | suggestion: subfolder stores/ include Store in filename   |
+| Pinia stores | PascalCase | `BoardCard.store.ts`               | placed in data- modules                                   |
 | Composables  | CamelCase  | `confirmationDialog.composable.ts` | current convention                                        |
 | Utils        | CamelCase  | `yourArea.util.ts`                 | suggestion: move from yourUtil.ts => your.util.ts         |
 | other files  | CamelCase  | `yourFilename.ts`                  |                                                           |
@@ -88,7 +88,7 @@ A utility building-block contains **low level code** used by many building-block
 
 Placed in folder **util**
 
-### Live of a feature module
+### Life of a feature module
 
 #### Starting a new Feature module
 
