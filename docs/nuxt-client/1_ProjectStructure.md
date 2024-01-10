@@ -52,6 +52,8 @@ There are different types of building blocks each with a different purpose.
 | Data    | modules / **`data`** / auth                           | State and API-access. Does not contain any visual components. They are the data-sources of all smart components.                                                                                   |
 | Util    | <nobr> modules / **`util`** / form-validators </nobr> | Contains shared low-level code.                                                                                                                                                                    |
 
+_**Hint**: currently the modules are all placed under /components/feature-... etc. and will be refactored to the above with this ticket: [BC-5513](https://ticketsystem.dbildungscloud.de/browse/BC-5513)_
+
 #### Matrix of allowed imports
 
 Each type is only allowed to import modules of some of the other types.
