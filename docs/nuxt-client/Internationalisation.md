@@ -3,6 +3,8 @@ sidebar_position: 12
 ---
 # Internationalisation (I18n)
 
+[Relevant Docs of VueI18n](https://vue-i18n.intlify.dev/guide/advanced/typescript.html#typescript-support)
+
 ## How to Use in a component
 
 1. Script Setup
