@@ -31,7 +31,9 @@ To run migraitons you can use one of the commands below:
 
 
 ## Test migration 
-* to check migrations to be executed, you can use `npx mikro-orm migration:pending` command
+* to check migrations to be executed:
+  *  in local development you can use `npx mikro-orm migration:pending` command 
+  *  `npm run migration:pending` to run the compiled js file. The second command is safer, and used in CI and should be used in K8 clusters.
 * The CI job `./.github/workflows/migrations.yml` will check that the migrations are already included in the seed data. If not, it will fail.  This is to ensure that the seed data is always up to date with the migrations.
 
 ## Committing a migration
@@ -46,7 +48,7 @@ Commit the changes:
 * `git add .` 
 * `git commit -m "migration: <migration name>"`
 * `git push`
-* test that the migration was applied `npx mikro-orm migrations:pending` should return nothing
+* test that the migration was applied `npx mikro-orm migrations:pending` (or better use `npm run migration:pending`) should return nothing
 
 
 ## Best Practices
