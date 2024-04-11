@@ -98,3 +98,5 @@ export class GroupDeletedHandlerService implements IEventHandler<UserDeletedEven
     }
 }
 ```
+
+note that the handler should not contain any logic, but only the orchestration of what needs to be done.
