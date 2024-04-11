@@ -4,7 +4,9 @@ Internal Events are used as a mechanism for Dependency Inversion.
 
 If you are implementing an operation in a module that needs to trigger an operation in another module, that is simple if you can simply import a service. However, if that other module already has a dependency on your module, that would lead to a dependency cycle. In this case, you need to inverse one of the dependencies via events.
 
-The main thing you need to think about, is which module should know about which module(s). This is the dependency, and it only ever can point into one direction. As a general rule of thumb, the module that is more specific, or is changing more frequently, or is less central to the functionality of the schoolcloud, should have the dependency on the other.
+The main thing you need to think about, is which module should know about which module(s). This is the dependency, and it only ever can point into one direction. As a general rule of thumb, the module that is more specific, or is changing more frequently, or is less central to the functionality of the system, should have the dependency on the other.
+
+In the following example, the course module has a dependency on the user module, but NOT vice versa.
 
 ## How to implement Event Handling
 
