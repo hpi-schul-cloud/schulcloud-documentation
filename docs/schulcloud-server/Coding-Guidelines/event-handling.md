@@ -46,7 +46,7 @@ export class GroupModule {}
 
 ### Defining an Event
 
-the event is in the end simply a class, containing any data required to handle the event
+The event is in the end simply a class, containing any data required to handle the event
 
 ``` ts
 // users/domain/events/user-deleted.event.ts
@@ -99,4 +99,4 @@ export class GroupDeletedHandlerService implements IEventHandler<UserDeletedEven
 }
 ```
 
-note that the handler should not contain any logic, but only the orchestration of what needs to be done.
+Note that the handler should not contain any logic, but only the orchestration of what needs to be done.
