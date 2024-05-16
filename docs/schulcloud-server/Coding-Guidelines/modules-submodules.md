@@ -67,4 +67,10 @@ import { type PublicService } from '@modules/moduleA';
 import { type PublicService } from '@modules/moduleB';
 ```
 
+3. **Use Events**: If you have a circular dependency between two modules that need to communicate with each other, consider using events to decouple them. This way, one module can emit an event that the other module listens to, without directly importing it.
+
+- <https://documentation.dbildungscloud.dev/docs/schulcloud-server/Coding-Guidelines/event-handling>
+
+- <https://docs.nestjs.com/recipes/cqrs>
+
 Remember, circular dependencies are usually a sign of tightly coupled code and can lead to maintenance issues down the line. It's best to refactor your code to avoid them if possible.
