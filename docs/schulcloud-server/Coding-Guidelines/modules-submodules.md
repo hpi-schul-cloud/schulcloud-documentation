@@ -21,9 +21,9 @@ export { SubmoduleServiceName } from './submodule-name/service.ts';
 
 ## Barrel Files
 
-Barrel files are a way to rollup exports from several modules into a single convenient module. The barrel itself is a module file that re-exports selected exports of other modules.
+Barrel files are a way to rollup exports from several folders into a single convenient nest-module. The barrel itself is a module file that re-exports selected exports of other submodules.
 
-If you have several related modules in a directory, you can create a barrel to re-export all of their exports. This allows other modules to import everything from the barrel instead of having to import things individually from each module.
+If you have several related service/interface files in a directory/module that should be publicly accessible, you can create a barrel file to export all these files from the main module again.
 
 Here's an example of a barrel file:
 
