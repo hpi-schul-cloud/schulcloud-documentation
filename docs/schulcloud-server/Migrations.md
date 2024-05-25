@@ -10,7 +10,7 @@ We use the [cli commands](https://mikro-orm.io/docs/5.9/migrations#using-via-cli
 
 
 ### Create a new migration
-`npx run migration:create` will create a new migration file in `./apps/server/src/migrations/mikro-orm` folder.
+`npx mikro-orm migration:create` will create a new migration file in `./apps/server/src/migrations/mikro-orm` folder.
 * please note that argument `--name=SOME_MIGRATION_NAME` is supported in 5.9 only
 * do log all database changes (before and after state of documents or at least all modified document id's)
 
