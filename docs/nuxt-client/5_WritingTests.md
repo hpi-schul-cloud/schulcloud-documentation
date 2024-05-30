@@ -6,7 +6,7 @@ sidebar_position: 6
 
 How to write valuable, reliable tests, that are easy to maintain.
 
-## Basics
+## Motivation
 
 Writing good tests that cover all aspects of your code, leads to:
 
@@ -18,30 +18,52 @@ and by that to:
 
 - **developer happiness** :-)
 
-### Unit-Tests vs. Component-Tests
+## What to test?
+In the following it is described what needs to be tested about components.
 
-#### Unit-Tests
+### Public Interface
 
-Unit-Tests are **WhiteBox-Tests**. So they may use knowledge of internals of the code. They are well suited for testing e.g. **composables** and **stores**.
+![Public interface of the component](./assets/public-interface.png)
+https://excalidraw.com/#room=8ab85745d02741f6732e,aFhIkl40YZt-DG30PLpABw
 
-#### Component-Tests
+The public interface of a component is the set of properties, events and lifecycle methods that are exposed to the outside world. The public interface is the contract between the component and the rest of the application. It defines the expected behavior and the reasonable assumptions the user has about its usage. 
 
-Component-Tests are **BlackBox-Tests**. So they are not allowed to use any knowledge of the internals of the component.
-They ensure the stability of the **public interface** of the component (aka its methods, props, events etc.).
-The enable us to **refactor** the internals of our components later on.
+Theoretically, we want to test that for every input, we receive the correct output from the component. However, with the structure of having parent and child components, this doesn't necessarily make sense. This is because the expected output often means just passing a property to a subcomponent. By writing a test for it, we would only be repeating the code itself. That's why we only perform a complete test of inputs and outputs at the feature level, as we see this interface as the contract between the feature and the rest of the application.
 
-### Positive & negative Tests
+For every component that is exposed to the rest of the application in the feature barrel file, there needs to be a complete test of all likely inputs and outputs. For the feature component itself, this would be an integration test, and for any exposed subcomponent, it would mean a unit test. This is also valid for the ui folder or other folders where components are exposed to the rest of the application.
 
-- **positive tests** test the default cases of your code = **how it should work**
-- **negative tests** test **error-cases** or **exception**-behaviour
-- you need to write both to ensure your component works correctly
-- think of edge-cases that might break your component e.g. when providing input to the component:
-  - **numbers**: high numbers, negative numbers, float<->integer, at the edge of a range that is expected...
-  - **dates**: none existing dates e.g. 30th February 2023, far away future,...
-  - **strings**: umlauts, url-special-characters (?, &, =, \/\/: ), very long strings for names, long strings without linebreaks
-  - **totally incorrect data**: e.g. giving a string instead of a number
+*Are unit tests inside the feature or ui folder completely optional? Or do we still need unit tests?*
 
-### Use Vue-Test-Utils
+#### Inputs
+A scenario in our test represented as a describe block represents a set of inputs.
+
+##### Props
+Properties that are passed to the component are often directly displayed in the rendered output. Therefore it is important to test that the component renders the correct output based on the props it receives.
+
+Properties could also lead to different behavior of the component. For example, a component could render a different button based on the value of a prop. In this case, it is important to test that the component renders the correct button based on the prop.
+
+##### User interaction
+User interaction is also a form of input. For example, a user could click on a button, which would trigger an event. It is important to test that the component shows the correct output based on the user interaction.
+
+##### Lifecycle Methods
+Lifecycle methods are methods that are called by the Vue framework at certain points in the lifecycle of the component. It is important to test that these methods lead to the expected behavior of the component.
+
+#### Outputs
+The outputs are tested in the `expect` method in our tests. We can expect a certain html being rendered or and event beeing emitted.
+
+## Coverage
+Open Questions:
+* *Would the above descriped approach lead to 100% coverage?*
+* *Currently the coverage report doesn't make sense. Imports are marked as untested for example.*
+* *Can we configure coverage collection in a way that it gives us a meaningful value?*
+* *If not should we deactivated coverage collection in sonar cloud?*
+
+## Further Reading
+https://www.youtube.com/watch?v=OIpfWTThrK8
+
+
+
+## Use Vue-Test-Utils
 
 For testing our Vue-Components we use the **Vue Test Utils**. Vue Test Utils is a library that provides methods to help you write tests for your Vue components. It provides methods to mount, shallow mount, and render components, as well as methods to simulate events and find elements in the rendered output.
 
@@ -61,11 +83,7 @@ Some functionality it provides:
 
 We think the **Vue Test Utils-documentation** is a valuable resource for learning how to test Vue-Components and a very good starting point on how to test certain aspects of your component. Please have a look at [https://test-utils.vuejs.org/guide](https://test-utils.vuejs.org/guide)
 
-### Use TypeScript
-
-Use TypeScript for your components and for your unit-tests. This way many errors can be prevented early on, as you can detect them already in your IDE.
-
-### Name your tests like your components
+## Name your tests like your components
 
 Tests should be named after their Component using **.unit.ts** as the extension:
 
@@ -74,7 +92,7 @@ HelloWorld.vue
 HelloWorld.unit.ts
 ```
 
-### Structure your tests using (multiple) "describe"-blocks
+## Structure your tests using (multiple) "describe"-blocks
 
 Especially in large test-files it is very helpful for the reader to have a tree-like structure grouping the tests. So use describe blocks to group tests that are related to the same aspect of your code/the functionality.
 
