@@ -44,13 +44,6 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
     ```
     Please note we're using the docker.io/etherpad/etherpad:2.0.0 image in the command above which might be not the one that is being used anytime in the future when you read this article. To make sure you're using the current version (the one that is currently being used in the SchulCloud platform), please refer to the https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/infra/dof_etherpad.yml file.
 
-5. To allow communication between schulcloud- and etherpad-server the following env vars must be set: 
-    ```
-    TLDRAW_ADMIN_API_CLIENT__API_KEY=randomString
-    ADMIN_API__ALLOWED_API_KEYS=randomString
-    TLDRAW_ADMIN_API_CLIENT__BASE_URL=http://localhost:3349
-    ```
-
 Now we should have the Etherpad service running locally on port 9001, we can verify it's working properly e.g. by fetching the current Etherpad's API version:
 
 ```
