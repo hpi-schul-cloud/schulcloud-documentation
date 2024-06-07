@@ -3,14 +3,14 @@
 ## Configuration
 - ETHERPAD_COOKIE__EXPIRES_SECONDS - time in seconds after which a session expires
 - ETHERPAD_ETHERPAD_COOKIE_RELEASE_THRESHOLD - time in seconds after which a session is not returned to the user
-- ETHERPAD_API_KEY - api key for etherpad
-- ETHERPAD_URI - uri of etherpad api
-- ETHERPAD_API_PATH - path to etherpad api
-- ETHERPAD_BASE_URL - base url of etherpad
-- ETHERPAD__PAD_PATH
-- ETHERPAD__PAD_URI
-- ETHERPAD__NEW_DOMAIN
-- ETHERPAD__OLD_DOMAIN
+- ETHERPAD_API_KEY - api key used for authentication of schulcloud server requests
+- ETHERPAD_URI - Used as base path for api client in nest
+- ETHERPAD__PAD_PATH - Used in legacy client to set path on cookie.
+- ETHERPAD__PAD_URI - Used for collab editor and lesson to build return url, Used in legacy client to build url
+- ETHERPAD__NEW_DOMAIN - Used in legacy client to validate url
+- ETHERPAD__OLD_DOMAIN -  Used in legacy client to validate url
+- ETHERPAD_API_PATH -  Only used in tests.
+- ETHERPAD_BASE_URL - Not used.
 
 ## Creating and Opening an Etherpad Element on a Column Board
 
