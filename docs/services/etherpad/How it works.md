@@ -9,8 +9,6 @@
 - ETHERPAD__PAD_URI - Used for collab editor and lesson to build return url, Used in legacy client to build url
 - ETHERPAD__NEW_DOMAIN - Used in legacy client to validate url
 - ETHERPAD__OLD_DOMAIN -  Used in legacy client to validate url
-- ETHERPAD_API_PATH -  Only used in tests.
-- ETHERPAD_BASE_URL - Not used.
 
 ## Creating and Opening an Etherpad Element on a Column Board
 
