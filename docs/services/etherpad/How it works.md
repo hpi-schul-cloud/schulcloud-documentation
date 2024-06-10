@@ -4,12 +4,12 @@
 - FEATURE_ETHERPAD_ENABLED - Used to enable etherpad feature in feathers backend
 - FEATURE_COLUMN_BOARD_COLLABORATIVE_TEXT_EDITOR_ENABLED - Enables etherpad feature on column boards
 
-- ETHERPAD_COOKIE_EXPIRES_SECONDS - Time in seconds after which a session expires
-- ETHERPAD_ETHERPAD_COOKIE_RELEASE_THRESHOLD - Time in seconds after which a session is not returned to the user
+- ETHERPAD__COOKIE_EXPIRES_SECONDS - Time in seconds after which a session expires
+- ETHERPAD__COOKIE_RELEASE_THRESHOLD - Time in seconds after which a session is not returned to the user
 
-- ETHERPAD_API_KEY - Api key used for authentication of schulcloud server requests
+- ETHERPAD__API_KEY - Api key used for authentication of schulcloud server requests
 
-- ETHERPAD_URI - Uri of etherpad api for all calls like create, delete etc. Used as base path for api client in nest and feathers backend.
+- ETHERPAD__URI - Uri of etherpad api for all calls like create, delete etc. Used as base path for api client in nest and feathers backend.
 
 - ETHERPAD__PAD_URI - URI to etherpad client api. Used in backend in collaborative text editor and lesson to build return url. Used in legacy client to build url.
 - ETHERPAD_OLD_PAD_URI - Used in feathers backend to restrict access to old etherpad urls to lesson context. Only defined in default.schema.json and not in dof-app-deploy 
