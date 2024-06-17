@@ -4,8 +4,18 @@
 
 1. Run all of the apps needed for schulcloud like mongodb, backend, frontend, file storage etc.
 2. Run redis i.e. in a docker container, it will work on localhost:6379 by default which is what the REDIS_URI env var is set to
-3. On schulcloud-server repo: npm run nest:start:tldraw:dev
-4. On tldraw-client repo: npm run dev
+3. Add to server repo the .env with following values 
+   Please note redis default user is use and you can pass random value as password like the 123. 
+    REDIS_URI=redis://default:123@127.0.0.1:6379
+    TLDRAW_ADMIN_API_CLIENT__API_KEY=randomString
+    ADMIN_API__ALLOWED_API_KEYS=randomString
+    TLDRAW_ADMIN_API_CLIENT__BASE_URL=http://localhost:3349
+4. To run
+   1. npm run nest:start:dev (schulcloud-server)
+   2. npm run nest:start:tldraw:dev (schulcloud-server)
+   3. npm run dev (schulcloud-client)
+   4. npm run servce (nuxt-client)
+   5. npm run dev (tldraw-client)
 
 ### Create new whiteboard:
 
