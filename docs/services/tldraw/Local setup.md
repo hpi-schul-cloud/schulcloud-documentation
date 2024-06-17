@@ -11,7 +11,7 @@
     TLDRAW_ADMIN_API_CLIENT__BASE_URL=http://localhost:3349
 3. To run
    1. npm run nest:start:dev (schulcloud-server)
-   2. nest:start:files-storage:dev (schulcloud-server with s3, if you want to upload files)
+   2. npm run nest:start:files-storage:dev (schulcloud-server with s3, if you want to upload files)
    3. npm run nest:start:tldraw:dev (schulcloud-server)
    4. npm run dev (schulcloud-client)
    5. npm run servce (nuxt-client)
