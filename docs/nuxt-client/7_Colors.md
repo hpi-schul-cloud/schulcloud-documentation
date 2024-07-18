@@ -3,10 +3,11 @@ sidebar_position: 8
 ---
 
 # Colors
+In the [Material Design system](https://m2.material.io/design/color/the-color-system.html) (the foundation of our component library), colors and color schemes are used to create a visual hierarchy, direct focus, and enhance the user experience.
 
 You can find our custom defined theme colors under `/src/themes/base-vuetify.options.ts` and their overwrites per theme in `/src/themes/<theme_name>/vuetify.options.ts`.
 
-The colors Vuetify provides you can find [here](https://vuetifyjs.com/en/styles/colors/#colors)
+You can find the colors provided by Vuetify [here](https://vuetifyjs.com/en/styles/colors/#colors).
 
 ## Usage
 
@@ -73,7 +74,17 @@ Colors from Vuetify's colors palette (as of now) do not get generated as CSS var
 }
 ```
 
-## Definition
+### "On-Surface" and "On-Background" Colors
+
+"On" colors are important for making text, icons, and other elements recognizable and readable on various backgrounds.
+
+- `on-surface`: Used for text, icons, and other elements that appear on top of a surface. Surfaces can include components like cards, dialogs, and menus.
+
+- `on-background`: Used for text, icons, and other elements that appear on the primary background of an application or a component
+
+We override the standard `on-surface` and `on-background` vuetify colors in our vuetify options and define them for each theme.
+
+## Definition Of Custom Colors
 
 You can define more custom colors in our vuetify options like this:
 
@@ -89,7 +100,7 @@ colors: {
 
 ### Rules
 
-- talk to UX before introducing a new color
+- Talk to UX before introducing a new color
 - Do not overwrite vuetify colors
 - Use a semantic name to represent the use case
 - Prefer usage via `map-get` over new color definition, unless you introduce a new color
