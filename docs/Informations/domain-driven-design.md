@@ -16,11 +16,11 @@ This include a lot more then only DDD, but DDD  support us that the DDD layer, t
 - https://martinfowler.com/bliki/EvansClassification.html [1]
 
 ### Entity (Domain Object)
-In our backend code we use microORM as ORM for our database.
-The datarecords from the microORM are marked as Entities, therefore we hat a decorator and name conflict,
-with the real DDD entity. We solve it by calling the DDD entities "domain object".
-
 "Objects that have a distinct identity that runs through time and different representations. You also hear these called 'reference objects'."[1]
+
+#### Note
+In our backend code we use microORM as ORM for our database.
+The datarecords from the microORM are marked as Entities from the framework it self. Therefore we had a decorator name and name conflict with the real DDD entity. We solve it by calling the DDD entities in our project "domain object".
 
 ### Value Object
 "Objects that matter only as the combination of their attributes. Two value objects with the same values for all their attributes are considered equal. I also describe value objects in P of EAA." [1]
