@@ -7,7 +7,7 @@
 ## Why we want to use it in our project
 
 The SVS is a long runing software product. The developers, the contributed teams and also the goals change over the years.
-For us it is very important to create code that we have expressive code that is self explaining. 
+For us it is very important to create expressive code that is self explaining. 
 That every developer to every time can fast understand part of the code and can easy refactor the code. 
 
 This include a lot more then only DDD, but DDD  support us that the DDD layer, the core of our application, ridge this goal.
