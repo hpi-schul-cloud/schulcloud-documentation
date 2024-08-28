@@ -31,8 +31,9 @@ The datarecords from the microORM are marked as Entities from the framework it s
 
 - https://martinfowler.com/bliki/DDD_Aggregate.html
 
-... aggregate explaination
-
 ### Domain Event
 
+- https://martinfowler.com/eaaDev/DomainEvent.html
 - https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-events-design-implementation
+- https://devblogs.microsoft.com/cesardelatorre/domain-events-vs-integration-events-in-domain-driven-design-and-microservices-architectures/
+- https://www.refactory-project.com/application-events-and-domain-events/
