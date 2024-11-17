@@ -1,0 +1,8 @@
+{
+  "label": "e2e-system-tests",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn about the e2e tests repo."
+  }
+}
