@@ -8,7 +8,7 @@ This guide provides coding conventions and best practices for writing feature fi
 
 ---
 
-## 1. Writing feature Files
+## 1. Writing Feature Files
 
 ### Template Structure
 
@@ -50,7 +50,7 @@ Feature: <Description of the user story or functionality>
 
 ---
 
-## 2. Using Parameters in feature Files
+## 2. Using Parameters in Feature Files
 
 **Leveraging Example Tables with `Scenario Outline`**
 
