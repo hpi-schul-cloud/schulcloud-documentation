@@ -2,26 +2,32 @@
 
 ## Configuration
 
-- NEST_LOG_LEVEL - logging level
+- AUTHORIZATION_API_HOST - ???
 - FEATURE_TLDRAW_ENABLED - flag determining if tldraw is enabled
-- TLDRAW_URI - address of tldraw server 
-- INCOMING_REQUEST_TIMEOUT - request timeout
-- TLDRAW_DB_URL - mongoDB connection string
-- TLDRAW__SOCKET_PORT - port number for websockets connection
-- TLDRAW__PING_TIMEOUT - timeout for ping-pong during establishing websockets connection
-- TLDRAW__FINALIZE_DELAY - delay in ms before checking if can finalize a tldraw board
-- TLDRAW__GC_ENABLED - if tldraw garbage collector should be enabled
-- TLDRAW__DB_COMPRESS_THRESHOLD - threshold size for tldraw mongo documents compression
-- TLDRAW__MAX_DOCUMENT_SIZE - max size of a single tldraw document in mongo
-- TLDRAW__ASSETS_ENABLED - enables uploading assets to tldraw board
-- TLDRAW__ASSETS_SYNC_ENABLED - enables synch of tldraw board assets with filestorage (no longer used)
-- TLDRAW__ASSETS_MAX_SIZE - maximum asset size in bytes
-- TLDRAW__ASSETS_ALLOWED_MIME_TYPES_LIST - listy of allowed assets MIME types
-- REDIS_URI - Redis connection string
-- TLDRAW_CLIENT_REPLICAS - number of pods for tldraw-client 
-- TLDRAW_SERVER_REPLICAS - number of pods for tldraw-server
-- TLDRAW_ADMIN_API_CLIENT__API_KEY - authorization API key for accessing tldraw controller (delete flow) 
-- TLDRAW_ADMIN_API_CLIENT__BASE_URL - address of tldraw controller (delete flow) 
+- LOGGER_LOG_LEVEL - logging level
+- LOGGER_EXIT_ON_ERROR - ???
+- METRICS_COLLECT_DEFAULT - ???
+- REDIS_CLUSTER_ENABLED - ???
+- REDIS_URL - Redis connection string
+- REDIS_SENTINEL_SERVICE_NAME - ???
+- REDIS_PREFIX - ???
+- REDIS_SENTINEL_NAME - ???
+- REDIS_SENTINEL_PASSWORD - ???
+- S3_ACCESS_KEY - ???
+- S3_BUCKET - ???
+- S3_ENDPOINT - ???
+- S3_PORT - ???
+- S3_SECRET_KEY - ???
+- S3_SSL - ???
+- TLDRAW_ASSETS_ENABLED - enables uploading assets to tldraw board
+- TLDRAW_ASSETS_MAX_SIZE_BYTES - maximum asset size in bytes
+- TLDRAW_ASSETS_ALLOWED_MIME_TYPES_LIST - list of allowed assets MIME types
+- TLDRAW_WEBSOCKET_PATH - ???
+- TLDRAW_WEBSOCKET_URL - ???
+- WORKER_MIN_MESSAGE_LIFETIME - ???
+- WORKER_TASK_DEBOUNCE - ???
+- WORKER_TRY_CLAIM_COUNT - ???
+- X_API_ALLOWED_KEYS - ???
 
 In order to have deletion functionality fully working you have to fill those feature flags, e.g.:
 - ADMIN_API__ALLOWED_API_KEYS=["7ccd4e11-c6f6-48b0-81eb-abcdef123456"]
