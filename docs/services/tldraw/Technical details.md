@@ -3,29 +3,23 @@
 ## Backend
 We are using pure Web Sockets implementation to establish connection between client and server. The reason why we used pure websockets is because tldraw-client is using y-websockets from Yjs library, that does not connect with socket.io web sockets. We also have to implement broadcasting mechanism to provide stateless solution. To achive that goal we decided to use Redis. We used ioredis library to connect to our Redis instance. Everytime user make some changes at first it is handled to the server instance that he is connected to an then this change is send to the channel with the name of the board and servers that also operate that board are listening on this channel so they can recive messages from other servers and provide those changes to users that are connected to this pod. We added the same mechanism for awareness channel so every user from every pod can see other users cursours.
 
+Tldraw is deployed as a separate application from schoulcloud-server. On the backend side we have added couple new resources:
 
-Tldraw is deployed as a separate application from schoulcloud-server working on the same namespace as schoulcloud-server. On the backend side we have added couple new resources:
-
-- tldraw-deployment - deployment for tldraw-server's instances.
-- tldraw-server-svc - service for tldraw-service to communicate with tldraw-client (WS) and schoulcloud-server (management e.g. deletion of data)
-- tldraw-svc-monitor - service to collect metrics from tldraw. Apart from typical metrics like request time we also added two application-level metrics:
-  - sc_tldraw_users - number of active users on boards
-  - sc_tldraw_boards - number of active boards
-- tldraw-ingress - for steering web external traffic to tldraw-server (for now management rules in tldraw-server-svc are closed from external clients) 
-
+- tldraw-server-deployment - deployment for tldraw-server's instances.
+- tldraw-worker-deployment - deployment for worker instances.
+- tldraw-client-deployment - deployment for tldraw-client's instances.
 
 ### Tldraw-server code structure
 
-- tldraw.ws.service.ts - main service responsible for establishing web socket connection as well as saving data to database. Responsibe for Redis communication.
-- tldraw.controller.ts - controller that expose HTTP deletion method outside the tldraw-server application.
-- tldraw.server.ts - service used by TldrawController.
-- y-mongodb.ts - main adapter to connect with mongodb, provides transaction mechanism, calucalate diffs between revision and to apply updates.
-- tldraw-board.repo.ts - repository object to connect TldrawWsService and YMongodb.
-- tldraw.repo.ts - repository used by TldrawService to find and delete boards from database.
-- ws-shared-doc.do.ts - main structure representing tldraw drawing during web socket communication. it holds all the web-socket addresses that are connected to this board, so we can inform all the connected clients about changes.  
-- tldraw-drawing.entity.ts - object representing tldraw drawingn entity in database.
+- tldraw-config.controller.ts - controller that exposes tldraw server configuration to be used by the tldraw client.
+- tldraw-document.controller.ts - controller that expose HTTP deletion method outside the tldraw-server application.
+- tldraw-document.service.ts - service used by TldrawDocumentController.
+- redis.service.ts - encapsulates the logic for creating and managing Redis instances, supporting both standalone and sentinel configurations, and integrates seamlessly with the NestJS framework.
+- ioredis.adapter.ts - encapsulates the logic for interacting with Redis, including defining custom commands and subscribing to channels. It leverages the ioredis library and integrates with the application's configuration and logging systems to provide a robust and flexible Redis adapter.
+- api.service.ts - API service for y-redis.
+- ws.service.ts - main service responsible for establishing web socket connection as well as saving data to database. Responsibe for Redis communication.
 - metrics.service.ts - service resonsible for storing application-level metrics.
-
+- worker.service.ts - responsible for persisting the current state of changed tldraw documents into the file storage.
 
 On the backend side we are also using Yjs library to store tldraw board in memory and to calculate diffs after the board is changed.
 
