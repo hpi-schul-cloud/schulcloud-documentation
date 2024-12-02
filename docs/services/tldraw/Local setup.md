@@ -8,9 +8,10 @@
    1. npm run nest:start:dev (schulcloud-server)
    2. npm run nest:start:files-storage:dev (schulcloud-server with s3, if you want to upload files)
    3. npm run start:server:dev (tldraw-server)
-   4. npm run dev (schulcloud-client)
-   5. npm run servce (nuxt-client)
-   6. npm run dev (tldraw-client)
+   4. npm run start:worker:dev (tldraw-server)
+   5. npm run dev (schulcloud-client)
+   6. npm run servce (nuxt-client)
+   7. npm run dev (tldraw-client)
 
 ### Create new whiteboard:
 

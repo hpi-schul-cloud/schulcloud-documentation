@@ -2,37 +2,41 @@
 
 ## Configuration
 
-- AUTHORIZATION_API_HOST - ???
+- AUTHORIZATION_API_HOST - host address of the authorization endpoint (schuldcloud-server)
 - FEATURE_TLDRAW_ENABLED - flag determining if tldraw is enabled
 - LOGGER_LOG_LEVEL - logging level
-- LOGGER_EXIT_ON_ERROR - ???
-- METRICS_COLLECT_DEFAULT - ???
-- REDIS_CLUSTER_ENABLED - ???
-- REDIS_URL - Redis connection string
-- REDIS_SENTINEL_SERVICE_NAME - ???
-- REDIS_PREFIX - ???
-- REDIS_SENTINEL_NAME - ???
-- REDIS_SENTINEL_PASSWORD - ???
-- S3_ACCESS_KEY - ???
-- S3_BUCKET - ???
-- S3_ENDPOINT - ???
-- S3_PORT - ???
-- S3_SECRET_KEY - ???
-- S3_SSL - ???
+- LOGGER_EXIT_ON_ERROR - flag whether an error will cause the application to stop
+- METRICS_COLLECT_DEFAULT - flag whether the default metrics shall be collected
+- REDIS_CLUSTER_ENABLED - flag whether a redis cluster or used or not
+- REDIS_URL - redis connection string
+- REDIS_SENTINEL_SERVICE_NAME - name of the redis sentinel service
+- REDIS_PREFIX - prefix to be used with redis database
+- REDIS_SENTINEL_NAME - name of the redis sentinel
+- REDIS_SENTINEL_PASSWORD - password for the redis sentinel
+- S3_ACCESS_KEY - access key for S3 storage
+- S3_BUCKET - name of the S3 bucket
+- S3_ENDPOINT - URL of the S3 service
+- S3_PORT - port number for the S3 service
+- S3_SECRET_KEY - secret key for S3 storage
+- S3_SSL - flag to enable or disable SSL for S3 storage
 - TLDRAW_ASSETS_ENABLED - enables uploading assets to tldraw board
 - TLDRAW_ASSETS_MAX_SIZE_BYTES - maximum asset size in bytes
 - TLDRAW_ASSETS_ALLOWED_MIME_TYPES_LIST - list of allowed assets MIME types
-- TLDRAW_WEBSOCKET_PATH - ???
-- TLDRAW_WEBSOCKET_URL - ???
-- WORKER_MIN_MESSAGE_LIFETIME - ???
-- WORKER_TASK_DEBOUNCE - ???
-- WORKER_TRY_CLAIM_COUNT - ???
-- X_API_ALLOWED_KEYS - ???
+- TLDRAW_WEBSOCKET_PATH - path for the tldraw websocket connection
+- TLDRAW_WEBSOCKET_URL - URL for the tldraw websocket connection
+- WORKER_MIN_MESSAGE_LIFETIME - minimal lifetime of a message consumed by the worker
+- WORKER_TASK_DEBOUNCE - minimum idle time (in milliseconds) of the pending messages to be claimed
+- WORKER_TRY_CLAIM_COUNT - the maximum number of messages to claim
+- X_API_ALLOWED_KEYS - list of allowed xAPI keys
 
 In order to have deletion functionality fully working you have to fill those feature flags, e.g.:
-- ADMIN_API__ALLOWED_API_KEYS=["7ccd4e11-c6f6-48b0-81eb-abcdef123456"]
-- TLDRAW_ADMIN_API_CLIENT__API_KEY="7ccd4e11-c6f6-48b0-81eb-abcdef123456"
-- TLDRAW_ADMIN_API_CLIENT__BASE_URL="http://localhost:3349"
+
+tldraw-server :
+- X_API_ALLOWED_KEYS="7ccd4e11-c6f6-48b0-81eb-abcdef123456"
+
+schulcloud-server :
+- TLDRAW_ADMIN_API_CLIENT_API_KEY="7ccd4e11-c6f6-48b0-81eb-abcdef123456"
+- TLDRAW_ADMIN_API_CLIENT_BASE_URL="http://localhost:3349"
 
 ## Create
 ![Create tldraw workflow](./assets/Create TLDRAW.drawio.svg)
