@@ -47,7 +47,7 @@ import { PublicService, InterfaceOfModule, InterfaceOfSubmodule } from '@modules
 
 Circular dependencies occur when Module A depends on Module B, and Module B also depends on Module A. This can lead to unexpected behavior and hard-to-diagnose bugs.
 
-![Module Structure](./../img/server_area_dependency_v2.svg)
+![Module Structure](./../img/server_area_dependency_v3.svg)
 
 Here are some strategies to handle circular dependencies:
 
