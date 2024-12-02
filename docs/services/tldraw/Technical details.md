@@ -1,12 +1,12 @@
 # Technical details
 
 ## Backend
-We are using pure Web Sockets implementation to establish connection between client and server. The reason why we used pure websockets is because tldraw-client is using y-websockets from Yjs library, that does not connect with socket.io web sockets. We also have to implement broadcasting mechanism to provide stateless solution. To achive that goal we decided to use Redis. We used ioredis library to connect to our Redis instance. Everytime user make some changes at first it is handled to the server instance that he is connected to an then this change is send to the channel with the name of the board and servers that also operate that board are listening on this channel so they can recive messages from other servers and provide those changes to users that are connected to this pod. We added the same mechanism for awareness channel so every user from every pod can see other users cursours.
+We are using pure Web Sockets implementation to establish connection between client and server. The reason why we used pure websockets is because tldraw-client is using y-websockets from Yjs library, that does not connect with socket.io web sockets. We also have to implement broadcasting mechanism to provide stateless solution. To achive that goal we decided to use Redis. We used ioredis library to connect to our Redis instance. Everytime user make some changes at first it is handled to the server instance that he is connected to an then this change is send to the channel with the name of the board and servers that also operate that board are listening on this channel so they can recive messages from other servers and provide those changes to users that are connected to this pod. We added the same mechanism for awareness channel so every user from every pod can see other users cursors.
 
 Tldraw is deployed as a separate application from schoulcloud-server. On the backend side we have added couple new resources:
 
 - tldraw-server-deployment - deployment for tldraw-server's instances.
-- tldraw-worker-deployment - deployment for worker instances.
+- tldraw-worker-deployment - deployment for worker's instances.
 - tldraw-client-deployment - deployment for tldraw-client's instances.
 
 ### Tldraw-server code structure
@@ -64,7 +64,7 @@ This hook is designed to observe changes in the DOM, specifically targeting cert
 
 - https://github.com/tldraw/tldraw-v1 - tldraw v1 repo
 
-- https://github.com/MaxNoetzold/y-mongodb-provider - code from this package was used to add mongodb as a persistence to tldraw
+- https://github.com/yjs/y-redis - code from this package was used to add y-redis as a persistence to tldraw
 
 - https://discord.com/invite/SBBEVCA4PG discord channel with open questions and answers
 

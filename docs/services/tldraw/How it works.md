@@ -59,13 +59,13 @@ Creation of Tldraw starts with creation proccess for Courses and CourseBoard. It
 1. user joins tldraw board
 2. tldraw-client connects to one of the tldraw-server pods and tries to establish websocket connection
 3. tldraw-server calls schulcloud-server via HTTP requests to check user permissions, if everything is fine the websocket connection is established
-4. tldraw-server gets stored tldraw board data from mongodb and sends it via websocket to connected users
+4. tldraw-server gets stored tldraw board data from S3 storage and sends it via websocket to connected users
 5. tldraw-server starts subscribing to Redis PUBSUB channel corresponding to tldraw board name to listen to changes from other pods
 
 ### Sending updates/storing data
 
 1. tldraw-client sends user's drawing changes to the tldraw-server via websocket connection
-2. tldraw-server stores the board update in the mongodb - basically creates a diff between what's already stored and what's being updated
+2. tldraw-server stores the board update in the redis db - basically creates a diff between what's already stored and what's being updated
 3. tldraw-server pushes the update to correct Redis channel so that clients connected to different pods have synchronized board data
 4. other pods subscribing to Redis channel send updates to their connected clients via websocket whenever they see a new message on Redis channel
 
@@ -74,7 +74,7 @@ Creation of Tldraw starts with creation proccess for Courses and CourseBoard. It
 
 1. User from schulcloud app in CourseBoard deletes whiteboard (tldraw) instance form CardBoard.
 2. Having drawingName sc-server is removing Representation data in sc-database - BoardNodes collection ( drawingName === BoardNode id)
-3. Sc-server is calling tldraw-server via tldraw-management rules in tldraw-server-svc to delete all data that has given id).
+3. Schulcloud-server is calling tldraw-server via tldraw-management rules in tldraw-server-svc to delete all data that has given id.
 4. After deletion user sees refreshed state of CourseBoard. 
 
 ## Assets
