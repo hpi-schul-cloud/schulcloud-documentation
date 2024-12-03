@@ -86,6 +86,4 @@ The files are uploaded by calling schulcloud-api's fileController upload endpoin
 
 ### files deletion
 
-Because of the undo/redo functionality of tldraw (user can basically undo an upload of an image, undo a deletion, then redo upload etc.) we needed a way to clean up unused assets from the storage. We could not use soft delete/restore endpoints every time undo/redo happens due to various issues with performance/user experience and technical challenges that arose when testing different scenarios. We decided to go with cron job solution: once per day, at midnight by default, we would go through each board stored in database, get every asset that's stored as URL but no longer used as an active drawing and then delete all of them via amqp call to filesStorage service.
-
-For implementation details, take a look at: tldraw-files.console.ts.
+The deletion of files is handled directly by the tldraw-client itself. This also allows us to use the undo and redo functionality of the client.
