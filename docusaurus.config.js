@@ -119,6 +119,10 @@ const config = {
                 href: 'https://github.com/hpi-schul-cloud/schulcloud-client',
               },
               {
+                label: 'tldraw-server',
+                href: 'https://github.com/hpi-schul-cloud/tldraw-server',
+              },
+              {
                 label: 'end-to-end-tests',
                 href: 'https://github.com/hpi-schul-cloud/end-to-end-tests',
               },
