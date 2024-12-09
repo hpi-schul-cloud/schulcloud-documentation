@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In tldraw, **Y-Redis** and **S3 storage** are integrated to support collaborative drawing features, data synchronization, and persistent storage in a scalable and efficient manner. The combination of **Yjs** (used for collaborative editing), **Y-Redis** (for real-time data synchronization), and **S3** (for file storage) enables the platform to handle complex collaborative interactions and large-scale, persistent storage of drawing data.
+In tldraw-server, **Yjs**, **Redis** and **S3 storage** are integrated to support collaborative drawing features, data synchronization, and persistent storage in a scalable and efficient manner. The combination of **Yjs** (used for collaborative editing), **Redis** (for real-time data synchronization), and **S3** (for file storage) enables the platform to handle complex collaborative interactions and large-scale, persistent storage of drawing data.
 
 ### How tldraw Uses Y-Redis and S3 Storage:
 
@@ -11,29 +11,29 @@ In tldraw, **Y-Redis** and **S3 storage** are integrated to support collaborativ
    - In tldraw, the **drawing canvas** or **document** is represented as a **Yjs document**. Users can draw shapes, lines, text, or modify the canvas in real time.
    - The **Yjs document** tracks all changes in the form of small, incremental edits. These edits could be changes to the position of objects, the creation of new objects (e.g., shapes or lines), or modification of existing elements.
 
-2. **Y-Redis for Real-Time Data Synchronization:**
-   - **Y-Redis** is used to store and synchronize these Yjs documents across multiple users in real time. 
+. **Redis for Real-Time Data Synchronization:**
+   - **Redis** is used to store and synchronize these Yjs documents across multiple users in real time. 
    - Redis, being a fast in-memory key-value store, provides low-latency updates that are crucial for real-time collaboration. It is used for:
      - **Broadcasting updates**: When one user makes a change, Yjs sends that change to the Redis server, which then distributes the change to all other connected users.
      - **Data persistence**: Changes are stored in Redis and can be fetched by other users at any time to maintain consistency.
    - The use of **Redis Pub/Sub** allows different instances of the tldraw application to subscribe to channels. When one user makes a change, the Redis system publishes the change, and other users (who are subscribed to that document) get updated immediately.
 
 3. **S3 Storage for Persistent and Large-Scale File Storage:**
-   - While Y-Redis ensures real-time synchronization and collaboration, **S3** (Amazon Simple Storage Service) is used for **persistent storage** of larger files or data that need to be saved across sessions.
+   - While Redis ensures real-time synchronization and collaboration, **S3** (Amazon Simple Storage Service) is used for **persistent storage** of larger files or data that need to be saved across sessions.
    - **S3** is highly scalable and can store large amounts of data. For tldraw, S3 is primarily used for:
-     - **Storing canvases and drawings**: While **Y-Redis** handles real-time data synchronization and storage of changes, the worker service is responsible for **periodically persisting** the state of the collaborative canvas to **S3 storage**.
+     - **Storing canvases and drawings**: While **Redis** handles real-time data synchronization and storage of changes, the worker service is responsible for **periodically persisting** the state of the collaborative canvas to **S3 storage**.
    - **S3 as a file store**: Unlike Redis, which is an in-memory store designed for fast access and transient data, S3 is optimized for storing larger data in a persistent manner. This makes it suitable for storing media files, large canvas snapshots, and other assets that don't need to be constantly updated in real-time.
    
-4. **Integration Between Y-Redis and S3:**
-   - **Y-Redis** and **S3** serve different but complementary purposes:
-     - **Y-Redis** handles **real-time synchronization** of drawing changes and interactions, ensuring that users see each other's edits in near real-time.
+4. **Integration Between Redis and S3:**
+   - **Redis** and **S3** serve different but complementary purposes:
+     - **Redis** handles **real-time synchronization** of drawing changes and interactions, ensuring that users see each other's edits in near real-time.
      - **S3** handles **long-term storage** and **backup** of the drawings or canvases themselves. For example, when a user closes the app or saves their session, the drawing data is saved to S3.
    - The worker service will save snapshots of the collaborative document or canvas to S3 periodically, ensuring that the state of the canvas is preserved even if a user disconnects or the server restarts.
 
-5. **How tldraw's Workflow Would Look Using Y-Redis and S3:**
+5. **How tldraw's Workflow Would Look Using Redis and S3:**
    - **Step 1: Collaborative Drawing Session**
      - Users interact with the tldraw canvas, making real-time changes (drawing shapes, text, etc.).
-     - The changes are immediately propagated through **Yjs** and **Y-Redis**. Y-Redis stores these changes in memory and broadcasts them to other users.
+     - The changes are immediately propagated through **Yjs** and **Redis**. Redis stores these changes in memory and broadcasts them to other users.
      - Each user's drawing operations are synchronized, so everyone sees the same live canvas.
 
    - **Step 2: Saving the Canvas**
@@ -43,18 +43,12 @@ In tldraw, **Y-Redis** and **S3 storage** are integrated to support collaborativ
    - **Step 3: Retrieving Saved Data**
      - When a user returns to the drawing session or opens the application at a later time, the application queries **S3** for the last saved canvas snapshot.
      - Once retrieved, the snapshot is loaded back into the application, allowing users to continue editing from where they left off.
-     - Y-Redis can be used in the background to ensure that any new changes made by users are synchronized in real time while they are working on the canvas.
+     - Redis can be used in the background to ensure that any new changes made by users are synchronized in real time while they are working on the canvas.
 
 6. **Scalability and Fault Tolerance:**
-   - **Redis Scaling**: As more users join the session, Redis allows scaling horizontally, ensuring that updates are propagated quickly to all connected clients.
+   - **Redis Scaling**: As we are using Valkey, by default there will only be one primary Valkey instance and we will have two replica instances ready to jump in once the primary instance fails. But these two replica sets make sure, that Valkey is always available.
    - **S3 Scaling**: S3 is designed to scale automatically and handle large amounts of storage without performance degradation. This makes it ideal for storing large or numerous drawing assets, like high-resolution images or full snapshots of large canvases.
-
-### Benefits of Using Y-Redis and S3 Together:
-
-- **Real-time Collaboration**: Y-Redis ensures that changes made by users are immediately reflected for all participants, enabling fluid collaboration on the canvas.
-- **Persistence**: S3 provides long-term storage for the canvas and drawing data, allowing for version control, backups, and recovery in case of unexpected disruptions.
-- **Scalability**: Redis handles real-time data synchronization efficiently, even with a large number of concurrent users. S3 handles large files and assets without requiring custom infrastructure management.
-- **Separation of Concerns**: Redis is optimized for fast, real-time data synchronization, while S3 handles large-scale, persistent storage, allowing tldraw to leverage both for different aspects of the application.
+   - **Tldraw-server Scaling**: So far the number of pods the tldraw-server is deployed on is fixed and no load based scaling is applied so far.
 
 ### Example Scenario:
 
