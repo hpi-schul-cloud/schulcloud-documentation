@@ -37,15 +37,16 @@ Understanding the project directory layout will help you navigate and manage the
 |         |___ e2e.js                      # Global hooks and configurations
 |     |___ videos/                         # Recorded test run videos
 |
-||---- docs
-|     |___ branch_activation.md
-      |___ folder_structure.md
-      |___ executing_tests.md
-      |___ setup.md
-      |___ tags.md
-|---- env_variables
-|     |___ devTemplate.env.json
-      |___ stagingTemplate.env.json
+|---- docs/
+|      |___ branch_activation.md
+|      |___ folder_structure.md
+|      |___ executing_tests.md
+|      |___ setup.md
+|      |___ tags.md
+|
+|---- env_variables/
+|      |___ devTemplate.env.json
+|      |___ stagingTemplate.env.json
 |
 |---- reports/                             # HTML reports and related assets
 |
