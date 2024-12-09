@@ -1,5 +1,7 @@
 # How it works
 
+The terms Redis and Valkey are used here synonymously and should describe the used in-memory-database.
+
 ## Configuration
 
 - AUTHORIZATION_API_HOST - host address of the authorization endpoint (schuldcloud-server)
@@ -24,12 +26,12 @@
 - TLDRAW_ASSETS_ALLOWED_MIME_TYPES_LIST - list of allowed assets MIME types
 - TLDRAW_WEBSOCKET_PATH - path for the tldraw websocket connection
 - TLDRAW_WEBSOCKET_URL - URL for the tldraw websocket connection
-- WORKER_MIN_MESSAGE_LIFETIME - minimal lifetime of a message consumed by the worker
-- WORKER_TASK_DEBOUNCE - minimum idle time (in milliseconds) of the pending messages to be claimed
-- WORKER_TRY_CLAIM_COUNT - the maximum number of messages to claim
+- WORKER_MIN_MESSAGE_LIFETIME - minimal lifetime of a update message consumed by the worker
+- WORKER_TASK_DEBOUNCE - minimum idle time (in milliseconds) of the pending task messages to be claimed
+- WORKER_TRY_CLAIM_COUNT - the maximum number of task messages to claim
 - X_API_ALLOWED_KEYS - list of allowed xAPI keys
 
-In order to have deletion functionality fully working you have to fill those feature flags, e.g.:
+In order to have deletion functionality fully working locally you have to fill those feature flags, e.g.:
 
 tldraw-server :
 - X_API_ALLOWED_KEYS="7ccd4e11-c6f6-48b0-81eb-abcdef123456"
@@ -41,13 +43,13 @@ schulcloud-server :
 ## Create
 ![Create tldraw workflow](./assets/Create_TLDRAW.drawio.svg)
 
-Creation of Tldraw starts with creation proccess for Courses and CourseBoard. It has Representation in CourseBoard as card's element (BoardNode in db). After creating Representation of drawing we can enter actual tldraw SPA client.
+The Tldraw board can be created by the user on the courses ColumnBoard. It has a representation in ColumnBoard as DrawingElement inside a card (BoardNode in db). After creating representation as DrawingElement we can enter actual Tldraw SPA client on click.
 
-1. User enters CourseBoard and creates Representation of whiteboard (tldraw) in CourseCard.
+1. User enters ColumnBoard and creates Representation of whiteboard (tldraw) in Card.
 2. Data is saved and feedback with proper creation is given - user can see Representation and can enter whiteboard.
 3. By entering whiteboard user is redirected to SPA tldraw-client.
 4. Tldraw-client is starting WS connection with tldraw-server.
-5. Tldraw-server firstly checks if user has permission to this resource (by checking if user has a permission to Representation of whiteboard - BoardNode).
+5. Tldraw-server first checks if user has permission to this resource (by checking if user has a permission to Representation of whiteboard - BoardNode).
     Id of Representation is same as drawingName, which is visible in tldraw-client url.
 6. If user has permission tldraw-server is allowing to remain connected and getting drawing data from S3 storage. If there is no drawing data available, the tldraw-server will create a new document automatically. 
 
@@ -59,26 +61,25 @@ Creation of Tldraw starts with creation proccess for Courses and CourseBoard. It
 1. User joins tldraw board.
 2. Tldraw-client connects to one of the tldraw-server pods and tries to establish websocket connection.
 3. Tldraw-server calls schulcloud-server via HTTP requests to check user permissions. If everything is fine, the websocket connection is established.
-4. Tldraw-server gets stored tldraw board data from S3 storage and sends it via websocket to connected users.
+4. Tldraw-server gets stored tldraw board data from S3 storage and sends it via websocket to connected user.
 5. Tldraw-server starts subscribing to Redis PUBSUB channel corresponding to tldraw board name to listen to changes from other pods.
 
 ### Sending updates/storing data
 
 1. Tldraw-client sends user's drawing changes to the tldraw-server via websocket connection.
 2. Tldraw-server stores the board update in the valkey db - basically creates a diff between what's already stored and what's being updated.
-3. Tldraw-server pushes the update to correct Redis channel so that clients connected to different pods have synchronized board data.
+3. Tldraw-server pushes the update to the boards Redis channel so that connected clients on different pods have synchronized board data.
 4. Other pods subscribing to Redis channel send updates to their connected clients via websocket whenever they see a new message on Redis channel.
-5. Finally the worker will run and persist the current state of the drawing data by applying all currently available updates from valkey on top of the currently stored drawing data and update the S3 storage accordingly.
+5. Finally the worker will run and persist the current state of the drawing data by applying all currently available updates from valkey on top of the stored drawing data and update the S3 storage accordingly.
 
 ## Delete
 ![Delete tldraw workflow](./assets/Delete_TLDRAW.drawio.svg)
 
-1. User from schulcloud app in CourseBoard deletes whiteboard (tldraw) instance form CardBoard.
-2. Having drawingName schulcloud-server is removing Representation data in schulcloud-database - BoardNodes collection ( drawingName === BoardNode id)
+1. User from schulcloud app in ColumnBoard deletes whiteboard (tldraw) instance form Card.
+2. Schulcloud-server is removing representation data in schulcloud-database - BoardNodes collection.
 3. Schulcloud-server is calling tldraw-server to delete all data that has given id.
-4. Tldraw-server sends a delete action via websocket to inform connected clients and also marks the document as "to be deleted" in the valkey db.
-5. After deletion user sees refreshed state of CourseBoard. 
-6. Finally the worker will run, clear all updates and data from the valkey db and delete the drawing data from the S3 storage.
+4. Tldraw-server sends a delete action via websocket to inform connected clients about deletion. Clients redirect away from Tldraw-board to ensure that no new messages are added to valkey database.
+5. Finally the worker will run, clear all updates and data from the valkey db and delete the drawing data from the S3 storage.
 
 ## Assets
 ### files upload
@@ -89,4 +90,4 @@ The files are uploaded by calling schulcloud-api's fileController upload endpoin
 
 ### files deletion
 
-The deletion of files is handled directly by the tldraw-client itself.
+The deletion of files is handled directly by the tldraw-client itself. On deletion in the UI, the client sends a delete request to the file storage. While awaiting the answer from file storage the editing of the Tldraw-board is blocked to prevent race conditions to the file storage.
