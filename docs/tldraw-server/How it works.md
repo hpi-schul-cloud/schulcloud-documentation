@@ -84,7 +84,7 @@ The Tldraw board can be created by the user on the courses ColumnBoard. It has a
 ## Assets
 ### files upload
 
-Images/GIFs can be uploaded into tldraw whiteboard by every user with access to the board. We use FilesStorageService from the schulcloud-server to physically store uploaded assets while tldraw only holds URL to a resource.
+Images/GIFs can be uploaded into tldraw whiteboard by every user with access to the board. We use SVS FileStorageService to physically store uploaded assets while tldraw only holds URL to a resource.
 
 The files are uploaded by calling schulcloud-api's fileController upload endpoint. This is possible because tldraw is represented as a boardnode called drawing-element. Mongo id of this drawing-element is a roomId used in URL param when connecting to a specific board.
 
