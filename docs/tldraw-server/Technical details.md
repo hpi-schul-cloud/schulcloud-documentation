@@ -4,7 +4,7 @@
 
 In tldraw-server, **Yjs**, **Redis** and **S3 storage** are integrated to support collaborative drawing features, data synchronization, and persistent storage in a scalable and efficient manner. The combination of **Yjs** (used for collaborative editing), **Redis** (for real-time data synchronization), and **S3** (for file storage) enables the platform to handle complex collaborative interactions and large-scale, persistent storage of drawing data.
 
-### How tldraw Uses Y-Redis and S3 Storage:
+### How tldraw Uses Redis and S3 Storage:
 
 1. **Real-time Collaboration with Yjs:**
    - **Yjs** is the backbone of real-time collaboration in tldraw. It provides a **CRDT-based (Conflict-free Replicated Data Type)** framework for handling shared documents where changes made by one user are automatically and consistently synchronized across all other users in the same session.
@@ -52,14 +52,14 @@ In tldraw-server, **Yjs**, **Redis** and **S3 storage** are integrated to suppor
 
 ### Example Scenario:
 
-- **User A** and **User B** start a collaborative session in tldraw, and they can see each other's updates in real time (thanks to Y-Redis).
+- **User A** and **User B** start a collaborative session in tldraw, and they can see each other's updates in real time (thanks to Redis).
 - After some time, the worker service saves the drawing to S3, and now the drawing is stored in S3 as a persistent snapshot.
 - **User B**, who was not connected when the session ended, can later load the canvas from S3, where the most recent version is stored.
-- Meanwhile, as new users join the session, **Y-Redis** continues to handle the real-time synchronization of the drawing, ensuring smooth interaction.
+- Meanwhile, as new users join the session, **Redis** continues to handle the real-time synchronization of the drawing, ensuring smooth interaction.
 
 ### Conclusion:
 
-In **tldraw**, **Y-Redis** and **S3** are integrated to deliver a collaborative and scalable experience. Y-Redis ensures real-time synchronization of drawing changes among multiple users, while S3 provides persistent and scalable storage for canvas data. This combination allows tldraw to offer seamless collaboration, persistent storage, and fault-tolerant handling of large-scale data.
+In **tldraw**, **Redis** and **S3** are integrated to deliver a collaborative and scalable experience. Redis ensures real-time synchronization of drawing changes among multiple users, while S3 provides persistent and scalable storage for canvas data. This combination allows tldraw to offer seamless collaboration, persistent storage, and fault-tolerant handling of large-scale data.
 
 ## Backend
 
@@ -78,7 +78,7 @@ Tldraw is deployed as a separate application from schoulcloud-server and consist
 - tldraw-document.service.ts - service used by TldrawDocumentController.
 - redis.service.ts - encapsulates the logic for creating and managing Redis instances, supporting both standalone and sentinel configurations, and integrates seamlessly with the NestJS framework.
 - ioredis.adapter.ts - encapsulates the logic for interacting with Redis, including defining custom commands and subscribing to channels. It leverages the ioredis library and integrates with the application's configuration and logging systems to provide a robust and flexible Redis adapter.
-- api.service.ts - API service for y-redis.
+- api.service.ts - API service for Redis.
 - ws.service.ts - Responsibe for Redis communication.
 - metrics.service.ts - service resonsible for storing application-level metrics.
 - worker.service.ts - responsible for persisting the current state of changed tldraw documents into the file storage.
@@ -128,7 +128,7 @@ This hook is designed to observe changes in the DOM, specifically targeting cert
 
 - https://github.com/tldraw/tldraw-v1 - tldraw v1 repo
 
-- https://github.com/yjs/y-redis - code from this package was used to add y-redis as a persistence to tldraw
+- https://github.com/yjs/y-redis - code from this package was used to add Redis as a persistence to tldraw
 
 - https://discord.com/invite/SBBEVCA4PG discord channel with open questions and answers
 
