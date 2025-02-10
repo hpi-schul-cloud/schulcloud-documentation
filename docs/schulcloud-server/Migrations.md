@@ -19,7 +19,7 @@ To run migrations you can use the command below:
 
 ### Undo migration
 
-`npm run migration:up` will undo the last migration that has been applied.
+`npm run migration:down` will undo the last migration that has been applied.
 
 ### Notes about setup
 
