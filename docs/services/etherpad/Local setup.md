@@ -24,6 +24,7 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
     DEFAULT_PAD_TEXT="Schreib etwas!\n\nDieses Etherpad wird synchronisiert, während du tippst, so dass alle Betrachter jederzeit den selben Text sehen. So könnt ihr auf einfache Weise gemeinsam an Dokumenten arbeiten."
     DB_TYPE=mongodb
     DB_URL=mongodb://host.docker.internal:27017/etherpad
+    AUTHENTICATION_METHOD=apikey
     ```
     We'll use this file to provide all the needed environment variables to the Etherpad's server.
 
