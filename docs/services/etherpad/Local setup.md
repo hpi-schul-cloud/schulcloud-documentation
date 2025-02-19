@@ -9,13 +9,13 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
 
     `mkdir sc-etherpad && cd sc-etherpad`
 
-2. Create a new file called APIKEY.txt in it, with the following content:
+2. Create a new file called `APIKEY.txt` in it, with the following content:
 
     `381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd`
 
     We'll use this file to set a fixed Etherpad's API key on the Etherpad server's start.
 
-3. Create also a file called settings.env with the following content:
+3. Create also a file called `settings.env` with the following content:
 
     ```
     REQUIRE_SESSION="true"
@@ -28,11 +28,13 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
     ```
     We'll use this file to provide all the needed environment variables to the Etherpad's server.
 
-    Please note the last line, that contains the MongoDB connection string:
+    Please note the line that contains the MongoDB connection string:
 
     `DB_URL=mongodb://host.docker.internal:27017/etherpad`
 
-    Here we're using the host.docker.internal hostname which should make it possible for the Etherpad's container to connect to the host's local network and should work out of the box e.g. on macOS. But please modify it accordingly to your needs and your Docker's network configuration. An alternative configuaration would be to use `DB_URL=mongodb://localhost:27017/etherpad` and than add `--network="host"` to the following docker run command.
+    Here we're using the `host.docker.internal` hostname which should make it possible for the Etherpad's container to connect to the host's local network and should work out of the box e.g. on macOS. On WSL2 it might not work out of the box and need some extra work, see e.g. this [stackoverflow thread](https://stackoverflow.com/questions/63898430/how-can-i-access-a-service-running-on-wsl2-from-inside-a-docker-container).
+    
+    An alternative configuaration would be to use `DB_URL=mongodb://localhost:27017/etherpad` and then add `--network="host"` to the following docker run command. `--network="host"` removes the port mapping though. You can change the port Etherpad is listening to by adding `PORT=9002` (with the port number you need) to settings.env.
 
 4. Next, start the Etherpad's container:
     ```
