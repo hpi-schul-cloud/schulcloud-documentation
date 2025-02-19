@@ -12,7 +12,7 @@
 - ETHERPAD__URI - Uri of etherpad api for all calls like create, delete etc. Used as base path for api client in nest and feathers backend.
 
 - ETHERPAD__PAD_URI - URI to etherpad client api. Used in backend in collaborative text editor and lesson to build return url. Used in legacy client to build url.
-- ETHERPAD_OLD_PAD_URI - Used in feathers backend to restrict access to old etherpad urls to lesson context. Only defined in default.schema.json and not in dof-app-deploy 
+- ETHERPAD__OLD_PAD_URI - Used in feathers backend to restrict access to old etherpad urls to lesson context. Only defined in default.schema.json and not in dof-app-deploy 
 - ETHERPAD__PAD_PATH - Path to etherpad client api. Used in legacy client to set path on cookie.
 
 - ETHERPAD__NEW_DOMAIN - Etherpad Domain. Used in legacy client to validate url
