@@ -43,7 +43,7 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
         --name sc-etherpad \
         docker.io/etherpad/etherpad:2.0.0
     ```
-    Please note we're using the docker.io/etherpad/etherpad:2.0.0 image in the command above which might be not the one that is being used anytime in the future when you read this article. To make sure you're using the current version (the one that is currently being used in the SchulCloud platform), please refer to the https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/infra/dof_etherpad.yml file.
+    Please note we're using the docker.io/etherpad/etherpad:2.0.0 image in the command above which might be not the one that is being used anytime in the future when you read this article. To make sure you're using the current version (the one that is currently being used in the SchulCloud platform), please refer to https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/roles/dof_etherpad/defaults/main.yml.
     
     The bound port on the host (here 9002) is arbitrary, though port 9001 is used by minio in our default project setup and thus we use a different one here.
 
