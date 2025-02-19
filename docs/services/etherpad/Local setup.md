@@ -41,9 +41,9 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
         --env-file ./settings.env \
         -v ./APIKEY.txt:/opt/etherpad-lite/APIKEY.txt \
         --name sc-etherpad \
-        docker.io/etherpad/etherpad:2.0.0
+        docker.io/etherpad/etherpad:2.2.7
     ```
-    Please note we're using the docker.io/etherpad/etherpad:2.0.0 image in the command above which might be not the one that is being used anytime in the future when you read this article. To make sure you're using the current version (the one that is currently being used in the SchulCloud platform), please refer to https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/roles/dof_etherpad/defaults/main.yml.
+    Please note we're using the docker.io/etherpad/etherpad:2.2.7 image in the command above which might be not the one that is being used anytime in the future when you read this article. To make sure you're using the current version (the one that is currently being used in the SchulCloud platform), please refer to https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/roles/dof_etherpad/defaults/main.yml.
     
     The bound port on the host (here 9002) is arbitrary, though port 9001 is used by minio in our default project setup and thus we use a different one here.
 
@@ -73,7 +73,7 @@ Now we should have the Etherpad service running locally on port 9002, we can ver
 {"currentVersion":"1.3.0"}
 ```
 
-We can also verify that the API key has been set successfully, let's use the example API call from the Etherpad's documentation ( https://etherpad.org/doc/v2.0.0/#_example_1 ):
+We can also verify that the API key has been set successfully, let's use the example API call from the Etherpad's documentation ( https://etherpad.org/doc/v2.2.7/#_example_1 ):
 
 ```
 ~ curl -v http://127.0.0.1:9002/api/1/createAuthorIfNotExistsFor\?apikey\=381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd\&name\=Michael\&authorMapper\=7
