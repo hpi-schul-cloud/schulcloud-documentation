@@ -49,79 +49,93 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
     
     The bound port on the host (here 9002) is arbitrary, though port 9001 is used by minio in our default project setup and thus we use a different one here.
 
-Now we should have the Etherpad service running locally on port 9002, we can verify it's working properly e.g. by fetching the current Etherpad's API version:
+    Now we should have the Etherpad service running locally on port 9002, we can verify it's working properly e.g. by fetching the current Etherpad's API version:
 
-```
-~ curl -v http://127.0.0.1:9002/api
-*   Trying 127.0.0.1:9002...
-* Connected to 127.0.0.1 (127.0.0.1) port 9002
-> GET /api HTTP/1.1
-> Host: 127.0.0.1:9002
-> User-Agent: curl/8.4.0
-> Accept: */*
-> 
-< HTTP/1.1 200 OK
-< X-Powered-By: Express
-< X-UA-Compatible: IE=Edge,chrome=1
-< Referrer-Policy: same-origin
-< Content-Type: application/json; charset=utf-8
-< Content-Length: 26
-< ETag: W/"1a-2HmNLqF3wPt+KQRlEmGwH4O+xu4"
-< Date: Fri, 29 Mar 2024 13:27:00 GMT
-< Connection: keep-alive
-< Keep-Alive: timeout=5
-< 
-* Connection #0 to host 127.0.0.1 left intact
-{"currentVersion":"1.3.0"}
-```
+    ```
+    ~ curl -v http://127.0.0.1:9002/api
+    *   Trying 127.0.0.1:9002...
+    * Connected to 127.0.0.1 (127.0.0.1) port 9002
+    > GET /api HTTP/1.1
+    > Host: 127.0.0.1:9002
+    > User-Agent: curl/8.4.0
+    > Accept: */*
+    > 
+    < HTTP/1.1 200 OK
+    < X-Powered-By: Express
+    < X-UA-Compatible: IE=Edge,chrome=1
+    < Referrer-Policy: same-origin
+    < Content-Type: application/json; charset=utf-8
+    < Content-Length: 26
+    < ETag: W/"1a-2HmNLqF3wPt+KQRlEmGwH4O+xu4"
+    < Date: Fri, 29 Mar 2024 13:27:00 GMT
+    < Connection: keep-alive
+    < Keep-Alive: timeout=5
+    < 
+    * Connection #0 to host 127.0.0.1 left intact
+    {"currentVersion":"1.3.0"}
+    ```
 
-We can also verify that the API key has been set successfully, let's use the example API call from the Etherpad's documentation ( https://etherpad.org/doc/v2.2.7/#_example_1 ):
+    We can also verify that the API key has been set successfully, let's use the example API call from the Etherpad's documentation ( https://etherpad.org/doc/v2.2.7/#_example_1 ):
 
-```
-~ curl -v http://127.0.0.1:9002/api/1/createAuthorIfNotExistsFor\?apikey\=381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd\&name\=Michael\&authorMapper\=7
-*   Trying 127.0.0.1:9002...
-* Connected to 127.0.0.1 (127.0.0.1) port 9002
-> GET /api/1/createAuthorIfNotExistsFor?apikey=381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd&name=Michael&authorMapper=7 HTTP/1.1
-> Host: 127.0.0.1:9002
-> User-Agent: curl/8.4.0
-> Accept: */*
-> 
-< HTTP/1.1 200 OK
-< X-Powered-By: Express
-< X-UA-Compatible: IE=Edge,chrome=1
-< Referrer-Policy: same-origin
-< Content-Type: application/json; charset=utf-8
-< Content-Length: 66
-< ETag: W/"42-bg92QA1xRFO6QmkNRbNXhfsFBUM"
-< Date: Fri, 29 Mar 2024 13:40:05 GMT
-< Connection: keep-alive
-< Keep-Alive: timeout=5
-< 
-* Connection #0 to host 127.0.0.1 left intact
-{"code":0,"message":"ok","data":{"authorID":"a.7BgkAuzbHXR1G8Cv"}}
-```
+    ```
+    ~ curl -v http://127.0.0.1:9002/api/1/createAuthorIfNotExistsFor\?apikey\=381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd\&name\=Michael\&authorMapper\=7
+    *   Trying 127.0.0.1:9002...
+    * Connected to 127.0.0.1 (127.0.0.1) port 9002
+    > GET /api/1/createAuthorIfNotExistsFor?apikey=381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd&name=Michael&authorMapper=7 HTTP/1.1
+    > Host: 127.0.0.1:9002
+    > User-Agent: curl/8.4.0
+    > Accept: */*
+    > 
+    < HTTP/1.1 200 OK
+    < X-Powered-By: Express
+    < X-UA-Compatible: IE=Edge,chrome=1
+    < Referrer-Policy: same-origin
+    < Content-Type: application/json; charset=utf-8
+    < Content-Length: 66
+    < ETag: W/"42-bg92QA1xRFO6QmkNRbNXhfsFBUM"
+    < Date: Fri, 29 Mar 2024 13:40:05 GMT
+    < Connection: keep-alive
+    < Keep-Alive: timeout=5
+    < 
+    * Connection #0 to host 127.0.0.1 left intact
+    {"code":0,"message":"ok","data":{"authorID":"a.7BgkAuzbHXR1G8Cv"}}
+    ```
 
-In case of an unsuccessful result (e.g. improperly set or invalid API key) we would receive the following response:
-```
-~ curl -v http://127.0.0.1:9002/api/1/createAuthorIfNotExistsFor\?apikey\=secret\&name\=Michael\&authorMapper\=7
-*   Trying 127.0.0.1:9002...
-* Connected to 127.0.0.1 (127.0.0.1) port 9002
-> GET /api/1/createAuthorIfNotExistsFor?apikey=secret&name=Michael&authorMapper=7 HTTP/1.1
-> Host: 127.0.0.1:9002
-> User-Agent: curl/8.4.0
-> Accept: */*
-> 
-< HTTP/1.1 401 Unauthorized
-< X-Powered-By: Express
-< X-UA-Compatible: IE=Edge,chrome=1
-< Referrer-Policy: same-origin
-< Content-Type: application/json; charset=utf-8
-< Content-Length: 54
-< ETag: W/"36-dbJd0O+vdNi3zPpwRXE+1EGLTho"
-< Date: Fri, 29 Mar 2024 13:39:44 GMT
-< Connection: keep-alive
-< Keep-Alive: timeout=5
-< 
-* Connection #0 to host 127.0.0.1 left intact
-{"code":4,"message":"no or wrong API Key","data":null}
-```
+    In case of an unsuccessful result (e.g. improperly set or invalid API key) we would receive the following response:
+    ```
+    ~ curl -v http://127.0.0.1:9002/api/1/createAuthorIfNotExistsFor\?apikey\=secret\&name\=Michael\&authorMapper\=7
+    *   Trying 127.0.0.1:9002...
+    * Connected to 127.0.0.1 (127.0.0.1) port 9002
+    > GET /api/1/createAuthorIfNotExistsFor?apikey=secret&name=Michael&authorMapper=7 HTTP/1.1
+    > Host: 127.0.0.1:9002
+    > User-Agent: curl/8.4.0
+    > Accept: */*
+    > 
+    < HTTP/1.1 401 Unauthorized
+    < X-Powered-By: Express
+    < X-UA-Compatible: IE=Edge,chrome=1
+    < Referrer-Policy: same-origin
+    < Content-Type: application/json; charset=utf-8
+    < Content-Length: 54
+    < ETag: W/"36-dbJd0O+vdNi3zPpwRXE+1EGLTho"
+    < Date: Fri, 29 Mar 2024 13:39:44 GMT
+    < Connection: keep-alive
+    < Keep-Alive: timeout=5
+    < 
+    * Connection #0 to host 127.0.0.1 left intact
+    {"code":4,"message":"no or wrong API Key","data":null}
+    ```
+
+5. Set the following config values in the server:
+    | Key | Value |
+    | --- | --- |
+    | ETHERPAD__API_KEY | 381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd |
+    | ETHERPAD__URI | http://localhost:9002/api/1 |
+    | ETHERPAD__PAD_URI | http://localhost:9002/p |
+
+6. Set the following config values in the client:
+    | Key | Value |
+    | --- | --- |
+    | ETHERPAD__PAD_URI | http://localhost:9002/p |
+    | ETHERPAD__PAD_PATH | /p |
+    | ETHERPAD__NEW_DOMAIN | localhost |
