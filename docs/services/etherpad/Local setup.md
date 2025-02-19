@@ -37,22 +37,24 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
 4. Next, start the Etherpad's container:
     ```
     docker run -d \
-        -p 9001:9001 \
+        -p 9002:9001 \
         --env-file ./settings.env \
         -v ./APIKEY.txt:/opt/etherpad-lite/APIKEY.txt \
         --name sc-etherpad \
         docker.io/etherpad/etherpad:2.0.0
     ```
     Please note we're using the docker.io/etherpad/etherpad:2.0.0 image in the command above which might be not the one that is being used anytime in the future when you read this article. To make sure you're using the current version (the one that is currently being used in the SchulCloud platform), please refer to the https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/infra/dof_etherpad.yml file.
+    
+    The bound port on the host (here 9002) is arbitrary, though port 9001 is used by minio in our default project setup and thus we use a different one here.
 
-Now we should have the Etherpad service running locally on port 9001, we can verify it's working properly e.g. by fetching the current Etherpad's API version:
+Now we should have the Etherpad service running locally on port 9002, we can verify it's working properly e.g. by fetching the current Etherpad's API version:
 
 ```
-~ curl -v http://127.0.0.1:9001/api
-*   Trying 127.0.0.1:9001...
-* Connected to 127.0.0.1 (127.0.0.1) port 9001
+~ curl -v http://127.0.0.1:9002/api
+*   Trying 127.0.0.1:9002...
+* Connected to 127.0.0.1 (127.0.0.1) port 9002
 > GET /api HTTP/1.1
-> Host: 127.0.0.1:9001
+> Host: 127.0.0.1:9002
 > User-Agent: curl/8.4.0
 > Accept: */*
 > 
@@ -74,11 +76,11 @@ Now we should have the Etherpad service running locally on port 9001, we can ver
 We can also verify that the API key has been set successfully, let's use the example API call from the Etherpad's documentation ( https://etherpad.org/doc/v2.0.0/#_example_1 ):
 
 ```
-~ curl -v http://127.0.0.1:9001/api/1/createAuthorIfNotExistsFor\?apikey\=381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd\&name\=Michael\&authorMapper\=7
-*   Trying 127.0.0.1:9001...
-* Connected to 127.0.0.1 (127.0.0.1) port 9001
+~ curl -v http://127.0.0.1:9002/api/1/createAuthorIfNotExistsFor\?apikey\=381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd\&name\=Michael\&authorMapper\=7
+*   Trying 127.0.0.1:9002...
+* Connected to 127.0.0.1 (127.0.0.1) port 9002
 > GET /api/1/createAuthorIfNotExistsFor?apikey=381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd&name=Michael&authorMapper=7 HTTP/1.1
-> Host: 127.0.0.1:9001
+> Host: 127.0.0.1:9002
 > User-Agent: curl/8.4.0
 > Accept: */*
 > 
@@ -99,11 +101,11 @@ We can also verify that the API key has been set successfully, let's use the exa
 
 In case of an unsuccessful result (e.g. improperly set or invalid API key) we would receive the following response:
 ```
-~ curl -v http://127.0.0.1:9001/api/1/createAuthorIfNotExistsFor\?apikey\=secret\&name\=Michael\&authorMapper\=7
-*   Trying 127.0.0.1:9001...
-* Connected to 127.0.0.1 (127.0.0.1) port 9001
+~ curl -v http://127.0.0.1:9002/api/1/createAuthorIfNotExistsFor\?apikey\=secret\&name\=Michael\&authorMapper\=7
+*   Trying 127.0.0.1:9002...
+* Connected to 127.0.0.1 (127.0.0.1) port 9002
 > GET /api/1/createAuthorIfNotExistsFor?apikey=secret&name=Michael&authorMapper=7 HTTP/1.1
-> Host: 127.0.0.1:9001
+> Host: 127.0.0.1:9002
 > User-Agent: curl/8.4.0
 > Accept: */*
 > 
