@@ -34,7 +34,7 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
 
     Here we're using the `host.docker.internal` hostname which should make it possible for the Etherpad's container to connect to the host's local network and should work out of the box e.g. on macOS. On WSL2 it might not work out of the box and need some extra work, see e.g. this [stackoverflow thread](https://stackoverflow.com/questions/63898430/how-can-i-access-a-service-running-on-wsl2-from-inside-a-docker-container).
     
-    An alternative configuaration would be to use `DB_URL=mongodb://localhost:27017/etherpad` and then add `--network="host"` to the following docker run command. `--network="host"` removes the port mapping though. You can change the port Etherpad is listening to by adding `PORT=9002` (with the port number you need) to settings.env.
+    An alternative configuaration would be to use `DB_URL=mongodb://localhost:27017/etherpad` and then add `--network="host"` to the following docker run command. `--network="host"` removes the port mapping though. You can change the port Etherpad is listening on by adding `PORT=9002` (or the port number you need) to settings.env.
 
 4. Next, start the Etherpad's container:
     ```
@@ -45,11 +45,11 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
         --name sc-etherpad \
         docker.io/etherpad/etherpad:2.2.7
     ```
-    Please note we're using the docker.io/etherpad/etherpad:2.2.7 image in the command above which might be not the one that is being used anytime in the future when you read this article. To make sure you're using the current version (the one that is currently being used in the SchulCloud platform), please refer to https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/roles/dof_etherpad/defaults/main.yml.
+    We're using the docker.io/etherpad/etherpad:2.2.7 image in the command above. To make sure you're using the version that is currently used in the SchulCloud platform, please refer to https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/roles/dof_etherpad/defaults/main.yml.
     
-    The bound port on the host (here 9002) is arbitrary, though port 9001 is used by minio in our default project setup and thus we use a different one here.
+    The bound port on the host (here 9002) is arbitrary, though port 9001 is used by MinIO in our default project setup and thus we use a different one here.
 
-    Now we should have the Etherpad service running locally on port 9002, we can verify it's working properly e.g. by fetching the current Etherpad's API version:
+5. Now we should have the Etherpad service running locally on port 9002, we can verify it's working properly e.g. by    fetching the current Etherpad's API version:
 
     ```
     ~ curl -v http://127.0.0.1:9002/api
@@ -126,14 +126,14 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
     {"code":4,"message":"no or wrong API Key","data":null}
     ```
 
-5. Set the following config values in the server:
+6. Set the following config values in the server:
     | Key | Value |
     | --- | --- |
     | ETHERPAD__API_KEY | 381d67e6347d235ac9446da3ea10a82efd6f8ae09fa2e90efeda80f82feeb4fd |
     | ETHERPAD__URI | http://localhost:9002/api/1 |
     | ETHERPAD__PAD_URI | http://localhost:9002/p |
 
-6. Set the following config values in the client:
+7. Set the following config values in the client:
     | Key | Value |
     | --- | --- |
     | ETHERPAD__PAD_URI | http://localhost:9002/p |
