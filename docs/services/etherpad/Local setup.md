@@ -133,9 +133,13 @@ Create a directory called sc-etherpad and then enter it, in Unix-like systems y
     | ETHERPAD__URI | http://localhost:9002/api/1 |
     | ETHERPAD__PAD_URI | http://localhost:9002/p |
 
-7. Set the following config values in the client:
+     Set the following config values in the client:
     | Key | Value |
     | --- | --- |
     | ETHERPAD__PAD_URI | http://localhost:9002/p |
     | ETHERPAD__PAD_PATH | /p |
     | ETHERPAD__NEW_DOMAIN | localhost |
+
+    For the other config values the defaults in `default.schema.json` should work.
+
+7. Now you should be able to create and use Etherpads in boards and topics.
