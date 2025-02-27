@@ -18,6 +18,7 @@ This section explains the tagging system used for Cypress and Cucumber tests. Ta
 - **@unstable_test:** Tests that may fail intermittently due to environmental factors.
 - **@group-A / @group-B:** Tags for grouping tests in parallel execution.
 - **@schedule_run:** Tests tagged for scheduled runs in CI.
+- **@clean_up_staging_test_data:** This tag is used for a test run, which removes all courses that were created by cancelled or failed test runs before.
 
 ---
 
