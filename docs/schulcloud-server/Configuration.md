@@ -246,39 +246,56 @@ Mocking in unit and integration tests.
 
 ```
 
-// <----------------------------------- rewrite it start ---------------------------------------------->
-
 Mocking in api tests.
-> A better solution based on nestjs configuration module must be figured out and implemented.
-> Please feel free to improve this part and documentation.
 
 ``` javascript
-    import { Configuration } from '@hpi-schul-cloud/commons';
-    import { IConfig } from '@hpi-schul-cloud/commons/lib/interfaces/IConfig';
-
-    const configBefore: IConfig = Configuration.toObject({ plainSecrets: true });
-    Configuration.set('MY_ENVIREMENT_VARIABLE', 'value');
-
-    // eslint-disable-next-line import/first
     import { ServerTestModule } from '@modules/server/server.app.module';
+    import { serverConfig } from '@modules/server/server.config';
 
-    describe('XXX', () => {
+    describe('...Controller (API)', () => {
+        let app: INestApplication;
+        let em: EntityManager;
+        let testApiClient: TestApiClient;
 
         beforeAll(async () => {
-            const moduleFixture: TestingModule = await Test.createTestingModule({
+            const module: TestingModule = await Test.createTestingModule({
                 imports: [ServerTestModule],
             }).compile();
+
+            app = module.createNestApplication();
+		    await app.init();
+            em = app.get(EntityManager);
+		    testApiClient = new TestApiClient(app, '...path...');
         })
 
-        afterAll(async () => {
-            Configuration.reset(configBefore);
-        });
+        describe('PATCH /:id', () => {
+            describe('when feature X is activated', () => {
+                const config = serverConfig(); // The config methods of the module.apps return the config singleton
+                const configFeatureXBefore = config.FEATURE_X;
+                config.FEATURE_X = true;
 
+                afterAll(() => {
+                    // NOTE: This is important to not effect other test of same test running process!
+                    config.FEATURE_X = configFeatureXBefore;
+                });
+
+                const setup = async () => { ... };
+
+                it('should ...', () => {
+                    await setup();
+                });
+
+                it('should ...', () => {
+                   await setup();
+                });
+
+                it('should ...', () => {
+                   await setup();
+                });
+            });
+        });
     });
 ```
-
-
-// <----------------------------------- rewrite it end ---------------------------------------------->
 
 ### Special cases in nestjs
 
