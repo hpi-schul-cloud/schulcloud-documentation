@@ -256,6 +256,7 @@ Mocking in api tests.
         let app: INestApplication;
         let em: EntityManager;
         let testApiClient: TestApiClient;
+        let configTestHelper: ConfigTestHelper<ServerConfig>;
 
         beforeAll(async () => {
             const module: TestingModule = await Test.createTestingModule({
@@ -266,20 +267,20 @@ Mocking in api tests.
 		    await app.init();
             em = app.get(EntityManager);
 		    testApiClient = new TestApiClient(app, '...path...');
-        })
+
+            const config = serverConfig();
+		    configTestHelper = new ConfigTestHelper(config);
+        });
+
+        afterEach(() => {
+		    configTestHelper.reset();
+	    });
 
         describe('PATCH /:id', () => {
             describe('when feature X is activated', () => {
-                const config = serverConfig(); // The config methods of the module.apps return the config singleton
-                const configFeatureXBefore = config.FEATURE_X;
-                config.FEATURE_X = true;
-
-                afterAll(() => {
-                    // NOTE: This is important to not effect other test of same test running process!
-                    config.FEATURE_X = configFeatureXBefore;
-                });
-
-                const setup = async () => { ... };
+                const setup = async () => { 
+                    configTestHelper.set('FEATURE_X', true);
+                };
 
                 it('should ...', () => {
                     await setup();
