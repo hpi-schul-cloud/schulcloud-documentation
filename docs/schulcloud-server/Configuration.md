@@ -251,12 +251,13 @@ Mocking in api tests.
 ``` javascript
     import { ServerTestModule } from '@modules/server/server.app.module';
     import { serverConfig } from '@modules/server/server.config';
+    import { TestConfigHelper } from '@testing/test-config.helper';
 
     describe('...Controller (API)', () => {
         let app: INestApplication;
         let em: EntityManager;
         let testApiClient: TestApiClient;
-        let configTestHelper: ConfigTestHelper<ServerConfig>;
+        let testConfigHelper: TestConfigHelper<ServerConfig>;
 
         beforeAll(async () => {
             const module: TestingModule = await Test.createTestingModule({
@@ -269,17 +270,17 @@ Mocking in api tests.
 		    testApiClient = new TestApiClient(app, '...path...');
 
             const config = serverConfig();
-		    configTestHelper = new ConfigTestHelper(config);
+		    testConfigHelper = new TestConfigHelper(config);
         });
 
         afterEach(() => {
-		    configTestHelper.reset();
+		    testConfigHelper.reset();
 	    });
 
         describe('PATCH /:id', () => {
             describe('when feature X is activated', () => {
                 const setup = async () => { 
-                    configTestHelper.set('FEATURE_X', true);
+                    testConfigHelper.set('FEATURE_X', true);
                 };
 
                 it('should ...', () => {
