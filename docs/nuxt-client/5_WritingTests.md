@@ -10,13 +10,13 @@ How to write valuable, reliable tests, that are easy to maintain.
 
 Writing good tests that cover all aspects of your code, leads to:
 
--   **confidence**: to refactor your code
--   **higher code quality**: as you review your code and identify problems when writing tests
--   **well documented code**: as your tests describe how your code works
+- **confidence**: to refactor your code
+- **higher code quality**: as you review your code and identify problems when writing tests
+- **well documented code**: as your tests describe how your code works
 
 and by that to:
 
--   **developer happiness** :-)
+- **developer happiness** :-)
 
 ### Unit-Tests vs. Component-Tests
 
@@ -32,14 +32,14 @@ The enable us to **refactor** the internals of our components later on.
 
 ### Positive & negative Tests
 
--   **positive tests** test the default cases of your code = **how it should work**
--   **negative tests** test **error-cases** or **exception**-behaviour
--   you need to write both to ensure your component works correctly
--   think of edge-cases that might break your component e.g. when providing input to the component:
-    -   **numbers**: high numbers, negative numbers, float<->integer, at the edge of a range that is expected...
-    -   **dates**: none existing dates e.g. 30th February 2023, far away future,...
-    -   **strings**: umlauts, url-special-characters (?, &, =, \/\/: ), very long strings for names, long strings without linebreaks
-    -   **totally incorrect data**: e.g. giving a string instead of a number
+- **positive tests** test the default cases of your code = **how it should work**
+- **negative tests** test **error-cases** or **exception**-behaviour
+- you need to write both to ensure your component works correctly
+- think of edge-cases that might break your component e.g. when providing input to the component:
+  - **numbers**: high numbers, negative numbers, float<->integer, at the edge of a range that is expected...
+  - **dates**: none existing dates e.g. 30th February 2023, far away future,...
+  - **strings**: umlauts, url-special-characters (?, &, =, \/\/: ), very long strings for names, long strings without linebreaks
+  - **totally incorrect data**: e.g. giving a string instead of a number
 
 ### Use Vue-Test-Utils
 
@@ -47,17 +47,17 @@ For testing our Vue-Components we use the **Vue Test Utils**. Vue Test Utils is 
 
 Some functionality it provides:
 
--   **mount()**: create a wrapper around the component and instantiate it
--   **shallowMount()**: create a shallow wrapper of the component being tested with childcomponents being mocked
--   **setMethods()**: mock function on the component
--   **setProps()**: set a specific set of props on the component
--   **findComponent()**: finds a component by it's class, name or ref
--   **findAllComponents()**: finds all components by it's class, name or ref
--   **[find() / findAll()](https://v1.test-utils.vuejs.org/api/wrapper/#find)**: search for html elements using html-selectors
-    -   **deprecated for finding Components**
-    -   use findComponent() or findAllComponents() instead
--   **setData()**: set specific data on the component
--   **trigger()** + **emit()**: test events and the flow of data
+- **mount()**: create a wrapper around the component and instantiate it
+- **shallowMount()**: create a shallow wrapper of the component being tested with childcomponents being mocked
+- **setMethods()**: mock function on the component
+- **setProps()**: set a specific set of props on the component
+- **findComponent()**: finds a component by it's class, name or ref
+- **findAllComponents()**: finds all components by it's class, name or ref
+- **[find() / findAll()](https://v1.test-utils.vuejs.org/api/wrapper/#find)**: search for html elements using html-selectors
+  - **deprecated for finding Components**
+  - use findComponent() or findAllComponents() instead
+- **setData()**: set specific data on the component
+- **trigger()** + **emit()**: test events and the flow of data
 
 We think the **Vue Test Utils-documentation** is a valuable resource for learning how to test Vue-Components and a very good starting point on how to test certain aspects of your component. Please have a look at [https://test-utils.vuejs.org/guide](https://test-utils.vuejs.org/guide)
 
@@ -140,8 +140,8 @@ We decided to unify the way data-testid's should be named in Frontend Arch Group
 
 Please use `<div ... data-testid="some-example" ...>` in your HTML-code if you want to define a data-testid.
 
--   do not use uppercase-characters
--   only use one dash - right after data
+- do not use uppercase-characters
+- only use one dash - right after data
 
 You can later on check this using:
 
@@ -156,8 +156,8 @@ expect(
 
 We also recommend to use refs instead of data-testids. But if you do that you ensure not to remove them once they are in the code... as they can be used in the component-code and for testing:
 
--   [VueJs - template refs](https://vuejs.org/guide/essentials/template-refs.html)
--   [VueTestUtils - ref](https://v1.test-utils.vuejs.org/api/#ref)
+- [VueJs - template refs](https://vuejs.org/guide/essentials/template-refs.html)
+- [VueTestUtils - ref](https://v1.test-utils.vuejs.org/api/#ref)
 
 ### Setup-methods
 
@@ -170,10 +170,10 @@ Separate your setup from your actual tests: If you need a more complex setup to 
 Use the trigger()-method to simulate a events
 [Testing Key, Mouse and other DOM events](https://v1.test-utils.vuejs.org/guides/#testing-key-mouse-and-other-dom-events)
 
--   **Mouse-Click**: [VueTestUtils - trigger events](https://v1.test-utils.vuejs.org/guides/#trigger-events)
--   **Keyboard-Input**: [VueTestUtils - keyboard example](https://v1.test-utils.vuejs.org/guides/#keyboard-example)
--   **Drag & Drop**: trigger the events (e.g. dragstart, drop) and check for emitted events as reaction to that
--   **Event from a child component**: [VueTestUtils - emitting from child component](https://v1.test-utils.vuejs.org/guides/#emitting-event-from-child-component)
+- **Mouse-Click**: [VueTestUtils - trigger events](https://v1.test-utils.vuejs.org/guides/#trigger-events)
+- **Keyboard-Input**: [VueTestUtils - keyboard example](https://v1.test-utils.vuejs.org/guides/#keyboard-example)
+- **Drag & Drop**: trigger the events (e.g. dragstart, drop) and check for emitted events as reaction to that
+- **Event from a child component**: [VueTestUtils - emitting from child component](https://v1.test-utils.vuejs.org/guides/#emitting-event-from-child-component)
 
 ### Testing Asynchronous Behavior
 
@@ -220,7 +220,7 @@ consoleErrorSpy.mockRestore();
 
 ### Testing Composables
 
--   [VueTestUtils - Testing composables](https://test-utils.vuejs.org/guide/advanced/reusability-composition.html#testing-composables)
+- [VueTestUtils - Testing composables](https://test-utils.vuejs.org/guide/advanced/reusability-composition.html#testing-composables)
 
 ## Mocking
 
@@ -255,8 +255,8 @@ See also here: [VueTestUtils mount - mocks and stubs are now in global](https://
 
 ### Mocking injections
 
--   [Vue.js - Mocking injections](https://v1.test-utils.vuejs.org/guides/#mocking-injections)
--   [VueTestUtils - provide / inject](https://test-utils.vuejs.org/guide/advanced/reusability-composition.html#provide-inject)
+- [Vue.js - Mocking injections](https://v1.test-utils.vuejs.org/guides/#mocking-injections)
+- [VueTestUtils - provide / inject](https://test-utils.vuejs.org/guide/advanced/reusability-composition.html#provide-inject)
 
 ### Mocking Vuex-Store
 
@@ -346,13 +346,13 @@ import { mockedPiniaStoreTyping } from "@@/tests/test-utils";
 
 describe("..." ()=> {
     const setup = (...) => {
-		...
+        ...
         const roomDetailsStore = mockedPiniaStoreTyping(useRoomDetailsStore);
         ...
-		return {
-			roomDetailsStore,
+        return {
+            roomDetailsStore,
             ...
-		};
+        };
     };
 
     describe("...", () => {
@@ -376,12 +376,12 @@ If you ever get into trouble to write good tests for your compents or code in ge
 
 Consider:
 
--   spliting your component into smaller sub-components with a small API
--   extracting functionality into one or mutliple composables
--   using an existing composable (from VueUse or an existing one in the project)
--   using an existing vuetify-component instead of writing it all yourself
--   reshaping the communication workflow (parameters, events, inject/provide, stores, composables)
--   (replacing a Vuex-store with a Pinia-store)
+- spliting your component into smaller sub-components with a small API
+- extracting functionality into one or mutliple composables
+- using an existing composable (from VueUse or an existing one in the project)
+- using an existing vuetify-component instead of writing it all yourself
+- reshaping the communication workflow (parameters, events, inject/provide, stores, composables)
+- (replacing a Vuex-store with a Pinia-store)
 
 For more details on how to write good components and how to split your components: have a look at this great article of Olli: (tbd)
 
