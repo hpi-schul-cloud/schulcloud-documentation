@@ -51,13 +51,6 @@ Lifecycle methods are methods that are called by the Vue framework at certain po
 #### Outputs
 The outputs are tested in the `expect` method in our tests. We can expect a certain html being rendered or and event beeing emitted.
 
-## Coverage
-Open Questions:
-* *Would the above descriped approach lead to 100% coverage?*
-* *Currently the coverage report doesn't make sense. Imports are marked as untested for example.*
-* *Can we configure coverage collection in a way that it gives us a meaningful value?*
-* *If not should we deactivated coverage collection in sonar cloud?*
-
 ## Further Reading
 https://www.youtube.com/watch?v=OIpfWTThrK8
 
