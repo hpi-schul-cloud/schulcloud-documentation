@@ -81,7 +81,7 @@ Especially in large test-files it is very helpful for the reader to have a tree-
 1. describe block that contains the filename in the root-level of the test-file
 2. sub-describe-blocks for groups of tests focussing the same aspects of your code
 
-_Example:_
+*Example:*
 
 ```TypeScript
 describe('@components/share/ImportModal', () => {
@@ -113,13 +113,13 @@ describe('@components/something/AddButton', () => {
 });
 ```
 
-**Hint**: _maybe you should extract functionality from your component if this is needed e.g. to find a certain test in your file_
+**Hint**: *maybe you should extract functionality from your component if this is needed e.g. to find a certain test in your file*
 
 ### Name the test like a sentence "it should..."
 
 There is a reason we use the it-alias for writing our code and not the test-method: we want to describe the aspect that is tested in a natural sentence. That's why it is best practice to start your test with: it('should ...');
 
-_Example:_
+*Example:*
 
 ```TypeScript
 Bad:
@@ -177,14 +177,14 @@ Use the trigger()-method to simulate a events
 
 ### Testing Asynchronous Behavior
 
-You can test asynchronous behavior by using **_Vue.nextTick()_**:
+You can test asynchronous behavior by using ***Vue.nextTick()***:
 
 ```TypeScript
 await Vue.nextTick();
 ...
 ```
 
-OR by **_trigger_**ing an effect and **_await_**ing this effect to take place:
+OR by ***trigger***ing an effect and ***await***ing this effect to take place:
 
 ```TypeScript
 const btnNext = wrapper.find(`[data-testid="dialog-next"]`);
