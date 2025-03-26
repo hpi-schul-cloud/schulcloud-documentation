@@ -138,7 +138,7 @@ Data-testids are attributes to HTML-elements that are solely used to enable test
 
 We decided to unify the way data-testid's should be named in Frontend Arch Group: [Meeting 2022-11-04](https://docs.dbildungscloud.de/x/mYHADQ)
 
-Please use ``<div ... data-testid="some-example" ...>`` in your HTML-code if you want to define a data-testid.
+Please use `<div ... data-testid="some-example" ...>` in your HTML-code if you want to define a data-testid.
 
 - do not use uppercase-characters
 - only use one dash - right after data
@@ -313,10 +313,6 @@ it("should set something", () => {
 });
 ```
 
-### Mocking Pinia-Stores
-
-***{{ tbd }}** (when Pinia-Stores are enabled for the project)*
-
 ### Mocking Composables
 
 Sometimes - if a composable is simple and does not create sideeffects - it is okay to use it in the tests and avoid mocking it.
@@ -331,6 +327,47 @@ jest.spyOn(ourExampleComposable, "useExample").mockReturnValue({
   // return mocks of what the composable would have returned
 });
 ...
+```
+
+### Mocking Pinia-Stores
+
+Using our internal function `mockedPinaStoreTyping(useExampleStore)` mocks the given store and returns a correctly typed mocked instance of this store. All actions of the store are replaced by jest.fn() mock-functions.
+
+All PiniaStores should be mocked using this functionality.
+
+For integration-tests we use the original stores.
+
+Example from RoomDetails.page.unit.ts:
+
+```TypeScript
+import { mockedPiniaStoreTyping } from "@@/tests/test-utils";
+
+...
+
+describe("..." ()=> {
+    const setup = (...) => {
+        ...
+        const roomDetailsStore = mockedPiniaStoreTyping(useRoomDetailsStore);
+        ...
+        return {
+            roomDetailsStore,
+            ...
+        };
+    };
+
+    describe("...", () => {
+        it("should ...", async () => {
+            const { wrapper, roomDetailsStore, room } = setup();
+
+            ...
+            expect(roomDetailsStore.createBoard).toHaveBeenCalledWith(
+                room.id,
+                serverApi.BoardLayout.Columns,
+                "pages.roomDetails.board.defaultName"
+            );
+        });
+    });
+});
 ```
 
 ## Components that are hard to test
