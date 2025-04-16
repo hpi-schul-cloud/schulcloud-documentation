@@ -18,10 +18,6 @@
 
 - TSP_SYNC_DATA_DAYS_TO_FETCH - The amount of days for which the sync fetches school data from the TSP API
 
-- FEATURE_TSP_MIGRATION_ENABLED - Activates the migration of TSP users within the sync
-
-- TSP_SYNC_MIGRATION_LIMIT - The amount of users the sync migrates at once
-
 ## Sync console
 
 This is a console application that allows you to start the synchronization process for different sources.
