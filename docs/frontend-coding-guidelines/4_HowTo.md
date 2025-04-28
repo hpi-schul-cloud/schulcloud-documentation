@@ -25,7 +25,7 @@ If there is a new functionality that should only be available on certain systems
 
 Our Vue-Frontend requests all FEATURE-flags and provides global access to them by using this code (example):
 
-```TypeScript
+```typescript
 import { envConfigModule } from "@/store";
 if (envConfigModule.getEnv.FEATURE_COPY_SERVICE_ENABLED) {
     ...
@@ -36,10 +36,6 @@ if (envConfigModule.getEnv.FEATURE_COPY_SERVICE_ENABLED) {
 
 We are using a generator script to create classes to access the Schulcloud-Backend-API - V3 (so Legacy-Backend endpoints (aka V1) are not covered).
 These generated classes and methods internally use axios to request data and use generated types - both for the input to the methods and for the returned types.
-
-> **HINT**
->
-> Please use the generated types in your stores and do not redefine the same types. This way consistency between Server and Api-Access stays stable.
 
 ### Regenerating the clients
 
@@ -67,7 +63,7 @@ npm run generate-client:filestorage
 
 The generated APIs can easily be used. Examples can be seen in any current store-implementation - like here:
 
-```TypeScript
+```typescript
 src/store/share-course.ts:
 
 import {
@@ -108,11 +104,33 @@ export default class ShareCourseModule extends VuexModule {
 
 ```
 
+if necessary, you can add a type alias to the api types in order to give them names that are more fitting for your context
+
+```typescript
+import {
+    CreateRoomBodyParams,
+    RoomBoardItemResponse,
+    RoomDetailsResponse,
+    RoomItemResponse,
+    UpdateRoomBodyParams,
+    RoomColor as RoomColorEnum,
+} from "@/serverApi/v3";
+
+export type RoomItem = RoomItemResponse;
+export type RoomDetails = RoomDetailsResponse;
+export type RoomBoardItem = RoomBoardItemResponse;
+
+export type RoomCreateParams = CreateRoomBodyParams;
+export type RoomUpdateParams = UpdateRoomBodyParams;
+
+export { RoomColorEnum };
+```
+
 ## User-Permissions on Pages <a name='User-PermissionsonPages'></a>
 
 The permissions are controlled by `createPermissionGuard` middleware method that receives two parameters. The first parameter should contain an array of the `userPermission` that is required to reach the page. The second parameter is an optional fallback route. If the second parameter isn't provided and the user has no permission to reach the page, an error page `(401)` is shown.
 
-```Typescript
+```typescript
 // src/router/routes.ts
 
 // with a fallback route
@@ -140,7 +158,7 @@ A global error handler for putting application errors takes those and puts them 
 
 Exceptions should be thrown using them - like this:
 
-```TypeScript
+```typescript
 // src/pages/user-migration/UserMigration.page.vue
 import { useApplicationError } from "@/composables/application-error.composable";
 
@@ -148,7 +166,7 @@ const { createApplicationError } = useApplicationError();
 throw createApplicationError(HttpStatusCode.BadRequest);
 ```
 
-```TypeScript
+```typescript
 // src/router/guards/permission.guard.ts
 import { useApplicationError } from "@/composables/application-error.composable";
 import { applicationErrorModule } from "@/store";
