@@ -1,6 +1,6 @@
 {
-  "label": "e2e-system-tests",
-  "position": 2,
+  "label": "End-to-end System Tests",
+  "position": 4,
   "link": {
     "type": "generated-index",
     "description": "Learn about the e2e tests repo."

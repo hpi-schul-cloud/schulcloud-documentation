@@ -1,0 +1,8 @@
+{
+  "label": "Frontend",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn about coding guidelines for SVS frontend repositories. Currently, this almost exclusively applies to the 'Nuxt Client'."
+  }
+}
