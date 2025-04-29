@@ -1,5 +1,5 @@
 {
-  "label": "e2e-system-tests",
+  "label": "End-to-end System Tests",
   "position": 4,
   "link": {
     "type": "generated-index",
