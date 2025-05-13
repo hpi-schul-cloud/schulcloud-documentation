@@ -36,7 +36,7 @@ The enable us to **refactor** the internals of our components later on.
 - **negative tests** test **error-cases** or **exception**-behaviour
 - you need to write both to ensure your component works correctly
 - think of edge-cases that might break your component e.g. when providing input to the component:
-  - **numbers**: high numbers, negative numbers, float<->integer, at the edge of a range that is expected...
+  - **numbers**: high numbers, negative numbers, float\<->integer, at the edge of a range that is expected...
   - **dates**: none existing dates e.g. 30th February 2023, far away future,...
   - **strings**: umlauts, url-special-characters (?, &, =, \/\/: ), very long strings for names, long strings without linebreaks
   - **totally incorrect data**: e.g. giving a string instead of a number
@@ -344,8 +344,8 @@ import { mockedPiniaStoreTyping } from "@@/tests/test-utils";
 
 ...
 
-describe("..." ()=> {
-    const setup = (...) => {
+describe("...", ()=> {
+    const setup = (/* ... */) => {
         ...
         const roomDetailsStore = mockedPiniaStoreTyping(useRoomDetailsStore);
         ...

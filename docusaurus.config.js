@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+// const lightCodeTheme = require('prismjs/themes/prism.css');
+// const darkCodeTheme = require('prismjs/themes/prism-dark.css');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -145,26 +145,26 @@ const config = {
         // copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        // theme: lightCodeTheme,
+        // darkTheme: darkCodeTheme,
       },
     }),
 
     themes: [
       // ... Your other themes.
-      [
-        require.resolve("@easyops-cn/docusaurus-search-local"),
-        /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
-        ({
-          // ... Your options.
-          // `hashed` is recommended as long-term-cache of index file is possible.
-          hashed: true,
-          // For Docs using Chinese, The `language` is recommended to set to:
-          // ```
-          // language: ["en", "zh"],
-          // ```
-        }),
-      ],
+      // [
+      //   require.resolve("@easyops-cn/docusaurus-search-local"),
+      //   /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      //   ({
+      //     // ... Your options.
+      //     // `hashed` is recommended as long-term-cache of index file is possible.
+      //     hashed: true,
+      //     // For Docs using Chinese, The `language` is recommended to set to:
+      //     // ```
+      //     // language: ["en", "zh"],
+      //     // ```
+      //   }),
+      // ],
       '@docusaurus/theme-mermaid',
     ],
 };
