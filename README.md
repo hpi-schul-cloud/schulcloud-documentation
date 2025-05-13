@@ -35,6 +35,11 @@ This command generates static content into the `build` directory and can be serv
 
 Create a new branch. Change the /docs files.
 
+### Check for errors
+
+Please make sure that code examples are valid code and watch our for typos even in
+your text. Use your IDE for support.
+
 ### Deployment
 
 Create a pull request and once your changes are merged into main the website will automatically deploy the new version.
