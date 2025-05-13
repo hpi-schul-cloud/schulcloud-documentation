@@ -5,6 +5,7 @@ A modules api layer is defined within of [controllers](https://docs.nestjs.com/c
 The main responsibilities of a controller is to define the REST API interface as openAPI specification and map DTO's to match the logic layers interfaces.
 
 ```TypeScript
+const example = {
     @ApiOperation({ summary: 'some descriptive information that will show up in the API documentation' })
     @ApiResponse({ status: 200, type: BoardResponse })
     @ApiResponse({ status: 400, type: ApiValidationError })
@@ -21,6 +22,7 @@ The main responsibilities of a controller is to define the REST API interface as
 
         return dto;
     }
+}
 ```
 
 ## JWT-Authentication

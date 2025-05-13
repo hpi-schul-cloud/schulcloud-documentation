@@ -28,17 +28,17 @@ To facilitate this, your tests should be wrapped in at least two describe levels
 
 ```TypeScript
 // Name of the unit under test
-describe("Course Service", (() => {
+describe("Course Service", () => {
     // method that is called
     describe('createCourse', () => {
         // a "when..." sentence
-        describe("When a student tries to create a course", (() => {
+        describe("When a student tries to create a course", () => {
             const setup = () => {
                 // testsetup for the situation that was described
             }
             // a "should..." sentence
             it("should return course", async () => {
-                ...
+                // ...
             });
         });
     });
@@ -109,11 +109,11 @@ When assigning a value to an expect, separate the function call from the expecta
 ```TypeScript
     // doSomethingCrazy : retValue
     it('bad sample', () => {
-        expect(doSomethingCrazy(x,y,z)).to...
+        expect(doSomethingCrazy(x,y,z)).toBe(expected)
     })
     it('good sample', () => {
         const result = doSomethingCrazy(x,y,z)
-        expect(result).to... // here we can simply debug
+        expect(result).toBe(expected) // here we can simply debug
     })
 
 ```
@@ -128,9 +128,9 @@ When using asynchronous functions and/opr promises, results must be awaited with
 
 ```TypeScript
     // doSomethingCrazy : Promise<retValue>
-    it('bad async sample', async function (done) => {
+    it('bad async sample', async (done) => {
         return doSomethingCrazy(x,y,z).then(result=>{
-            expect(result).to...
+            expect(result).toBe(expected)
             done() // expected done
         }).catch(()=>{
             logger.info(`Could not ... ${error}`);
@@ -141,8 +141,9 @@ When using asynchronous functions and/opr promises, results must be awaited with
     it('good async sample', async () => {
         // no timeout set
         const result = await doSomethingCrazy(x,y,z)
-        expect(result).to...
+        expect(result).toBe(expected)
     })
+
 ```
 
 > Timeouts must not be used, when async handling is correctly defined!
@@ -154,11 +155,11 @@ When expecting an error, you might take values from an error, test for the error
 ```TypeScript
     // doSomethingCrazy : Promise<retValue>
     it('bad async sample expecting an error', () => {
-        expect(doSomethingCrazy(x,y,z)).to...
+        expect(doSomethingCrazy(x,y,z)).toBe(expected)
     })
     it('good async sample expecting an error value', async () => {
         const code = await doSomethingCrazy(x,y,z).catch(err => err.code)
-        expect(code).to...
+        expect(code).toBe(expected)
     })
     it('good sample expecting an error type from a sync function', () => {
         expect(() => doSomethingCrazySync(wrong, param)).toThrow(BadRequestException);
@@ -306,15 +307,15 @@ The basic structure of the repo integration test:
     let testModule: TestingModule;
 
     beforeAll(async () => {
-        testModule: TestingModule = await Test.createTestingModule({    (1)
+        testModule: TestingModule = await Test.createTestingModule({    // (1)
              imports: [
-                     MongoMemoryDatabaseModule.forRoot({                 (1.1)
-                    entities: [News, CourseNews, ...],
+                     MongoMemoryDatabaseModule.forRoot({                 // (1.1)
+                    entities: [News, CourseNews, /* ... */ ],
                 }),
               ],
-             providers: [NewsRepo],                                     (1.2)
+             providers: [NewsRepo],                                     // (1.2)
       }).compile();
-      repo = testModule.get(NewsRepo);                                  (2)
+      repo = testModule.get(NewsRepo);                                  // (2)
       orm = testModule.get(MikroORM);
       em = testModule.get(EntityManager);
     })

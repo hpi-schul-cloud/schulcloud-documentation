@@ -89,13 +89,15 @@ We override the standard `on-surface` and `on-background` vuetify colors in our 
 You can define more custom colors in our vuetify options like this:
 
 ```typescript
-...
-colors: {
-  info: "#0a7ac9",
-  "icon-btn": colors.grey.darken3,
-  "on-surface": "#0f3551",
+options = {
+    // ...
+    colors: {
+        info: "#0a7ac9",
+        icon_btn: "colors.grey.darken3",
+        on_surface: "#0f3551",
+    }
+// ...
 }
-...
 ```
 
 ### Rules

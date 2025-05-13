@@ -6,8 +6,8 @@ Eric Evans suggests using the specification pattern.
 A specification fulfills the following interface:
 
 ```typescript
-public interface Specification<T> {
-    boolean isSatisfiedBy(T t);
+interface Specification<T> {
+    isSatisfiedBy(t: T): boolean;
 }
 ```
 

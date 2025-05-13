@@ -14,16 +14,18 @@ export class MyModule {}
 
 // inside of your service, inject the FeathersServiceProvider
 @Injectable()
-export class MyFeathersServiceAdapter {
+export class MyFeathersServiceAdapter
+{
     constructor(private feathersServiceProvider: FeathersServiceProvider) {}
 
-    async get(): Promise<string[]> {
+    async get(): Promise<string[]>
+    {
         const service = this.feathersServiceProvider.getService(`path`);
-        const result = await service.get(...)
+        const result = await service.get( /* ... */)
 
         return result;
     }
-
+}
 ```
 
 ## Access NestJS injectable from Feathers

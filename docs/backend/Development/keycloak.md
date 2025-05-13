@@ -121,7 +121,7 @@ Keycloak-CLI to import the dBildungscloud realm, which contains some seed users,
 and testing. In the table below you can see the username and password combinations for the Keycloak login.
 
 | Username       | Password       | Description                                              |
-| :------------- | :------------- | :------------------------------------------------------- |
+|:---------------|:---------------|:---------------------------------------------------------|
 | keycloak       | keycloak       | The overall Keycloak administrator with all permissions. |
 | dbildungscloud | dBildungscloud | The dBildungscloud realm specific administrator.         |
 
@@ -147,6 +147,6 @@ In order to re-apply the seeding data for a running keycloak container, you may 
 A list of available NPM commands regarding Keycloak / IDM.
 
 | Command             | Description                                                                   |
-| :------------------ | :---------------------------------------------------------------------------- |
+|:--------------------|:------------------------------------------------------------------------------|
 | setup:idm:seed      | Seeds users for development and testing purpose into the IDM                  |
 | setup:idm:configure | Configures identity and authentication providers and other details in the IDM |

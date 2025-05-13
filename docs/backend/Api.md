@@ -6,7 +6,7 @@ In nest.js all apis are defined in controllers.
 Usually the api follows the following syntax:
 
 ```typescript
-/api/v3/<resource>
+'/api/v3/resource'
 ```
 
 - Each controller is responsible for a specific resource. 
@@ -21,41 +21,45 @@ Usually the api follows the following syntax:
 When returning a response like this:
 
 ```typescript
-    @ApiOperation({ summary: 'Create a new element on a card.' })
-	@ApiExtraModels(
-		ExternalToolElementResponse,
-		FileElementResponse,
-		LinkElementResponse,
-		RichTextElementResponse,
-		SubmissionContainerElementResponse
-	)
-	@ApiResponse({
-		status: 201,
-		schema: {
-			oneOf: [
-				{ $ref: getSchemaPath(ExternalToolElementResponse) },
-				{ $ref: getSchemaPath(FileElementResponse) },
-				{ $ref: getSchemaPath(LinkElementResponse) },
-				{ $ref: getSchemaPath(RichTextElementResponse) },
-				{ $ref: getSchemaPath(SubmissionContainerElementResponse) },
-			],
-		},
-	})
-	@ApiResponse({ status: 400, type: ApiValidationError })
-	@ApiResponse({ status: 403, type: ForbiddenException })
-	@ApiResponse({ status: 404, type: NotFoundException })
-	@Post(':cardId/elements')
-	async createElement(
-		@Param() urlParams: CardUrlParams,
-		@Body() bodyParams: CreateContentElementBodyParams,
-		@CurrentUser() currentUser: ICurrentUser
-	): Promise<AnyContentElementResponse> {
-		const { type, toPosition } = bodyParams;
-		const element = await this.cardUc.createElement(currentUser.userId, urlParams.cardId, type, toPosition);
-		const response = ContentElementResponseFactory.mapToResponse(element);
+const response =
+{
+    @ApiOperation({summary: 'Create a new element on a card.'})
+    @ApiExtraModels(
+        ExternalToolElementResponse,
+        FileElementResponse,
+        LinkElementResponse,
+        RichTextElementResponse,
+        SubmissionContainerElementResponse
+    )
+    @ApiResponse({
+        status: 201,
+        schema: {
+            oneOf: [
+                {$ref: getSchemaPath(ExternalToolElementResponse)},
+                {$ref: getSchemaPath(FileElementResponse)},
+                {$ref: getSchemaPath(LinkElementResponse)},
+                {$ref: getSchemaPath(RichTextElementResponse)},
+                {$ref: getSchemaPath(SubmissionContainerElementResponse)},
+            ],
+        },
+    })
+    @ApiResponse({status: 400, type: ApiValidationError})
+    @ApiResponse({status: 403, type: ForbiddenException})
+    @ApiResponse({status: 404, type: NotFoundException})
+    @Post(':cardId/elements')
+    async createElement(
+        @Param() urlParams: CardUrlParams,
+        @Body() bodyParams: CreateContentElementBodyParams,
+        @CurrentUser() currentUser: ICurrentUser
+    ): Promise<AnyContentElementResponse>
+    {
+        const {type, toPosition} = bodyParams;
+        const element = await this.cardUc.createElement(currentUser.userId, urlParams.cardId, type, toPosition);
+        const response = ContentElementResponseFactory.mapToResponse(element);
 
-		return response;
-	}
+        return response;
+    }
+}
 ```
 
 We want to use decorators to explain the intent of the response.  
