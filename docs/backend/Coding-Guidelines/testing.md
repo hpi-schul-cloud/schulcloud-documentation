@@ -185,14 +185,14 @@ The `TestingModule` instance provides method `compile()` which bootstraps a modu
 Every provider can be overwritten with custom provider implementation for testing purposes.
 
 ```Typescript
-  beforeAll(async () => {
-      const moduleRef = await Test.createTestingModule({
-          controllers: [SampleController],
-          providers: [SampleService],
+    beforeAll(async () => {
+        const moduleRef = await Test.createTestingModule({
+            controllers: [SampleController],
+            providers: [SampleService],
         }).compile();
 
-      sampleService = moduleRef.get<SampleService>(SampleService);
-      sampleController = moduleRef.get<SampleController>(CatsController);
+        sampleService = moduleRef.get<SampleService>(SampleService);
+        sampleController = moduleRef.get<SampleController>(CatsController);
     });
 ```
 
@@ -295,30 +295,30 @@ The basic structure of the repo integration test:
 #### Preconditions (beforeAll)
 
 1. Create `Nest JS testing module`:
-   1.1 with `MongoMemoryDatabaseModule` defining entities which are used in tests. This will wrap MikroOrmModule.forRoot() with running a MongoDB in memory.
-   1.2 provide the repo which should be tested
+   1. with `MongoMemoryDatabaseModule` defining entities which are used in tests. This will wrap MikroOrmModule.forRoot() with running a MongoDB in memory.
+   2. provide the repo which should be tested
 2. Get repo, orm and entityManager from testing module
 
 ```TypeScript
-    import { MongoMemoryDatabaseModule } from '@src/modules/database';
+import { MongoMemoryDatabaseModule } from '@src/modules/database';
 
-    let repo: NewsRepo;
-    let em: EntityManager;
-    let testModule: TestingModule;
+let repo: NewsRepo;
+let em: EntityManager;
+let testModule: TestingModule;
 
-    beforeAll(async () => {
-        testModule: TestingModule = await Test.createTestingModule({    // (1)
-             imports: [
-                     MongoMemoryDatabaseModule.forRoot({                 // (1.1)
-                    entities: [News, CourseNews, /* ... */ ],
-                }),
-              ],
-             providers: [NewsRepo],                                     // (1.2)
-      }).compile();
-      repo = testModule.get(NewsRepo);                                  // (2)
-      orm = testModule.get(MikroORM);
-      em = testModule.get(EntityManager);
-    })
+beforeAll(async () => {
+    testModule: TestingModule = await Test.createTestingModule({    // (1)
+            imports: [
+                    MongoMemoryDatabaseModule.forRoot({                 // (i.)
+                entities: [News, CourseNews, /* ... */ ],
+            }),
+            ],
+            providers: [NewsRepo],                                     // (ii.)
+    }).compile();
+    repo = testModule.get(NewsRepo);                                  // (2)
+    orm = testModule.get(MikroORM);
+    em = testModule.get(EntityManager);
+})
 ```
 
 #### Post conditions (afterAll), Teardown

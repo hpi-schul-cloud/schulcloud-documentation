@@ -230,25 +230,25 @@ How can we easily split up the template?
 
 A rule of thumb can be to not handle more than one level of your data structure in a single component. The `User` object consists of three levels: 
 
- 1. `Array`
- 2. `Object`
- 3. `Property`
+1. `Array`
+2. `Object`
+3. `Property`
 
 We can use this list to create subcomponents for the table: 
 
 1. `UserTable`
-   > the host component where all components come together
-   >
-   > This will also be the outside Api of our implementation
+> the host component where all components come together
+>
+> This will also be the outside Api of our implementation
 
 2. `UserTableBody`
-   > Component responsible for the `Array`-level of our data
+> Component responsible for the `Array`-level of our data
 
 3. `UserTableRow`
-   > Component responsible for the `Object`-level of our data
+> Component responsible for the `Object`-level of our data
 
 4. `UserTableHeader`
-   > Encapsulate `<thead>`
+> Encapsulate `<thead>`
 
 ```html
 <!--UserTable.vue-->
@@ -405,15 +405,15 @@ Let's analyze the naming in the `UserTable` example to illustrate the pattern:
 
 1. `UserTable`
 
-   > The root component of the implementation. Its name consists of the feature identifier `UserTable` and nothing else.
+> The root component of the implementation. Its name consists of the feature identifier `UserTable` and nothing else.
 
 2. `UserTableHead`, `UserTableBody` and `UserTableRow`
 
-   > The children of the root component are named by the feature identifier and their appriopriate levels in the table: `Head`, `Body` and `Row`. They are still quite general components and do not need a specific description since they are unique to their levels.
+> The children of the root component are named by the feature identifier and their appriopriate levels in the table: `Head`, `Body` and `Row`. They are still quite general components and do not need a specific description since they are unique to their levels.
 
 3. `UserTableCellEmail`
 
-   > This is a highly specific component and therefore includes the feature identifier, the level and a specific description to reflect its specific usecase.
+> This is a highly specific component and therefore includes the feature identifier, the level and a specific description to reflect its specific usecase.
 
 Following this pattern makes it quite easy to name things while destructuring. It also leads to a well organized folder in the workspace explorer since components on the same level will be listed closely together - e.g. all `UserTableCell`-components have the same "prefix".
 

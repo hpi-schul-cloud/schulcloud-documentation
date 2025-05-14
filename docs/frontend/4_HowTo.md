@@ -7,11 +7,14 @@ sidebar_position: 5
 Collection of instructions on how to do certain things:
 
 <!-- vscode-markdown-toc -->
-* [Feature Flags](#FeatureFlags)
-* [Using generated API and it's types](#UsinggeneratedAPIanditstypes)
-* [User-Permissions on Pages](#User-PermissionsonPages)
-* [Exception handling](#Exceptionhandling)
-* [inject - fallback throwing an error](#inject-fallbackthrowinganerror)
+- [How To](HowTo)
+  - [Feature Flags ](#feature-flags-)
+  - [Using generated API and it's types ](#using-generated-api-and-its-types-)
+    - [Regenerating the clients](#regenerating-the-clients)
+    - [Using the generated api](#using-the-generated-api)
+  - [User-Permissions on Pages ](#user-permissions-on-pages-)
+  - [Exception handling ](#exception-handling-)
+  - [inject - fallback throwing an error ](#inject---fallback-throwing-an-error-)
 
 <!-- vscode-markdown-toc-config
 	numbering=false

@@ -6,8 +6,8 @@ sidebar_position: 3
 
 <!-- vscode-markdown-toc -->
 
-- [Code-Conventions](#Code-Conventions)     
-  - [data-testids](#data-testids)    
+- [Code Conventions](CodeConventions)
+  - [data-testids](#data-testids)
   - [ts-ignore-comments](#ts-ignore-comments)
   - [composables](#composables)
 

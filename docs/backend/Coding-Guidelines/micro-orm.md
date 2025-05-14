@@ -7,8 +7,7 @@ Therefore, the following is **not** sufficient:
 
 ```TypeScript
 @Entity()
-export class Example
-{
+export class ExampleEntity {
     @Property()
     termsAccepted = false;
 
@@ -21,8 +20,7 @@ The following works:
 
 ```TypeScript
 @Entity()
-export class Example
-{
+export class ExampleEntity {
     @Property()
     termsAccepted: boolean = false;
 
@@ -35,12 +33,11 @@ The better way is to provide the type through the decorator:
 
 ```TypeScript
 @Entity()
-export class Example
-{
-    @Property({type: 'boolean'})
+export class ExampleEntity {
+    @Property({ type: 'boolean' })
     termsAccepted = false;
 
-    @Property({type: Date})
+    @Property({ type: Date })
     createdAt = new Date();
 }
 ```
@@ -48,10 +45,9 @@ export class Example
 Errors can also occur when specifying multiple types (union types):
 
 ```TypeScript
- @Entity()
-export class Example
-{
-    @Poperty({nullable: true})
+@Entity()
+export class ExampleEntity {
+    @Poperty({ nullable: true })
     dueDate: Date | null;
 }
 ```
@@ -60,9 +56,8 @@ To set the metadata correctly, do the following:
 
 ```TypeScript
 @Entity()
-export class Example
-{
-    @Property({type: Date, nullable: true})
+export class ExampleEntity {
+    @Property({ type: Date, nullable: true })
     dueDate: Date | null;
 }
 ```
@@ -71,9 +66,11 @@ If type inference is not used, specifying the type through the property decorato
 
 ```TypeScript
 @Entity()
-export class Example
-{
+export class ExampleEntity {
     @Property()
     name: string;
 }
 ```
+
+For more information refer to the [MikroORM documentation](https://mikro-orm.io/docs/5.9/defining-entities).
+

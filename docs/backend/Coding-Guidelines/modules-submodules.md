@@ -53,24 +53,24 @@ Here are some strategies to handle circular dependencies:
 
 1. **Refactor Your Code**: The best way to handle circular dependencies is to refactor your code to remove them. This might involve moving some code to a new module to break the dependency cycle.
 
-    ```typescript
-    // @modules/moduleC/service.ts
-    import { PublicService, InterfaceOfModule, InterfaceOfSubmodule } from '@modules/moduleA';
-    import { PublicService, InterfaceOfModule, InterfaceOfSubmodule } from '@modules/moduleB';
-    ```
+```typescript
+// @modules/moduleC/service.ts
+import { PublicService, InterfaceOfModule, InterfaceOfSubmodule } from '@modules/moduleA';
+import { PublicService, InterfaceOfModule, InterfaceOfSubmodule } from '@modules/moduleB';
+```
 
 2. **Use Interfaces**: If the circular dependency is due to types, you can use interfaces and type-only imports to break the cycle.
 
-    ```typescript
-    // @modules/moduleC/service.ts
-    import { type PublicService } from '@modules/moduleA';
-    import { type PublicService } from '@modules/moduleB';
-    ```
+```typescript
+// @modules/moduleC/service.ts
+import { type PublicService } from '@modules/moduleA';
+import { type PublicService } from '@modules/moduleB';
+```
 
 3. **Use Events**: If you have a circular dependency between two modules that need to communicate with each other, consider using events to decouple them. This way, one module can emit an event that the other module listens to, without directly importing it.
 
-   - [https://documentation.dbildungscloud.dev/docs/schulcloud-server/Coding-Guidelines/event-handling](https://documentation.dbildungscloud.dev/docs/schulcloud-server/Coding-Guidelines/event-handling)
+- [https://documentation.dbildungscloud.dev/docs/schulcloud-server/Coding-Guidelines/event-handling](https://documentation.dbildungscloud.dev/docs/schulcloud-server/Coding-Guidelines/event-handling)
 
-   - [https://docs.nestjs.com/recipes/cqrs](https://docs.nestjs.com/recipes/cqrs)
+- [https://docs.nestjs.com/recipes/cqrs](https://docs.nestjs.com/recipes/cqrs)
 
 Remember, circular dependencies are usually a sign of tightly coupled code and can lead to maintenance issues down the line. It's best to refactor your code to avoid them if possible.

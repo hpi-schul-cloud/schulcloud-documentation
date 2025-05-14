@@ -28,7 +28,7 @@ export class YourUc {
     }
 
     public sampleUcMethod(user) {
-        this.logger.log(new YourLoggable({userId: user.id}));
+        this.logger.log(new YourLoggable({ userId: user.id }));
     }
 }
 ```

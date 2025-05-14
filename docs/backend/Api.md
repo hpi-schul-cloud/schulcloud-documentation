@@ -21,8 +21,8 @@ Usually the api follows the following syntax:
 When returning a response like this:
 
 ```typescript
-const response =
-{
+@Controller('cards')
+export class CardController {
     @ApiOperation({summary: 'Create a new element on a card.'})
     @ApiExtraModels(
         ExternalToolElementResponse,
@@ -47,12 +47,11 @@ const response =
     @ApiResponse({status: 403, type: ForbiddenException})
     @ApiResponse({status: 404, type: NotFoundException})
     @Post(':cardId/elements')
-    async createElement(
-        @Param() urlParams: CardUrlParams,
-        @Body() bodyParams: CreateContentElementBodyParams,
-        @CurrentUser() currentUser: ICurrentUser
-    ): Promise<AnyContentElementResponse>
-    {
+    public async createElement(
+		@Param() urlParams: CardUrlParams,
+		@Body() bodyParams: CreateContentElementBodyParams,
+		@CurrentUser() currentUser: ICurrentUser
+	): Promise<AnyContentElementResponse> {
         const {type, toPosition} = bodyParams;
         const element = await this.cardUc.createElement(currentUser.userId, urlParams.cardId, type, toPosition);
         const response = ContentElementResponseFactory.mapToResponse(element);
