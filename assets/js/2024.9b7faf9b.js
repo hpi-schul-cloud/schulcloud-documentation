@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdataport_docusaurus=self.webpackChunkdataport_docusaurus||[]).push([[2024],{2024:(e,u,a)=>{a.d(u,{createArchitectureServices:()=>r.S});var r=a(8815);a(3579)}}]);
