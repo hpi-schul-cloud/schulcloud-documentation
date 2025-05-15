@@ -262,3 +262,7 @@ export class B {
 	}
 }
 ```
+
+## Further Reading
+
+[how to detect dependency cycles](../detect-dependency-cycles.md)
