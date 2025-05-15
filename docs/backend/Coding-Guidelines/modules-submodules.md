@@ -43,34 +43,21 @@ And here's how you can import from the barrel:
 import { PublicService, InterfaceOfModule, InterfaceOfSubmodule } from '@modules/module-name';
 ```
 
-## Handling Circular Dependencies
+## Dependencies between Modules
 
-Circular dependencies occur when Module A depends on Module B, and Module B also depends on Module A. This can lead to unexpected behavior and hard-to-diagnose bugs.
+Our Modules are split into different areas, most importantly `core`, `infra`, and `modules`.
+
+`modules` contains all of our domain modules, that handle aspects of our business logic. `infra` contains mostly adapters to external system, generated clients, as well as purely technical modules. `core` contains indispensible modules like errorhandling and logging, that are needed by almost every other module.
+
+Aside of these major areas, there is also `testing`, which contains modules and code that are only needed to implement tests, as well as `shared`, which still contains helpers and other things that are used by multiple modules. However `shared` is considered depricated, and new code should not be added there.
+
+To avoid dependency cycles, we keep a strict hierarchy between these areas. `shared` and `testing` are not allowed to have any dependencies outside these areas. `infra` and `core` may use `shared` and `testing`, but never `modules`. `modules` are generally free to use other modules, but need to take special care to avoid cycles in their dependencies to other modules.
+
+The `apps` are our outermost layer of code, where the applications as a whole are assembled. Finally, our `migrations` exist outside the rest of the code, but like the apps may make use of modules.
 
 ![Module Structure](./../img/server_area_dependency_v3.svg)
 
-Here are some strategies to handle circular dependencies:
+## Further Reading
 
-1. **Refactor Your Code**: The best way to handle circular dependencies is to refactor your code to remove them. This might involve moving some code to a new module to break the dependency cycle.
-
-```typescript
-// @modules/moduleC/service.ts
-import { PublicService, InterfaceOfModule, InterfaceOfSubmodule } from '@modules/moduleA';
-import { PublicService, InterfaceOfModule, InterfaceOfSubmodule } from '@modules/moduleB';
-```
-
-2. **Use Interfaces**: If the circular dependency is due to types, you can use interfaces and type-only imports to break the cycle.
-
-```typescript
-// @modules/moduleC/service.ts
-import { type PublicService } from '@modules/moduleA';
-import { type PublicService } from '@modules/moduleB';
-```
-
-3. **Use Events**: If you have a circular dependency between two modules that need to communicate with each other, consider using events to decouple them. This way, one module can emit an event that the other module listens to, without directly importing it.
-
-- [https://documentation.dbildungscloud.dev/docs/schulcloud-server/Coding-Guidelines/event-handling](https://documentation.dbildungscloud.dev/docs/schulcloud-server/Coding-Guidelines/event-handling)
-
-- [https://docs.nestjs.com/recipes/cqrs](https://docs.nestjs.com/recipes/cqrs)
-
-Remember, circular dependencies are usually a sign of tightly coupled code and can lead to maintenance issues down the line. It's best to refactor your code to avoid them if possible.
+* [Handling Dependency Cycles](./solving-dependency-cycles.md)
+* [Architecture](../architecture.md)
