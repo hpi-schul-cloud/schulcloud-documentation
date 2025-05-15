@@ -6,56 +6,71 @@ The property decorator requires explicit assignment of the type to the property 
 Therefore, the following is **not** sufficient:
 
 ```TypeScript
-  @Property()
-  termsAccepted = false;
+@Entity()
+export class ExampleEntity {
+    @Property()
+    termsAccepted = false;
 
- @Property()
- createdAt = new Date();
-
+    @Property()
+    createdAt = new Date();
+}
 ```
 
 The following works:
 
 ```TypeScript
- @Property()
- termsAccepted: boolean = false;
+@Entity()
+export class ExampleEntity {
+    @Property()
+    termsAccepted: boolean = false;
 
- @Property()
- createdAt: Date = new Date();
-
+    @Property()
+    createdAt: Date = new Date();
+}
 ```
 
 The better way is to provide the type through the decorator:
 
 ```TypeScript
- @Property({ type: 'boolean' })
- termsAccepted = false;
+@Entity()
+export class ExampleEntity {
+    @Property({ type: 'boolean' })
+    termsAccepted = false;
 
- @Property({ type: Date })
- createdAt = new Date();
-
+    @Property({ type: Date })
+    createdAt = new Date();
+}
 ```
 
 Errors can also occur when specifying multiple types (union types):
 
 ```TypeScript
- @Poperty({ nullable: true })
- dueDate: Date | null;
-
+@Entity()
+export class ExampleEntity {
+    @Poperty({ nullable: true })
+    dueDate: Date | null;
+}
 ```
 
 To set the metadata correctly, do the following:
 
 ```TypeScript
- @Property({ type: Date, nullable: true })
- dueDate: Date | null;
-
+@Entity()
+export class ExampleEntity {
+    @Property({ type: Date, nullable: true })
+    dueDate: Date | null;
+}
 ```
 
 If type inference is not used, specifying the type through the property decorator is not necessary:
 
 ```TypeScript
- @Property()
- name: string;
-
+@Entity()
+export class ExampleEntity {
+    @Property()
+    name: string;
+}
 ```
+
+For more information refer to the [MikroORM documentation](https://mikro-orm.io/docs/5.9/defining-entities).
+

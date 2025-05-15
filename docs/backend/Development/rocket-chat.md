@@ -16,7 +16,7 @@ rs.initiate({"_id" : "rs0", "members" : [{"_id" : 0, "host" : "localhost:27017"}
 
 ## Start rocketChat
 
-(check the latest settings <https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/roles/rocketchat/templates/configmap.yml.j2#L9>)
+(check the latest settings [https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/roles/rocketchat/templates/configmap.yml.j2#L9](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/roles/rocketchat/templates/configmap.yml.j2#L9))
 
 Please not that the displayed //172.29.173.128 is the IP address of the mongoDB docker container.
 You can get the ip over the command:  docker inspect rocket-chat-mongodb | grep "IPAddress" (dependent on our system)

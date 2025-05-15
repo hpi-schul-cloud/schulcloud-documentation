@@ -19,11 +19,11 @@ export class MyFeathersServiceAdapter {
 
     async get(): Promise<string[]> {
         const service = this.feathersServiceProvider.getService(`path`);
-        const result = await service.get(...)
+        const result = await service.get( /* ... */)
 
         return result;
     }
-
+}
 ```
 
 ## Access NestJS injectable from Feathers

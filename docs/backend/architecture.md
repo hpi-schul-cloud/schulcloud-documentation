@@ -104,7 +104,7 @@ When something is needed in more than one module, it needs to be explicitly expo
 export class ExampleModule {}
 
 @Module({
-  imports: [ExampleModule]
+  imports: [ExampleModule],
   providers: [SomeOtherService],
 })
 export class OtherModule {}
@@ -122,7 +122,7 @@ The controllers and the corresponding usecases, along with the api tests for the
 
 ```js
 @Module({
-  imports: [ExampleModule]
+  imports: [ExampleModule],
   providers: [ExampleUc],
   controllers: [ExampleController],
 })

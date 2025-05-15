@@ -191,7 +191,7 @@ const users: User[] = [
     id: 1,
     name: 'User 1',
     email: 'user1@example.com'
-  }
+  },
   {
     id: 2,
     name: 'User 2',
@@ -230,13 +230,13 @@ How can we easily split up the template?
 
 A rule of thumb can be to not handle more than one level of your data structure in a single component. The `User` object consists of three levels: 
 
- 1. `Array`
- 2. `Object`
- 3. `Property`
+1. `Array`
+2. `Object`
+3. `Property`
 
 We can use this list to create subcomponents for the table: 
 
-1. `UserTable` 
+1. `UserTable`
 > the host component where all components come together
 >
 > This will also be the outside Api of our implementation

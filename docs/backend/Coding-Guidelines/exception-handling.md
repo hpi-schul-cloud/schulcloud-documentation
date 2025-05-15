@@ -6,12 +6,16 @@ We separate our business exceptions from technical exceptions. While for technic
 
 By default, implementations of BusinessException must define
 
-```JSON
-code: 500
-type: "CUSTOM_ERROR_TYPE",
-title: "Custom Error Type",
-message: "Human readable details",
-// additional: optionalData
+```typescript
+// ...
+{
+  code: 500,
+  type: "CUSTOM_ERROR_TYPE",
+  title: "Custom Error Type",
+  message: "Human readable details"
+  // additional: optionalData
+}
+// ...
 ```
 
 There is a GlobalErrorFilter provided to handle exceptions, which cares about the response format of exceptions and logging. It overrides the default NestJS APP_FILTER in the core/error-module.

@@ -57,7 +57,7 @@ For internal communication we use a queue based solution instead of http.
 The pods with queue (amqp.module) and with https controller (api.module) can be started seperatly.
 
 For queue based solution we use rabbitMQ AMQP.
-> <https://www.rabbitmq.com/tutorials/amqp-concepts.html>
+> [https://www.rabbitmq.com/tutorials/amqp-concepts.html](https://www.rabbitmq.com/tutorials/amqp-concepts.html)
 We only have a consumer in controller, but no producer.
 The files service uses the rabbitMQ modul and solves the mapping to the exchange types.
 

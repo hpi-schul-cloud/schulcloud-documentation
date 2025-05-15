@@ -35,31 +35,33 @@ avoid directly returning the result of some computation. Instead, use a variable
 Exceptions can be made when the result of the computation is already clear from the function name, and the function is sufficiently simple to not occlude its meaning.
 
 ```typescript
-public doSomething(): FileRecordParams[] {
-    // ... more logic here
-    const fileRecordParams = fileRecords.map((fileRecord) => Mapper.toParams(fileRecord));
-                                        // hint: this empty line can be increase the readability
-    return fileRecordParams;
-}
+class SomeClass {
+    public doSomething(): FileRecordParams[] {
+        // ... more logic here
+        const fileRecordParams = fileRecords.map((fileRecord) => Mapper.toParams(fileRecord));
+        // hint: this empty line can be increase the readability
+        return fileRecordParams;
+    }
 
-public getName(): String {
-    return this.name;
-}
+    public getName(): string {
+        return this.name;
+    }
 
-public getInfo(): IInfo {
-    // ... more logic here
-    return { name, parentId, parentType }; // but if the return include many keys, please put it first to a const
+    public getInfo(): FileInfo {
+        // ... more logic here
+        return { name, parentId, parentType }; // but if the return include many keys, please put it first to a const
+    }
 }
 ```
 
 ### avoid directly passing function results as parameters
 
 ```typescript
-function badExample(): void {
+const badExample = (): void => {
     doSomething(this.extractFromParams(params), this.createNewConfiguration());
 }
 
-function goodExample(): void {
+const goodExample = (): void => {
     const neededParams = this.extractFromParams(params);
     const configuration = this.createNewConfiguration();
     doSomething(neededParams, configuration);
@@ -69,9 +71,12 @@ function goodExample(): void {
 ### explicit return type
 
 ```typescript
-public doSomething(): FileRecords[] {
-    //...
-    return fileRecords
+class SomeClass {
+    public doSomething(): FileRecord[] {
+        // ...
+        // const fileRecords = ...
+        return fileRecords;
+    }
 }
 ```
 

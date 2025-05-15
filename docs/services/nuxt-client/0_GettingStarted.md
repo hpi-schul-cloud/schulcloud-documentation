@@ -12,19 +12,19 @@ In order to run this client, you need to have the [legacy-client](https://github
 
 ### Start the Server
 
-0. Clone the repository
+1. Clone the repository
 
     ```sh
     git clone git@github.com:hpi-schul-cloud/nuxt-client.git
     ```
 
-1. Install the required dependencies:
+2. Install the required dependencies:
 
    ```sh
    npm ci
    ```
 
-2. Start the development server:
+3. Start the development server:
 
    ```sh
    npm run serve

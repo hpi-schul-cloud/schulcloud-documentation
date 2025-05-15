@@ -11,7 +11,7 @@ In tldraw-server, **Yjs**, **Redis** and **S3 storage** are integrated to suppor
    - In tldraw, the **drawing canvas** or **document** is represented as a **Yjs document**. Users can draw shapes, lines, text, or modify the canvas in real time.
    - The **Yjs document** tracks all changes in the form of small, incremental edits. These edits could be changes to the position of objects, the creation of new objects (e.g., shapes or lines), or modification of existing elements.
 
-. **Redis for Real-Time Data Synchronization:**
+2. **Redis for Real-Time Data Synchronization:**
    - **Redis** is used to store and synchronize these Yjs documents across multiple users in real time. 
    - Redis, being a fast in-memory key-value store, provides low-latency updates that are crucial for real-time collaboration. It is used for:
      - **Broadcasting updates**: When one user makes a change, Yjs sends that change to the Redis server, which then distributes the change to all other connected users.

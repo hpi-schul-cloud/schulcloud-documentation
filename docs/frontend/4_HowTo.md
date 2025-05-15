@@ -7,11 +7,14 @@ sidebar_position: 5
 Collection of instructions on how to do certain things:
 
 <!-- vscode-markdown-toc -->
-* [Feature Flags](#FeatureFlags)
-* [Using generated API and it's types](#UsinggeneratedAPIanditstypes)
-* [User-Permissions on Pages](#User-PermissionsonPages)
-* [Exception handling](#Exceptionhandling)
-* [inject - fallback throwing an error](#inject-fallbackthrowinganerror)
+- [How To](HowTo)
+  - [Feature Flags ](#feature-flags-)
+  - [Using generated API and it's types ](#using-generated-api-and-its-types-)
+    - [Regenerating the clients](#regenerating-the-clients)
+    - [Using the generated api](#using-the-generated-api)
+  - [User-Permissions on Pages ](#user-permissions-on-pages-)
+  - [Exception handling ](#exception-handling-)
+  - [inject - fallback throwing an error ](#inject---fallback-throwing-an-error-)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -28,7 +31,7 @@ Our Vue-Frontend requests all FEATURE-flags and provides global access to them b
 ```typescript
 import { envConfigModule } from "@/store";
 if (envConfigModule.getEnv.FEATURE_COPY_SERVICE_ENABLED) {
-    ...
+    // ...
 }
 ```
 
@@ -63,8 +66,7 @@ npm run generate-client:filestorage
 
 The generated APIs can easily be used. Examples can be seen in any current store-implementation - like here:
 
-```typescript
-src/store/share-course.ts:
+```typescript title="src/store/share-course.ts:"
 
 import {
  ShareTokenApiFactory,
@@ -74,10 +76,10 @@ import {
  ShareTokenResponse,
 } from "../serverApi/v3/api";
 
-...
+// ...
 
 export default class ShareCourseModule extends VuexModule {
- ...
+ // ...
  private get shareApi(): ShareTokenApiInterface {
   return ShareTokenApiFactory(undefined, "v3", $axios);
  }
@@ -92,14 +94,14 @@ export default class ShareCourseModule extends VuexModule {
    expiresInDays: payload.hasExpiryDate ? 21 : null,
    schoolExclusive: payload.isSchoolInternal,
   };
-  ...
+  // ...
   const shareTokenResult =
    await this.shareApi.shareTokenControllerCreateShareToken(
     shareTokenPayload
    );
-  ...
+  // ...
  }
-    ...
+    // ...
 }
 
 ```
@@ -134,21 +136,21 @@ The permissions are controlled by `createPermissionGuard` middleware method that
 // src/router/routes.ts
 
 // with a fallback route
-{
+const withFallback = {
  path: "/your/route",
  component: () => import("../pages/your.page.vue"),
  name: "yourRouteName",
  beforeEnter: createPermissionGuard(["ADMIN_VIEW"], "/yourFallBackRoute"),
-},
+}
 
 // without a fallback,
 // it shows a '401' file if the user doesn't have permissions
-{
+const withoutFallback = {
  path: "/your/route",
  component: () => import("../pages/your.page.vue"),
  name: "yourRouteName",
  beforeEnter: createPermissionGuard(["ADMIN_VIEW", "SCHOOL_EDIT"]),
-},
+}
 ```
 
 ## Exception handling <a name='Exceptionhandling'></a>

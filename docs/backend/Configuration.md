@@ -13,17 +13,17 @@ We want to avoid any process.env.XXX call inside of the code.
 
 ### FeatherJS and Express
 
-Our legacy stack uses featherJS <https://docs.feathersjs.com/api/configuration.html>.
+Our legacy stack uses featherJS [https://docs.feathersjs.com/api/configuration.html](https://docs.feathersjs.com/api/configuration.html).
 It is embedded in the express application.
 
 Express and featherJS use the environment variable as the default behavior.
 NODE_ENV=production|test|default
 It is extended over featherJS and directly matched to
 ./config/
-    default.json
-    test.json
-    prodcution.json (deprecated)
-    development.json (matching added by us)
+default.json
+test.json
+prodcution.json (deprecated)
+development.json (matching added by us)
 
 Default is (like it is expected) as default and is overwritten by added environment variables from test.json, or production.json.
 
@@ -123,7 +123,7 @@ We only add values to it if we need them. If we want the default values from def
 on all production like systems (dev, ref, production), they shouldn't be added to configurations in autodeployment.
 > Over this way we can reduce the total amount of environment values in production pods.
 
-<https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/all/config.yml>
+[https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/all/config.yml](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/all/config.yml)
 
 > For documentation on how it is works, plase look at our confluence. No github documentation exists atm.
 
@@ -131,7 +131,8 @@ on all production like systems (dev, ref, production), they shouldn't be added t
 
 #### Setup configuration interfaces
 
-<https://docs.nestjs.com/techniques/configuration>
+[https://docs.nestjs.com/techniques/configuration](https://docs.nestjs.com/techniques/configuration)
+[https://docs.nestjs.com/techniques/configuration](https://docs.nestjs.com/techniques/configuration)
 
 We implemented a solution that is based on nestjs and combined it with the parsing from the @hpi-schul-cloud/commons of the existing config files.
 In future we want to replace it with a nestjs only solution.
@@ -321,11 +322,10 @@ The solution is the only existing way how environments should be passed to the n
 Please be careful! Secrets should be never exposed!
 They are readable in browser and request response.
 
-<https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts>
+[https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts)
 
-<http://{{HOST}}:{{PORT}}/api/v3/config/public>
-<http://{{HOST}}:{{PORT}}/api/v3/files/config/public>
-
+http://\{\{HOST}}:\{\{PORT}}/api/v3/config/public   
+http://\{\{HOST}}:\{\{PORT}}/api/v3/files/config/public
 
 ## Desired changes in future
 

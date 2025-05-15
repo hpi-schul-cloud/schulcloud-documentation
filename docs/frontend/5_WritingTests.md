@@ -36,7 +36,7 @@ The enable us to **refactor** the internals of our components later on.
 - **negative tests** test **error-cases** or **exception**-behaviour
 - you need to write both to ensure your component works correctly
 - think of edge-cases that might break your component e.g. when providing input to the component:
-  - **numbers**: high numbers, negative numbers, float<->integer, at the edge of a range that is expected...
+  - **numbers**: high numbers, negative numbers, float\<->integer, at the edge of a range that is expected...
   - **dates**: none existing dates e.g. 30th February 2023, far away future,...
   - **strings**: umlauts, url-special-characters (?, &, =, \/\/: ), very long strings for names, long strings without linebreaks
   - **totally incorrect data**: e.g. giving a string instead of a number
@@ -86,10 +86,10 @@ Especially in large test-files it is very helpful for the reader to have a tree-
 ```TypeScript
 describe('@components/share/ImportModal', () => {
     describe('when action button is clicked', () => {
-        ...
+        // ...
     });
 
-    ...
+    // ...
 
     describe("when backend returns an error", () => {
 
@@ -102,13 +102,13 @@ Example taken from here [Vue NYC - Component Tests with Vue.js - Matt O'Connell]
 ```TypeScript
 describe('@components/something/AddButton', () => {
     describe(':props', () => {
-        it(':label - should render a button with the passed-in label text', () => { ... })
+        it(':label - should render a button with the passed-in label text', () => { /* ... */ })
     });
 
-    ...
+    // ...
 
     describe("@events", () => {
-        it('@add - should emit an "add" event when the button is clicked', () => { ... })
+        it('@add - should emit an "add" event when the button is clicked', () => { /* ... */ })
     });
 });
 ```
@@ -124,12 +124,12 @@ There is a reason we use the it-alias for writing our code and not the test-meth
 ```TypeScript
 Bad:
 it('name changes on button click')
-...
+// ...
 
 Good:
-it('should display the info text', ... );
-it('should not render migration start button', ... );
-it('should return the translation', ... );
+it('should display the info text', /* ... */ );
+it('should not render migration start button', /* ... */ );
+it('should return the translation', /* ... */ );
 ```
 
 ### data-testids
@@ -181,7 +181,7 @@ You can test asynchronous behavior by using ***Vue.nextTick()***:
 
 ```TypeScript
 await Vue.nextTick();
-...
+// ...
 ```
 
 OR by ***trigger***ing an effect and ***await***ing this effect to take place:
@@ -189,7 +189,7 @@ OR by ***trigger***ing an effect and ***await***ing this effect to take place:
 ```TypeScript
 const btnNext = wrapper.find(`[data-testid="dialog-next"]`);
 await btnNext.trigger("click");
-...
+// ...
 ```
 
 **see also**: [VueTestUtils - Testing Asynchronous Behavior](https://v1.test-utils.vuejs.org/guides/#testing-asynchronous-behavior)
@@ -210,7 +210,7 @@ const consoleErrorSpy = jest
     .spyOn(console, "error")
     .mockImplementation();
 
-...
+// ...
 
 expect(consoleErrorSpy).toHaveBeenCalledWith(
     expect.any(ApplicationError)
@@ -272,7 +272,7 @@ let yourModule: jest.Mocked<YourModule>;
 
 schoolsModule = createModuleMocks(YourModule, {
     yourMethodName: {
-        ...
+        // ...
     },
     ...yourGetters,
 }) as jest.Mocked<YourModule>;
@@ -280,14 +280,14 @@ schoolsModule = createModuleMocks(YourModule, {
 
 mount(YourComponentToBeTested, {
     ...createComponentMocks({
-        ...
+        // ...
     }),
     provide: {
         yourModule,
     },
 });
 
-expect(yourModule.<yourMethodName>).toHaveBeenCalledWith(...);
+expect(yourModule.yourMethodName).toHaveBeenCalledWith( /* ... */ );
 ```
 
 #### Testing a store
@@ -297,7 +297,7 @@ import YourModule from "./your-module";
 
 const yourModule = new YourModule({});
 
-...
+// ...
 
 // using `jest.spyOn()`
 it("should call something", () => {
@@ -322,11 +322,11 @@ That's beneficial as it let's us stick to the BlackBox-Idea: we should not know 
 If you need to mock a composable, you can simple do this like in the following example. You only have to ensure to return everything the composable returns... but mocked versions of it.
 
 ```TypeScript
-...
+// ...
 jest.spyOn(ourExampleComposable, "useExample").mockReturnValue({
   // return mocks of what the composable would have returned
 });
-...
+// ...
 ```
 
 ### Mocking Pinia-Stores
@@ -342,16 +342,16 @@ Example from RoomDetails.page.unit.ts:
 ```TypeScript
 import { mockedPiniaStoreTyping } from "@@/tests/test-utils";
 
-...
+// ...
 
-describe("..." ()=> {
-    const setup = (...) => {
-        ...
+describe("...", ()=> {
+    const setup = (/* ... */) => {
+        // ...
         const roomDetailsStore = mockedPiniaStoreTyping(useRoomDetailsStore);
-        ...
+        // ...
         return {
             roomDetailsStore,
-            ...
+            // ...
         };
     };
 
@@ -359,7 +359,7 @@ describe("..." ()=> {
         it("should ...", async () => {
             const { wrapper, roomDetailsStore, room } = setup();
 
-            ...
+            // ...
             expect(roomDetailsStore.createBoard).toHaveBeenCalledWith(
                 room.id,
                 serverApi.BoardLayout.Columns,

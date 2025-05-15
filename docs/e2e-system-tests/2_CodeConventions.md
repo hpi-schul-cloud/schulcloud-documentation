@@ -222,25 +222,25 @@ Test IDs are used to select elements on the web page, including buttons, input f
 
 ```js
 // editCourseSteps.spec.js
-Given('a user is logged in', () => { ... });
+Given('a user is logged in', () => { /* ... */ });
 
-When('the user edits the course details', () => { ... });
+When('the user edits the course details', () => { /* ... */ });
 
-Then('the course should be updated', () => { ... });
+Then('the course should be updated', () => { /* ... */ });
 ```
 
 **_Example 2: Referencing Common Step Definitions_**
 
 ```js
 // commonCourseSteps.spec.js
-Given('a user is logged in', () => { ... });
+Given('a user is logged in', () => { /* ... */ });
 
 // editCourseSteps.js
 // Commented out common steps with reference
 // Refer to: commonCourseSteps.spec.js
-When('the user edits the course details', () => { ... });
+When('the user edits the course details', () => { /* ... */ });
 
-Then('the course should be updated', () => { ... });
+Then('the course should be updated', () => { /* ... */ });
 ```
 
 ---

@@ -12,7 +12,7 @@ toc_max_heading_level: 4
 Files should be consistently named like this:
 
 | file content | style      | filename                           | comment                                                   |
-| ------------ | ---------- | ---------------------------------- | --------------------------------------------------------- |
+|--------------|------------|------------------------------------|-----------------------------------------------------------|
 | Components   | PascalCase | `YourComponent.vue`                | best practice                                             |
 | Pinia stores | PascalCase | `BoardCard.store.ts`               | placed in data- modules                                   |
 | Composables  | CamelCase  | `confirmationDialog.composable.ts` | current convention                                        |
@@ -45,7 +45,7 @@ _Note: in above documentation **libraries** are equivalent to building-blocks an
 There are different types of building blocks each with a different purpose.
 
 | type    | example                                               | comment                                                                                                                                                                                            |
-| ------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Page    | modules / **`page`** / dashboard                      | Contains a subpage of the application. Orchestrates Feature and UI building-blocks.                                                                                                                |
 | Feature | modules / **`feature`** / calendar                    | Complex features with **stateful / smart components**. Usually specialized to fulfill specific roles in the App. Can also contain presentational components that are specialized for this feature. |
 | UI      | modules / **`ui`** / forms                            | **Stateless / presentational components** which get their data via props and emit events. Usually less specialized.                                                                                |
@@ -58,13 +58,13 @@ _**Hint**: currently the modules are all placed under /components/feature-... et
 
 Each type is only allowed to import modules of some of the other types.
 
-| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Allowed to Import &#8594; <br/> It is &#8595; | page | feature | data | ui  | util |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---- | ------- | ---- | --- | ---- |
-| page                                                                                                                                                          |      | ✔       | ✔    | ✔   | ✔    |
-| feature                                                                                                                                                       |      | ✔       | ✔    | ✔   | ✔    |
-| data                                                                                                                                                          |      |         | ✔    |     | ✔    |
-| ui                                                                                                                                                            |      |         |      | ✔   | ✔    |
-| util                                                                                                                                                          |      |         |      |     | ✔    |
+| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Allowed to Import &#8594; <br/> It is &#8595; | page | feature | data | ui | util |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|------|---------|------|----|------|
+| page                                                                                                                                                          |      | ✔       | ✔    | ✔  | ✔    |
+| feature                                                                                                                                                       |      | ✔       | ✔    | ✔  | ✔    |
+| data                                                                                                                                                          |      |         | ✔    |    | ✔    |
+| ui                                                                                                                                                            |      |         |      | ✔  | ✔    |
+| util                                                                                                                                                          |      |         |      |    | ✔    |
 
 #### Type: Page
 
