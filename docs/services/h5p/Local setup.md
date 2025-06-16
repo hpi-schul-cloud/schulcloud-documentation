@@ -218,11 +218,11 @@ Before starting the h5p-editor app, make sure to:
 Update or clone the latest version of the schulcloud-server, client and nuxt-client.
 See: [Local Project Setup](https://docs.dbildungscloud.de/pages/viewpage.action?pageId=203882620#LocalProjectSetup/Projektlokaleinrichten(WIP)-InstallationinWindows)
 
-Enable the feature flag "FEATURE_H5P_EDITOR_ENABLED" in the `.env` of the schulcloud-client (old client)
+Enable the feature flag "FEATURE_COLUMN_BOARD_H5P_ENABLED" in the `.env` of the schulcloud-server
 
 **.env**
 ```
-FEATURE_H5P_EDITOR_ENABLED=true
+FEATURE_COLUMN_BOARD_H5P_ENABLED=true
 ```
 
 **Run the file-storage app locally**
