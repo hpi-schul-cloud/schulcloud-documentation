@@ -61,7 +61,7 @@ volumes:
 
 If the ports 9000 or 9001 are not available for your local machine, then use (pay special attention to the ports here!):
 
-*docker-compose.yml*
+**docker-compose.yml**
 ```yml
 services:
   minio-s3-storage:
@@ -206,9 +206,8 @@ Open a browser and test that the static files server is working correctly with t
 
 The first url should show you the text "pong", the second a picture of a green plus.
 
-**IMPORTANT**
-
-Each time the h5p-staticfiles-server repo is updated, you will have to redo the steps here to make sure the h5p-editor works properly.
+**IMPORTANT** : Each time the h5p-staticfiles-server repo is updated, you will have to redo the steps here to make sure 
+the h5p-editor works properly.
 
 
 ### Testing the h5p-editor app
@@ -230,7 +229,7 @@ FEATURE_H5P_EDITOR_ENABLED=true
 
 The file-storage app is located in the schulcloud-server repo. Before starting the file-storage, make sure to configure the file-storage app properly. The configurations are in the
 
-.env
+**.env**
 ```
 FILES_STORAGE__S3_ENDPOINT=http://localhost:9000
 FILES_STORAGE__S3_ACCESS_KEY_ID=<YOUR_LOCAL_S3_KEY_ID>
