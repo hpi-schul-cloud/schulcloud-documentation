@@ -20,6 +20,3 @@ updates and installs the H5P libraries offered by the editor.
 The cronjob is defined in the ansible folder of the `schulcloud-server` repo.
 
 The list of libraries to be installed and updated is defined in the `dof-app-deploy` repo (in the `misc.yml` file).
-
-## Additional Documents
-- [Handover Documentation](https://docs.dbildungscloud.de/display/N21P/H5P+integration+within+boards)
