@@ -13,7 +13,7 @@ That every developer to every time can fast understand part of the code and can 
 This include a lot more then only DDD, but DDD  support us that the DDD layer, the core of our application, ridge this goal.
 
 ## DDD Types
-- https://martinfowler.com/bliki/EvansClassification.html [1]
+[1] https://martinfowler.com/bliki/EvansClassification.html 
 
 ### Entity (Domain Object)
 "Objects that have a distinct identity that runs through time and different representations. You also hear these called 'reference objects'."[1]
