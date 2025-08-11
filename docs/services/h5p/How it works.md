@@ -15,7 +15,7 @@ from lumi specifies what is to be implemented in the microservice for the H5P ed
 
 ## Library Management
 The `h5p-library-management` module contains services used by the H5P library management cronjob to perform regular
-updates and installs the H5P libraries offered by the editor.
+updates and installs the H5P libraries offered by the editor (see [H5P library management service](./Library%20management/H5P%20library%20management%20service.md) for more information).
 
 The cronjob is defined in the ansible folder of the `schulcloud-server` repo.
 

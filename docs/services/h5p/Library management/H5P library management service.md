@@ -1,0 +1,61 @@
+# H5P library management service
+
+## Overview
+
+`H5PLibraryManagementService` is a NestJS service responsible for managing H5P libraries in the schulcloud-server application. It automates the installation, synchronization, and removal of H5P libraries based on a configurable wish list, ensuring that only the desired libraries and their latest versions are available in the system.
+
+## Key Responsibilities
+- **Install libraries** from the H5P Hub according to a wish list defined in a YAML file.
+- **Synchronize libraries** between local storage and S3, ensuring metadata consistency.
+- **Uninstall unwanted libraries** that are not in the wish list and have no dependents.
+- **Log metrics and errors** for all operations to aid in monitoring and debugging.
+
+## Configuration
+- The wish list of libraries is defined in a YAML file, whose path is set via the `H5P_EDITOR__LIBRARY_LIST_PATH` configuration property.
+- The service reads this file at startup and uses it to determine which libraries should be installed or removed.
+
+## Main Methods
+- `run()`: Orchestrates the full management job, including installation, synchronization, and removal of libraries.
+- `installLibrariesAsBulk()`: Installs all libraries from the wish list that are not already available.
+- `synchronizeLibraries()`: Ensures local and S3 metadata for libraries are consistent and up-to-date.
+- `uninstallUnwantedLibrariesAsBulk()`: Removes libraries not in the wish list and without dependents.
+
+## Library Versioning
+- Library versions are tracked using the format: `machineName-major.minor.patch`.
+- The service ensures only the latest versions are installed and synchronizes metadata of older versions, which were build and uploaded to the S3/Cloud storage using :
+  - the [`update-h5p-map` script](./scripts/update-h5p-map.md) to create a mapping between the machine name of all H5P libraries (e.g. `H5P.InteractiveVideo`) and the name of the respective GitHub repository (e.g. ` h5p/h5p-interactive-video`)
+  - the [`build-h5p-libraries` script](./scripts/build-h5p-libraries.md) to download, process and build all latest patch versions of all available major-minor releases, and 
+  - the [`upload-h5p-libraries` script](./scripts/upload-h5p-libraries) to upload all the built libraries/packages to the respective S3/Cloud storage.
+
+## Error Handling & Logging
+- All major operations are logged using a custom logger.
+- Errors during installation, update, or removal are caught and logged, with failed operations retried or skipped as appropriate.
+
+## Extensibility
+- The service is designed to be extensible, allowing for additional storage backends, permission systems, or library sources to be integrated with minimal changes.
+
+## Usage Example
+
+```typescript
+// Inject and use the service in a NestJS module
+@Injectable()
+export class SomeModule {
+  constructor(private readonly h5pLibraryManagementService: H5PLibraryManagementService) {}
+
+  async manageLibraries() {
+    await this.h5pLibraryManagementService.run();
+  }
+}
+```
+
+## Related Files
+- `h5p-library-management.service.ts`: Main service implementation
+- `h5p-library-management.config.ts`: Configuration interface
+- `h5p-library-management.service.spec.ts`: Unit tests
+
+## References
+- [H5P Hub Documentation](https://h5p.org/documentation)
+- [NestJS Documentation](https://docs.nestjs.com/)
+
+---
+For further details, see inline comments in the service source code.
