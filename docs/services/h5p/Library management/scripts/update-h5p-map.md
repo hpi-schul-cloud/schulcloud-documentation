@@ -42,7 +42,7 @@ node scripts/h5p/update-h5p-map.js --help
 
 ## Required Environment Variable
 
-To build H5P libraries using `build-h5p-libraries.js`, you only need the following environment variable:
+To update the H5P library to GitHub repository map using `update-h5p-map.js`, you only need the following environment variable:
 
 - `GITHUB_PERSONAL_ACCESS_TOKEN`: Required if you need to access private repositories or increase GitHub API rate limits. Set this variable to a valid GitHub personal access token.
 
