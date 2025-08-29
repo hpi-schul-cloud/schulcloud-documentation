@@ -12,7 +12,7 @@ This section provides instructions for setting up the Cypress-Cucumber test envi
 
 Before getting started, ensure the following tools are installed:
 
-- Node.js: Download Node v18
+- Go to [nodejs.org](https://nodejs.org/) and click the green "LTS" button to download the recommended and stable version of Node.js.
 - Git: Download Git
 - Browser: (Recommended: Microsoft Edge) Download Edge Browser
 - IDE: Choose any IDE (Recommended: VS Code)
