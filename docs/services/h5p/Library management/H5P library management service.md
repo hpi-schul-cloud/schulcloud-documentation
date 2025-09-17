@@ -4,21 +4,49 @@
 
 `H5PLibraryManagementService` is a NestJS service responsible for managing H5P libraries in the schulcloud-server application. It automates the installation, synchronization, and removal of H5P libraries based on a configurable wish list, ensuring that only the desired libraries and their latest versions are available in the system.
 
-## Key Responsibilities
-- **Install libraries** from the H5P Hub according to a wish list defined in a YAML file.
-- **Synchronize libraries** between local storage and S3, ensuring metadata consistency.
-- **Uninstall unwanted libraries** that are not in the wish list and have no dependents.
-- **Log metrics and errors** for all operations to aid in monitoring and debugging.
+## Responsibilities
+- **Install libraries** from a configured wish list, always fetching the latest version from H5P Hub.
+- **Uninstall libraries** not in the wish list and not required by other libraries.
+- **Synchronize metadata** between the database and S3 storage.
+- **Check and remove broken libraries** that fail consistency checks.
+- **Log all operations** for monitoring and debugging.
 
 ## Configuration
 - The wish list of libraries is defined in a YAML file, whose path is set via the `H5P_EDITOR__LIBRARY_LIST_PATH` configuration property.
 - The service reads this file at startup and uses it to determine which libraries should be installed or removed.
 
 ## Main Methods
-- `run()`: Orchestrates the full management job, including installation, synchronization, and removal of libraries.
-- `installLibrariesAsBulk()`: Installs all libraries from the wish list that are not already available.
-- `synchronizeLibraries()`: Ensures local and S3 metadata for libraries are consistent and up-to-date.
-- `uninstallUnwantedLibrariesAsBulk()`: Removes libraries not in the wish list and without dependents.
+
+### `run()`
+Executes the full library management workflow:
+1. Logs start.
+2. Gets available libraries.
+3. Uninstalls unwanted libraries.
+4. Installs desired libraries.
+5. Synchronizes metadata.
+6. Removes broken libraries.
+7. Logs finish and metrics.
+
+### `uninstallUnwantedLibrariesAsBulk()`
+Removes libraries not in the wish list and not needed by others, iteratively.
+
+### `installLibrariesAsBulk(availableLibraries)`
+Installs all libraries from the wish list, ensuring the latest versions are present.
+
+### `synchronizeDbEntryAndLibraryJson()`
+Ensures metadata in the database matches the library.json in S3, updating or adding as needed.
+
+### `checkAndRemoveBrokenLibraries()`
+Checks all libraries for consistency and removes any that fail.
+
+## Helper Methods
+- **Consistency Checks**: `checkConsistency`, `jsIsMissing`, `cssIsMissing`
+- **Metadata Filtering**: `filterLibraryMetadata`, `filterInstalledLibrary`
+- **Logging**: Methods for logging start, finish, errors, and removals.
+- **Error Handling**: Handles timeouts, consistency errors, and missing files.
+
+## Configuration
+Uses values from `IH5PLibraryManagementConfig` for settings like lock times and library list paths.
 
 ## Library Versioning
 - Library versions are tracked using the format: `machineName-major.minor.patch`.
