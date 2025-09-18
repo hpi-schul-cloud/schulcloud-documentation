@@ -25,6 +25,10 @@ docker run -t -d \
    collabora/code
 ```
 
-4. **Open a document in Schulcloud:**
+Opening http://localhost:9980/ in a browser afterwards should answer with status OK.
+
+On Mac DDEV machines with Docker Desktop running, please make sure that the feature _network host_ is activated in Settings > Ressources > Network.
+
+3. **Open a document in Schulcloud:**
    - Navigate to the column board. Add an office document.
    - On click the document should open in the Collabora editor in your browser.
