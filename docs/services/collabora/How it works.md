@@ -1,4 +1,4 @@
-# How Collabora Works
+# How it works
 Collabora is an online office suite that enables collaborative editing of documents, spreadsheets, and presentations directly in the browser. It integrates with Schulcloud to provide users with online and real-time editing capabilities. Office documents are displayed on the column board as collabora styled elements.
 
 ## System components

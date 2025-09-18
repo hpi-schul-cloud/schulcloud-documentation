@@ -1,4 +1,4 @@
-# Local Setup for Collabora
+# Local setup
 
 This guide describes how to set up Collabora for local development and testing.
 
