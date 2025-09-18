@@ -61,7 +61,7 @@ The workflow describes how the different system components interact when opening
 8. The Collabora server requests the document file with the token from the file storage server.
 9. The file storage server validates the authorization token with the Schulcloud server.
 10. The file storage server responds with the requested file.
-11. The Collabora server renders the editor with the document data and returns it to the Vue page.
+11. The Collabora server renders the editor with the document data inside the iFrame of the Vue page.
 
 
 ![Collabora workflow](how_it_works.png)
