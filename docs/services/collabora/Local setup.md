@@ -32,3 +32,30 @@ On Mac DDEV machines with Docker Desktop running, please make sure that the feat
 3. **Open a document in Schulcloud:**
    - Navigate to the column board. Add an office document.
    - On click the document should open in the Collabora editor in your browser.
+
+## Additional
+Depending on your setup, it may be necessary to allow Collabora routing from the Docker environment to your FilesStorage.
+You can use settings in Docker if you have, for example, Docker Desktop with a license. Alternatively, you can use nginx inside your Docker environment:
+
+```
+touch ~/nginx.conf
+vim ~/nginx.conf
+
+events {}
+http {
+    server {
+        listen 3000;
+        location / {
+            proxy_pass http://host.docker.internal:3000;
+        }
+    }
+}
+
+
+docker run --detach --name nginx-proxy --network bridge --volume ~/nginx.conf:/etc/nginx/nginx.conf:ro nginx
+docker run -t -d -p 9980:9980 -e "extra_params=--o:ssl.enable=false" --name collabora --network bridge collabora/code
+
+
+docker start <container-name-oder-id>
+docker logs -f <container-name-oder-id>
+```
