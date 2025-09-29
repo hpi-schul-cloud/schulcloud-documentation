@@ -29,8 +29,8 @@ If there is a new functionality that should only be available on certain systems
 Our Vue-Frontend requests all FEATURE-flags and provides global access to them by using this code (example):
 
 ```typescript
-import { envConfigModule } from "@/store";
-if (envConfigModule.getEnv.FEATURE_COPY_SERVICE_ENABLED) {
+import { useEnvConfig } from "@data-env";
+if (useEnvConfig().value.FEATURE_COPY_SERVICE_ENABLED) {
     // ...
 }
 ```
