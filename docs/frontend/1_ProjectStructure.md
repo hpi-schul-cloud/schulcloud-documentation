@@ -11,14 +11,10 @@ toc_max_heading_level: 4
 
 Files should be consistently named like this:
 
-| file content | style      | filename                           | comment                                                   |
-|--------------|------------|------------------------------------|-----------------------------------------------------------|
-| Components   | PascalCase | `YourComponent.vue`                | best practice                                             |
-| Pinia stores | PascalCase | `BoardCard.store.ts`               | placed in data- modules                                   |
-| Composables  | CamelCase  | `confirmationDialog.composable.ts` | current convention                                        |
-| Utils        | CamelCase  | `yourArea.util.ts`                 | suggestion: move from yourUtil.ts => your.util.ts         |
-| other files  | CamelCase  | `yourFilename.ts`                  |                                                           |
-| test files   |            | `{{ basename }}.unit.ts`           | e.g. YourComponent**.unit.ts**, yourArea.util**.unit.ts** |
+| file content   | style      | filename                                               | comment                                                                                                                             |
+|----------------|------------|--------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| Vue Components | PascalCase | `YourComponent.vue`                                    | `<PascalCaseName>.<scope>.vue`<br/> `<PascalCaseName>.<scope>.unit.ts`.  <br/> Use the same name in html markup. <br/>`<TheBoard/>` |
+| TS/JS files    | KebabCase  | `board-store.store.ts`<br/> `board-view.composable.ts` | `<kebap-case-name>.<scope>.<ext>`<br/>`<kebap-case-name>.<scope>.unit.<ext>`                                                  |
 
 ## Folders
 
