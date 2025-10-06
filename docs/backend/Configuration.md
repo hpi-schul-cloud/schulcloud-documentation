@@ -4,7 +4,7 @@ The `ConfigurationModule` provides a flexible and type-safe way to manage applic
 
 ## 1. Creating a Configuration Class
 
-Define a class to represent your configuration. Use the `@ConfigProperty` decorator to mark properties that should be loaded from environment variables or other sources:
+Define a class to represent your configuration in your module with `@Configuration()`. Use the `@ConfigProperty` decorator to mark properties that should be loaded from environment variables or other sources:
 
 ```typescript
 import { ConfigProperty, Configuration } from '@infra/configuration';
