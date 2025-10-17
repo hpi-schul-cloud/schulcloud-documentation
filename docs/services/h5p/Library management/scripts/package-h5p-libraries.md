@@ -110,10 +110,10 @@ Some libraries require the `--legacy-peer-deps` flag for `npm ci` due to peer de
 ### 3. Libraries Requiring Older Node.js Versions
 Some libraries require older Node.js versions during their build:
 
-- `H5P.CoursePresentation`: { `1.22.11`: `14`, `1.21.7`: `14`, `1.20.4`: `10`, `1.19.3`: `10`, `1.18.1`: `8`, `1.17.10`: `8` }
-- `H5P.Questionnaire`: { `1.1.2`: `14`, `1.0.2`: `14` }
-- `H5P.SimpleMultiChoice`: { `1.0.5`: `14` }
-- `H5PEditor.QuestionSetTextualEditor`: { `1.2.4`: `14` }
+- `H5P.CoursePresentation`: `{` `1.22.11`: `14`, `1.21.7`: `14`, `1.20.4`: `10`, `1.19.3`: `10`, `1.18.1`: `8`, `1.17.10`: `8` `}`
+- `H5P.Questionnaire`: `{` `1.1.2`: `14`, `1.0.2`: `14` `}`
+- `H5P.SimpleMultiChoice`: `{` `1.0.5`: `14` `}`
+- `H5PEditor.QuestionSetTextualEditor`: `{` `1.2.4`: `14` `}`
 
 ### 4. Libraries Requiring to run "npm install" instead of "npm ci"
 Some libraries require to run `npm install` instead of `npm ci` due to a `package-lock.json` missing in this version tag:
