@@ -52,8 +52,8 @@ Uses values from `IH5PLibraryManagementConfig` for settings like lock times and 
 - Library versions are tracked using the format: `machineName-major.minor.patch`.
 - The service ensures only the latest versions are installed and synchronizes metadata of older versions, which were build and uploaded to the S3/Cloud storage using :
   - the [`update-h5p-map` script](./scripts/update-h5p-map.md) to create a mapping between the machine name of all H5P libraries (e.g. `H5P.InteractiveVideo`) and the name of the respective GitHub repository (e.g. ` h5p/h5p-interactive-video`)
-  - the [`build-h5p-libraries` script](./scripts/build-h5p-libraries.md) to download, process and build all latest patch versions of all available major-minor releases, and 
-  - the [`upload-h5p-libraries` script](./scripts/upload-h5p-libraries) to upload all the built libraries/packages to the respective S3/Cloud storage.
+  - the [`package-h5p-libraries` script](./scripts/package-h5p-libraries.md) to download, build and package all latest patch versions of all available major-minor releases, and 
+  - the [`upload-h5p-libraries` script](./scripts/upload-h5p-libraries.md) to upload all the built libraries/packages to the respective S3/Cloud storage.
 
 ## Error Handling & Logging
 - All major operations are logged using a custom logger.
