@@ -1,8 +1,8 @@
-# upload-h5p-libraries.js
+# upload-h5p-libraries.ts
 
 ## Overview
 
-`upload-h5p-libraries.js` is a Node.js script designed to upload H5P libraries from a specified temporary folder to their target destination (such as a server or cloud storage). It uses the `H5pLibraryUploaderService` to handle the upload process for all libraries found in the folder.
+`upload-h5p-libraries.ts` is a Node.js script designed to upload H5P libraries from a specified temporary folder to their target destination (such as a server or cloud storage). It uses the `H5pLibraryUploaderService` to handle the upload process for all libraries found in the folder.
 
 ## How It Works
 1. **Argument Parsing:**
@@ -11,20 +11,55 @@
    - Instantiates `H5pLibraryUploaderService` with the provided temporary folder path.
    - Calls `uploadLibraries()` to upload all H5P libraries found in the folder.
 
-## Command-Line Options
-- `--help` or `-h`: Show usage information.
-- `--tmp` or `-t`: Path to the temporary folder containing built H5P libraries.
+## Usage via npm
 
-## Usage Example
+To run the `upload-h5p-libraries.ts` script using default options, you'll just have to call:
+
 ```bash
-node scripts/h5p/upload-h5p-libraries.js --tmp /tmp/h5p-libraries
+npm run h5p:upload-h5p-libraries
 ```
 
-If no `--tmp` option is provided, the script will use the default or fail if the folder is not specified.
+This will compile the script from TypeScript to JavaScript and then execute the compiled JavaScript file.
+
+## Usage from Command Line
+
+To use the `upload-h5p-libraries.ts` script directly from the command line, follow these steps:
+
+### 1. Compile the Script from TypeScript to JavaScript
+
+First, compile the TypeScript script to JavaScript using the TypeScript compiler:
+
+```bash
+npx tsc scripts/h5p/upload-h5p-libraries.ts --esModuleInterop
+```
+
+This will generate a JavaScript file at `scripts/h5p/upload-h5p-libraries.js`.
+
+### 2. Run the Compiled JavaScript Script
+
+Next, run the compiled JavaScript file with Node.js:
+
+```bash
+node ./scripts/h5p/upload-h5p-libraries.js [options]
+```
+
+#### Command-Line Options
+- `--help` or `-h`: Show usage information.
+- `--tmp` or `-t`: Path to the temporary folder containing built H5P libraries. Default: `/tmp/h5p-libraries`
+
+If no options are provided, defaults are used for input and map files.
+
+### Usage Example
+
+```bash
+npx tsc scripts/h5p/upload-h5p-libraries.ts --esModuleInterop
+source .env
+node ./scripts/h5p/package-h5p-libraries.js
+```
 
 ## Prerequisites
 - Node.js installed
-- Required dependencies installed (run `npm install` in the project root)
+- Required dependencies installed (run `npm ci` in the project root)
 - Temporary folder containing built H5P libraries
 
 ## Required Environment Variables

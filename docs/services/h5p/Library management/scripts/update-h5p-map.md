@@ -1,8 +1,8 @@
-# update-h5p-map.js
+# update-h5p-map.ts
 
 ## Overview
 
-`update-h5p-map.js` is a Node.js script that generates a mapping of H5P library machine names to their corresponding GitHub repositories for a given organization. The output is saved to a specified file, typically in YAML format. This mapping is useful for automating H5P library management and integration in schulcloud-server.
+`update-h5p-map.ts` is a Node.js script that generates a mapping of H5P library machine names to their corresponding GitHub repositories for a given organization. The output is saved to a specified file, typically in YAML format. This mapping is useful for automating H5P library management and integration in schulcloud-server.
 
 ## How It Works
 1. **Argument Parsing:**
@@ -14,35 +14,61 @@
 3. **Output:**
    - Writes the resulting map to the target file using `fileSystemHelper.writeLibraryRepoMap`.
 
-## Usage
+## Usage via npm
 
-### Command-Line Options
-- `--help` or `-h`: Show usage information.
-- `--organization` or `-o`: GitHub organization name (e.g., `h5p`).
-- `--target` or `-t`: Path to the output file (e.g., `config/h5p-library-repo-map.yaml`).
+To run the `update-h5p-map.ts` script using default options, you'll just have to call:
 
-### Example
 ```bash
-node scripts/h5p/update-h5p-map.js --organization h5p --target config/h5p-library-repo-map.yaml
+npm run h5p:update-h5p-map
 ```
 
-If no options are provided, defaults are:
-- Organization: `h5p`
-- Target file: `config/h5p-library-repo-map.yaml`
+This will compile the script from TypeScript to JavaScript and then execute the compiled JavaScript file.
 
-### Help
+## Usage from Command Line
+
+To use the `update-h5p-map.ts` script directly from the command line, follow these steps:
+
+### 1. Compile the Script from TypeScript to JavaScript
+
+First, compile the TypeScript script to JavaScript using the TypeScript compiler:
+
 ```bash
-node scripts/h5p/update-h5p-map.js --help
+npx tsc scripts/h5p/update-h5p-map.ts --esModuleInterop
+```
+
+This will generate a JavaScript file at `scripts/h5p/update-h5p-map.js`.
+
+### 2. Run the Compiled JavaScript Script
+
+Next, run the compiled JavaScript file with Node.js:
+
+```bash
+node ./scripts/h5p/update-h5p-map.js [options]
+```
+
+#### Command-Line Options
+- `--help` or `-h`: Show usage information.
+- `--organization` or `-o`: GitHub organization name. Default: `h5p`
+- `--target` or `-t`: Path to the output file. Default: `config/h5p-library-repo-map.yaml`
+
+If no options are provided, defaults are used for input and map files.
+
+### Usage Example
+
+```bash
+npx tsc scripts/h5p/update-h5p-map.ts --esModuleInterop
+source .env
+node ./scripts/h5p/update-h5p-map.js
 ```
 
 ## Prerequisites
 - Node.js installed
 - Environment variable `GITHUB_PERSONAL_ACCESS_TOKEN` set with a valid GitHub token
-- Required dependencies installed (run `npm install` in the project root)
+- Required dependencies installed (run `npm ci` in the project root)
 
 ## Required Environment Variable
 
-To update the H5P library to GitHub repository map using `update-h5p-map.js`, you only need the following environment variable:
+To update the H5P library to GitHub repository map using `update-h5p-map.ts`, you only need the following environment variable:
 
 - `GITHUB_PERSONAL_ACCESS_TOKEN`: Required if you need to access private repositories or increase GitHub API rate limits. Set this variable to a valid GitHub personal access token.
 
