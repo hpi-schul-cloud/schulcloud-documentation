@@ -17,6 +17,8 @@ from lumi specifies what is to be implemented in the microservice for the H5P ed
 The `h5p-library-management` module contains services used by the H5P library management cronjob to perform regular
 updates and installs the H5P libraries offered by the editor (see [H5P library management service](./Library%20management/H5P%20library%20management%20service.md) for more information).
 
-The cronjob is defined in the ansible folder of the `schulcloud-server` repo.
+The production cronjob is defined in the ansible folder of the `schulcloud-server` repo.
+The development intervall for the cronjob is defined in the `dof-app-deploy` repo.
+The intervall is execute each day at 2:00 AM for production and on each dev system with a random start between 2:00 - 2:59 AM.
 
 The list of libraries to be installed and updated is defined in the `dof-app-deploy` repo (in the `misc.yml` file).
