@@ -26,7 +26,7 @@ To run migrations you can use the command below:
 - Migrations are stored in the database `migrations` collection.
 - There is no status for a migration. Once the migration has been applied, a record is added in the database.
 - The command will compare migration files and database records to know which migrations to apply.
-- Migration configuration is locates in `./apps/server/src/mikro-orm.config.ts` file. MikroORM uses the config file to connect to the database and to find the migrations folder.
+- Migration configuration is locates in `./apps/server/src/mikro-orm-cli.config.ts` file. MikroORM uses the config file to connect to the database and to find the migrations folder.
 
 ## Test migration
 
