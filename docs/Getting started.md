@@ -1,83 +1,83 @@
 # Getting started
 
-## Glossar / Quick Links
+## Glossary / Quick Links
 
 - [Getting started](#getting-started)
-  - [Glossar / Quick Links](#glossar--quick-links)
-  - [Windows Installation — (auch in WSL möglich)](#windows-installation--auch-in-wsl-möglich)
-    - [Zwei Möglichkeiten: Direkt in Windows oder in WSL](#zwei-möglichkeiten-direkt-in-windows-oder-in-wsl)
+  - [Glossary / Quick Links](#glossary--quick-links)
+  - [Windows Installation — (also possible in WSL)](#windows-installation--also-possible-in-wsl)
+    - [Two Options: Direct in Windows or in WSL](#two-options-direct-in-windows-or-in-wsl)
     - [Installation in WSL](#installation-in-wsl)
     - [Installation in Windows](#installation-in-windows)
-      - [Voraussetzungen für Installation](#voraussetzungen-für-installation)
-      - [1. Lokalen Ordner erstellen und Projekt von Github ziehen](#1-lokalen-ordner-erstellen-und-projekt-von-github-ziehen)
-      - [2. Datenbank einrichten](#2-datenbank-einrichten)
-      - [3. Server einrichten](#3-server-einrichten)
-        - [Voraussetzungen](#voraussetzungen)
-        - [Server starten](#server-starten)
-      - [4. Legacy Client (schulcloud-client) einrichten](#4-legacy-client-schulcloud-client-einrichten)
-      - [5. Nuxt Client einrichten](#5-nuxt-client-einrichten)
-      - [Mögliche Probleme](#mögliche-probleme)
-  - [Installation für MacOS (Intel \& Apple M1 Chip)](#installation-für-macos-intel--apple-m1-chip)
-    - [Voraussetzungen](#voraussetzungen-1)
-    - [1. Lokalen Ordner erstellen und Projekt von Github ziehen](#1-lokalen-ordner-erstellen-und-projekt-von-github-ziehen-1)
-    - [2. Datenbank einrichten](#2-datenbank-einrichten-1)
+      - [Prerequisites for Installation](#prerequisites-for-installation)
+      - [1. Create local folder and clone project from Github](#1-create-local-folder-and-clone-project-from-github)
+      - [2. Set up database](#2-set-up-database)
+      - [3. Set up server](#3-set-up-server)
+        - [Prerequisites](#prerequisites)
+        - [Start server](#start-server)
+      - [4. Set up Legacy Client (schulcloud-client)](#4-set-up-legacy-client-schulcloud-client)
+      - [5. Set up Nuxt Client](#5-set-up-nuxt-client)
+      - [Possible Issues](#possible-issues)
+  - [Installation for MacOS (Intel \& Apple M1 Chip)](#installation-for-macos-intel--apple-m1-chip)
+    - [Prerequisites](#prerequisites-1)
+    - [1. Create local folder and clone project from Github](#1-create-local-folder-and-clone-project-from-github-1)
+    - [2. Set up database](#2-set-up-database-1)
       - [2.1 Updating mongo version on Mac if used via homebrew service (tested on MacBook Pro M1 Max, August 2025)](#21-updating-mongo-version-on-mac-if-used-via-homebrew-service-tested-on-macbook-pro-m1-max-august-2025)
-    - [3. Server einrichten](#3-server-einrichten-1)
-      - [Voraussetzungen (Apple M1 Chip)](#voraussetzungen-apple-m1-chip)
-      - [Voraussetzungen (Intel \& Apple M1 Chip)](#voraussetzungen-intel--apple-m1-chip)
-      - [Server starten](#server-starten-1)
-    - [4. Legacy Client (schulcloud-client) einrichten](#4-legacy-client-schulcloud-client-einrichten-1)
-      - [Mögliche Probleme](#mögliche-probleme-1)
-    - [5. Nuxt Client einrichten](#5-nuxt-client-einrichten-1)
-      - [Für Apple M1 Chips](#für-apple-m1-chips)
-      - [Für Intel \& Apple M1 Chips](#für-intel--apple-m1-chips)
-      - [Mögliche Probleme](#mögliche-probleme-2)
-  - [Setup angeschlossener Systeme](#setup-angeschlossener-systeme)
-    - [Kalender einrichten](#kalender-einrichten)
-    - [Lokales Mailing testen](#lokales-mailing-testen)
-    - [Lokaler Files Storage](#lokaler-files-storage)
-    - [Lokales Legacy File System](#lokales-legacy-file-system)
-    - [Previews für Bilder generieren](#previews-für-bilder-generieren)
-    - [Virenschutz lokal per Docker](#virenschutz-lokal-per-docker)
-    - [Redis einrichten](#redis-einrichten)
-    - [SuperHero-Dashboard einrichten](#superhero-dashboard-einrichten)
+    - [3. Set up server](#3-set-up-server-1)
+      - [Prerequisites (Apple M1 Chip)](#prerequisites-apple-m1-chip)
+      - [Prerequisites (Intel \& Apple M1 Chip)](#prerequisites-intel--apple-m1-chip)
+      - [Start server](#start-server-1)
+    - [4. Set up Legacy Client (schulcloud-client)](#4-set-up-legacy-client-schulcloud-client-1)
+      - [Possible Issues](#possible-issues-1)
+    - [5. Set up Nuxt Client](#5-set-up-nuxt-client-1)
+      - [For Apple M1 Chips](#for-apple-m1-chips)
+      - [For Intel \& Apple M1 Chips](#for-intel--apple-m1-chips)
+      - [Possible Issues](#possible-issues-2)
+  - [Setup of Connected Systems](#setup-of-connected-systems)
+    - [Set up calendar](#set-up-calendar)
+    - [Test local mailing](#test-local-mailing)
+    - [Local Files Storage](#local-files-storage)
+    - [Local Legacy File System](#local-legacy-file-system)
+    - [Generate image previews](#generate-image-previews)
+    - [Local antivirus via Docker](#local-antivirus-via-docker)
+    - [Set up Redis](#set-up-redis)
+    - [Set up SuperHero Dashboard](#set-up-superhero-dashboard)
 
 ---
 
-## Windows Installation — (auch in WSL möglich)
+## Windows Installation — (also possible in WSL)
 
-### Zwei Möglichkeiten: Direkt in Windows oder in WSL
+### Two Options: Direct in Windows or in WSL
 
-Es gibt die Möglichkeiten die Schulcloud direkt in Windows zu installieren oder in WSL (Windows Subsystem for Linux).
+There are two options to install Schulcloud: directly in Windows or in WSL (Windows Subsystem for Linux).
 
 ### Installation in WSL
 
-Für die Installation in WSL siehe: [Install Development Env on Windows 10 with WSL2 (Window Subsystem for Linux)](/spaces/DBH/pages/218530491/Install+Development+Env+on+Windows+10+with+WSL2+Window+Subsystem+for+Linux)
+For installation in WSL see: [Install Development Env on Windows 10 with WSL2 (Window Subsystem for Linux)](/spaces/DBH/pages/218530491/Install+Development+Env+on+Windows+10+with+WSL2+Window+Subsystem+for+Linux)
 
 ### Installation in Windows
 
-#### Voraussetzungen für Installation
+#### Prerequisites for Installation
 
-Für die Installation direkt unter C:/ werden Administratorrechte vorausgesetzt, ansonsten kann die Arbeitsumgebung auch im Benutzerverzeichnis (C:/Benutzer/[Nutzername]) erstellt werden.
+For installation directly under C:/ administrator rights are required, otherwise the work environment can also be created in the user directory (C:/Users/[Username]).
 
-- [Git](https://git-scm.com/downloads) installieren, falls nicht vorhanden
-- [Node](https://nodejs.org/de/) installieren (Version beachten, siehe package.json)
-  - Hierfür ist [nvm](https://github.com/coreybutler/nvm-windows) (Node Version Manager) empfehlenswert --- (nvm usage genauer erklären)
-  - Praktische Anleitung von Microsoft: [Set up your Node.js development environment directly on Windows](https://docs.microsoft.com/en-us/windows/nodejs/setup-on-windows)
+- Install [Git](https://git-scm.com/downloads) if not available
+- Install [Node](https://nodejs.org/de/) (check version, see package.json)
+  - [nvm](https://github.com/coreybutler/nvm-windows) (Node Version Manager) is recommended --- (explain nvm usage in more detail)
+  - Practical guide from Microsoft: [Set up your Node.js development environment directly on Windows](https://docs.microsoft.com/en-us/windows/nodejs/setup-on-windows)
 - [Python](https://www.python.org/downloads/windows/) 2.7
-- [ConEmu](https://conemu.github.io/) oder einen anderen Terminal
+- [ConEmu](https://conemu.github.io/) or another terminal
 
-Jeweils zu PATH hinzufügen, ggf. abmelden/anmelden oder mindestens CMD neu öffnen falls schon offen.
+Add each to PATH, log out/log in if necessary or at least reopen CMD if already open.
 
-#### 1. Lokalen Ordner erstellen und Projekt von Github ziehen
+#### 1. Create local folder and clone project from Github
 
-1. Ordner erstellen und öffnen (in diesem Guide wird als Pfad ~/Bildungscloud/ benutzt)
+1. Create and open folder (in this guide ~/Bildungscloud/ is used as path)
 
    ```bash
    cd /d C:/ && md Bildungscloud && cd Bildungscloud
    ```
 
-2. Repositories klonen
+2. Clone repositories
 
    ```bash
    git clone https://github.com/hpi-schul-cloud/schulcloud-server
@@ -85,128 +85,128 @@ Jeweils zu PATH hinzufügen, ggf. abmelden/anmelden oder mindestens CMD neu öff
    git clone https://github.com/hpi-schul-cloud/nuxt-client
    ```
 
-   Zum Laufen der Bildungscloud nicht notwendig, aber für Entwickler dennoch interessant sind die Repositories für unsere [End-2-End-Tests](https://github.com/hpi-schul-cloud/end-to-end-tests) und das [Deployment](https://github.com/hpi-schul-cloud/dof_app_deploy).
+   Not necessary for running Bildungscloud, but still interesting for developers are the repositories for our [End-2-End tests](https://github.com/hpi-schul-cloud/end-to-end-tests) and the [Deployment](https://github.com/hpi-schul-cloud/dof_app_deploy).
 
-#### 2. Datenbank einrichten
+#### 2. Set up database
 
-- Datenbankordner anlegen
+- Create database folder
 
   ```bash
   md C:/Bildungscloud/db
   ```
 
-- [MongoDB installieren](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/) (Community Server)
-- Datenbank starten (Version und Pfad entsprechend vorher anpassen)
+- [Install MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/) (Community Server)
+- Start database (adjust version and path accordingly beforehand)
 
   ```bash
   "C:\Program Files\MongoDB\Server\5.0\bin\mongod" --dbpath "D:\apps\SchulCloud\db"
   ```
 
-- Datenbank mit Testdaten füllen
+- Fill database with test data
 
-  Im schulcloud-server Ordner:
+  In the schulcloud-server folder:
 
   ```bash
   npm run setup:db:seed
   ```
 
-- [MongoDB Compass](https://www.mongodb.com/try/download/tools) installieren zum Einsehen der Datenbank
+- Install [MongoDB Compass](https://www.mongodb.com/try/download/tools) to view the database
 
-#### 3. Server einrichten
+#### 3. Set up server
 
-##### Voraussetzungen
+##### Prerequisites
 
-- Pakete installieren
+- Install packages
 
   ```bash
   cd schulcloud-server && npm ci
   ```
 
-- [Erlang](https://www.erlang.org/) installieren (nicht zwangsläufig notwendig)
-- [Docker](https://www.docker.com/get-started/) installieren (oder [Colima](https://github.com/abiosoft/colima) via **brew install colima docker**)
-- [RabbitMQ](https://www.rabbitmq.com/) installieren ([Installation Guide](https://www.rabbitmq.com/install-windows.html))
+- Install [Erlang](https://www.erlang.org/) (not necessarily required)
+- Install [Docker](https://www.docker.com/get-started/) (or [Colima](https://github.com/abiosoft/colima) via **brew install colima docker**)
+- Install [RabbitMQ](https://www.rabbitmq.com/) ([Installation Guide](https://www.rabbitmq.com/install-windows.html))
 
-##### Server starten
+##### Start server
 
-- RabbitMQ starten
+- Start RabbitMQ
 
   ```bash
   docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8.9-management
   ```
 
-- Server starten
+- Start server
 
   ```bash
   npm run nest:start:dev
   ```
   
-  (oder `npm run nest:start:debug`)
+  (or `npm run nest:start:debug`)
 
-Erfolgreich, wenn [http://localhost:3030/](http://localhost:3030/) die feathers Startseite zeigt.
+Successful if [http://localhost:3030/](http://localhost:3030/) shows the feathers start page.
 
-#### 4. Legacy Client (schulcloud-client) einrichten
+#### 4. Set up Legacy Client (schulcloud-client)
 
-- Pakete installieren
+- Install packages
 
   ```bash
   npm i -g nodemon
   cd schulcloud-client && npm ci
   ```
 
-- Client bauen
+- Build client
 
   ```bash
   npm run build
   ```
 
-- Client starten
+- Start client
 
   ```bash
   npm run watch
   ```
 
-Erfolgreich, wenn [http://localhost:3100/](http://localhost:3100/) die Bildungscloud Startseite zeigt.
+Successful if [http://localhost:3100/](http://localhost:3100/) shows the Bildungscloud start page.
 
-#### 5. Nuxt Client einrichten
+#### 5. Set up Nuxt Client
 
-- Pakete installieren
+- Install packages
 
   ```bash
   npm ci
   ```
 
-- Nuxt Client starten
+- Start Nuxt Client
 
   ```bash
   npm run serve
   ```
 
-Erfolgreich, wenn [http://localhost:4000/](http://localhost:4000/) die Bildungscloud Startseite zeigt.
+Successful if [http://localhost:4000/](http://localhost:4000/) shows the Bildungscloud start page.
 
-#### Mögliche Probleme
+#### Possible Issues
 
-- [Installieren der Unterstützung für C und C++ in Visual Studio](https://docs.microsoft.com/de-de/cpp/build/vscpp-step-0-installation?view=msvc-170)
-  - Es kann Probleme mit der 2022 Version geben, dann kann man die [2019 Version](https://visualstudio.microsoft.com/de/vs/older-downloads/) installieren
+- [Install support for C and C++ in Visual Studio](https://docs.microsoft.com/de-de/cpp/build/vscpp-step-0-installation?view=msvc-170)
+  - There can be problems with the 2022 version, then you can install the [2019 version](https://visualstudio.microsoft.com/de/vs/older-downloads/)
 
 
-## Installation für MacOS (Intel & Apple M1 Chip)
+## Installation for MacOS (Intel & Apple M1 Chip)
 
-### Voraussetzungen
+### Prerequisites
 
-- [Homebrew](https://brew.sh/) installieren (inkl. Xcode Command Line Tools, falls nicht vorhanden)
-- [Git](https://git-scm.com/downloads) installieren, falls nicht vorhanden
-- [Node](https://nodejs.org/de/) installieren (Version beachten, siehe package.json)
-  - Hierfür ist [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager) empfehlenswert
+- Install [Homebrew](https://brew.sh/) (incl. Xcode Command Line Tools, if not available)
+- Install [Git](https://git-scm.com/downloads) if not available
+- Install [Node](https://nodejs.org/de/) (check version, see package.json)
+  - [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager) is recommended
 
-### 1. Lokalen Ordner erstellen und Projekt von Github ziehen
+### 1. Create local folder and clone project from Github
 
-1. Ordner erstellen und öffnen (in diesem Guide wird als Pfad ~/Bildungscloud/ benutzt)
+1. Create and open folder (in this guide ~/Bildungscloud/ is used as path)
 
    ```bash
    mkdir Bildungscloud && cd Bildungscloud
    ```
 
-2. Repositories klonen
+2. Clone repositories
 
    ```bash
    git clone https://github.com/hpi-schul-cloud/schulcloud-server
@@ -214,33 +214,33 @@ Erfolgreich, wenn [http://localhost:4000/](http://localhost:4000/) die Bildungsc
    git clone https://github.com/hpi-schul-cloud/nuxt-client
    ```
 
-   Zum Laufen der Bildungscloud nicht notwendig, aber für Entwickler dennoch interessant sind die Repositories für unsere [End-2-End-Tests](https://github.com/hpi-schul-cloud/end-to-end-tests) und das [Deployment](https://github.com/hpi-schul-cloud/dof_app_deploy).
+   Not necessary for running Bildungscloud, but still interesting for developers are the repositories for our [End-2-End tests](https://github.com/hpi-schul-cloud/end-to-end-tests) and the [Deployment](https://github.com/hpi-schul-cloud/dof_app_deploy).
 
-### 2. Datenbank einrichten
+### 2. Set up database
 
-- Datenbankordner anlegen
+- Create database folder
 
   ```bash
   mkdir ~/Bildungscloud/db
   ```
 
-- [MongoDB installieren](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) (Community Server)
+- [Install MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) (Community Server)
 
   ```bash
   brew tap mongodb/brew
   brew install mongodb-community@5.0
   ```
 
-- Datenbank mit Testdaten füllen
+- Fill database with test data
 
-  Im schulcloud-server Ordner:
+  In the schulcloud-server folder:
 
   ```bash
   npm run setup:db:seed
   ```
 
-- [MongoDB Compass](https://www.mongodb.com/try/download/tools) installieren zum Einsehen der Datenbank
-- Ein paar hilfreiche Tipps zum Umgang mit MongoDB: https://docs.dbildungscloud.de/x/NIJdD
+- Install [MongoDB Compass](https://www.mongodb.com/try/download/tools) to view the database
+- A few helpful tips for working with MongoDB: https://docs.dbildungscloud.de/x/NIJdD
 
 #### 2.1 Updating mongo version on Mac if used via homebrew service (tested on MacBook Pro M1 Max, August 2025)
 
@@ -270,76 +270,76 @@ Erfolgreich, wenn [http://localhost:4000/](http://localhost:4000/) die Bildungsc
 
 11. (beforehand of course seed your local database with e.g. `npm run setup:db:seed` in server)
 
-### 3. Server einrichten
+### 3. Set up server
 
-#### Voraussetzungen (Apple M1 Chip)
+#### Prerequisites (Apple M1 Chip)
 
-- [CMake](https://cmake.org/) installieren (via Homebrew)
+- Install [CMake](https://cmake.org/) (via Homebrew)
 
   ```bash
   brew install cmake
   ```
 
-#### Voraussetzungen (Intel & Apple M1 Chip)
+#### Prerequisites (Intel & Apple M1 Chip)
 
-- Pakete installieren
+- Install packages
 
   ```bash
   cd schulcloud-server && npm ci
   ```
 
-- [Docker](https://www.docker.com/get-started/) installieren
-- [RabbitMQ](https://www.rabbitmq.com/) installieren (via [Homebrew](https://www.rabbitmq.com/install-homebrew.html))
+- Install [Docker](https://www.docker.com/get-started/)
+- Install [RabbitMQ](https://www.rabbitmq.com/) (via [Homebrew](https://www.rabbitmq.com/install-homebrew.html))
 
   ```bash
   brew install rabbitmq
   ```
 
-#### Server starten
+#### Start server
 
-- Datenbank starten
+- Start database
 
   ```bash
   brew services start mongodb-community@5.0
   ```
 
-- RabbitMQ starten
+- Start RabbitMQ
 
   ```bash
   docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8.9-management
   ```
 
-- Server starten (automatischer Reload nach Speichern von Änderungen)
+- Start server (automatic reload after saving changes)
 
   ```bash
   npm run nest:start:dev
   ```
   
-  (oder `npm run nest:start:debug`)
+  (or `npm run nest:start:debug`)
 
-Erfolgreich, wenn [http://localhost:3030/](http://localhost:3030/) die feathers Startseite zeigt.
+Successful if [http://localhost:3030/](http://localhost:3030/) shows the feathers start page.
 
-### 4. Legacy Client (schulcloud-client) einrichten
+### 4. Set up Legacy Client (schulcloud-client)
 
-- Pakete installieren
+- Install packages
 
   ```bash
   cd schulcloud-client && npm ci
   ```
 
-- Client bauen (Style-Anpassungen werden nur nach diesem Command korrekt berücksichtigt)
+- Build client (style adjustments are only correctly considered after this command)
 
   ```bash
   npm run build
   ```
 
-- Client starten (automatischer Reload nach Speichern von Änderungen)
+- Start client (automatic reload after saving changes)
 
   ```bash
   npm run watch
   ```
 
-- Anderes Theme wählen (bspw. N21)
+- Choose different theme (e.g. N21)
 
   ```bash
   declare -x SC_THEME="n21"
@@ -347,28 +347,28 @@ Erfolgreich, wenn [http://localhost:3030/](http://localhost:3030/) die feathers 
   npm run start
   ```
 
-#### Mögliche Probleme
+#### Possible Issues
 
-- Python wird benötigt, manchmal wird trotz vorhandener Python 3-Version versucht die CommandLineTools von MacOS neu zu installieren. Bspw. zu provozieren mit dem Command **python -v**
+- Python is required, sometimes despite existing Python 3 version an attempt is made to reinstall the CommandLineTools of MacOS. Can be provoked with the command **python -v**
 
-  Zunächst prüfen ob das Verzeichnis `/Library/Developer/CommandLineTools` vorhanden ist. Falls ja, python via homebrew installieren falls nicht bereits geschehen (in der neuesten Version) und danach folgende Zeilen in die bekannte Path collection des Systems kopieren unter Beachtung der aktuellen Version:
+  First check if the directory `/Library/Developer/CommandLineTools` exists. If yes, install python via homebrew if not already done (in the latest version) and then copy the following lines to the known path collection of the system considering the current version:
   
   ```
   /opt/homebrew/opt/python@3.9/libexec/bin
   /opt/homebrew/bin/python3
   ```
 
-Erfolgreich, wenn [http://localhost:3100/](http://localhost:3100/) die Bildungscloud Startseite zeigt.
+Successful if [http://localhost:3100/](http://localhost:3100/) shows the Bildungscloud start page.
 
-### 5. Nuxt Client einrichten
+### 5. Set up Nuxt Client
 
-#### Für Apple M1 Chips
+#### For Apple M1 Chips
 
-- [Google Chrome](https://www.google.com/chrome/) installieren
+- Install [Google Chrome](https://www.google.com/chrome/)
 
-  Dies ist empfohlen, um die Installation von Chromium zu vermeiden. Zum Entwickeln und Testen sollten gängige Browser sowieso auf dem System installiert sein.
+  This is recommended to avoid installing Chromium. For development and testing, common browsers should be installed on the system anyway.
 
-- Chromium Installation umgehen
+- Bypass Chromium installation
 
   ```bash
   cd nuxt-client
@@ -376,7 +376,7 @@ Erfolgreich, wenn [http://localhost:3100/](http://localhost:3100/) die Bildungsc
   export PUPPETEER_EXECUTABLE_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
   ```
 
-  oder
+  or
 
   ```bash
   cd nuxt-client
@@ -384,21 +384,21 @@ Erfolgreich, wenn [http://localhost:3100/](http://localhost:3100/) die Bildungsc
   export PUPPETEER_EXECUTABLE_PATH="which chromium"
   ```
 
-#### Für Intel & Apple M1 Chips
+#### For Intel & Apple M1 Chips
 
-- Pakete installieren
+- Install packages
 
   ```bash
   npm ci
   ```
 
-- Nuxt Client starten (automatischer Reload nach Speichern von Änderungen)
+- Start Nuxt Client (automatic reload after saving changes)
 
   ```bash
   npm run serve
   ```
 
-- Anderes Theme wählen (bspw. N21)
+- Choose different theme (e.g. N21)
 
   ```bash
   declare -x SC_THEME="n21"
@@ -406,14 +406,14 @@ Erfolgreich, wenn [http://localhost:3100/](http://localhost:3100/) die Bildungsc
   npm run start
   ```
 
-Erfolgreich, wenn [http://localhost:4000/](http://localhost:4000/) die Bildungscloud Startseite zeigt.
+Successful if [http://localhost:4000/](http://localhost:4000/) shows the Bildungscloud start page.
 
-#### Mögliche Probleme
+#### Possible Issues
 
-Wenn ihr bei der Ausführung von `npm ci` folgende Fehlermeldung bekommt:
+If you get the following error message when running `npm ci`:
 
 <details>
-<summary>Canvas Installation Error (klicken zum Ausklappen)</summary>
+<summary>Canvas Installation Error (click to expand)</summary>
 
 ```
 npm ERR! code 1
@@ -490,39 +490,39 @@ npm ERR! node-pre-gyp ERR! not ok
 
 </details>
 
-Stellt sicher dass ihr mit `nvm use` die richtige Node-Version nutzt und ebenfalls folgende Dependency installiert um das canvas Package zu installieren:
+Make sure you're using the correct Node version with `nvm use` and also install the following dependency to install the canvas package:
 
 ```bash
 brew install pkg-config cairo pango libpng jpeg giflib librsvg
 ```
 
-Danach sollte `npm ci` wieder problemlos durchlaufen.
+After that, `npm ci` should run without problems.
 
-## Setup angeschlossener Systeme
+## Setup of Connected Systems
 
-### Kalender einrichten
+### Set up calendar
 
-Die Anleitung zum Einrichten des Kalenders findest du unter [Setup postgreSQL for calendar service](/spaces/DBH/pages/202572100/Setup+postgreSQL+for+calendar+service). Zum täglichen Gebrauch ist dies allerdings nicht notwendig.
+You can find the instructions for setting up the calendar under [Setup postgreSQL for calendar service](/spaces/DBH/pages/202572100/Setup+postgreSQL+for+calendar+service). However, this is not necessary for daily use.
 
-### Lokales Mailing testen
+### Test local mailing
 
-- [Mail Drop](https://github.com/kaffeekrone/mail-drop) nutzen
+- Use [Mail Drop](https://github.com/kaffeekrone/mail-drop)
 
-### Lokaler Files Storage
+### Local Files Storage
 
-1. Repository klonen und Installation wie in Repo readme beschrieben durchführen: https://github.com/hpi-schul-cloud/file-storage
+1. Clone repository and perform installation as described in repo readme: https://github.com/hpi-schul-cloud/file-storage
 
-2. Starten des Service
+2. Start the service
 
    ```bash
    npm run start:files-storage:dev
    ```
 
-3. Im **legacy Client** muss in der Datei ".env" noch der Wert von "CORS" auf false gesetzt werden, da sonst ein Upload über den alten Service nicht möglich ist.
+3. In the **legacy client**, the value of "CORS" must be set to false in the ".env" file, otherwise an upload via the old service is not possible.
 
-4. **Minio** wird hier genutzt als lokaler Speicher.
+4. **Minio** is used here as local storage.
 
-   Über lokalen Terminal folgenden Befehl ausführen um einen Storage über Minio zu erstellen, welcher dann über [http://localhost:9000](http://localhost:9000) erreichbar ist:
+   Execute the following command via local terminal to create a storage via Minio, which is then accessible via [http://localhost:9000](http://localhost:9000):
 
    ```bash
    docker run \
@@ -534,11 +534,11 @@ Die Anleitung zum Einrichten des Kalenders findest du unter [Setup postgreSQL fo
      quay.io/minio/minio server /data --console-address ":9001"
    ```
 
-### Lokales Legacy File System
+### Local Legacy File System
 
-Minio muss aufgesetzt sein siehe dazu "Lokaler Files Storage"
+Minio must be set up, see "Local Files Storage"
 
-1. Nach dem seeden der lokalen Datenbank (beispielsweise über den Befehl "npm run setup:db" im server-repository) muss noch eine collection mit dem Namen "storageproviders" angelegt werden, da es dafür keine Seed-Daten gibt mit den nötigen Credentials (Sicherheitsaspekt). In diese Collection sollte dann folgendes Dokument eingefügt werden:
+1. After seeding the local database (for example via the command "npm run setup:db" in the server repository), a collection named "storageproviders" must still be created, as there is no seed data for it with the necessary credentials (security aspect). The following document should then be inserted into this collection:
 
    **storageproviders collection:**
    ```json
@@ -558,50 +558,50 @@ Minio muss aufgesetzt sein siehe dazu "Lokaler Files Storage"
    }
    ```
 
-2. Damit dies auch genutzt werden kann muss in der "schools"-Collection in der jeweils genutzten Schule der passende Provider eingetragen werden. Nehmen wir an, wir wollen den Nutzer "lehrer@schul-cloud" nutzen, dann gehen wir in die Schule mit dem Namen "Paul-Gerhardt-Gymnasium" und ergänzen das Dokument dort mit dem zusätzlichen Attribut und passendem Wert aus dem oben angelegten Storageprovider-Dokument:
+2. For this to be used, the appropriate provider must be entered in the "schools" collection in the respective school being used. Let's assume we want to use the user "lehrer@schul-cloud", then we go to the school named "Paul-Gerhardt-Gymnasium" and supplement the document there with the additional attribute and appropriate value from the storageprovider document created above:
 
    **schools collection:**
    ```json
    "storageProvider" : ObjectId("62949a4003839b6162aa566b")
    ```
 
-3. Jetzt kann sowohl der neue als auch der alte File-Service genutzt werden.
+3. Now both the new and the old file service can be used.
 
-### Previews für Bilder generieren
+### Generate image previews
 
-Der File Storage Service nutzt für die Generierung der Preview Bilder Imagemagick. Damit Previewbilder generiert werden, muss Imagemagick lokal installiert sein.
+The File Storage Service uses Imagemagick to generate preview images. For preview images to be generated, Imagemagick must be installed locally.
 
-[Dieses Script](https://gist.github.com/hurricup/e14ae5bc47705fca6b1680e7a1fb6580) installiert Imagemagick mit Support für heic Dateien (funktioniert auch unter WSL).
+[This script](https://gist.github.com/hurricup/e14ae5bc47705fca6b1680e7a1fb6580) installs Imagemagick with support for heic files (also works under WSL).
 
-**p.s.:** Wenn keine Vorschau angezeigt wird - weil sie noch vom Virenscan blockiert wird -, dann kann in MongoDB: `fileRecord.securityCheck.status` mit `verified` überschrieben werden.
+**p.s.:** If no preview is displayed - because it is still blocked by virus scan -, then in MongoDB: `fileRecord.securityCheck.status` can be overwritten with `verified`.
 
-### Virenschutz lokal per Docker
+### Local antivirus via Docker
 
-Um ClamAV lokal als Virenscanner laufen zu lassen - reicht es wie folgt einen entsprechenden Docker-Container zu starten:
+To run ClamAV locally as antivirus scanner - it is sufficient to start a corresponding Docker container as follows:
 
 ```bash
 docker run -d -p 3310:3310 mkodockx/docker-clamav:alpine
 ```
 
-### Redis einrichten
+### Set up Redis
 
-In unseren Deployments nutzen wir [Redis](https://redis.io/) zum Caching. Lokal ist Redis aber nicht zwingend notwendig. Wenn Redis lokal nicht eingerichtet ist, wird standardmäßig ein in-memory Store genutzt, der nicht extra eingerichtet werden muss.
+In our deployments we use [Redis](https://redis.io/) for caching. Locally, Redis is not absolutely necessary. If Redis is not set up locally, an in-memory store is used by default, which does not need to be set up separately.
 
-Falls Redis lokal genutzt werden soll, sind folgende Schritte zur Einrichtung nötig:
+If Redis is to be used locally, the following steps are necessary for setup:
 
-1. Redis als [Docker-Container](https://hub.docker.com/_/redis) starten **oder** lokal installieren.
-2. Im Server in `default.schema.json` unter `REDIS_URI` die URL von Redis als default eintragen (normalerweise: `redis://localhost:6379`).
-3. Im Legacy-Client in `config/global.js` die URL von Redis als default für `REDIS_URI` eintragen.
+1. Start Redis as [Docker container](https://hub.docker.com/_/redis) **or** install locally.
+2. In the server, enter the URL of Redis as default under `REDIS_URI` in `default.schema.json` (normally: `redis://localhost:6379`).
+3. In the Legacy Client, enter the URL of Redis as default for `REDIS_URI` in `config/global.js`.
 
-### SuperHero-Dashboard einrichten
+### Set up SuperHero Dashboard
 
-Voraussetzung: klonen des Repos von https://github.com/hpi-schul-cloud/superhero-dashboard
+Prerequisite: clone the repo from https://github.com/hpi-schul-cloud/superhero-dashboard
 
-Zur Arbeit mit dem SuperHero-Dashboard (SHD) - welches quasi als Datenbank-Schicht zur Bearbeitung von Nutzerdaten für nicht-Devs genutzt wird - gibt es ein paar Dinge zu beachten seit der Nutzung von Node Version 20.
+To work with the SuperHero Dashboard (SHD) - which is basically used as a database layer for editing user data for non-devs - there are a few things to consider since using Node version 20.
 
-**Unter Windows:** Viele im SHD genutzte Packages sind sehr veraltet und benötigen die Installation weiterer C++ Packages zur Installation der Abhängigkeiten des Repositories. Hier sollte man sich am besten an dem Fehler-Log entlang bewegen und die jeweiligen Pakete nachinstallieren.
+**Under Windows:** Many packages used in the SHD are very outdated and require the installation of additional C++ packages to install the dependencies of the repository. Here it is best to work along the error log and install the respective packages afterwards.
 
-**Unter Mac:** Aus dem gleichen Grund wird hier das Paket "distutils" genutzt, welches normalerweise durch die Python-Installation abgedeckt wird, allerdings seit Python 3.12 nicht mehr dort enthalten ist. Hier muss man also einen separaten Weg gehen, um die notwendigen Funktionalitäten zu erhalten. Bestenfalls nutzt man einen der folgenden Wege mittels homebrew unter macOS.
+**Under Mac:** For the same reason, the package "distutils" is used here, which is normally covered by the Python installation, but has not been included there since Python 3.12. Here you have to go a separate way to get the necessary functionalities. It is best to use one of the following ways using homebrew under macOS.
 
-1. Die Installation von `brew install python-setuptools`, in der Hoffnung dass dort alles notwendige installiert wurde.
-2. Falls 1. nicht klappt, sollte man die alte Python-Version nutzen mittels `brew install python@3.11` danach muss die entsprechende Env Var in ".zshrc" gesetzt werden. Entweder mit `export PYTHON=3.11` oder `export npm_config_python=/opt/homebrew/bin/python3.11`, notfalls kann auch einfach beides gleichzeitig genutzt werden, hierbei kann erstmal nicht viel kaputt gehen.
+1. The installation of `brew install python-setuptools`, in the hope that everything necessary was installed there.
+2. If 1. doesn't work, you should use the old Python version using `brew install python@3.11` then the corresponding Env Var must be set in ".zshrc". Either with `export PYTHON=3.11` or `export npm_config_python=/opt/homebrew/bin/python3.11`, if necessary, both can be used at the same time, nothing can break for now.
