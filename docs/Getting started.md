@@ -4,19 +4,16 @@
 
 - [Getting started](#getting-started)
   - [Glossary / Quick Links](#glossary--quick-links)
-  - [Windows Installation — (also possible in WSL)](#windows-installation--also-possible-in-wsl)
-    - [Two Options: Direct in Windows or in WSL](#two-options-direct-in-windows-or-in-wsl)
-    - [Installation in WSL](#installation-in-wsl)
-    - [Installation in Windows](#installation-in-windows)
-      - [Prerequisites for Installation](#prerequisites-for-installation)
-      - [1. Create local folder and clone project from Github](#1-create-local-folder-and-clone-project-from-github)
-      - [2. Set up database](#2-set-up-database)
-      - [3. Set up server](#3-set-up-server)
-        - [Prerequisites](#prerequisites)
-        - [Start server](#start-server)
-      - [4. Set up Legacy Client (schulcloud-client)](#4-set-up-legacy-client-schulcloud-client)
-      - [5. Set up Nuxt Client](#5-set-up-nuxt-client)
-      - [Possible Issues](#possible-issues)
+  - [Windows Installation](#windows-installation)
+    - [Prerequisites for Installation](#prerequisites-for-installation)
+    - [1. Create local folder and clone project from Github](#1-create-local-folder-and-clone-project-from-github)
+    - [2. Set up database](#2-set-up-database)
+    - [3. Set up server](#3-set-up-server)
+      - [Prerequisites](#prerequisites)
+      - [Start server](#start-server)
+    - [4. Set up Legacy Client (schulcloud-client)](#4-set-up-legacy-client-schulcloud-client)
+    - [5. Set up Nuxt Client](#5-set-up-nuxt-client)
+    - [Possible Issues](#possible-issues)
   - [Installation for MacOS (Intel \& Apple M1 Chip)](#installation-for-macos-intel--apple-m1-chip)
     - [Prerequisites](#prerequisites-1)
     - [1. Create local folder and clone project from Github](#1-create-local-folder-and-clone-project-from-github-1)
@@ -44,19 +41,9 @@
 
 ---
 
-## Windows Installation — (also possible in WSL)
+## Windows Installation
 
-### Two Options: Direct in Windows or in WSL
-
-There are two options to install Schulcloud: directly in Windows or in WSL (Windows Subsystem for Linux).
-
-### Installation in WSL
-
-For installation in WSL see: [Install Development Env on Windows 10 with WSL2 (Window Subsystem for Linux)](/spaces/DBH/pages/218530491/Install+Development+Env+on+Windows+10+with+WSL2+Window+Subsystem+for+Linux)
-
-### Installation in Windows
-
-#### Prerequisites for Installation
+### Prerequisites for Installation
 
 For installation directly under C:/ administrator rights are required, otherwise the work environment can also be created in the user directory (C:/Users/[Username]).
 
@@ -69,7 +56,7 @@ For installation directly under C:/ administrator rights are required, otherwise
 
 Add each to PATH, log out/log in if necessary or at least reopen CMD if already open.
 
-#### 1. Create local folder and clone project from Github
+### 1. Create local folder and clone project from Github
 
 1. Create and open folder (in this guide ~/Bildungscloud/ is used as path)
 
@@ -87,7 +74,7 @@ Add each to PATH, log out/log in if necessary or at least reopen CMD if already 
 
    Not necessary for running Bildungscloud, but still interesting for developers are the repositories for our [End-2-End tests](https://github.com/hpi-schul-cloud/end-to-end-tests) and the [Deployment](https://github.com/hpi-schul-cloud/dof_app_deploy).
 
-#### 2. Set up database
+### 2. Set up database
 
 - Create database folder
 
@@ -112,9 +99,9 @@ Add each to PATH, log out/log in if necessary or at least reopen CMD if already 
 
 - Install [MongoDB Compass](https://www.mongodb.com/try/download/tools) to view the database
 
-#### 3. Set up server
+### 3. Set up server
 
-##### Prerequisites
+#### Prerequisites
 
 - Install packages
 
@@ -126,7 +113,7 @@ Add each to PATH, log out/log in if necessary or at least reopen CMD if already 
 - Install [Docker](https://www.docker.com/get-started/) (or [Colima](https://github.com/abiosoft/colima) via **brew install colima docker**)
 - Install [RabbitMQ](https://www.rabbitmq.com/) ([Installation Guide](https://www.rabbitmq.com/install-windows.html))
 
-##### Start server
+#### Start server
 
 - Start RabbitMQ
 
@@ -144,7 +131,7 @@ Add each to PATH, log out/log in if necessary or at least reopen CMD if already 
 
 Successful if [http://localhost:3030/](http://localhost:3030/) shows the feathers start page.
 
-#### 4. Set up Legacy Client (schulcloud-client)
+### 4. Set up Legacy Client (schulcloud-client)
 
 - Install packages
 
@@ -167,7 +154,7 @@ Successful if [http://localhost:3030/](http://localhost:3030/) shows the feather
 
 Successful if [http://localhost:3100/](http://localhost:3100/) shows the Bildungscloud start page.
 
-#### 5. Set up Nuxt Client
+### 5. Set up Nuxt Client
 
 - Install packages
 
@@ -183,7 +170,7 @@ Successful if [http://localhost:3100/](http://localhost:3100/) shows the Bildung
 
 Successful if [http://localhost:4000/](http://localhost:4000/) shows the Bildungscloud start page.
 
-#### Possible Issues
+### Possible Issues
 
 - [Install support for C and C++ in Visual Studio](https://docs.microsoft.com/de-de/cpp/build/vscpp-step-0-installation?view=msvc-170)
   - There can be problems with the 2022 version, then you can install the [2019 version](https://visualstudio.microsoft.com/de/vs/older-downloads/)
@@ -502,7 +489,87 @@ After that, `npm ci` should run without problems.
 
 ### Set up calendar
 
-You can find the instructions for setting up the calendar under [Setup postgreSQL for calendar service](/spaces/DBH/pages/202572100/Setup+postgreSQL+for+calendar+service). However, this is not necessary for daily use.
+You can set up the calendar service, however, this is not necessary for daily use.
+
+**Useful links:**
+- [https://www.code4it.dev/blog/run-postgresql-with-docker](https://www.code4it.dev/blog/run-postgresql-with-docker)
+- [https://hub.docker.com/_/postgres](https://hub.docker.com/_/postgres)
+- [https://www.pgadmin.org/](https://www.pgadmin.org/)
+- [https://community.chocolatey.org/packages/postgresql](https://community.chocolatey.org/packages/postgresql)
+
+**Initial setup:**
+
+```shell
+docker pull postgres
+> Using default tag: latest
+> latest: Pulling from library/postgres
+> 214ca5fb9032: Pull complete
+> e6930973d723: Pull complete
+> aea7c534f4e1: Pull complete
+> d0ab8814f736: Pull complete
+> 648cc138980a: Pull complete
+> 7804b894301c: Pull complete
+> cfce56252c3f: Pull complete
+> 8cce7305e3b6: Pull complete
+> 8e979d981f07: Pull complete
+> 4b0a5f0b050c: Pull complete
+> a6bc1be6e5b0: Pull complete
+> d115610a4c3b: Pull complete
+> bf74ca3879b4: Pull complete
+> Digest: sha256:117e7b9287612505575ac11db1cf81742eea6fd5cd8b2ce26e40f366b1f74e25
+> Status: Downloaded newer image for postgres:latest
+> docker.io/library/postgres:latest
+
+docker image ls
+> postgres            latest            dd21862d2f49        9 hours ago         376MB
+
+docker run --name schulcloud_calendar_db -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=schulcloud_calendar -d postgres
+> b01c1c21ec1a9c275a7c240a23c905b8316d27bebafbe2bb0046416d032ebd64
+
+docker container list
+> CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+> b01c1c21ec1a        postgres            "docker-entrypoint.s…"   2 minutes ago       Up 2 minutes        0.0.0.0:5432->5432/tcp   schulcloud_calendar
+
+// we need to create a user for the db called node with password node for the application
+docker exec -it b01c1c21ec1a /bin/bash
+root@b1054398dc72:/# psql -U postgres
+
+postgres-# CREATE USER node WITH PASSWORD node;
+postgres-# GRANT ALL PRIVILEGES ON DATABASE schulcloud_calendar to node;
+
+exit
+
+// you can test you connection over pgadmin with login as postgres user 
+// we need to setup our datatables
+// you can also execute the content of schema.sql in pgadmin directly
+psql -U node -d schulcloud_calendar -a -f schema.sql  
+
+cd ./schulcloud_calendar
+npm run start
+> schulcloud-calendar@27.12.0 start
+> node src
+
+{
+  message: 'Database connected with 14.3 (Debian 14.3-1.pgdg110+1)',
+  level: 'alert',
+  timestamp: '2022-05-18T09:18:53.713Z',
+  logType: 'log'
+}
+```
+
+**To restart the container later:**
+
+```shell
+// find and start container again
+docker ps -a
+> CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+> b1054398dc72 postgres "docker-entrypoint.s…" 2 days ago Up 2 minutes 0.0.0.0:5432->5432/tcp schulcloud_calendar_db
+
+docker start b1054398dc72
+
+docker ps
+> b1054398dc72 postgres "docker-entrypoint.s…" 2 days ago Up 2 minutes 0.0.0.0:5432->5432/tcp schulcloud_calendar_db
+```
 
 ### Test local mailing
 
