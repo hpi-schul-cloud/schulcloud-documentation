@@ -624,6 +624,8 @@ Minio must be set up, see "Local Files Storage"
        "__v" : 0.0
    }
    ```
+   
+   **Note:** You can use `<workspace>/scripts/secret.js` to generate a valid secret key. Please note that your Minio account is also linked up.
 
 2. For this to be used, the appropriate provider must be entered in the "schools" collection in the respective school being used. Let's assume we want to use the user "lehrer@schul-cloud", then we go to the school named "Paul-Gerhardt-Gymnasium" and supplement the document there with the additional attribute and appropriate value from the storageprovider document created above:
 
