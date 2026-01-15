@@ -147,7 +147,7 @@ The display of the error messages in the SHD is not user-friendly.
 
 As a rule, however, you can see the cause of the problem in the error text, see the example below:
 
-![Error message example](/img/ValidationErrorLtiTool.png)
+![Error message example](./img/ValidationErrorLtiTool.png)
 
 ### Tool name ambiguity
 
