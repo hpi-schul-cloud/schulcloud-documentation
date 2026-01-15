@@ -10,9 +10,11 @@
     - [Custom parameters](#custom-parameters)
   - [CTL configuration in SHD](#ctl-configuration-in-shd)
     - [Introduction](#introduction)
+    - [Tool name ambiguity](#tool-name-ambiguity)
       - [Automatically ensure unique names](#automatically-ensure-unique-names)
         - [Metadata sync](#metadata-sync)
         - [Tool provisioning](#tool-provisioning)
+    - [Logo and preview images](#logo-and-preview-images)
       - [Display logic](#display-logic)
       - [Storage](#storage)
     - [Metadata update](#metadata-update)
@@ -145,7 +147,9 @@ The display of the error messages in the SHD is not user-friendly.
 
 As a rule, however, you can see the cause of the problem in the error text, see the example below:
 
-![Error message example](/download/attachments/419955173/image-2025-6-19_14-34-15.png)## Tool name ambiguity
+![Error message example](/img/ValidationErrorLtiTool.png)
+
+### Tool name ambiguity
 
 The name of a tool must be unique.
 
@@ -174,7 +178,7 @@ Draft: 'catalog-id' 'medium-id'
 Example:  
 Draft: https://www.bildungslogin-test.de/api/external/univention/media urn:bilo:medium:tonart-5-6-2023-ebook
 
-For further information about tool provisioning see: [Tool-Provisioning](https://docs.dbildungscloud.de/x/WgEnD#id-04moin.schule-Schoolexternaltools)## Logo and preview images
+### Logo and preview images
 
 Logos and preview images are visible in the following pages of the SVS-Client:
 
