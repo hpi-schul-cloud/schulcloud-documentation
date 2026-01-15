@@ -11,9 +11,9 @@
   - [CTL configuration in SHD](#ctl-configuration-in-shd)
     - [Introduction](#introduction)
     - [Tool name ambiguity](#tool-name-ambiguity)
-      - [Automatically ensure unique names](#automatically-ensure-unique-names)
-        - [Metadata sync](#metadata-sync)
-        - [Tool provisioning](#tool-provisioning)
+    - [Automatically ensure unique names](#automatically-ensure-unique-names)
+      - [Metadata sync](#metadata-sync)
+      - [Tool provisioning](#tool-provisioning)
     - [Logo and preview images](#logo-and-preview-images)
       - [Display logic](#display-logic)
       - [Storage](#storage)
@@ -153,9 +153,9 @@ As a rule, however, you can see the cause of the problem in the error text, see 
 
 The name of a tool must be unique.
 
-#### Automatically ensure unique names
+### Automatically ensure unique names
 
-##### Metadata sync
+#### Metadata sync
 
 Metadata from tools that reference external media is automatically updated at regular intervals.
 
@@ -166,7 +166,7 @@ In the event of a conflict, the tool name is enriched by appending the media ID 
 Example:  
 Abcd – [12345]
 
-##### Tool provisioning
+#### Tool provisioning
 
 When creating CTL-Tools based on CTL-Templates, it can happen that the metadata of the tools cannot be updated.
 
