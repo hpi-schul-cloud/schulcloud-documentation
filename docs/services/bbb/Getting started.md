@@ -62,4 +62,4 @@ So for future developments we needs the following changes:
 - Add the correct parameters on room creation to allow guests only after moderator permission
 - Add a check for external experts to give then the BBB-role "Guest"
 
-Those changes will be most likely done in the legacy code due to delivery timeline reasons.</p>
+Those changes will be most likely done in the legacy code due to delivery timeline reasons.
