@@ -26,6 +26,7 @@
     - [Contexts](#contexts)
     - [Base URL](#base-url)
     - [OAuth2](#oauth2)
+  - [CTL tools import endpoint](#ctl-tools-import-endpoint)
 
 ## Parameter Overview
 
@@ -269,3 +270,8 @@ The URL is used to start an external tool or to open an external medium.
 ### OAuth2
 
 Client ID and client-secret cannot be changed after the tool has been successfully saved. To make a correction, the tool must be deleted and recreated.
+
+## CTL tools import endpoint
+
+A separate endpoint is available for an automated import of a larger number of external tools.
+The endpoint is documented here: [Swagger-Documentation](https://main.nbc.dbildungscloud.dev/api/v3/docs#/Tool/ToolController_importExternalTools).
