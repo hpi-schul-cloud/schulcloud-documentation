@@ -10,6 +10,8 @@
     - [Custom parameters](#custom-parameters)
   - [CTL configuration in SHD](#ctl-configuration-in-shd)
     - [Introduction](#introduction)
+  - [Glossary](#glossary)
+  - [Error messages](#error-messages)
     - [Tool name ambiguity](#tool-name-ambiguity)
     - [Automatically ensure unique names](#automatically-ensure-unique-names)
       - [Metadata sync](#metadata-sync)
@@ -44,8 +46,8 @@ These parameters are common for all external tools.
 |-----------|-------------|
 | Name | External tool's name |
 | URL | External tool's home page |
-| Logo-URL | URL to external tool's logo<br>Supported image types: jpg, png |
-| Preview-Url | URL to external tool's logo preview image<br>Supported image types: jpeg, png, svg, pdf, bmp, webp, gif, heic, heif, tiff |
+| Logo-URL | URL to external tool's logo<br><br>Supported image types: jpg, png |
+| Preview-Url | URL to external tool's logo preview image<br><br>Supported image types: jpeg, png, svg, pdf, bmp, webp, gif, heic, heif, tiff |
 | Base-URL | External tool's base launch URL |
 
 For media configuration the following parameters exists:
@@ -80,11 +82,11 @@ The following parameters are available for tools that supports the LTI 1.1 stand
 
 | Parameter | Explanation |
 |-----------|-------------|
-| Key | This is a **required parameter** that **identifies the Tool Consumer that is launching the tool** (e.g. SVS). The value of this parameter is a string that is agreed upon by the Tool Consumer and the Tool Provider.<br>The Tool Provider uses this parameter to verify the authenticity and integrity of the launch request. |
-| Secret | This is a **required parameter** that is **used together with the key parameter to sign the launch request**.<br>The value of this parameter is a string that is agreed upon by the Tool Consumer and the Tool Provider.<br>The Tool Provider uses this parameter to verify the authenticity and integrity of the launch request. |
+| Key | This is a **required parameter** that **identifies the Tool Consumer that is launching the tool** (e.g. SVS). The value of this parameter is a string that is agreed upon by the Tool Consumer and the Tool Provider.<br><br>The Tool Provider uses this parameter to verify the authenticity and integrity of the launch request. |
+| Secret | This is a **required parameter** that is **used together with the key parameter to sign the launch request**.<br><br>The value of this parameter is a string that is agreed upon by the Tool Consumer and the Tool Provider.<br><br>The Tool Provider uses this parameter to verify the authenticity and integrity of the launch request. |
 | Message Type | This parameter indicates the **purpose and format of the launch request** from the platform to the tool. There are two main types of messages in LTI 1.1:<br><br>**basic-lti-launch-request**<br>This is the most common type of message, which initiates a basic launch of the tool with the user's context and role information.<br>The tool can then provide a personalized and interactive experience for the user.<br><br>**LtiResourcelinkrequest**<br>Initiates a launch of the tool with the user's context and role information, and provides a personalized and interactive experience for the user.<br><br>**LtiDeepLinkingRequest**<br>Initiates a process where the tool provides a list of content items that the platform can embed or link to in its user interface.<br>The content items can be files, images, videos, quizzes, assignments, or any other resources that the tool supports.<br>The platform can then present the content items to the user in a way that is consistent with its own design and functionality. |
-| Resource Link Id | A Resource Link Id is identifier for a placement of an LTI resource link within a context that is stable and locally unique to the deployment_id.<br>This value must change if the link is copied or exported from one system or context and imported into another system or context.<br>This allows the Tool Provider to differentiate among different links within the same context. |
-| Language | The language parameter in LTI 1.1 is launch_presentation_locale. It is an **optional parameter** that indicates the locale preference of the user launching the tool.<br>The value should be a language tag as defined by RFC 5646. For example, en-US for American English, fr-CA for Canadian French, or de-DE for German.<br>The Tool Provider can use this parameter to localize the user interface of the tool according to the user's preference. |
+| Resource Link Id | A Resource Link Id is identifier for a placement of an LTI resource link within a context that is stable and locally unique to the deployment_id.<br><br>This value must change if the link is copied or exported from one system or context and imported into another system or context.<br><br>This allows the Tool Provider to differentiate among different links within the same context. |
+| Language | The language parameter in LTI 1.1 is launch_presentation_locale. It is an **optional parameter** that indicates the locale preference of the user launching the tool.<br><br>The value should be a language tag as defined by RFC 5646. For example, en-US for American English, fr-CA for Canadian French, or de-DE for German.<br><br>The Tool Provider can use this parameter to localize the user interface of the tool according to the user's preference. |
 | Privacy | The privacy parameter in LTI 1.1 is a custom parameter that allows the Tool Consumer to control the level of personal information that is sent to the Tool Provider.<br>The possible values are:<br><br>**Anonymous**<br>No personal information is sent, only a unique and consistent user ID.<br><br>**Pseudonym**<br>Users pseudonym is sent.<br><br>**Name**<br>User's full name is sent, but not the email address.<br><br>**Email**<br>User's email address is sent, but not the full name.<br><br>**Public**<br>Both the user's full name and email address are sent.<br><br>The privacy parameter is optional and the default value is public. The Tool Provider can specify the minimum level of privacy it requires in the launch request.<br>If the Tool Consumer does not meet the minimum level, the launch request will fail. |
 
 #### Transmitted parameters:
@@ -117,12 +119,12 @@ SVS differentiates between 3 areas of validity of a parameter (scope):
 
 | Parameter | Explanation |
 |-----------|-------------|
-| Name | **Mandatory**<br>Parameter name |
-| User friendly name | **Mandatory**<br>Name of the parameter to display to the user |
+| Name | **Mandatory**<br><br>Parameter name |
+| User friendly name | **Mandatory**<br><br>Name of the parameter to display to the user |
 | Comment | Explanation for the parameter for the user |
-| Type | **Mandatory**<br>The following parameter types are supported:<br>String, Number, Boolean, Context Id, Context name, School Id, Official school number<br><br>The values for *Context Id, Context name, School Id, Official school number* are determined automatically by SVS during runtime. |
-| Scope | **Mandatory**<br>The following scopes are defined in SVS:<br>global, school, context |
-| Location | **Mandatory**<br>Location for the parameter:<br>path, query, body, anchor |
+| Type | **Mandatory**<br><br>The following parameter types are supported:<br>String, Number, Boolean, Context Id, Context name, School Id, Official school number<br><br>The values for *Context Id, Context name, School Id, Official school number* are determined automatically by SVS during runtime. |
+| Scope | **Mandatory**<br><br>The following scopes are defined in SVS:<br>global, school, context |
+| Location | **Mandatory**<br><br>Location for the parameter:<br>path, query, body, anchor |
 | Default | Default value |
 | Regex | Regular expression to check if a parameter is valid |
 | Regex description | Explanation what the regular expression (if any) checks |
@@ -133,16 +135,20 @@ Custom parameters that are automatically filled by SVS during runtime (e.g. Cont
 
 ### Introduction
 
-This section provides some hints on how to configure the CTL-Tools in the Super Hero Dashboard (SHD).## Glossary
+This section provides some hints on how to configure the CTL-Tools in the Super Hero Dashboard (SHD).
+
+## Glossary
 
 | Term | Description |
 |------|-------------|
 | Medium | An external content that is made available in the SVS client with the help of a CTL-Tool. |
-| Metadata | A subset of CTL tool attributes that describe an external content. These include:<ul><li>name</li><li>description</li><li>images</li><li>publisher</li></ul> |
+| Metadata | A subset of CTL tool attributes that describe an external content. These include:<br>• name<br>• description<br>• images<br>• publisher |
 | Catalog-Id | Unique Id of an external source for media (*Medienkatalog / Medienverwaltung / Medienquelle*). |
 | Medium-Id | Unique Id of an external content within the associated external source. |
 | CTL-Template | CTL tool, which is used to create other CTL tools. |
-| CTL-Draft | CTL tool that cannot be started. |## Error messages
+| CTL-Draft | CTL tool that cannot be started. |
+
+## Error messages
 
 The display of the error messages in the SHD is not user-friendly.
 
@@ -274,4 +280,5 @@ Client ID and client-secret cannot be changed after the tool has been successful
 ## CTL tools import endpoint
 
 A separate endpoint is available for an automated import of a larger number of external tools.
+
 The endpoint is documented here: [Swagger-Documentation](https://main.nbc.dbildungscloud.dev/api/v3/docs#/Tool/ToolController_importExternalTools).
