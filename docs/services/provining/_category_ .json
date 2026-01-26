@@ -1,8 +1,8 @@
 {
-  "label": "provining",
+  "label": "provisioning",
   "position": 9,
   "link": {
     "type": "generated-index",
-    "description": "Learn about the provining service."
+    "description": "Learn about the provisioning service."
   }
 }
