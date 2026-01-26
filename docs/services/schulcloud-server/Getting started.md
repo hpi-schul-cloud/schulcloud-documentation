@@ -6,8 +6,8 @@ sidebar_position: 1
 
 Make sure to have the following software installed
 
-- node 18
-- MongoDb 4.2+
+- node 22
+- MongoDB 6.0+
 - Redis
 - RabbitMQ
 

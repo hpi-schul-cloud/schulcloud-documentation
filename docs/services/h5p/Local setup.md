@@ -225,26 +225,6 @@ Enable the feature flag "FEATURE_COLUMN_BOARD_H5P_ENABLED" in the `.env` of the 
 FEATURE_COLUMN_BOARD_H5P_ENABLED=true
 ```
 
-**Run the file-storage app locally**
-
-The file-storage app is located in the schulcloud-server repo. Before starting the file-storage, make sure to configure the file-storage app properly. The configurations are in the
-
-**.env**
-```
-FILES_STORAGE__S3_ENDPOINT=http://localhost:9000
-FILES_STORAGE__S3_ACCESS_KEY_ID=<YOUR_LOCAL_S3_KEY_ID>
-FILES_STORAGE__S3_SECRET_ACCESS_KEY=<YOUR_LOCAL_S3_KEY_SECRET>
-FILES_STORAGE__S3_BUCKET=schulcloud
-FILES_STORAGE__S3_REGION=eu-central-1
-```
-Make sure that the s3 bucket "schulcloud" is created in the s3 storage (minio). This is not needed for the h5p editor to run, but to completely setup the file-storage app you will also need to add an entry into the "file-storage" collection. See [Local Project Setup-Lokales File System](https://docs.dbildungscloud.de/pages/viewpage.action?pageId=203882620#LocalProjectSetup/Projektlokaleinrichten(WIP)-LokalesFileSystem)
-
-After configuring the file-storage app, you can run the app with the following command:
-
-```bash
-npm run nest:start:files-storage
-```
-
 ### Check that the h5p-staticfiles-server is running
 This should already be done in the previous step.
 
