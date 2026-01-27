@@ -98,3 +98,6 @@ Commit the changes:
 
 - By their nature, migrations become outdated as the database model changes. You are never expected to update migrations due to any changes in the code that are made.
 - If needed, for example because the migration shows errors due to a code (model) changes, migrations can be deleted, since they will still be accessible in the git history.
+
+#### Initial setup failure
+- If the initial setup using `npm run setup:db:seed` and `npm run migration:up` fails you may want to delete the `dist` folder and try again.
