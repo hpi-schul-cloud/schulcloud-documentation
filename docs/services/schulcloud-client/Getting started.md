@@ -6,7 +6,7 @@ sidebar_position: 1
 
 Make sure to have the following software installed
 
-- node 18
+- node 22
 
 ```bash
 git clone git@github.com:hpi-schul-cloud/schulcloud-client.git
