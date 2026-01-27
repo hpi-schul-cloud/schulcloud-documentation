@@ -21,7 +21,7 @@ Add `FEATURE_VIDEOCONFERENCE_ENABLED=true` in **client** and **server** and
 
 Add the right permission to the role. Permissions they need are `START_MEETING, JOIN_MEETING`.
 
-Add "videoconference" to School features (table school) in MongoDB.
+Add "videoconference" to School features (table schools) in MongoDB.
 
 Make sure that the fields below exists in the videoconference ltitool object (MongoDB).
 
@@ -53,7 +53,7 @@ BBB has built in features to allow for such constellations. It has a waiting roo
 
 These features are currently deactivated in dBildungscloud, but can be activated. In a POC we could confirm that it works as imagined, it just needs to be properly implemented now.
 
-So for future developments we needs the following changes:
+The following changes are necessary:
 
 **Client:**
 - Add an option on room creation, that allows external experts, but puts them in a waiting room

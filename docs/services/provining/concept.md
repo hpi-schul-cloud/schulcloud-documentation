@@ -1,4 +1,4 @@
-# Concept provining
+# Concept Provisioning
 
 ## Login and provisioning flow
 
