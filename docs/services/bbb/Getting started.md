@@ -3,14 +3,14 @@
 ## Features
 
 - guestPolicy functionality
+  - e.g. External Expert can join a meeting and will be marked as guest
 - muteOnStart functionality
+  - Moderator can mute all participants on start of video conference
 - allowModsToUnmuteUsers functionality
+  - Moderator can allow moderators to unmute users if they want to
 - welcome functionality
+  - Moderator can write a welcome message for the Waiting room
 
-External Expert can join a meeting and will be marked as guest now.
-Moderator can mute all participants on start of video conference.
-Moderator can allow moderators to unmute users, if they want to.
-Moderator can write a welcome message for the Waiting room.
 
 ## Local Setup for using the features above in BBB
 
