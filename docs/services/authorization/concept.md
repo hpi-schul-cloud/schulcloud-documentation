@@ -345,7 +345,7 @@ Each function that adds to the hooks will be executed in order. Hooks for all me
 
 Each hooks exists for a featherJS service that exposes directly the api endpoints directly. Additional it exists a global hook pattern for the whole application.
 
-Example: <https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/src/services/lesson/hooks/index.js#L232>
+Example: [hooks/index.js](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/src/services/lesson/hooks/index.js#L232)
 
 ## Desired Changes in Future
 
