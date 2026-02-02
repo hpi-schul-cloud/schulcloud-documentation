@@ -36,7 +36,7 @@ The "real" user roles by name are external person, student, teacher and administ
 
 > In future we want to remove the inherit logic.
 > We want to add scope types to each role.
-> Add more technical users for the instance scope.
+> Add more technical users
 
 ### Entities
 
@@ -106,7 +106,7 @@ This permissions have no explicit scope. But _implicitly_ the roles external per
 
 It exists also scope based permissions. A user can have different (scope)roles in different (domain)scopes. For example in teams where the student can have team member role in one team, or team adminstrator in another.
 
-> In future we want to switch the implicit scope of the user role permissions to explicit scopes like in teams.
+> In future we want to switch the implicit scope of the user role permissions to explicit scopes like in boards.
 > At the moment we must handle scope-, user- and system-user-permissions as seperated special cases in our implementation.
 > By implementing user role permissions bind to scopes, we can do it in one way for all situations.
 
@@ -115,8 +115,6 @@ It exists also scope based permissions. A user can have different (scope)roles i
 Authorization must be handled in use cases (UC). They solve the authorization and _orchestrate_ the logic that should be done in services, or private methods.
 You should never implement authorization on service level, to avoid different authorization steps.
 When calling other internal micro service for already authorized operations please use a queue based on RabbitMQ.
-
-> Not implemented but coming soon.
 
 ## How to use Authorization Service
 
@@ -265,64 +263,33 @@ async createLesson(userId: EntityId, params: { courseId: EntityId }) {
 
 ## How to write a rule
 
-So a rule must validate our scope actions. For example we have a _news_ for the school or course. The news has a creator and target model.
-
-> Attention: The target model must be populated
-
 ```ts
 @Injectable()
-export class NewsRule extends BasePermission<News> {
+export class TaskRule implements Rule<Task> {
 	constructor(
 		private readonly authorizationHelper: AuthorizationHelper,
-		private readonly schoolRule: SchoolRule,
-		private readonly courseRule: CourseRule
+        // Only if the rule has access to the rule.
+        // It dependece on dependency order.
+		private readonly additionalRule: AdditionalRule, 
+		authorisationInjectionService: AuthorizationInjectionService
 	) {
-		super();
+		authorisationInjectionService.injectAuthorizationRule(this);
 	}
 
-	// Is used to select the matching rule in the rule manager. Therefore we keep the condition to which case the rule
-	// applies in the rule itself. In future we expect more complex conditions that could apply here.
-	public isApplicable(user: User, entity: News): boolean {
-		const isMatched = entity instanceof News;
+	public isApplicable(user: User, object: unknown): boolean {
+		const isMatched = object instanceof Task;
 
 		return isMatched;
 	}
 
-	public hasPermission(user: User, entity: News, context: AuthorizationContext): boolean {
-		const { action, requiredPermissions } = context;
-
-		// check required permissions passed by UC
-		const hasPermission = this.authorizationHelper.hasAllPermissions(user, requiredPermissions);
-		// check access to entity by property
-		const isCreator = this.authorizationHelper.hasAccessToEntity(user, entity, ['creator']);
-		let hasNewsPermission = false;
-
-		if (action === Actions.read) {
-			hasNewsPermission = this.parentPermission(user, entity, action);
-		} else if (action === Actions.write) {
-			hasNewsPermission = isCreator;
-		}
-
-		const result = hasPermission && hasNewsPermission;
+	public hasPermission(user: User, object: Task, context: AuthorizationContext): boolean {
+		// ...
 
 		return result;
 	}
-
-	private parentPermission(user: User, entity: News, action: Actions): boolean {
-		let hasParentPermission = false;
-		// check by parentRule, because the schoolRule can contain extra logic
-		// e.g. school is offline
-		// or courseRule has complex permissions-resolves
-		if (entity.targetModel === NewsTargetModel.School) {
-			hasParentPermission = this.schoolRule.hasPermission(user, entity.target, { action, requiredPermissions: [] });
-		} else if (entity.targetModel === NewsTargetModel.Course) {
-			hasParentPermission = this.courseRule.hasPermission(user, entity.target, { action, requiredPermissions: [] });
-		}
-
-		return hasParentPermission;
-	}
 }
 ```
+> It is good practice to make read, write, or scopes explicit over different private methods!
 
 ## Structure of the Authorization Components
 
@@ -349,7 +316,7 @@ This is needed to solve the API requests from external services. (API implementa
 #### authorization-context.builder
 
 We export an authorization context builder to prepare the parameter for the authorization service called "authorization context".
-This is optional and not required.
+This is optional and not required atm.
 But it enables us to easily change the structure of the authorization context without touching many different places.
 
 ### shared/domain/interface/\*
@@ -364,17 +331,7 @@ A enum that holds all avaible permission names, however it's mixing all domain s
 
 ## Working other Internal MicroServices
 
-> Example FilesStorageService
-
-We have the files storage service application that is a bundle of modules of this repository.
-The application is startet as additional micro service.
-It exists the need that the server application can call the file service.
-We add a files storage client module to the server.
-This module exports a service to communicate with the file service.
-
-For communication it uses RabbitMQ.
-Every operation must already be authorized in the UC of the server. There is no need to do it again in files storage service.
-For this reason, we want the consumer of the RabbitMQ item to call the files storage service directly without authorization.
+We propose to use the infra authorization-client module, a copy of them, or a similar implementation based on the open swagger api, to authorize requests for services that can not authorize the operations.
 
 ## Legacy Tech Stack FeatherJS Hooks
 
@@ -395,29 +352,12 @@ Example: <https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/src/ser
 Some small steps are done. But many next steps still exist.
 They follow our general target.
 
-### Next Steps
-
 1. Implementation of Scope Based Permissions as generell solution instead of User Permissions that has only implicit school scopes for now.
    Remove populate logic in reference loader.
    Solve eager loading in coursegroups.
-2. Introduce RabbitMQ. Splitting Service(logic) from UC, that we can call services over the consumer for internal communication between micro services of already authorized operations.
-   Think about: Move hasPermission checks from rules to a more generic place.
-   Remove jwt decorator and cleanup copy logic.
-   Move authorization-context.builder to authorization module.
-3. Remove inheritance from roles, because we want to write it explicitly into the collection documents.
+2. Remove inheritance from roles, because we want to write it explicitly into the collection documents.
    Moving role api endpoints to nestjs.
    Fixing of dashboard to handle roles in the right way as superhero.
-4. Switching entity based authorization to domain objects based in steps.
-5. Cleanup of feature flags from user permissions.
+3. Switching entity based authorization to domain objects based in steps.
+4. Cleanup of feature flags from user permissions.
    Add existing feature flags to rules on places where it make sense.
-6. Introduce instance as a scope to have an implemenation that handles all scopes/rules/permissions/user types in the same way.
-
-### Refactoring Todos
-
-- Task module should fully use authorization service.
-- News module should start to use authorization service.
-
-### Is Needed
-
-- We can introduce a new layer called "policy" that combines different rules (any of them has their own matching strategy) for a single domain object between authorization and rule to reduce complexity in a single rule.
-- We can switch to a behaviour where rules register themself at the authorization service than.
