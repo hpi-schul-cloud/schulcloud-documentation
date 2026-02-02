@@ -17,12 +17,12 @@ We also want to avoid any specific code for modules, collections, or something e
 
 We have string based permissions.
 For examples check "enum Permission".
-It includes all available permissions and is not seperated by concerns or abstraction levels.
+It includes all available permissions and is not separated by concerns or abstraction levels.
 The permissions have different implicit scopes like instance, school, or named scope like team and course.
 
 #### (Feature Flag Permissions)
 
-Some of the permissions are used like feature flags. We want to seperate and move these in the future.
+Some of the permissions are used like feature flags. We want to separate and move these in the future.
 Please keep that in mind, while becoming familiar with permissions.
 
 ### Roles
@@ -53,7 +53,7 @@ They are not really introduced. They should map between the repository layer and
 
 Everything what the system, or a user wants to do, is executed in a scope.
 A scope means an area like the complete instance, the school, the course, the user itself and so on.
-The scopes are highly bind to the real domain objects that we have in our domain.
+The scopes are highly bound to the real domain objects that we have in our domain.
 
 #### Scope Actions
 
@@ -75,7 +75,7 @@ We need the possibility to define different permissions for a single domain scop
 
 or a other case..
 
-> A student has limited permissions in a team, where he is only a member, but would have more permissions in a team, where he is the owner. So at this point, we need to distingush between instances of domain objects.
+> A student has limited permissions in a team, where he is only a member, but would have more permissions in a team, where he is the owner. So at this point, we need to distinguish between instances of domain objects.
 
 ### User(s)
 
@@ -104,11 +104,11 @@ It implements a check for which domain object, entity, or additional conditions 
 The permissions of the user come from his role.
 This permissions have no explicit scope. But _implicitly_ the roles external person, student, teacher and administrator are in the school scope. The superhero is _implicitly_ in the scope of the instance. On some instances external persons are "collected" in the "ExpertenSchule" - which is a unique school with a specialized type (SchoolPurpose.EXTERNAL_PERSON_SCHOOL) to provide instance wide - accounts for experts that may be invited to multiple schools.
 
-It exists also scope based permissions. A user can have different (scope)roles in different (domain)scopes. For example in teams where the student can have team member role in one team, or team adminstrator in another.
+It exists also scope based permissions. A user can have different (scope)roles in different (domain)scopes. For example in teams where the student can have team member role in one team, or team administrator in another.
 
 > In future we want to switch the implicit scope of the user role permissions to explicit scopes like in boards.
-> At the moment we must handle scope-, user- and system-user-permissions as seperated special cases in our implementation.
-> By implementing user role permissions bind to scopes, we can do it in one way for all situations.
+> At the moment we must handle scope-, user- and system-user-permissions as separated special cases in our implementation.
+> By implementing user role permissions bound to scopes, we can do it in one way for all situations.
 
 ## How should you Authorize an Operation?
 
@@ -298,7 +298,7 @@ export class TaskRule implements Rule<Task> {
 It exists a adapter to call featherJS endpoints that solve authorizations.
 
 > This service is only used in news and should not be used in any other place.
-> We want to remove it completly.
+> We want to remove it completely.
 
 ### Authorization Module
 
@@ -306,12 +306,12 @@ The authorization module is the core of authorization. It collects all needed in
 
 ### Reference.loader
 
-It should be use only inside of the authorization module.
-It is use to load registrated ressouces by the id and name of the ressource.
+It should be used only inside of the authorization module.
+It is used to load registered resources by the id and name of the resource.
 This is needed to solve the API requests from external services. (API implementation is missing for now)
 
 > Please keep in mind that it can have an impact on the performance if you use it wrongly.
-> We keep it as a seperate method to avoid the usage in areas where the domain object should exist, because we see the risk that a developer could be tempted by the ease of only passing the id.
+> We keep it as a separate method to avoid the usage in areas where the domain object should exist, because we see the risk that a developer could be tempted by the ease of only passing the id.
 
 #### authorization-context.builder
 
@@ -323,11 +323,11 @@ But it enables us to easily change the structure of the authorization context wi
 
 #### rolename.enum
 
-An enum that holds all avaible role names.
+An enum that holds all available role names.
 
 #### permission.enum
 
-A enum that holds all avaible permission names, however it's mixing all domain scopes atm.
+An enum that holds all available permission names, however it's mixing all domain scopes atm.
 
 ## Working other Internal MicroServices
 
@@ -341,7 +341,7 @@ They work similar to express middleware and bring their own request context.
 
 It exists hooks that can be used for all http(s) calls, or for specific type based on CRUD operations.
 Additionally it also exists the find operations that are a http(s) GET requests without the ID of a specific element.
-Each function that adds to the hooks will be executed in order. Hooks for all methods first, then hooks for specific methodes.
+Each function that adds to the hooks will be executed in order. Hooks for all methods first, then hooks for specific methods.
 
 Each hooks exists for a featherJS service that exposes directly the api endpoints directly. Additional it exists a global hook pattern for the whole application.
 
@@ -352,7 +352,7 @@ Example: <https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/src/ser
 Some small steps are done. But many next steps still exist.
 They follow our general target.
 
-1. Implementation of Scope Based Permissions as generell solution instead of User Permissions that has only implicit school scopes for now.
+1. Implementation of Scope Based Permissions as a general solution instead of User Permissions that has only implicit school scopes for now.
    Remove populate logic in reference loader.
    Solve eager loading in coursegroups.
 2. Remove inheritance from roles, because we want to write it explicitly into the collection documents.
