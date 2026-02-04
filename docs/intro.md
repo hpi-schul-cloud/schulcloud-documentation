@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Schulcloud Documentation
+# Schulcloud Verbund Software Documentation
 
 The schulcloud consists of many repositories.
 
