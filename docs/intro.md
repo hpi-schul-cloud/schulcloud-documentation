@@ -11,4 +11,4 @@ The schulcloud consists of many repositories.
 You can find more information on each of our topics under [Topics](/docs/category/topics)
 
 For setting up a local Schulcloud, checkout [Getting started](/docs/getting-started)
-For additional documentations of our github project [Additional documentation](/docs/topics/additional-documentations/links)
+For additional documentations in our github project [Additional documentation](/docs/topics/additional-documentations/links)
