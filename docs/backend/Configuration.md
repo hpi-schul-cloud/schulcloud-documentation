@@ -529,7 +529,8 @@ export class ConfigResponseMapper {
 
 ## 7. Best Practices
 
-**Module-Level Configuration**: Each configuration class should be placed at the top level of its respective module whenever possible. This makes it easy to locate and manage module-specific settings.
+### 7.1 Module-Level Configuration
+Each configuration class should be placed at the top level of its respective module whenever possible. This makes it easy to locate and manage module-specific settings.
 
 ```
 src/modules/my-feature/
@@ -540,7 +541,8 @@ src/modules/my-feature/
     └── my-feature.service.ts
 ```
 
-**Infrastructure Module Pattern**: Modules located in `apps/server/src/infra` should always receive their configuration from the outside as arguments to their `register()` function. This promotes reusability and decoupling.
+### 7.2 Infrastructure Module Pattern
+Modules located in `apps/server/src/infra` should always receive their configuration from the outside as arguments to their `register()` function. This promotes reusability and decoupling.
 
 ```typescript
 // Example from apps/server/src/infra/calendar/calendar.module.ts
@@ -569,7 +571,7 @@ This pattern allows the consuming module to provide the appropriate configuratio
 export class MyBusinessModule {}
 ```
 
-## 8. Summary:
+## 8. Summary
 - Create a config class with properties.
 - Use `@Configuration` to mark it as a config class.
 - Use `@ConfigProperty` to mark config values.
