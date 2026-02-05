@@ -343,7 +343,7 @@ export { MY_FEATURE_PUBLIC_API_CONFIG_TOKEN, MyFeaturePublicApiConfig } from './
 export { MyFeatureModule } from './my-feature.module';
 ```
 
-### 6.4. Register in API Module
+### 6.4. Register in Server Module
 
 Register the PublicApiConfig in your module's API module (if you have one):
 
