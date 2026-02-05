@@ -2,6 +2,8 @@
 
 The `ConfigurationModule` provides a flexible and type-safe way to manage application configuration. It supports environment variables, validation, and custom decorators for easy access to configuration values.
 
+## ✅ Why Use ConfigurationModule?
+
 The ConfigurationModule offers several key advantages over traditional configuration approaches:
 
 - **Module Encapsulation Principle**: Environment variables should be defined in the modules they belong to (e.g., board features in `board.config.ts`, team features in `team.config.ts`). This ensures better encapsulation, clearer ownership, and easier maintenance. Only add general server-wide configuration here that doesn't belong to any specific module.
@@ -11,6 +13,16 @@ The ConfigurationModule offers several key advantages over traditional configura
 - **Default Values**: Properties can have sensible defaults, reducing the number of required environment variables.
 - **Discoverability**: All configuration options are clearly visible in one place with their types, making it easy for developers to understand what can be configured.
 - **Maintainability**: Changes to configuration structure are easier to track and refactor across the codebase.
+
+### ❌ Forbidden Practices
+
+When using the ConfigurationModule, the following practices are **forbidden** and should be avoided:
+
+- **Direct `process.env` access**: Never use `process.env.VARIABLE_NAME` directly in your code. This bypasses validation, type safety, and defaults.
+- **Legacy `Configuration.get()`**: Do not use the old `Configuration.get()` method. This is deprecated and doesn't provide type safety.
+- **NestJS `ConfigService`**: Avoid using NestJS's built-in `ConfigService`. Use the ConfigurationModule pattern instead for consistency and better type safety.
+
+These approaches lack the validation, transformation, and type safety benefits that the ConfigurationModule provides.
 
 ## 1. Creating a Configuration Class
 
