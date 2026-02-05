@@ -1,348 +1,654 @@
-# Configuration state and flows
+# ConfigurationModule Usage Guide
 
-## Short hints
+The `ConfigurationModule` provides a flexible and type-safe way to manage application configuration. It supports environment variables, validation, and custom decorators for easy access to configuration values.
 
-Every environment variable that is used or refactored, should be added to ./config/default.schema.json..
+## ✅ Why Use ConfigurationModule?
 
-We want to avoid any process.env.XXX call inside of the code.
-> It is a syncron call that stops the node process for a short moment and other async tasks can not be executed.
-> It is not documentated in a single place, or has a description to understand for what it is used.
-> Any validation and used default value is set on the called placed and is hard to detected by deploying and reuse on other places.
+The ConfigurationModule offers several key advantages over traditional configuration approaches:
 
-## History and legacy tech stack
+- **Module Encapsulation Principle**: Environment variables should be defined in the modules they belong to (e.g., board features in `board.config.ts`, team features in `team.config.ts`). This ensures better encapsulation, clearer ownership, and easier maintenance. Only add general server-wide configuration to `server.config.ts` if it doesn't belong to any specific module.
 
-### FeatherJS and Express
+- **Type Safety**: Configuration values are strongly typed with TypeScript, preventing runtime errors caused by type mismatches.
 
-Our legacy stack uses featherJS [https://docs.feathersjs.com/api/configuration.html](https://docs.feathersjs.com/api/configuration.html).
-It is embedded in the express application.
+- **Validation**: Uses class-validator decorators (`@IsBoolean`, `@IsString`, `@IsUrl`, etc.) to ensure configuration values meet expected formats at runtime.
 
-Express and featherJS use the environment variable as the default behavior.
-NODE_ENV=production|test|default
-It is extended over featherJS and directly matched to
-./config/
-default.json
-test.json
-prodcution.json (deprecated)
-development.json (matching added by us)
+- **Transformation**: Automatically converts environment variables (e.g., string "true"/"false" to boolean) using transformers like `@StringToBoolean()`.
 
-Default is (like it is expected) as default and is overwritten by added environment variables from test.json, or production.json.
+- **Default Values**: Properties can have sensible defaults, reducing the number of required environment variables.
 
-## Current and NestJS solutions
+- **Discoverability**: All configuration options are clearly visible in one place with their types, making it easy for developers to understand what can be configured.
 
-### @hpi-schul-cloud/commons
+- **Maintainability**: Changes to configuration structure are easier to track and refactor across the codebase.
 
-``` javascript
-    const { Configuration } = require('@hpi-schul-cloud/commons');
+## ❌ Forbidden Practices
 
-    const url = Configuration.get('FILES_STORAGE__SERVICE_BASE_URL');
+When using the ConfigurationModule, the following practices are **forbidden** and should be avoided:
+
+- **Direct `process.env` access**: Never use `process.env.VARIABLE_NAME` directly in your code. This bypasses validation, type safety, and defaults.
+- **Legacy `Configuration.get()`**: Do not use the old `Configuration.get()` method. This is deprecated and doesn't provide type safety.
+- **NestJS `ConfigService`**: Avoid using NestJS's built-in `ConfigService`. Use the ConfigurationModule pattern instead for consistency and better type safety.
+
+These approaches lack the validation, transformation, and type safety benefits that the ConfigurationModule provides.
+
+## 1. Creating a Configuration Class
+
+Define a class to represent your configuration in your module with `@Configuration()`. Use the `@ConfigProperty` decorator to mark properties that should be loaded from environment variables or other sources:
+
+```typescript
+import { ConfigProperty, Configuration } from '@infra/configuration';
+import { IsBoolean, IsNumber } from 'class-validator';
+import { StringToBoolean, StringToNumber } from '@shared/controller/transformer';
+
+export const MY_FEATURE_CONFIG_TOKEN = 'MY_FEATURE_CONFIG_TOKEN';
+
+@Configuration()
+export class MyFeatureConfig {
+  @IsBoolean()
+  @StringToBoolean()
+  @ConfigProperty('MY_FEATURE_ENABLED')
+  public readonly enabled!: boolean;
+
+  @IsNumber()
+  @StringToNumber()
+  @ConfigProperty('MY_FEATURE_TIMEOUT')
+  public readonly timeout = 3000;
+}
 ```
 
-It is used for parsing any environment value that is added in ./config/default.schema.json.
-It is overridden with values in default.json.
-The default.json is also overridden by development.json (NODE_ENV==='default'), or test.json. (NODE_ENV==='test').
+## 2. Registering the ConfigurationModule
 
-For legacy featherJS stack, or legacy client it is the only solution that should be used.
-For newer nestjs stack we use it for parsing values in the right order, but map it to the nestjs based solution.
-> Look to the topic nestjs in this file for more information.
+Import and add the `ConfigurationModule` to your feature or root module:
 
-The vue client we pass this values over an api endpoint.
-> Look to the topic "Passing configuration to vue client" in this file
+```typescript
+import { Module } from '@nestjs/common';
+import { ConfigurationModule } from '@infra/configuration';
+import { MyFeatureConfig, MY_FEATURE_CONFIG_TOKEN } from './my-feature.config';
 
-``` javascript
-    let configBefore;
-
-    before(() => {
-        configBefore = Configuration.toObject({ plainSecrets: true });
-
-        Configuration.set('ENVIRONMENT_NAME', 'fake.value');
-    });
-
-    after(async () => {
-        Configuration.reset(configBefore);
-    });
-
+@Module({
+  imports: [ConfigurationModule.register(MY_FEATURE_CONFIG_TOKEN, MyFeatureConfig)],
+})
+export class AppModule {}
 ```
 
-### ./config/global.js (deprecated)
+## 3. Injecting and Using the Configuration
 
-To collect and cleanup all existing process.env.XXX calls in code, it exists a step, where all environments variables are moved to global.js file.
-This should not be used anymore and cleaned up.
+Inject your configuration class into services or controllers as needed:
 
-Feel free to move variables to default.schema.json.
+```typescript
+import { Inject, Injectable } from '@nestjs/common';
+import { MyFeatureConfig, MY_FEATURE_CONFIG_TOKEN } from './my-feature.config';
 
-### ./config/production.js (deprecated)
+@Injectable()
+export class MyFeatureService {
+  constructor(@Inject(MY_FEATURE_CONFIG_TOKEN) private readonly config: MyFeatureConfig) {}
 
-This config values should not be used anymore.
-
-The default.schema.json and default.json represent the default values that should be set in all production systems.
-All other production values are added over autodeployment configurations.
-
-### ./config/default.schema.json
-
-We want to move any environment variable to this file for now.
-> Please add a discription and if possible default values to it.
-> Any default values that are set on this files should be for production systems. They can be overridden with autodeployment configurations.
-
-It make sense to cluster variables with same context.
-Depending on the context, the motivation for clustering variables can vary, please see current usage for further examples.
-For this cases you can add embedded objects. By passing a value to embedded objects, you can write MY_SCOPE_NAME__MY_VARIABLEN_NAME.
-The scope name and value is splitted by double underscore ( _ ).
-Defaults values for embedded objects do not work well. For this we let the default.json stay alive.
-
-### ./config/default.json
-
-It stays alive and is only used for *default values of embedded objects* in default.schema.json
-The values should be the same as in default.schema.json and are added as default values. (means production values)
-
-### ./config/development.json
-
-This file overrides default.json and default.schema.json values.
-It is used for local development.
-For example it increases the timeouts to enable us to debug stuff.
-
-> Please look to "local setups" topic on this page, if you only want to add your personal settings.
-
-### ./config/test.json
-
-This file overrides default.json and default.schema.json values.
-It is used for test executions. (NODE_ENV==='test')
-For example to reduce log outputs.
-> Please change carefully. It effects all tests in this repository. In best case avoid using it.
-
-For test we can also use injections of the nestjs configuration module, or service to set values for a special test.
-
-> Please look to featherJS test examples or nestjs test examples in this file for configurations that should only effect single tests.
-
-### Auto deployment (overriding and setting additional values)
-
-We have 2 sources that can fullfill and add environments.
-One is our auto deployment repository that can set environment values directly over config.jsons.
-The other source fetches secrets for .dev systems from gitHub, or 1password for productions.
-
-We only add values to it if we need them. If we want the default values from default.schema.json,
-on all production like systems (dev, ref, production), they shouldn't be added to configurations in autodeployment.
-> Over this way we can reduce the total amount of environment values in production pods.
-
-[https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/all/config.yml](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/all/config.yml)
-
-> For documentation on how it is works, plase look at our confluence. No github documentation exists atm.
-
-### Nestjs configuration module
-
-#### Setup configuration interfaces
-
-[https://docs.nestjs.com/techniques/configuration](https://docs.nestjs.com/techniques/configuration)
-[https://docs.nestjs.com/techniques/configuration](https://docs.nestjs.com/techniques/configuration)
-
-We implemented a solution that is based on nestjs and combined it with the parsing from the @hpi-schul-cloud/commons of the existing config files.
-In future we want to replace it with a nestjs only solution.
-
-Any module that needs configuration, can define his need by creating a interface file with the schema I*MY_NAME*Config.
-In first step we add this interfaces directly to an app config file which extends ...,I*MY_NAME*Config,...,.. .
-The combined Iconfig interface can be used to initilized the nestjs configuration module.
-The nestjs configuration module is defined globally in the hole app and can be used over injections.
-
-> We force it this way, so that modules can be defined by their needs.
-> We only have a single point, where all envirements are added to our application.
-> We can easily replace this solution with a nestjs parser instead, of Configuration from @hpi-schul-cloud/commons in future.
-
-This code shows a minimal flow.
-
-``` javascript
-    // needed configuration for a module
-    export interface UserConfig {
-        AVAILABLE_LANGUAGES: string[];
+  doSomething() {
+    if (this.config.enabled) {
+      // ...
     }
-
-    // server.config.ts
-    export interface ServerConfig extends ICoreModuleConfig, UserConfig, IFilesStorageClientConfig {
-        NODE_ENV: string;
-    }
-
-    // server.module.ts
-    import { Module } from '@nestjs/common';
-    import { ConfigModule } from '@nestjs/config';
-    import serverConfig from './server.config';
-    import { createConfigModuleOptions } from '@shared/common/config-module-options';
-
-
-    const serverModules = [
-        ConfigModule.forRoot(createConfigModuleOptions(serverConfig))
-    ]
-
-    @Module({
-        imports: [...serverModules],
-    })
-    export class ServerModule {}
-
-    //use via injections
-    import { ConfigService } from '@nestjs/config';
-    import { UserConfig } from '../interfaces';
-
-    constructor(private readonly configService: ConfigService<UserConfig, true>){}
-
-    this.configService.get<string[]>('AVAILABLE_LANGUAGES');
-
-    //use in modules construction
-    import { ConfigService } from '@nestjs/config';
-    import { Configuration, FileApi } from './filesStorageApi/v3';
-
-    @Module({
-    providers: [
-        {
-            provide: 'Module',
-            useFactory: (configService: ConfigService<IFilesStorageClientConfig, true>) => {
-                const timeout = configService.get<number>('INCOMING_REQUEST_TIMEOUT');
-
-                const options = new Configuration({
-                    baseOptions: { timeout },
-                });
-
-                return new FileApi(options, baseUrl + apiUri);
-            },
-            inject: [ConfigService],
-        })
-    export class Module {}
-
+  }
+}
 ```
 
-Mocking in unit and integration tests.
+## 4. Environment Variables
 
-``` javascript
-    import { Test, TestingModule } from '@nestjs/testing';
-    import { createMock, DeepMocked } from '@golevelup/ts-jest';
+The project uses multiple environment variable files to manage different deployment scenarios:
 
-    describe('XXX', () => {
-        let config: DeepMocked<ConfigService>;
-        let app: INestApplication;
+### `.env.default`
+- **Purpose**: Contains default values for all locally configured properties
+- **When to use**: Provides a template for developers
+- **Content**: Safe default values that work for local development
+- **Committed**: Yes, this file is committed to version control
 
-        beforeAll(async () => {
-            const module: TestingModule = await Test.createTestingModule({
-                providers: [
-                    {
-                        provide: ConfigService,
-                        useValue: createMock<ConfigService>(),
-                    },
-                ],
-            }).compile();
+```bash
+# Example from .env.default
+SESSION_VALKEY__MODE=in-memory
+SC_DOMAIN=localhost
+ALERT_STATUS_URL=https://status.dbildungscloud.dev/
+```
 
-            config = module.get(ConfigService);
-            app = module.createNestApplication();
-        });
+### `.env.test`
+- **Purpose**: Configuration specifically for test environments
+- **When to use**: Automatically loaded during test execution
+- **Content**: Test-specific values (test databases, mock endpoints, simplified settings)
+- **Committed**: Yes, safe for version control as it contains only test configuration
 
-        const setup = () => {
-            config.get.mockReturnValueOnce(['value']);
-        }
+```bash
+# Example from .env.test
+AES_KEY=test-key-with-32-characters-long
+ADMIN_API__ALLOWED_API_KEYS=onlyusedintests:thisistheadminapitokeninthetestconfig
+```
 
-        it('XXX', () => {
-            setup();
-        })
+### `.env` (local)
+- **Purpose**: Your personal development environment overrides
+- **When to use**: Override defaults with your local development settings
+- **Content**: Personal API keys, local service URLs, custom feature flags
+- **Committed**: No, this file is in `.gitignore` and should not be committed
 
-        afterAll(async () => {
-            config.get.mockRestore();
-            await app.close();
-        })
+```bash
+# Example .env (create this file locally)
+MY_FEATURE_ENABLED=true
+MY_FEATURE_TIMEOUT=5000
+DATABASE_URL=postgresql://localhost:5432/mylocal_db
+API_KEY=your-personal-development-key
+```
 
+## 5. Validation and Transformation
+
+The ConfigurationModule supports comprehensive validation and transformation using class-validator decorators and custom transformers. This ensures that configuration values are correctly typed, validated, and transformed from environment variable strings.
+
+### 5.1. Basic Type Validation
+
+Use these decorators for basic type validation:
+
+```typescript
+import { IsBoolean, IsNumber, IsString, IsInt } from 'class-validator';
+import { StringToBoolean, StringToNumber } from '@shared/controller/transformer';
+
+@Configuration()
+export class MyConfig {
+  @IsBoolean()
+  @StringToBoolean()
+  @ConfigProperty('FEATURE_ENABLED')
+  public featureEnabled = false;
+
+  @IsNumber()
+  @StringToNumber()
+  @ConfigProperty('TIMEOUT_MS')
+  public timeoutMs = 5000;
+
+  @IsString()
+  @ConfigProperty('API_KEY')
+  public apiKey!: string;
+
+  @IsInt()
+  @StringToNumber()
+  @ConfigProperty('MAX_CONNECTIONS')
+  public maxConnections = 100;
+}
+```
+
+### 5.2. URL Validation
+
+For URL properties, use `@IsUrl()` with appropriate options:
+
+```typescript
+import { IsUrl } from 'class-validator';
+
+@Configuration()
+export class ServiceConfig {
+  @IsUrl({ require_tld: false }) // Allow localhost URLs
+  @ConfigProperty('SERVICE_URL')
+  public serviceUrl = 'http://localhost:3000';
+
+  @IsUrl() // Require valid TLD for production URLs
+  @ConfigProperty('EXTERNAL_API_URL')
+  public externalApiUrl!: string;
+}
+```
+
+### 5.3. Optional Properties
+
+Mark properties as optional when they may not be provided:
+
+```typescript
+import { IsOptional, IsString } from 'class-validator';
+
+@Configuration()
+export class OptionalConfig {
+  @IsOptional()
+  @IsString()
+  @ConfigProperty('OPTIONAL_SETTING')
+  public optionalSetting?: string;
+}
+```
+
+### 5.4. Conditional Validation
+
+Use `@ValidateIf()` to validate properties only when certain conditions are met:
+
+```typescript
+import { ValidateIf, IsString, IsBoolean } from 'class-validator';
+import { StringToBoolean } from '@shared/controller/transformer';
+
+@Configuration()
+export class ConditionalConfig {
+  @IsBoolean()
+  @StringToBoolean()
+  @ConfigProperty('FEATURE_ENABLED')
+  public featureEnabled = false;
+
+  @ValidateIf((config: ConditionalConfig) => config.featureEnabled)
+  @IsString()
+  @ConfigProperty('FEATURE_API_KEY')
+  public featureApiKey?: string;
+
+  @ValidateIf((config: ConditionalConfig) => config.featureEnabled)
+  @IsUrl({ require_tld: false })
+  @ConfigProperty('FEATURE_SERVICE_URL')
+  public featureServiceUrl?: string;
+}
+```
+
+### 5.5. Enum Validation
+
+Validate against specific enum values:
+
+```typescript
+import { IsEnum } from 'class-validator';
+
+enum LogLevel {
+  ERROR = 'error',
+  WARN = 'warn',
+  INFO = 'info',
+  DEBUG = 'debug',
+}
+
+@Configuration()
+export class LoggingConfig {
+  @IsEnum(LogLevel)
+  @ConfigProperty('LOG_LEVEL')
+  public logLevel = LogLevel.INFO;
+}
+```
+
+### 5.6. Array Validation
+
+For array properties:
+
+```typescript
+import { IsArray, IsString } from 'class-validator';
+
+@Configuration()
+export class ArrayConfig {
+  @IsArray()
+  @IsString({ each: true })
+  @ConfigProperty('ALLOWED_ORIGINS')
+  public allowedOrigins: string[] = ['http://localhost:3000'];
+}
+```
+
+## 6. PublicApiConfig Pattern
+
+The `PublicApiConfig` pattern allows modules to expose their configuration values to the public API endpoint `/config/public`. This is useful for client applications that need to know about certain feature flags or configuration values.
+
+### 6.1. Passing Configuration to Client Applications
+
+The PublicApiConfig pattern exposes server configuration to client applications through public API endpoints. Client applications can fetch this configuration during startup to determine feature flags, non-sensitive service URLs, UI settings, and localization options—without requiring environment-specific builds.
+
+**⚠️ Security Warning**: Never expose secrets through this endpoint, as the data is readable in the browser and in request/response traffic.
+
+#### Available Endpoints
+
+- **Main config endpoint**: `http://{{HOST}}:{{PORT}}/api/v3/config/public`
+- **Files config endpoint**: `http://{{HOST}}:{{PORT}}/api/v3/files/config/public`
+
+The endpoints are implemented in the [ServerConfigController](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts), which aggregates all registered PublicApiConfig classes.
+
+### 6.2. Creating a PublicApiConfig Class
+
+Create a separate configuration class containing only the properties you want to expose publicly:
+
+```typescript
+// my-feature.config.ts
+import { ConfigProperty, Configuration } from '@infra/configuration';
+import { StringToBoolean } from '@shared/controller/transformer';
+import { IsBoolean } from 'class-validator';
+
+export const MY_FEATURE_PUBLIC_API_CONFIG_TOKEN = 'MY_FEATURE_PUBLIC_API_CONFIG_TOKEN';
+
+@Configuration()
+export class MyFeaturePublicApiConfig {
+  @ConfigProperty('FEATURE_MY_FEATURE_ENABLED')
+  @IsBoolean()
+  @StringToBoolean()
+  public featureMyFeatureEnabled = false;
+}
+
+// Optional: Extend for full configuration with private settings
+export const MY_FEATURE_CONFIG_TOKEN = 'MY_FEATURE_CONFIG_TOKEN';
+
+@Configuration()
+export class MyFeatureConfig extends MyFeaturePublicApiConfig {
+  @ConfigProperty('MY_FEATURE_PRIVATE_KEY')
+  @IsString()
+  public privateKey!: string; // Not exposed publicly
+}
+```
+
+### 6.3. Export from Module Index
+
+Export your PublicApiConfig from your module's index file:
+
+```typescript
+// modules/my-feature/index.ts
+export { MY_FEATURE_PUBLIC_API_CONFIG_TOKEN, MyFeaturePublicApiConfig } from './my-feature.config';
+export { MyFeatureModule } from './my-feature.module';
+```
+
+### 6.4. Register in Server Module
+
+Register the PublicApiConfig in your module's API module (if you have one):
+
+```typescript
+// my-feature-api.module.ts
+import { ConfigurationModule } from '@infra/configuration';
+import { MY_FEATURE_PUBLIC_API_CONFIG_TOKEN, MyFeaturePublicApiConfig } from './my-feature.config';
+
+@Module({
+  imports: [
+    ConfigurationModule.register(MY_FEATURE_PUBLIC_API_CONFIG_TOKEN, MyFeaturePublicApiConfig),
+  ],
+})
+export class MyFeatureApiModule {}
+```
+
+### 6.5. Adding to ConfigResponse
+
+To make your module's configuration available through the public config API, you need to modify several files:
+
+#### Step 1: Add Import to config.response.ts
+
+Add the import for your PublicApiConfig to `apps/server/src/modules/server/api/dto/config.response.ts`:
+
+```typescript
+import { MyFeaturePublicApiConfig } from '@modules/my-feature';
+```
+
+#### Step 2: Add Properties to ConfigResponse Class
+
+Add the properties you want to expose to the `ConfigResponse` class:
+
+```typescript
+export class ConfigResponse {
+  // ... existing properties ...
+
+  @ApiProperty()
+  FEATURE_MY_FEATURE_ENABLED: boolean;
+
+  // ... rest of properties ...
+}
+```
+
+#### Step 3: Add to Constructor Type and Assignment
+
+Update the constructor parameter type and assignment:
+
+```typescript
+export class ConfigResponse {
+  constructor(
+    config: ServerConfig &
+      VideoConferencePublicApiConfig &
+      // ... other existing PublicApiConfigs &
+      MyFeaturePublicApiConfig // Add your config here
+  ) {
+    // ... existing assignments ...
+    this.FEATURE_MY_FEATURE_ENABLED = config.featureMyFeatureEnabled;
+    // ... rest of assignments ...
+  }
+}
+```
+
+#### Step 4: Update ServerUc
+
+Add your config to the `ServerUc` constructor and getConfig method:
+
+```typescript
+@Injectable()
+export class ServerUc {
+  constructor(
+    // ... existing configs ...
+    @Inject(MY_FEATURE_PUBLIC_API_CONFIG_TOKEN) 
+    private readonly myFeatureConfig: MyFeaturePublicApiConfig
+  ) {}
+
+  public getConfig(): ConfigResponse {
+    const configDto = ConfigResponseMapper.mapToResponse(
+      this.config,
+      // ... existing configs ...
+      this.myFeatureConfig
+    );
+
+    return configDto;
+  }
+}
+```
+
+#### Step 5: Update ConfigResponseMapper
+
+Update the `ConfigResponseMapper`:
+
+```typescript
+export class ConfigResponseMapper {
+  public static mapToResponse(
+    serverConfig: ServerConfig,
+    // ... existing configs ...
+    myFeatureConfig: MyFeaturePublicApiConfig
+  ): ConfigResponse {
+    const configResponse = new ConfigResponse({
+      ...serverConfig,
+      // ... existing configs ...
+      ...myFeatureConfig,
     });
 
+    return configResponse;
+  }
+}
 ```
 
-Mocking in api tests.
+### 6.6. Best Practices for PublicApiConfig
 
-``` javascript
-    import { ServerTestModule } from '@modules/server/server.app.module';
-    import { serverConfig } from '@modules/server/server.config';
-    import { TestConfigHelper } from '@testing/test-config.helper';
+1. **Only expose necessary values**: Don't include sensitive information like API keys or secrets
+2. **Use descriptive names**: Follow the pattern `FEATURE_[MODULE]_[FEATURE]_ENABLED`
+3. **Consistent typing**: Use boolean for feature flags, strings for URLs, etc.
+4. **Documentation**: Add `@ApiProperty()` decorators with descriptions for Swagger documentation
+5. **Default values**: Provide sensible defaults for all configuration properties
 
-    describe('...Controller (API)', () => {
-        let app: INestApplication;
-        let em: EntityManager;
-        let testApiClient: TestApiClient;
-        let testConfigHelper: TestConfigHelper<ServerConfig>;
+## 7. Best Practices
 
-        beforeAll(async () => {
-            const module: TestingModule = await Test.createTestingModule({
-                imports: [ServerTestModule],
-            }).compile();
+### 7.1. Module-Level Configuration
+Each configuration class should be placed at the top level of its respective module whenever possible. This makes it easy to locate and manage module-specific settings.
 
-            app = module.createNestApplication();
-		    await app.init();
-            em = app.get(EntityManager);
-		    testApiClient = new TestApiClient(app, '...path...');
-
-            const config = serverConfig();
-		    testConfigHelper = new TestConfigHelper(config);
-        });
-
-        afterEach(() => {
-		    testConfigHelper.reset();
-	    });
-
-        describe('PATCH /:id', () => {
-            describe('when feature X is activated', () => {
-                const setup = async () => { 
-                    testConfigHelper.set('FEATURE_X', true);
-                };
-
-                it('should ...', () => {
-                    await setup();
-                });
-
-                it('should ...', () => {
-                   await setup();
-                });
-
-                it('should ...', () => {
-                   await setup();
-                });
-            });
-        });
-    });
+```
+src/modules/my-feature/
+├── my-feature.config.ts     // ← Configuration at module root
+├── my-feature.module.ts
+├── index.ts
+└── services/
+    └── my-feature.service.ts
 ```
 
-### Special cases in nestjs
+### 7.2. Infrastructure Module Pattern
+Modules located in `apps/server/src/infra` should always receive their configuration from the outside as arguments to their `register()` function. This promotes reusability and decoupling.
 
-If we want to use values in decorators, we can not use the nestjs configuration module.
-The parsing of decorators in files starts first and after it the injections are solved.
-
-It is possible to import the config file of the application directly and use the values.
-
-``` javascript
-    import serverConfig from '@modules/server/server.config';
-
-    @RequestTimeout(serverConfig().INCOMING_REQUEST_TIMEOUT_COPY_API)
+```typescript
+// Example from apps/server/src/infra/calendar/calendar.module.ts
+@Module({})
+export class CalendarModule {
+  public static register(injectionToken: string, Constructor: new () => CalendarConfig): DynamicModule {
+    return {
+      module: CalendarModule,
+      imports: [HttpModule, CqrsModule, LoggerModule, ConfigurationModule.register(injectionToken, Constructor)],
+      providers: [CalendarMapper, CalendarService],
+      exports: [CalendarService],
+    };
+  }
+}
 ```
 
-## Passing configuration to vue client
+This pattern allows the consuming module to provide the appropriate configuration:
 
-It exists an endpoint that exposes environment values.
-This values are used by the vue client.
-The solution is the only existing way how environments should be passed to the new vue client.
-
-Please be careful! Secrets should be never exposed!
-They are readable in browser and request response.
-
-[https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts)
-
-http://\{\{HOST}}:\{\{PORT}}/api/v3/config/public   
-http://\{\{HOST}}:\{\{PORT}}/api/v3/files/config/public
-
-## Desired changes in future
-
-We want to remove the different config files and the Configuration from @hpi-schul-cloud/commons package.
-We want to use the nestjs solutions over parsing configuration values for different states.
-This results in a new format for the default.schema.json file.
-
-We also want to put more environment values to database, to enable us to switching it without redeploys over our dashboard.
-
-## Local setups
-
-You can use the .env convention to set settings that only work for you locally.
-For temporary checks you can add environments to your terminal based on the solution of your IOS.
-You can also add environments for debugging, or if you run your applications over .vscode/lunch.json with:
-
-``` json
-    "env": {
-        "NODE_ENV": "test"
-    }
+```typescript
+// Usage in a business module
+@Module({
+  imports: [
+    CalendarModule.register(MY_CALENDAR_CONFIG_TOKEN, MyCalendarConfig),
+  ],
+})
+export class MyBusinessModule {}
 ```
+
+### 7.3. Default Configuration with Interface Pattern
+
+For more flexibility, infrastructure modules often provide a default configuration class alongside an internal interface. This approach allows consumers to either use the provided default configuration or implement their own custom configuration while maintaining type safety. The interface ensures all implementations provide the necessary properties with the correct types.
+
+```typescript
+// Example: apps/server/src/infra/schulconnex-client/schulconnex-client.config.ts
+export interface InternalSchulconnexClientConfig {
+  personInfoTimeoutInMs: number;
+  apiUrl?: string;
+  clientId?: string;
+}
+
+/**
+ * Default configuration for the SchulconnexClient.
+ * Create your own config class implementing InternalSchulconnexClientConfig
+ * if you need different environment variables or behavior.
+ */
+@Configuration()
+export class SchulconnexClientConfig implements InternalSchulconnexClientConfig {
+  @ConfigProperty('SCHULCONNEX_CLIENT__PERSON_INFO_TIMEOUT_IN_MS')
+  @StringToNumber()
+  @IsNumber()
+  public personInfoTimeoutInMs = 3000;
+
+  @ConfigProperty('SCHULCONNEX_CLIENT__API_URL')
+  @IsOptional()
+  @IsString()
+  public apiUrl?: string;
+
+  @ConfigProperty('SCHULCONNEX_CLIENT__CLIENT_ID')
+  @IsOptional()
+  @IsString()
+  public clientId?: string;
+}
+```
+
+The module accepts any constructor implementing the interface:
+
+```typescript
+export class SchulconnexClientModule {
+  public static register(
+    injectionToken: string,
+    Constructor: new () => InternalSchulconnexClientConfig
+  ): DynamicModule {
+    // ... module configuration
+  }
+}
+```
+
+For complete encapsulation, the infrastructure module's internal services should depend only on the interface, not the concrete configuration class. This ensures type safety and flexibility while keeping the module decoupled from specific implementations.
+
+```typescript
+// Internal service using the interface
+@Injectable()
+export class SchulconnexRestClient {
+  constructor(
+    @Inject(SCHULCONNEX_CLIENT_CONFIG_TOKEN) 
+    private readonly config: InternalSchulconnexClientConfig // ← Interface type
+  ) {}
+
+  async getPersonInfo(): Promise<PersonInfo> {
+    const timeout = this.config.personInfoTimeoutInMs;
+    // Implementation works with any config satisfying the interface
+  }
+}
+```
+
+### 7.4. Module Options Pattern
+
+When an infrastructure module requires more than one injection token and constructor (i.e., multiple configuration dependencies), introduce a module options interface to keep the API clean and organized.
+
+```typescript
+// Example: apps/server/src/infra/tsp-client/types/module-options.ts
+export interface TspClientModuleOptions {
+  encryptionConfig: { configInjectionToken: string; configConstructor: new () => EncryptionConfig };
+  tspClientConfig: { configInjectionToken: string; configConstructor: new () => TspClientConfig };
+}
+```
+
+Use this options interface in your infrastructure module's register method:
+
+```typescript
+// Example: apps/server/src/infra/tsp-client/tsp-client.module.ts
+@Module({})
+export class TspClientModule {
+  public static register(options: TspClientModuleOptions): DynamicModule {
+    const { encryptionConfig, tspClientConfig } = options;
+    return {
+      module: TspClientModule,
+      imports: [
+        LoggerModule,
+        OauthAdapterModule,
+        EncryptionModule.register(encryptionConfig.configConstructor, encryptionConfig.configInjectionToken),
+        ConfigurationModule.register(tspClientConfig.configInjectionToken, tspClientConfig.configConstructor),
+      ],
+      providers: [TspClientFactory],
+      exports: [TspClientFactory],
+    };
+  }
+}
+```
+
+This pattern provides several benefits:
+- **Clean API**: Single parameter instead of multiple individual parameters
+- **Type Safety**: All required configurations are defined in the interface
+- **Maintainability**: Easy to add new configuration dependencies
+- **Self-Documentation**: The interface clearly shows all required dependencies
+
+### 7.5. Timeout Configuration Pattern
+
+For modules that need custom request timeouts, use the special timeout configuration pattern. Timeout configurations extend the `TimeoutConfig` base class and provide configurable timeout values for specific endpoints.
+
+```typescript
+// Example: apps/server/src/modules/room/timeout.config.ts
+import { TimeoutConfig } from '@core/interceptor/timeout-interceptor-config.interface';
+import { ConfigProperty, Configuration } from '@infra/configuration';
+import { StringToNumber } from '@shared/controller/transformer';
+import { IsNumber } from 'class-validator';
+
+export const ROOM_TIMEOUT_CONFIG_TOKEN = 'ROOM_TIMEOUT_CONFIG_TOKEN';
+export const ROOM_INCOMING_REQUEST_TIMEOUT_COPY_API_KEY = 'roomIncomingRequestTimeoutCopyApi';
+
+@Configuration()
+export class RoomTimeoutConfig extends TimeoutConfig {
+  @ConfigProperty('INCOMING_REQUEST_TIMEOUT_COPY_API')
+  @IsNumber()
+  @StringToNumber()
+  public [ROOM_INCOMING_REQUEST_TIMEOUT_COPY_API_KEY] = 60000;
+}
+```
+
+Use the `@RequestTimeout` decorator on controller endpoints to apply custom timeouts. The decorator references the property key from your timeout configuration:
+
+```typescript
+import { RequestTimeout } from '@shared/common/decorators/timeout.decorator';
+
+@Controller('rooms')
+export class RoomController {
+  @RequestTimeout('roomIncomingRequestTimeoutCopyApi')
+  @Post('copy')
+  async copyRoom(): Promise<void> {
+    // This endpoint will use the configured timeout value
+  }
+}
+```
+
+**Key Points:**
+- Timeout configs must extend `TimeoutConfig` base class
+- Export property key constants for use with the decorator
+- Property keys should match the string values used in the decorator
+- Register the timeout config with `CoreModule.register()` in your module
+- If a property doesn't exist, the interceptor falls back to default timeout
+
+## 8. Summary
+
+1. Create a config class decorated with `@Configuration()`.
+2. Use `@ConfigProperty()` to bind properties to environment variables.
+3. Add validation decorators (`@IsBoolean`, `@IsString`, etc.) and transformers (`@StringToBoolean`, `@StringToNumber`).
+4. Register the configuration using `ConfigurationModule.register()`.
+5. Inject the configuration into your services using `@Inject()`.
+6. Set values via `.env`, `.env.default`, or `.env.test` files.
+7. For infrastructure modules, use the `register()` pattern with external configuration.
+8. For public API exposure, create a separate `PublicApiConfig` class and integrate it into the `ConfigResponse` system.
+9. For custom timeouts, extend `TimeoutConfig` and use the `@RequestTimeout()` decorator.
