@@ -275,9 +275,9 @@ export class ArrayConfig {
 
 The `PublicApiConfig` pattern allows modules to expose their configuration values to the public API endpoint `/config/public`. This is useful for client applications that need to know about certain feature flags or configuration values.
 
-### 6.1. Passing Configuration to Vue Client
+### 6.1. Passing Configuration to Client Applications
 
-The PublicApiConfig pattern serves a specific purpose: exposing environment values to the Vue client through a public API endpoint. This is the only existing and recommended way to pass environment configurations to the new Vue client.
+The PublicApiConfig pattern serves a specific purpose: exposing environment values to client applications through public API endpoints. This is the recommended way to pass server configuration to client applications that need runtime access to feature flags and settings.
 
 **⚠️ Security Warning**: Be extremely careful about what you expose! Secrets should never be exposed through this endpoint as they are readable in the browser and in request/response data.
 
@@ -292,15 +292,15 @@ The configuration is exposed through these public endpoints:
 
 The endpoints are implemented in the [ServerConfigController](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts), which aggregates all registered PublicApiConfig classes and exposes them through the `/config/public` endpoint.
 
-#### Usage in Vue Client
+#### Usage in Client Applications
 
-The Vue client fetches configuration from these endpoints during application startup to determine:
+Client applications may fetch configuration from these endpoints during application startup to determine:
 - Feature flags and enabled functionality
 - API endpoints and service URLs (non-sensitive)
 - UI configuration and display options
 - Locale and internationalization settings
 
-This approach ensures that the Vue client can adapt its behavior based on the server's configuration without requiring environment-specific builds.
+This approach ensures that client applications can adapt their behavior based on the server's configuration without requiring environment-specific builds.
 
 ### 6.2. Creating a PublicApiConfig Interface
 
