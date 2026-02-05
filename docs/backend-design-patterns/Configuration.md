@@ -111,7 +111,7 @@ ADMIN_API__ALLOWED_API_KEYS=onlyusedintests:thisistheadminapitokeninthetestconfi
 - **Purpose**: Your personal development environment overrides
 - **When to use**: Override defaults with your local development settings
 - **Content**: Personal API keys, local service URLs, custom feature flags
-- **Committed**: No, this file should be in `.gitignore` and not committed
+- **Committed**: This file is in `.gitignore` and not committed  
 
 ```bash
 # Example .env (create this file locally)
