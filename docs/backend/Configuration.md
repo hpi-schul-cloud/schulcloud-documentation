@@ -526,7 +526,48 @@ export class ConfigResponseMapper {
 4. **Documentation**: Add `@ApiProperty()` decorators with descriptions for Swagger documentation
 5. **Default values**: Provide sensible defaults for all configuration properties
 
----
+
+## 7. Best Practices
+
+**Module-Level Configuration**: Each configuration class should be placed at the top level of its respective module whenever possible. This makes it easy to locate and manage module-specific settings.
+
+```
+src/modules/my-feature/
+├── my-feature.config.ts     // ← Configuration at module root
+├── my-feature.module.ts
+├── index.ts
+└── services/
+    └── my-feature.service.ts
+```
+
+**Infrastructure Module Pattern**: Modules located in `apps/server/src/infra` should always receive their configuration from the outside as arguments to their `register()` function. This promotes reusability and decoupling.
+
+```typescript
+// Example from apps/server/src/infra/calendar/calendar.module.ts
+@Module({})
+export class CalendarModule {
+  public static register(injectionToken: string, Constructor: new () => CalendarConfig): DynamicModule {
+    return {
+      module: CalendarModule,
+      imports: [HttpModule, CqrsModule, LoggerModule, ConfigurationModule.register(injectionToken, Constructor)],
+      providers: [CalendarMapper, CalendarService],
+      exports: [CalendarService],
+    };
+  }
+}
+```
+
+This pattern allows the consuming module to provide the appropriate configuration:
+
+```typescript
+// Usage in a business module
+@Module({
+  imports: [
+    CalendarModule.register(MY_CALENDAR_CONFIG_TOKEN, MyCalendarConfig),
+  ],
+})
+export class MyBusinessModule {}
+```
 
 **Summary:**
 - Create a config class with properties.
