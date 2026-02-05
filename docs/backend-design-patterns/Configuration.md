@@ -7,14 +7,20 @@ The `ConfigurationModule` provides a flexible and type-safe way to manage applic
 The ConfigurationModule offers several key advantages over traditional configuration approaches:
 
 - **Module Encapsulation Principle**: Environment variables should be defined in the modules they belong to (e.g., board features in `board.config.ts`, team features in `team.config.ts`). This ensures better encapsulation, clearer ownership, and easier maintenance. Only add general server-wide configuration here that doesn't belong to any specific module.
+
 - **Type Safety**: Configuration values are strongly typed with TypeScript, preventing runtime errors caused by type mismatches.
+
 - **Validation**: Uses class-validator decorators (`@IsBoolean`, `@IsString`, `@IsUrl`, etc.) to ensure configuration values meet expected formats at runtime.
+
 - **Transformation**: Automatically converts environment variables (e.g., string "true"/"false" to boolean) using transformers like `@StringToBoolean()`.
+
 - **Default Values**: Properties can have sensible defaults, reducing the number of required environment variables.
+
 - **Discoverability**: All configuration options are clearly visible in one place with their types, making it easy for developers to understand what can be configured.
+
 - **Maintainability**: Changes to configuration structure are easier to track and refactor across the codebase.
 
-### ❌ Forbidden Practices
+## ❌ Forbidden Practices
 
 When using the ConfigurationModule, the following practices are **forbidden** and should be avoided:
 
