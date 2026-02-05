@@ -83,8 +83,8 @@ MY_FEATURE_TIMEOUT=5000
 The ConfigurationModule supports multiple environment files for different purposes:
 
 #### `.env.default`
-- **Purpose**: Contains default values for all configuration properties
-- **When to use**: Provides a template for developers and baseline configuration
+- **Purpose**: Contains default values for all locally configured properties
+- **When to use**: Provides a template for developers
 - **Content**: Safe default values that work for local development
 - **Committed**: Yes, this file is committed to version control
 
