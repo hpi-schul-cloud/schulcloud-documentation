@@ -367,7 +367,34 @@ export class DatabaseConfig {
 
 The `PublicApiConfig` pattern allows modules to expose their configuration values to the public API endpoint `/config/public`. This is useful for client applications that need to know about certain feature flags or configuration values.
 
-### 6.1. Creating a PublicApiConfig Interface
+### 6.1. Passing Configuration to Vue Client
+
+The PublicApiConfig pattern serves a specific purpose: exposing environment values to the Vue client through a public API endpoint. This is the only existing and recommended way to pass environment configurations to the new Vue client.
+
+**⚠️ Security Warning**: Be extremely careful about what you expose! Secrets should never be exposed through this endpoint as they are readable in the browser and in request/response data.
+
+#### Available Endpoints
+
+The configuration is exposed through these public endpoints:
+
+- **Main config endpoint**: `http://{{HOST}}:{{PORT}}/api/v3/config/public`
+- **Files config endpoint**: `http://{{HOST}}:{{PORT}}/api/v3/files/config/public`
+
+#### Implementation
+
+The endpoints are implemented in the [ServerConfigController](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts), which aggregates all registered PublicApiConfig classes and exposes them through the `/config/public` endpoint.
+
+#### Usage in Vue Client
+
+The Vue client fetches configuration from these endpoints during application startup to determine:
+- Feature flags and enabled functionality
+- API endpoints and service URLs (non-sensitive)
+- UI configuration and display options
+- Locale and internationalization settings
+
+This approach ensures that the Vue client can adapt its behavior based on the server's configuration without requiring environment-specific builds.
+
+### 6.2. Creating a PublicApiConfig Interface
 
 Create a separate configuration class that contains only the properties you want to expose publicly:
 
@@ -398,7 +425,7 @@ export class MyFeatureConfig extends MyFeaturePublicApiConfig {
 }
 ```
 
-### 6.2. Export from Module Index
+### 6.3. Export from Module Index
 
 Export your PublicApiConfig from your module's index file:
 
@@ -408,7 +435,7 @@ export { MY_FEATURE_PUBLIC_API_CONFIG_TOKEN, MyFeaturePublicApiConfig } from './
 export { MyFeatureModule } from './my-feature.module';
 ```
 
-### 6.3. Register in API Module
+### 6.4. Register in API Module
 
 Register the PublicApiConfig in your module's API module (if you have one):
 
@@ -425,7 +452,7 @@ import { MY_FEATURE_PUBLIC_API_CONFIG_TOKEN, MyFeaturePublicApiConfig } from './
 export class MyFeatureApiModule {}
 ```
 
-### 6.4. Adding to ConfigResponse
+### 6.5. Adding to ConfigResponse
 
 To make your module's configuration available through the public config API, you need to modify several files:
 
@@ -518,14 +545,13 @@ export class ConfigResponseMapper {
 }
 ```
 
-### 6.5. Best Practices for PublicApiConfig
+### 6.6. Best Practices for PublicApiConfig
 
 1. **Only expose necessary values**: Don't include sensitive information like API keys or secrets
 2. **Use descriptive names**: Follow the pattern `FEATURE_[MODULE]_[FEATURE]_ENABLED`
 3. **Consistent typing**: Use boolean for feature flags, strings for URLs, etc.
 4. **Documentation**: Add `@ApiProperty()` decorators with descriptions for Swagger documentation
 5. **Default values**: Provide sensible defaults for all configuration properties
-
 
 ## 7. Best Practices
 
