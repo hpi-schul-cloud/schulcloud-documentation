@@ -6,7 +6,7 @@ The `ConfigurationModule` provides a flexible and type-safe way to manage applic
 
 The ConfigurationModule offers several key advantages over traditional configuration approaches:
 
-- **Module Encapsulation Principle**: Environment variables should be defined in the modules they belong to (e.g., board features in `board.config.ts`, team features in `team.config.ts`). This ensures better encapsulation, clearer ownership, and easier maintenance. Only add general server-wide configuration here that doesn't belong to any specific module.
+- **Module Encapsulation Principle**: Environment variables should be defined in the modules they belong to (e.g., board features in `board.config.ts`, team features in `team.config.ts`). This ensures better encapsulation, clearer ownership, and easier maintenance. Only add general server-wide configuration to `server.config.ts` if it doesn't belong to any specific module.
 
 - **Type Safety**: Configuration values are strongly typed with TypeScript, preventing runtime errors caused by type mismatches.
 
@@ -36,8 +36,10 @@ Define a class to represent your configuration in your module with `@Configurati
 
 ```typescript
 import { ConfigProperty, Configuration } from '@infra/configuration';
+import { IsBoolean, IsNumber } from 'class-validator';
+import { StringToBoolean, StringToNumber } from '@shared/controller/transformer';
 
-export const MY_FEATURE_CONFIG = 'MY_FEATURE_CONFIG';
+export const MY_FEATURE_CONFIG_TOKEN = 'MY_FEATURE_CONFIG_TOKEN';
 
 @Configuration()
 export class MyFeatureConfig {
@@ -58,11 +60,12 @@ export class MyFeatureConfig {
 Import and add the `ConfigurationModule` to your feature or root module:
 
 ```typescript
+import { Module } from '@nestjs/common';
 import { ConfigurationModule } from '@infra/configuration';
-import { MyFeatureConfig, MY_FEATURE_CONFIG } from './my-feature.config';
+import { MyFeatureConfig, MY_FEATURE_CONFIG_TOKEN } from './my-feature.config';
 
 @Module({
-  imports: [ConfigurationModule.register(MY_FEATURE_CONFIG, MyFeatureConfig)],
+  imports: [ConfigurationModule.register(MY_FEATURE_CONFIG_TOKEN, MyFeatureConfig)],
 })
 export class AppModule {}
 ```
@@ -72,12 +75,12 @@ export class AppModule {}
 Inject your configuration class into services or controllers as needed:
 
 ```typescript
-import { Injectable } from '@nestjs/common';
-import { MyFeatureConfig, MY_FEATURE_CONFIG } from './my-feature.config';
+import { Inject, Injectable } from '@nestjs/common';
+import { MyFeatureConfig, MY_FEATURE_CONFIG_TOKEN } from './my-feature.config';
 
 @Injectable()
 export class MyFeatureService {
-  constructor(@Inject(MY_FEATURE_CONFIG) private readonly config: MyFeatureConfig) {}
+  constructor(@Inject(MY_FEATURE_CONFIG_TOKEN) private readonly config: MyFeatureConfig) {}
 
   doSomething() {
     if (this.config.enabled) {
@@ -89,16 +92,9 @@ export class MyFeatureService {
 
 ## 4. Environment Variables
 
-The project uses multiple environment variable files to manage different deployment scenarios. Set environment variables in your `.env` file or process environment:
+The project uses multiple environment variable files to manage different deployment scenarios:
 
-```
-MY_FEATURE_ENABLED=true
-MY_FEATURE_TIMEOUT=5000
-```
-
-The ConfigurationModule supports multiple environment files for different purposes:
-
-#### `.env.default`
+### `.env.default`
 - **Purpose**: Contains default values for all locally configured properties
 - **When to use**: Provides a template for developers
 - **Content**: Safe default values that work for local development
@@ -111,7 +107,7 @@ SC_DOMAIN=localhost
 ALERT_STATUS_URL=https://status.dbildungscloud.dev/
 ```
 
-#### `.env.test`
+### `.env.test`
 - **Purpose**: Configuration specifically for test environments
 - **When to use**: Automatically loaded during test execution
 - **Content**: Test-specific values (test databases, mock endpoints, simplified settings)
@@ -123,20 +119,21 @@ AES_KEY=test-key-with-32-characters-long
 ADMIN_API__ALLOWED_API_KEYS=onlyusedintests:thisistheadminapitokeninthetestconfig
 ```
 
-#### `.env` (local)
+### `.env` (local)
 - **Purpose**: Your personal development environment overrides
 - **When to use**: Override defaults with your local development settings
 - **Content**: Personal API keys, local service URLs, custom feature flags
-- **Committed**: This file is in `.gitignore` and not committed  
+- **Committed**: No, this file is in `.gitignore` and should not be committed
 
 ```bash
 # Example .env (create this file locally)
 MY_FEATURE_ENABLED=true
+MY_FEATURE_TIMEOUT=5000
 DATABASE_URL=postgresql://localhost:5432/mylocal_db
 API_KEY=your-personal-development-key
 ```
 
-## 5. Validation / Transformation
+## 5. Validation and Transformation
 
 The ConfigurationModule supports comprehensive validation and transformation using class-validator decorators and custom transformers. This ensures that configuration values are correctly typed, validated, and transformed from environment variable strings.
 
@@ -277,34 +274,20 @@ The `PublicApiConfig` pattern allows modules to expose their configuration value
 
 ### 6.1. Passing Configuration to Client Applications
 
-The PublicApiConfig pattern serves a specific purpose: exposing environment values to client applications through public API endpoints. This is the recommended way to pass server configuration to client applications that need runtime access to feature flags and settings.
+The PublicApiConfig pattern exposes server configuration to client applications through public API endpoints. Client applications can fetch this configuration during startup to determine feature flags, non-sensitive service URLs, UI settings, and localization options—without requiring environment-specific builds.
 
-**⚠️ Security Warning**: Be extremely careful about what you expose! Secrets should never be exposed through this endpoint as they are readable in the browser and in request/response data.
+**⚠️ Security Warning**: Never expose secrets through this endpoint, as the data is readable in the browser and in request/response traffic.
 
 #### Available Endpoints
-
-The configuration is exposed through these public endpoints:
 
 - **Main config endpoint**: `http://{{HOST}}:{{PORT}}/api/v3/config/public`
 - **Files config endpoint**: `http://{{HOST}}:{{PORT}}/api/v3/files/config/public`
 
-#### Implementation
+The endpoints are implemented in the [ServerConfigController](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts), which aggregates all registered PublicApiConfig classes.
 
-The endpoints are implemented in the [ServerConfigController](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/server/api/server-config.controller.ts), which aggregates all registered PublicApiConfig classes and exposes them through the `/config/public` endpoint.
+### 6.2. Creating a PublicApiConfig Class
 
-#### Usage in Client Applications
-
-Client applications may fetch configuration from these endpoints during application startup to determine:
-- Feature flags and enabled functionality
-- API endpoints and service URLs (non-sensitive)
-- UI configuration and display options
-- Locale and internationalization settings
-
-This approach ensures that client applications can adapt their behavior based on the server's configuration without requiring environment-specific builds.
-
-### 6.2. Creating a PublicApiConfig Interface
-
-Create a separate configuration class that contains only the properties you want to expose publicly:
+Create a separate configuration class containing only the properties you want to expose publicly:
 
 ```typescript
 // my-feature.config.ts
@@ -329,7 +312,7 @@ export const MY_FEATURE_CONFIG_TOKEN = 'MY_FEATURE_CONFIG_TOKEN';
 export class MyFeatureConfig extends MyFeaturePublicApiConfig {
   @ConfigProperty('MY_FEATURE_PRIVATE_KEY')
   @IsString()
-  public privateKey!: string; // This won't be exposed publicly
+  public privateKey!: string; // Not exposed publicly
 }
 ```
 
@@ -463,7 +446,7 @@ export class ConfigResponseMapper {
 
 ## 7. Best Practices
 
-### 7.1 Module-Level Configuration
+### 7.1. Module-Level Configuration
 Each configuration class should be placed at the top level of its respective module whenever possible. This makes it easy to locate and manage module-specific settings.
 
 ```
@@ -475,7 +458,7 @@ src/modules/my-feature/
     └── my-feature.service.ts
 ```
 
-### 7.2 Infrastructure Module Pattern
+### 7.2. Infrastructure Module Pattern
 Modules located in `apps/server/src/infra` should always receive their configuration from the outside as arguments to their `register()` function. This promotes reusability and decoupling.
 
 ```typescript
@@ -505,7 +488,7 @@ This pattern allows the consuming module to provide the appropriate configuratio
 export class MyBusinessModule {}
 ```
 
-### 7.3 Default Configuration with Interface Pattern
+### 7.3. Default Configuration with Interface Pattern
 
 For more flexibility, infrastructure modules often provide a default configuration class alongside an internal interface. This approach allows consumers to either use the provided default configuration or implement their own custom configuration while maintaining type safety. The interface ensures all implementations provide the necessary properties with the correct types.
 
@@ -572,7 +555,7 @@ export class SchulconnexRestClient {
 }
 ```
 
-### 7.4 Module Options Pattern
+### 7.4. Module Options Pattern
 
 When an infrastructure module requires more than one injection token and constructor (i.e., multiple configuration dependencies), introduce a module options interface to keep the API clean and organized.
 
@@ -659,11 +642,13 @@ export class RoomController {
 - If a property doesn't exist, the interceptor falls back to default timeout
 
 ## 8. Summary
-- Create a config class with properties.
-- Use `@Configuration` to mark it as a config class.
-- Use `@ConfigProperty` to mark config values.
-- Register your config class as a provider.
-- Inject and use it in your services.
-- Set values via environment variables.
-- Optionally, add validation for safety.
-- **For public API exposure**: Create a separate `PublicApiConfig` class and integrate it into the `ConfigResponse` system.
+
+1. Create a config class decorated with `@Configuration()`.
+2. Use `@ConfigProperty()` to bind properties to environment variables.
+3. Add validation decorators (`@IsBoolean`, `@IsString`, etc.) and transformers (`@StringToBoolean`, `@StringToNumber`).
+4. Register the configuration using `ConfigurationModule.register()`.
+5. Inject the configuration into your services using `@Inject()`.
+6. Set values via `.env`, `.env.default`, or `.env.test` files.
+7. For infrastructure modules, use the `register()` pattern with external configuration.
+8. For public API exposure, create a separate `PublicApiConfig` class and integrate it into the `ConfigResponse` system.
+9. For custom timeouts, extend `TimeoutConfig` and use the `@RequestTimeout()` decorator.
