@@ -505,7 +505,74 @@ This pattern allows the consuming module to provide the appropriate configuratio
 export class MyBusinessModule {}
 ```
 
-### 7.3 Module Options Pattern
+### 7.3 Default Configuration with Interface Pattern
+
+For more flexibility, infrastructure modules often provide a default configuration class alongside an internal interface. This approach allows consumers to either use the provided default configuration or implement their own custom configuration while maintaining type safety. The interface ensures all implementations provide the necessary properties with the correct types.
+
+```typescript
+// Example: apps/server/src/infra/schulconnex-client/schulconnex-client.config.ts
+export interface InternalSchulconnexClientConfig {
+  personInfoTimeoutInMs: number;
+  apiUrl?: string;
+  clientId?: string;
+}
+
+/**
+ * Default configuration for the SchulconnexClient.
+ * Create your own config class implementing InternalSchulconnexClientConfig
+ * if you need different environment variables or behavior.
+ */
+@Configuration()
+export class SchulconnexClientConfig implements InternalSchulconnexClientConfig {
+  @ConfigProperty('SCHULCONNEX_CLIENT__PERSON_INFO_TIMEOUT_IN_MS')
+  @StringToNumber()
+  @IsNumber()
+  public personInfoTimeoutInMs = 3000;
+
+  @ConfigProperty('SCHULCONNEX_CLIENT__API_URL')
+  @IsOptional()
+  @IsString()
+  public apiUrl?: string;
+
+  @ConfigProperty('SCHULCONNEX_CLIENT__CLIENT_ID')
+  @IsOptional()
+  @IsString()
+  public clientId?: string;
+}
+```
+
+The module accepts any constructor implementing the interface:
+
+```typescript
+export class SchulconnexClientModule {
+  public static register(
+    injectionToken: string,
+    Constructor: new () => InternalSchulconnexClientConfig
+  ): DynamicModule {
+    // ... module configuration
+  }
+}
+```
+
+For complete encapsulation, the infrastructure module's internal services should depend only on the interface, not the concrete configuration class. This ensures type safety and flexibility while keeping the module decoupled from specific implementations.
+
+```typescript
+// Internal service using the interface
+@Injectable()
+export class SchulconnexRestClient {
+  constructor(
+    @Inject(SCHULCONNEX_CLIENT_CONFIG_TOKEN) 
+    private readonly config: InternalSchulconnexClientConfig // ← Interface type
+  ) {}
+
+  async getPersonInfo(): Promise<PersonInfo> {
+    const timeout = this.config.personInfoTimeoutInMs;
+    // Implementation works with any config satisfying the interface
+  }
+}
+```
+
+### 7.4 Module Options Pattern
 
 When an infrastructure module requires more than one injection token and constructor (i.e., multiple configuration dependencies), introduce a module options interface to keep the API clean and organized.
 
