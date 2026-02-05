@@ -1,6 +1,6 @@
 # ConfigurationModule Usage Guide
 
-The `ConfigurationModule` provides a flexible and type-safe way to manage application configuration in your NestJS project. It supports environment variables, validation, and custom decorators for easy access to configuration values.
+The `ConfigurationModule` provides a flexible and type-safe way to manage application configuration. It supports environment variables, validation, and custom decorators for easy access to configuration values.
 
 ## 1. Creating a Configuration Class
 
