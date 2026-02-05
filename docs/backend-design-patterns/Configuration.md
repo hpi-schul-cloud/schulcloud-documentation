@@ -613,6 +613,51 @@ This pattern provides several benefits:
 - **Maintainability**: Easy to add new configuration dependencies
 - **Self-Documentation**: The interface clearly shows all required dependencies
 
+### 7.5. Timeout Configuration Pattern
+
+For modules that need custom request timeouts, use the special timeout configuration pattern. Timeout configurations extend the `TimeoutConfig` base class and provide configurable timeout values for specific endpoints.
+
+```typescript
+// Example: apps/server/src/modules/room/timeout.config.ts
+import { TimeoutConfig } from '@core/interceptor/timeout-interceptor-config.interface';
+import { ConfigProperty, Configuration } from '@infra/configuration';
+import { StringToNumber } from '@shared/controller/transformer';
+import { IsNumber } from 'class-validator';
+
+export const ROOM_TIMEOUT_CONFIG_TOKEN = 'ROOM_TIMEOUT_CONFIG_TOKEN';
+export const ROOM_INCOMING_REQUEST_TIMEOUT_COPY_API_KEY = 'roomIncomingRequestTimeoutCopyApi';
+
+@Configuration()
+export class RoomTimeoutConfig extends TimeoutConfig {
+  @ConfigProperty('INCOMING_REQUEST_TIMEOUT_COPY_API')
+  @IsNumber()
+  @StringToNumber()
+  public [ROOM_INCOMING_REQUEST_TIMEOUT_COPY_API_KEY] = 60000;
+}
+```
+
+Use the `@RequestTimeout` decorator on controller endpoints to apply custom timeouts. The decorator references the property key from your timeout configuration:
+
+```typescript
+import { RequestTimeout } from '@shared/common/decorators/timeout.decorator';
+
+@Controller('rooms')
+export class RoomController {
+  @RequestTimeout('roomIncomingRequestTimeoutCopyApi')
+  @Post('copy')
+  async copyRoom(): Promise<void> {
+    // This endpoint will use the configured timeout value
+  }
+}
+```
+
+**Key Points:**
+- Timeout configs must extend `TimeoutConfig` base class
+- Export property key constants for use with the decorator
+- Property keys should match the string values used in the decorator
+- Register the timeout config with `CoreModule.register()` in your module
+- If a property doesn't exist, the interceptor falls back to default timeout
+
 ## 8. Summary
 - Create a config class with properties.
 - Use `@Configuration` to mark it as a config class.
