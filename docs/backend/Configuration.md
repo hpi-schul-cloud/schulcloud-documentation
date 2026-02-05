@@ -569,7 +569,7 @@ This pattern allows the consuming module to provide the appropriate configuratio
 export class MyBusinessModule {}
 ```
 
-**Summary:**
+## 8. Summary:
 - Create a config class with properties.
 - Use `@Configuration` to mark it as a config class.
 - Use `@ConfigProperty` to mark config values.
