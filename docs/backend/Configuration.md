@@ -70,7 +70,240 @@ MY_FEATURE_TIMEOUT=5000
 
 ## 5. Validation / Transformation
 
-You can use class-validator decorators (like `@IsBoolean`, `@IsNumber`) and transformation decorators (like `@StringToBoolean`, `@StringToNumber`) to ensure that configuration values are correctly typed and validated.
+The ConfigurationModule supports comprehensive validation and transformation using class-validator decorators and custom transformers. This ensures that configuration values are correctly typed, validated, and transformed from environment variable strings.
+
+### 5.1. Basic Type Validation
+
+Use these decorators for basic type validation:
+
+```typescript
+import { IsBoolean, IsNumber, IsString, IsInt } from 'class-validator';
+import { StringToBoolean, StringToNumber } from '@shared/controller/transformer';
+
+@Configuration()
+export class MyConfig {
+  @IsBoolean()
+  @StringToBoolean()
+  @ConfigProperty('FEATURE_ENABLED')
+  public featureEnabled = false;
+
+  @IsNumber()
+  @StringToNumber()
+  @ConfigProperty('TIMEOUT_MS')
+  public timeoutMs = 5000;
+
+  @IsString()
+  @ConfigProperty('API_KEY')
+  public apiKey!: string;
+
+  @IsInt()
+  @StringToNumber()
+  @ConfigProperty('MAX_CONNECTIONS')
+  public maxConnections = 100;
+}
+```
+
+### 5.2. URL Validation
+
+For URL properties, use `@IsUrl()` with appropriate options:
+
+```typescript
+import { IsUrl } from 'class-validator';
+
+@Configuration()
+export class ServiceConfig {
+  @IsUrl({ require_tld: false }) // Allow localhost URLs
+  @ConfigProperty('SERVICE_URL')
+  public serviceUrl = 'http://localhost:3000';
+
+  @IsUrl() // Require valid TLD for production URLs
+  @ConfigProperty('EXTERNAL_API_URL')
+  public externalApiUrl!: string;
+}
+```
+
+### 5.3. Optional Properties
+
+Mark properties as optional when they may not be provided:
+
+```typescript
+import { IsOptional, IsString } from 'class-validator';
+
+@Configuration()
+export class OptionalConfig {
+  @IsOptional()
+  @IsString()
+  @ConfigProperty('OPTIONAL_SETTING')
+  public optionalSetting?: string;
+}
+```
+
+### 5.4. Conditional Validation
+
+Use `@ValidateIf()` to validate properties only when certain conditions are met:
+
+```typescript
+import { ValidateIf, IsString, IsBoolean } from 'class-validator';
+import { StringToBoolean } from '@shared/controller/transformer';
+
+@Configuration()
+export class ConditionalConfig {
+  @IsBoolean()
+  @StringToBoolean()
+  @ConfigProperty('FEATURE_ENABLED')
+  public featureEnabled = false;
+
+  @ValidateIf((config: ConditionalConfig) => config.featureEnabled)
+  @IsString()
+  @ConfigProperty('FEATURE_API_KEY')
+  public featureApiKey?: string;
+
+  @ValidateIf((config: ConditionalConfig) => config.featureEnabled)
+  @IsUrl({ require_tld: false })
+  @ConfigProperty('FEATURE_SERVICE_URL')
+  public featureServiceUrl?: string;
+}
+```
+
+### 5.5. Enum Validation
+
+Validate against specific enum values:
+
+```typescript
+import { IsEnum } from 'class-validator';
+
+enum LogLevel {
+  ERROR = 'error',
+  WARN = 'warn',
+  INFO = 'info',
+  DEBUG = 'debug',
+}
+
+@Configuration()
+export class LoggingConfig {
+  @IsEnum(LogLevel)
+  @ConfigProperty('LOG_LEVEL')
+  public logLevel = LogLevel.INFO;
+}
+```
+
+### 5.6. Array Validation
+
+For array properties:
+
+```typescript
+import { IsArray, IsString } from 'class-validator';
+
+@Configuration()
+export class ArrayConfig {
+  @IsArray()
+  @IsString({ each: true })
+  @ConfigProperty('ALLOWED_ORIGINS')
+  public allowedOrigins: string[] = ['http://localhost:3000'];
+}
+```
+
+### 5.7. String and Numeric Constraints
+
+Apply length and range constraints:
+
+```typescript
+import { IsString, IsInt, MinLength, MaxLength, Min, Max } from 'class-validator';
+import { StringToNumber } from '@shared/controller/transformer';
+
+@Configuration()
+export class ConstrainedConfig {
+  @IsString()
+  @MinLength(1)
+  @MaxLength(100)
+  @ConfigProperty('SERVICE_NAME')
+  public serviceName = 'default-service';
+
+  @IsInt()
+  @Min(1)
+  @Max(1000)
+  @StringToNumber()
+  @ConfigProperty('MAX_RETRIES')
+  public maxRetries = 3;
+}
+```
+
+### 5.8. Non-Empty Validation
+
+Ensure strings are not empty:
+
+```typescript
+import { IsNotEmpty, IsString } from 'class-validator';
+
+@Configuration()
+export class RequiredConfig {
+  @IsString()
+  @IsNotEmpty()
+  @ConfigProperty('REQUIRED_SETTING')
+  public requiredSetting!: string;
+}
+```
+
+### 5.9. Complex Validation Example
+
+Here's a comprehensive example combining multiple validation types:
+
+```typescript
+import { 
+  IsBoolean, IsString, IsUrl, IsOptional, ValidateIf, 
+  IsEnum, Min, Max, IsInt, IsNotEmpty 
+} from 'class-validator';
+import { StringToBoolean, StringToNumber } from '@shared/controller/transformer';
+
+enum DatabaseType {
+  MYSQL = 'mysql',
+  POSTGRESQL = 'postgresql',
+  MONGODB = 'mongodb',
+}
+
+@Configuration()
+export class DatabaseConfig {
+  @IsEnum(DatabaseType)
+  @ConfigProperty('DB_TYPE')
+  public type = DatabaseType.POSTGRESQL;
+
+  @IsUrl({ require_tld: false })
+  @ConfigProperty('DB_HOST')
+  public host = 'localhost';
+
+  @IsInt()
+  @Min(1)
+  @Max(65535)
+  @StringToNumber()
+  @ConfigProperty('DB_PORT')
+  public port = 5432;
+
+  @IsString()
+  @IsNotEmpty()
+  @ConfigProperty('DB_NAME')
+  public database!: string;
+
+  @IsOptional()
+  @IsString()
+  @ConfigProperty('DB_USERNAME')
+  public username?: string;
+
+  @IsOptional()
+  @IsString()
+  @ConfigProperty('DB_PASSWORD')
+  public password?: string;
+
+  @IsBoolean()
+  @StringToBoolean()
+  @ConfigProperty('DB_SSL_ENABLED')
+  public sslEnabled = false;
+
+  @ValidateIf((config: DatabaseConfig) => config.sslEnabled)
+  @IsString()
+  @ConfigProperty('DB_SSL_CERT_PATH')
+  public sslCertPath?: string;
+}
+```
 
 ## 6. PublicApiConfig Pattern
 
