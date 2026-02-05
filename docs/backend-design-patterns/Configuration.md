@@ -120,16 +120,7 @@ DATABASE_URL=postgresql://localhost:5432/mylocal_db
 API_KEY=your-personal-development-key
 ```
 
-### 4.2. Environment File Priority
-
-The configuration system loads environment files in the following priority order (higher priority overrides lower):
-
-1. **Process environment variables** (highest priority)
-2. **`.env`** (local development overrides)
-3. **`.env.test`** (only during test execution)
-4. **`.env.default`** (baseline defaults, lowest priority)
-
-### 4.3. Best Practices
+### 4.2. Best Practices
 
 1. **Never commit sensitive data**: Use `.env` for personal credentials and secrets
 2. **Use descriptive defaults**: `.env.default` should have safe, working default values  
