@@ -61,12 +61,70 @@ export class MyFeatureService {
 
 ## 4. Environment Variables
 
-Set environment variables in your `.env` file or process environment:
+The project uses multiple environment variable files to manage different deployment scenarios. Set environment variables in your `.env` file or process environment:
 
 ```
 MY_FEATURE_ENABLED=true
 MY_FEATURE_TIMEOUT=5000
 ```
+
+### 4.1. Environment File Types
+
+The ConfigurationModule supports multiple environment files for different purposes:
+
+#### `.env.default`
+- **Purpose**: Contains default values for all configuration properties
+- **When to use**: Provides a template for developers and baseline configuration
+- **Content**: Safe default values that work for local development
+- **Committed**: Yes, this file is committed to version control
+
+```bash
+# Example from .env.default
+SESSION_VALKEY__MODE=in-memory
+SC_DOMAIN=localhost
+ALERT_STATUS_URL=https://status.dbildungscloud.dev/
+```
+
+#### `.env.test`
+- **Purpose**: Configuration specifically for test environments
+- **When to use**: Automatically loaded during test execution
+- **Content**: Test-specific values (test databases, mock endpoints, simplified settings)
+- **Committed**: Yes, safe for version control as it contains only test configuration
+
+```bash
+# Example from .env.test
+AES_KEY=test-key-with-32-characters-long
+ADMIN_API__ALLOWED_API_KEYS=onlyusedintests:thisistheadminapitokeninthetestconfig
+```
+
+#### `.env` (local)
+- **Purpose**: Your personal development environment overrides
+- **When to use**: Override defaults with your local development settings
+- **Content**: Personal API keys, local service URLs, custom feature flags
+- **Committed**: No, this file should be in `.gitignore` and not committed
+
+```bash
+# Example .env (create this file locally)
+MY_FEATURE_ENABLED=true
+DATABASE_URL=postgresql://localhost:5432/mylocal_db
+API_KEY=your-personal-development-key
+```
+
+### 4.2. Environment File Priority
+
+The configuration system loads environment files in the following priority order (higher priority overrides lower):
+
+1. **Process environment variables** (highest priority)
+2. **`.env`** (local development overrides)
+3. **`.env.test`** (only during test execution)
+4. **`.env.default`** (baseline defaults, lowest priority)
+
+### 4.3. Best Practices
+
+1. **Never commit sensitive data**: Use `.env` for personal credentials and secrets
+2. **Use descriptive defaults**: `.env.default` should have safe, working default values  
+3. **Test isolation**: `.env.test` should ensure tests don't affect other environments
+4. **Document required variables**: Add comments in `.env.default` explaining required configurations
 
 ## 5. Validation / Transformation
 
