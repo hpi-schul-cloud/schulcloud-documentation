@@ -571,6 +571,47 @@ This pattern allows the consuming module to provide the appropriate configuratio
 export class MyBusinessModule {}
 ```
 
+### 7.3 Module Options Pattern
+
+When an infrastructure module requires more than one injection token and constructor (i.e., multiple configuration dependencies), introduce a module options interface to keep the API clean and organized.
+
+```typescript
+// Example: apps/server/src/infra/tsp-client/types/module-options.ts
+export interface TspClientModuleOptions {
+  encryptionConfig: { configInjectionToken: string; configConstructor: new () => EncryptionConfig };
+  tspClientConfig: { configInjectionToken: string; configConstructor: new () => TspClientConfig };
+}
+```
+
+Use this options interface in your infrastructure module's register method:
+
+```typescript
+// Example: apps/server/src/infra/tsp-client/tsp-client.module.ts
+@Module({})
+export class TspClientModule {
+  public static register(options: TspClientModuleOptions): DynamicModule {
+    const { encryptionConfig, tspClientConfig } = options;
+    return {
+      module: TspClientModule,
+      imports: [
+        LoggerModule,
+        OauthAdapterModule,
+        EncryptionModule.register(encryptionConfig.configConstructor, encryptionConfig.configInjectionToken),
+        ConfigurationModule.register(tspClientConfig.configInjectionToken, tspClientConfig.configConstructor),
+      ],
+      providers: [TspClientFactory],
+      exports: [TspClientFactory],
+    };
+  }
+}
+```
+
+This pattern provides several benefits:
+- **Clean API**: Single parameter instead of multiple individual parameters
+- **Type Safety**: All required configurations are defined in the interface
+- **Maintainability**: Easy to add new configuration dependencies
+- **Self-Documentation**: The interface clearly shows all required dependencies
+
 ## 8. Summary
 - Create a config class with properties.
 - Use `@Configuration` to mark it as a config class.
