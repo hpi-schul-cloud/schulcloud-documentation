@@ -78,8 +78,6 @@ MY_FEATURE_ENABLED=true
 MY_FEATURE_TIMEOUT=5000
 ```
 
-### 4.1. Environment File Types
-
 The ConfigurationModule supports multiple environment files for different purposes:
 
 #### `.env.default`
@@ -119,13 +117,6 @@ MY_FEATURE_ENABLED=true
 DATABASE_URL=postgresql://localhost:5432/mylocal_db
 API_KEY=your-personal-development-key
 ```
-
-### 4.2. Best Practices
-
-1. **Never commit sensitive data**: Use `.env` for personal credentials and secrets
-2. **Use descriptive defaults**: `.env.default` should have safe, working default values  
-3. **Test isolation**: `.env.test` should ensure tests don't affect other environments
-4. **Document required variables**: Add comments in `.env.default` explaining required configurations
 
 ## 5. Validation / Transformation
 
