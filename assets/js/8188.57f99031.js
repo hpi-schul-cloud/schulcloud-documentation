@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdataport_docusaurus=self.webpackChunkdataport_docusaurus||[]).push([[8188],{8188:(a,e,s)=>{s.d(e,{createPieServices:()=>u.f});var u=s(9786);s(5817)}}]);
