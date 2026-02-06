@@ -265,4 +265,4 @@ export class B {
 
 ## Further Reading
 
-[how to detect dependency cycles](../detect-dependency-cycles.md)
+[how to detect dependency cycles](../../tooling/detect-dependency-cycles.md)
