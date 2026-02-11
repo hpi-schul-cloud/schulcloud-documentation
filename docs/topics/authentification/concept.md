@@ -72,18 +72,31 @@ The user can refresh their JWT until the maximum lifetime of the JWT is reached.
 
 ## Related Code
 
-- [Auth Guard Decorators](https://github.com/hpi-schul-cloud/schulcloud-server/tree/main/apps/server/src/infra/auth-guard) - Infra module for our NestJS decorators
-- [Auth Strategies](https://github.com/hpi-schul-cloud/schulcloud-server/tree/main/apps/server/src/infra/auth-guard/strategy) - Authentication strategy implementations
+Authentication
 - [Authentication Module](https://github.com/hpi-schul-cloud/schulcloud-server/tree/main/apps/server/src/modules/authentication) - Main authentication module
+- [Authentication Stategies](https://github.com/hpi-schul-cloud/schulcloud-server/tree/main/apps/server/src/modules/authentication/strategy) - Authentication stategies
 - [Login Controller](https://github.com/hpi-schul-cloud/schulcloud-client/blob/main/controllers/login.js) - Legacy-client-side login controller
 
-OAuth
+For OAuth 
 - [OAuth Controller](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/oauth/api/oauth.controller.ts) - OAuth API controller
 - [OAuth Provider Controller](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/modules/oauth-provider/api/oauth-provider.controller.ts) - OAuth provider API controller
+- [Releated OAuth Documentation](/docs/topics/oauth/concept)
+
+For Ldap
+tbd.
+
+Validation decorator
+- [Auth Guard Decorators](https://github.com/hpi-schul-cloud/schulcloud-server/tree/main/apps/server/src/infra/auth-guard) - Infra module for our NestJS decorators
+- [Auth Validation Strategies](https://github.com/hpi-schul-cloud/schulcloud-server/tree/main/apps/server/src/infra/auth-guard/strategy) - Validate authentication strategies
 
 ## Authentification Stategies
 
-We have 3 base login strategies.
+We have 3 strategies that can be create a SVS JWT
+1. Local - When login credentials are in the SVS.
+2. Ldap - We want to login over a external ldap system used in BRB.
+3. OAuth - We use a OAuth Flow to login over a external IDM like Moin.Schule (NBC), or TSP.
+
+We have 3 base validation strategies.
 1. For the jwt it self over http.
 2. For the jwt but used in web sockets.
 3. For x-api-key. 
@@ -104,10 +117,3 @@ export class MeController {
   // ...
 }
 ```
-
-
-## TODO:
-
-- oauth
-- SVS vs IDMs
-- provining hint/link
