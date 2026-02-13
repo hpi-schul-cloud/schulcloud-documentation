@@ -1,0 +1,8 @@
+{
+  "label": "LDAP",
+  "position": 8,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn about the LDAP strategy."
+  }
+}
