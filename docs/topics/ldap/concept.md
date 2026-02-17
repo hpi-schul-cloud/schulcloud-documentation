@@ -38,7 +38,7 @@ You can also give the role `ROLE_NO_SC` to users that should not be synced.
 
 ## Components
 
-The Code can be found in the legacy Server under src/services/sync/strategies.
+The Code can be found in the legacy Server under [src/services/sync/strategies](https://github.com/hpi-schul-cloud/schulcloud-server/tree/main/src/services/sync/strategies).
 
 The three main components are the `LDAPSyncer`, `LDAPSyncerConsumer`, and `LDAPSystemSyncer`.
 
