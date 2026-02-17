@@ -1,4 +1,8 @@
 {
   "label": "Collabora",
-  "position": 4
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn about the Collabora service."
+  }
 }
