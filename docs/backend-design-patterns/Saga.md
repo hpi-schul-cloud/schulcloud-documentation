@@ -242,7 +242,7 @@ export class SomeUseCase {
 
 The `UserDeletionSaga` orchestrates the deletion of user data across all modules that store user-related data.
 
-**Saga Definition** ([user-deletion.saga.ts](impl/user-deletion.saga.ts)):
+**Saga Definition** (`modules/saga/impl/user-deletion.saga.ts`):
 
 ```typescript
 export const UserDeletionSagaExecutionOrder: ModuleName[] = [
@@ -325,7 +325,7 @@ const reports = await this.sagaService.executeSaga('userDeletion', {
 
 The `RoomCopySaga` orchestrates copying a room and its associated boards.
 
-**Saga Definition** ([room-copy.saga.ts](impl/room-copy.saga.ts)):
+**Saga Definition** (`modules/saga/impl/room-copy.saga.ts`):
 
 ```typescript
 @Injectable()
