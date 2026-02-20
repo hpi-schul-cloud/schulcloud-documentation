@@ -42,7 +42,7 @@ External tool config
 
 ## How to add it to a course or room
 
-To ceaate an external tool (via SuperHeroDashboard > Tools) and enable it for a school (via Administration > School) check the configuration above and external tools documentaion.
+To create an external tool (via SuperHeroDashboard > Tools) and enable it for a school (via Administration > School) check the configuration above and external tools documentaion.
 
 So, Bettermarks is intergrated in SVS as an external tool. This means in Course > Tools and Room will be available to be added and therefor users will see a link which when opened, will load Bettermarks in new tab.
 No login is necesary, as the login is performed in background secured and psudonimized using OAuth2 protocol.
@@ -63,14 +63,14 @@ Bettermaks external tool is automatically added to 2 namespaces. Check the [depl
 
 ### How to debug
 
-It can be challenging to actually properly debug, because the calls are triggered by a 3rd party. Therefor, it can be useful to debug remotely, so directly on a development environment fully deployed with Bettermaks integration, on the dev cluster. As mentioned aboove, you can use main branch or a branch called `betternarsks_test`.
+It can be challenging to actually properly debug, because the calls are triggered by a 3rd party. Therefor, it can be useful to debug remotely, so directly on a development environment fully deployed with Bettermaks integration, on the dev cluster. As mentioned above, you can use main branch or a branch called `betternarsks_test`.
 
 Remove Debugging can be done using telepresence:
 `telepresence connect -n bettermarks-test --mapped-namespaces bettermarks-test --kubeconfig ~/.kube/sc-dev-nbc.yaml`
 `telepresence replace api-deployment --env-file .env`
 Start local server in debug mode, and happy debugging.
 
-Note: Valky and MongoDB connection might have a problem to be resolved, especially on macBooks. You might need to resolve the IPs for the mongo DB and add those to the local /etc/hosts, as well as add IPs instead of hostnames valkey.factory.ts.
+Note: Valkey and MongoDB connection might have a problem to be resolved, especially on macBooks. You might need to resolve the IPs for the mongo DB and add those to the local /etc/hosts, as well as add IPs instead of hostnames valkey.factory.ts.
 
 ### Security and Data protection
 
