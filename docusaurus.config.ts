@@ -1,11 +1,7 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
-
 import { themes as prismThemes } from 'prism-react-renderer';
+import type {Config} from '@docusaurus/types';
 
-
-/** @type {import('@docusaurus/types').Config} */
-const config = {
+const config: Config = {
   title: 'Schulcloud-Verbund-Software Documentation',
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
@@ -45,7 +41,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve('./sidebars.ts'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: ({docPath, versionDocsDirPath}) => {

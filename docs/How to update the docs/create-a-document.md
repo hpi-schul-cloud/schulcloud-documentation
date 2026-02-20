@@ -39,9 +39,9 @@ sidebar_position: 3
 This is my **first Docusaurus document**!
 ```
 
-It is also possible to create your sidebar explicitly in `sidebars.js`:
+It is also possible to create your sidebar explicitly in `sidebars.ts`:
 
-```js title="sidebars.js"
+```js title="sidebars.ts"
 module.exports = {
   tutorialSidebar: [
     'intro',
