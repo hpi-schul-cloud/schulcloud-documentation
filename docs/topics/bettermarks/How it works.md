@@ -57,24 +57,23 @@ For the details of implemtation check [roster-service.summary.md](roster-service
 
 ### Infrastructure
 
-These endpoints are not publicly available. Bettermarks server is whitelisted and can access them via a reverse proxx.
+These endpoints are not publicly available. Bettermarks server is whitelisted and can access them via a reverse proxy.
 
-Bettermaks external tool is automatically added to 2 namespaces on [deployment](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/ansible/roles/schulcloud-server-init/templates/configmap_file_init.yml.j2#L223)
+Bettermaks external tool is automatically added to 2 namespaces. Check the [deployment](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/ansible/roles/schulcloud-server-init/templates/configmap_file_init.yml.j2#L223) for how this is done.
 
 ### How to debug
 
-It can be challenging to actually properly debug, because the calls are triggered by a 3rd party.
-It can be done directly on a development environment deployed on dev cluster on a branch called `betternarsks_test`
-Remove Debugging can be done using telepresence.
+It can be challenging to actually properly debug, because the calls are triggered by a 3rd party. Therefor, it can be useful to debug remotely, so directly on a development environment fully deployed with Bettermaks integration, on the dev cluster. As mentioned aboove, you can use main branch or a branch called `betternarsks_test`.
 
+Remove Debugging can be done using telepresence:
 `telepresence connect -n bettermarks-test --mapped-namespaces bettermarks-test --kubeconfig ~/.kube/sc-dev-nbc.yaml`
 `telepresence replace api-deployment --env-file .env`
+Start local server in debug mode, and happy debugging.
 
-start local server normally and happy debugging.
-
-Note: Valky and MongoDB connection might have a problem, especially on macbooks. You might need to resolve the IPs for the mongo DB and add those to the local /etc/hosts, as well as add IPs instead of hostnames valkey.factory.ts 
+Note: Valky and MongoDB connection might have a problem to be resolved, especially on macBooks. You might need to resolve the IPs for the mongo DB and add those to the local /etc/hosts, as well as add IPs instead of hostnames valkey.factory.ts.
 
 ### Security and Data protection
 
-User data is protected and pseudonimized. Check [documentation](./pseudonimization.md) for details.
+User data is protected and pseudonimized. Check [pseudominization documentation](./pseudonimization.md) for details.
+
 Authentication is done using OAuth2, as configuired in bettermarks external tool.
