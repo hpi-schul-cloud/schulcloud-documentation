@@ -51,8 +51,8 @@ No login is necesary, as the login is performed in background secured and psudon
 ## How it works
 
 Currently, Bettermarks calls 3 Endpoints from legacy feathers, retrieving user and group (courses and rooms) metadata:
-For the list of endpoints check [roster-api-summary.md](./roster-api-summary.md)
-For the details of implemtation check [roster-service.summary.md](roster-service-summary.md)
+For the list of endpoints check [Roster Api](./Roster%20Api.md)
+For the details of implemtation check [Roster Service documentation](./Roster%20Service.md)
 
 
 ### Infrastructure
@@ -74,6 +74,6 @@ Note: Valky and MongoDB connection might have a problem to be resolved, especial
 
 ### Security and Data protection
 
-User data is protected and pseudonimized. Check [pseudominization documentation](./pseudonimization.md) for details.
+User data is protected and pseudonimized. Check [pseudominization documentation](./Pseudonymization.md) for details.
 
 Authentication is done using OAuth2, as configuired in bettermarks external tool.
