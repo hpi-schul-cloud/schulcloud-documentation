@@ -1,6 +1,26 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 
+
+const originalStdErr = process.stderr.write;
+
+/**
+ * Monkey-patch process.stderr.write to suppress specific warnings from the image-size package.
+ * Otherwise, you would get a warning for every svg image during build/start.
+ * See progress on fixing it in docusaurus: https://github.com/image-size/image-size/issues/397
+ */
+process.stderr.write = function(chunk, encoding) {
+  const message = chunk.toString();
+
+  if (message.includes('unsupported file type: undefined') ||
+      message.includes("can't be read correctly") ||
+      message.includes('image-size')) {
+    return true;
+  }
+
+  return originalStdErr.apply(process.stderr, arguments);
+};
+
 const config: Config = {
   title: 'Schulcloud-Verbund-Software Documentation',
   tagline: 'Dinosaurs are cool',
@@ -38,7 +58,6 @@ const config: Config = {
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.ts'),
@@ -64,7 +83,6 @@ const config: Config = {
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
