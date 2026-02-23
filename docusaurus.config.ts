@@ -1,11 +1,27 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
-
 import { themes as prismThemes } from 'prism-react-renderer';
+import type {Config} from '@docusaurus/types';
 
 
-/** @type {import('@docusaurus/types').Config} */
-const config = {
+const originalStdErr = process.stderr.write;
+
+/**
+ * Monkey-patch process.stderr.write to suppress specific warnings from the image-size package.
+ * Otherwise, you would get a warning for every svg image during build/start.
+ * See progress on fixing it in docusaurus: https://github.com/image-size/image-size/issues/397
+ */
+process.stderr.write = function(chunk, encoding) {
+  const message = chunk.toString();
+
+  if (message.includes('unsupported file type: undefined') ||
+      message.includes("can't be read correctly") ||
+      message.includes('image-size')) {
+    return true;
+  }
+
+  return originalStdErr.apply(process.stderr, arguments);
+};
+
+const config: Config = {
   title: 'Schulcloud-Verbund-Software Documentation',
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
@@ -42,10 +58,9 @@ const config = {
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve('./sidebars.ts'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: ({docPath, versionDocsDirPath}) => {
@@ -68,7 +83,6 @@ const config = {
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
@@ -155,20 +169,6 @@ const config = {
     }),
 
     themes: [
-      // ... Your other themes.
-      // [
-      //   require.resolve("@easyops-cn/docusaurus-search-local"),
-      //   /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
-      //   ({
-      //     // ... Your options.
-      //     // `hashed` is recommended as long-term-cache of index file is possible.
-      //     hashed: true,
-      //     // For Docs using Chinese, The `language` is recommended to set to:
-      //     // ```
-      //     // language: ["en", "zh"],
-      //     // ```
-      //   }),
-      // ],
       '@docusaurus/theme-mermaid',
     ],
 };
