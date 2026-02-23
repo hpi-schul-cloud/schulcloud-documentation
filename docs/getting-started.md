@@ -2,7 +2,7 @@
 
 ## Glossary / Quick Links
 
-- [Getting started](#getting-started)
+- [Getting started](./getting-started.md)
   - [Glossary / Quick Links](#glossary--quick-links)
   - [Windows Installation](#windows-installation)
     - [Prerequisites for Installation](#prerequisites-for-installation)
