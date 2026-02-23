@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- [Getting started Moin.Schule](./Getting%20started.md)
+- [Getting started Moin.Schule](./getting-started.md)
   - [Table of Contents](#table-of-contents)
   - [General note](#general-note)
   - [Moin.Schule (Development+Reference-instance)](#moinschule-developmentreference-instance)

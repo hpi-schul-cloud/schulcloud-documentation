@@ -1,5 +1,5 @@
 # Getting started: CTL - Configurable Tool Links
-- [Getting started: CTL - Configurable Tool Links](./Getting%20started.md)
+- [Getting started: CTL - Configurable Tool Links](./getting-started.md)
   - [Parameter Overview](#parameter-overview)
     - [Common parameters](#common-parameters)
     - [Basic parameters](#basic-parameters)
