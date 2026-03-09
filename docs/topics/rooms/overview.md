@@ -1,12 +1,5 @@
 # Overview
 
-## Outline
-
-- [x] Module Structure
-- [x] Membership and Roles
-- [x] interschool operation
-- [ ] administration
-
 ## Introduction
 
 Rooms are digital spaces where people can interact and collaborate, designed both for Teachers and Students during and outside of lesson, and for collaboration between Teachers.
