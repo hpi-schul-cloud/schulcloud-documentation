@@ -1,16 +1,5 @@
 # Overview
 
-## Outline
-
-- [x] Data Structure
-- [ ] the Columnboard
-- [ ] Parents
-- [ ] Authorization
-- [ ] API / loading
-- [ ] Websockets
-- [ ] Persistance
-- [ ] How to add a new Element
-
 ## Introduction
 
 The "Board" (dubbed "Bereiche" in German) is a module for collaboratively editing structured content, intended to be used for preparing, teaching, and following up on lessons in a school context.
@@ -34,28 +23,3 @@ The board in its original intention is incomplete. Note that this section is sub
 - We had planned a feature that would allow efficient retrieval and rendering of specific content from across multiple boards. Most notable, this would drive the "Task Overview", by showing a user all of his open tasks across all of his boards.
 
 
-## Data Structure
-
-Each board is made of a tree of "BoardNodes", with a single Root.
-Each Node is of a particular Type, which defines its structural and functional features. Most notably, each Nodetype defines what other Nodes can be its children, creating a fixed but easily changeable structure.
-
-``` typescript
-export class Column extends BoardNode<ColumnProps> {
-
-    [...]
-
-    canHaveChild(childNode: AnyBoardNode): boolean {
-        return childNode instanceof Card;
-    }
-}
-```
-
-We seperate between structural Nodes (eg. `Columnboard`, `Column`, `Card`) and the actual content that can be put on a card, colloquially called *elements* (eg. `RichTextElement`, `FileElement`, `LinkElement`, `H5pElement`), which are leaves of the tree.
-
-Currently, the only implemented Root is the *CollumnBoard*. However it is intended to support other types of boards, in particular the *MediaBoard*, and the List of Boards in a Room (*MetaBoard*) where originally intended to be implemented as boards (both as of now are independent implementations, but should be refactored.)
-
-## Parents
-
-Each Root Node has a single parent, which is the context the Board belongs into. The Parent provides part of the Configuration of the board (enabling and disabling features), and provides the Users Roles for Authorisation.
-
-The most important Parent is the [Room](../rooms/overview.md), but other potential parents include Courses, and single Users for personal Boards.
