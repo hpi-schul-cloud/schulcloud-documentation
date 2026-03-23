@@ -2,7 +2,7 @@
 
 There are 4 environments available to work with any of the Bettermarks tickets:
 
-|  | bettermarks-test | dev |
+| instance | bettermarks-test | dev |
 |---|---|---|
 | **nbc** | [https://bettermarks-test.nbc.dbildungscloud.dev/login](https://bettermarks-test.nbc.dbildungscloud.dev/login) | [https://main.nbc.dbildungscloud.dev/login](https://main.nbc.dbildungscloud.dev/login) |
 | **brb** | [https://bettermarks-test.brb.dbildungscloud.dev/login](https://bettermarks-test.brb.dbildungscloud.dev/login) | [https://main.brb.dbildungscloud.dev/login](https://main.brb.dbildungscloud.dev/login) |
@@ -21,7 +21,7 @@ The main development workflow should be as follows:
 
 5. Once you want to test any of the changes related to the Bettermarks, simply merge it to the **bettermarks-test** branch. Don't be afraid to merge it even after every commit - this branch was created just for this purpose and merging any changes to it shouldn't require any PR-process or anything - it should be treated just like any other BC-... branch.
 
-   > **Important:** The testing environments are the ones created for the **[nbc](https://nbc-bettermarks-test.cd.dbildungscloud.dev/login)** and **[brb](https://brb-bettermarks-test.cd.dbildungscloud.dev/login)** instances - **it does not work on any other environment** (this would require more configuration on the Bettermarks side).
+   > **Important:** The testing environments are the ones created for the **[nbc](https://bettermarks-test.nbc.dbildungscloud.dev/login)** and **[brb](https://bettermarks-test.brb.dbildungscloud.dev/login)** instances - **it does not work on any other environment** (this would require more configuration on the Bettermarks side).
 
 6. After testing any changes on the **bettermarks-test** branch either:
    - Go back to step No. 4 to continue making changes on your BC-123 branch if any are required, or
@@ -33,7 +33,7 @@ The main development workflow should be as follows:
 
 Below you can see a **git flow** diagram for a more illustrative explanation of the whole solution:
 
-![Git Flow Diagram](./img/bettermark-git-flow-diagram.png)
+![Git Flow Diagram](./img/bettermarks-git-flow-diagram.png)
 
 ---
 
@@ -51,7 +51,7 @@ It turned out that additional OAuth client configuration is needed for Bettermar
 
 SHD URL: [https://shd-nbc-main.cd.dbildungscloud.dev/ctltools/](https://shd-nbc-main.cd.dbildungscloud.dev/ctltools/)
 
-![nbc-main configuration](./img/bettermark-oauth-client-configuration-in-shd-nbc-main.png)
+![nbc-main configuration](./img/bettermarks-oauth-client-configuration-in-shd-nbc-main.png)
 
 ```
 Main section:
@@ -75,7 +75,7 @@ Scope:          openid offline
 
 SHD URL: [https://shd-brb-main.cd.dbildungscloud.dev/ctltools/](https://shd-brb-main.cd.dbildungscloud.dev/ctltools/)
 
-![brb-main configuration](./img/bettermark-oauth-client-configuration-in-shd-brb-main.png)
+![brb-main configuration](./img/bettermarks-oauth-client-configuration-in-shd-brb-main.png)
 
 ```
 Main section:
@@ -99,7 +99,7 @@ Scope:          openid offline
 
 SHD URL: [https://shd-nbc-bettermarks-test.cd.dbildungscloud.dev/ctltools/](https://shd-nbc-bettermarks-test.cd.dbildungscloud.dev/ctltools/)
 
-![nbc-bettermarks-test configuration](./img/bettermark-oauth-client-configuration-in-shd-nbc-bettermarks-test.png)
+![nbc-bettermarks-test configuration](./img/bettermarks-oauth-client-configuration-in-shd-nbc-bettermarks-test.png)
 
 ```
 Main section:
@@ -123,7 +123,7 @@ Scope:          openid offline
 
 SHD URL: [https://shd-brb-bettermarks-test.cd.dbildungscloud.dev/ctltools/](https://shd-brb-bettermarks-test.cd.dbildungscloud.dev/ctltools/)
 
-![brb-bettermarks-test configuration](./img/bettermark-oauth-client-configuration-in-shd-brb-bettermarks-test.png)
+![brb-bettermarks-test configuration](./img/bettermarks-oauth-client-configuration-in-shd-brb-bettermarks-test.png)
 
 ```
 Main section:
