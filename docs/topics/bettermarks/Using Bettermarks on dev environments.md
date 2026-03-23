@@ -39,7 +39,7 @@ Below you can see a **git flow** diagram for a more illustrative explanation of 
 
 ## Manual OAuth client configuration in SHD
 
-### The steps below were already automated, but we will here for the future reference if anyone will have a need to do it manually for some reason.
+### The steps below were already automated, but we keep them here for future reference in case anyone needs to perform them manually.
 
 > **Be aware** that the configuration values in this part are out of date (Split of the dev clusters, Bettermarks Proxy now enabled). You can find the current ones in the [initscript](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/ansible/roles/schulcloud-server-init/templates/configmap_file_init.yml.j2) and the "server" 1Password items.
 
