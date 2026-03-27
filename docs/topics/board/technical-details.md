@@ -32,6 +32,21 @@ The Parent is resolved through the `BoardContextService`, which provides functio
 
 ## Authorisation
 
+Central to the authorisation in the board is the `BoardNodeAuthorizable`, which can be built through the `boardNodeAuthorizableService`.
+It is constructed with a specific user in mind, and contains all information required for the authorization including the users permissions on that specific board, and the settings of the board.
+
+The `BoardNodeRule` can operate in two different ways. First, it implements our [rules interface](../authorization/), which allows any external services to determine basic read and write permissions for any boardNodes. This is for example used by the [fileStorage](../files-storage/) and other microservices to authorize access to external ressources that belong to the board or one of its nodes.
+
+Secondly, we use an extended interface within the boardModule that allows checking permissions for specific operations on nodes.
+
+``` typeScript
+const boardNodeAuthorizable = await this.boardNodeAuthorizableService.getBoardAuthorizable(board);
+
+throwForbiddenIfFalse(this.boardNodeRule.can('findBoard', user, boardNodeAuthorizable));
+```
+
+This way, all logic necessary for authorization is contained within the rule (what permissions are required under which circumstances), and the boardNodeAuthorizable (what permissions does the user get under which circumstances).
+
 ## Websockets
 
 ## Persistance Layer

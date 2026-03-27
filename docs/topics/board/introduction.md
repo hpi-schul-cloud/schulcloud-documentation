@@ -21,5 +21,3 @@ The board in its original intention is incomplete. Note that this section is sub
 - There are other features in the SVS that were intended to be (re)implemented using the board, including the Mediaboard, and the list of boards in a room ("MetaBoard").
 - We had planned a number of performance optimizations, in particular in regards to authorisation and operations that only require small subsets of the board.
 - We had planned a feature that would allow efficient retrieval and rendering of specific content from across multiple boards. Most notable, this would drive the "Task Overview", by showing a user all of his open tasks across all of his boards.
-
-
