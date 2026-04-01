@@ -28,7 +28,8 @@ The most important Parenttype is the [Room](../rooms/overview.md), but other pot
 
 The exact nature of the parent is abstracted for the board, and replaced with a common interface.
 
-The Parent is resolved through the `BoardContextService`, which provides functions to get the boardRole of a user, and the external configuration of a board.
+The Parent is resolved through the `BoardContextResolverService`, which provides
+a `PreparedBoardContext` containing the boardRoles of the users, as well as the configuration of a board.
 
 ## Authorisation
 
@@ -61,6 +62,6 @@ The frontend can then load the content of cards in batches, prioritizing the car
 
 Some Content Elements, like images, require data from a different source to be rendered, which is loaded seperately.
 
-This spreading of data allows the board to render quickly, without having to wait for all downloads to complete. This is especially relevent for users in locations with slow connections and low bandwith, as is the case in some schools.
+This spreading of data allows the board to render quickly, without having to wait for all downloads to complete. This is especially relevant for users in locations with slow connections and low bandwith, as is the case in some schools.
 
 Utilizing a Peer to Peer approach to relieve bandwith is intended, but not yet implemented.
