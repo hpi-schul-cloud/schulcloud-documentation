@@ -18,17 +18,15 @@ export class Column extends BoardNode<ColumnProps> {
 
 We separate between structural Nodes (eg. `ColumnBoard`, `Column`, `Card`) and the actual content that can be put on a card, colloquially called *elements* (eg. `RichTextElement`, `FileElement`, `LinkElement`, `H5pElement`), which are leaves of the tree.
 
-Currently, the only implemented Root is the *ColumnBoard*. However it is intended to support other types of boards, in particular the *MediaBoard*, and the List of Boards in a Room (*MetaBoard*) where originally intended to be implemented as boards (both as of now are independent implementations, but should be refactored.)
+## Contexts
 
-## Parents
+Each board has a single context it belongs into. The context provides part of the Configuration of the board (enabling and disabling features) and provides the Users Roles for Authorization.
 
-Each Root Node has a single parent, which is the context the Board belongs into. The Parent provides part of the Configuration of the board (enabling and disabling features), and provides the Users Roles for Authorization.
+The most important type of context is the [Room](../rooms/overview.md), but other potential parents include Courses and single Users for personal Boards.
 
-The most important Parenttype is the [Room](../rooms/overview.md), but other potential parents include Courses, and single Users for personal Boards.
+The exact type of the context is abstracted for the board and replaced with a common interface.
 
-The exact nature of the parent is abstracted for the board, and replaced with a common interface.
-
-The Parent is resolved through the `BoardContextResolverService`, which provides
+The context is resolved through the `BoardContextResolverService`, which provides
 a `PreparedBoardContext` containing the boardRoles of the users, as well as the configuration of a board.
 
 ## Authorization
