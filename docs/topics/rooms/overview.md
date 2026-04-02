@@ -2,15 +2,15 @@
 
 ## Introduction
 
-Rooms are digital spaces where people can interact and collaborate, designed both for Teachers and Students during and outside of lesson, and for collaboration between Teachers.
+Rooms are digital spaces where people can interact and collaborate, designed both for teachers and students during and outside of lessons, and for collaboration between Teachers.
 
-Each room has a number of members in various roles, and content in the form of collaborative boards, as well as some configuration that governs what features are available, how these features work, and what roles can interact with them.
+Each room has a number of members in various roles and content in the form of collaborative columnboards, as well as some configuration that governs what features are available, how these features work, and what roles can interact with them.
 
 ## Modules
 
 ![Module Structure](./img/rooms-structure.excalidraw.png)
 
-There are five Modules working together in Rooms.
+There are five Modules working together in rooms.
 
 - The Rooms-API is the entry point for all requests regarding the Room (note that the boards have their own API). Read more about [API Modules](../../backend-design-patterns/architecture.md#api-modules) for more information.
 
