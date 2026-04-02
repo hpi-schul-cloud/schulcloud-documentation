@@ -1,6 +1,6 @@
 # The Column Board
 
-The column board is the primary usecase for the board, and the central way to create content in the SVS.
+The column board is the primary use case for the board, and the central way to create content in the SVS.
 
 ## Structure
 
@@ -10,9 +10,9 @@ The `ColumnBoard` can be either rendered as such with the columns next to each o
 
 ## Elements
 
-The Columnboard supports a wide and expanding list of element types, including:
+The `ColumnBoard` supports a wide and expanding list of element types, including:
 
-- `RichTextElement` for both plain and rich text, based on the Ck5 Editor.
+- `RichTextElement` for both plain and rich text, based on the CKEditor 5.
 - `LinkElement` for links to any website, with a cached preview image for privacy reasons.
 - `FileElement` for storing files using our [FileStorage](../files-storage/).
 - `FileFolderElement` for storing a large number of files at once.
