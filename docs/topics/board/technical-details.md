@@ -52,7 +52,7 @@ The rule then contains the logic to authorize each operation against the boardNo
 
 The Websocket interface is implemented using [NestJS Gateways](https://docs.nestjs.com/websockets/gateways), with [Socket.IO](https://socket.io/) underneath.
 
-``` typescript
+```typescript
 @SubscribeMessage('update-board-title-request')
 @EnsureRequestContext()
 public async updateBoardTitle(socket: Socket, data: UpdateBoardTitleMessageParams): Promise<void> {
@@ -93,4 +93,4 @@ Some Content Elements, like images, require data from a different source to be r
 
 This spreading of data allows the board to render quickly, without having to wait for all downloads to complete. This is especially relevant for users in locations with slow connections and low bandwidth, as is the case in some schools.
 
-Utilizing a Peer to Peer approach to relieve bandwith is intended, but not yet implemented.
+Utilizing a Peer to Peer approach to relieve bandwidth is intended, but not yet implemented.

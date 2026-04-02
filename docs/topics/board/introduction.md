@@ -4,7 +4,7 @@
 
 The "Board" (dubbed "Bereiche" in German) is a module for collaboratively editing structured content, intended to be used for preparing, teaching, and following up on lessons in a school context.
 
-It provides a flexible data structure which currently only implements the "Columnboard", but can be extended to further uses.
+It provides a flexible data structure which currently only implements the "ColumnBoard", but can be extended to further uses.
 
 The Board supports a variety of content elements, including rich text, files, links, and interactive elements, as well as structural elements like columns and cards, that can be freely rearranged via drag&drop.
 
@@ -20,4 +20,4 @@ The board in its original intention is incomplete. Note that this section is sub
 - We had planned a number of technical features to further improve stability and conflict resolution when used by many people at once, most notably fractional indexing
 - There are other features in the SVS that were intended to be (re)implemented using the board, including the Mediaboard, and the list of boards in a room ("MetaBoard").
 - We had planned a number of performance optimizations, in particular in regards to authorisation and operations that only require small subsets of the board.
-- We had planned a feature that would allow efficient retrieval and rendering of specific content from across multiple boards. Most notable, this would drive the "Task Overview", by showing a user all of his open tasks across all of his boards.
+- We had planned a feature that would allow efficient retrieval and rendering of specific content from across multiple boards. Most notably, this would drive the "Task Overview", by showing a user all of his open tasks across all of his boards.

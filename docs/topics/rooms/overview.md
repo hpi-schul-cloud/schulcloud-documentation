@@ -4,7 +4,7 @@
 
 Rooms are digital spaces where people can interact and collaborate, designed both for Teachers and Students during and outside of lesson, and for collaboration between Teachers.
 
-Each room has a number of members in various roles, and content in the form of collaborative boards, as well es some configuration that governs what features are available, how these features work, and what roles can interact with them.
+Each room has a number of members in various roles, and content in the form of collaborative boards, as well as some configuration that governs what features are available, how these features work, and what roles can interact with them.
 
 ## Modules
 
@@ -58,13 +58,13 @@ The Applicant is not yet a member of the room, but needs to be confirmed by an a
 
 Each room is part of exactly one school. It is however possible to add users from other schools to a room, should that be necessary.
 
-When a user from another school is added to a room, he is also added as a *guest* to the school. Only Users with any role on the rooms school, including guests, may access a given room.
+When a user from another school is added to a room, he is also added as a *guest* to the school. Only Users with any role on the room's school, including guests, may access a given room.
 
 A user is only allowed to add another user when he is either in the same school as that user, or if that user is a publicly visible teacher.
 
-Lets consider an example where `Teacher A` is owner of `Room A` at `School A`, and needs to add Users from `School B`.
+Let's consider an example where `Teacher A` is owner of `Room A` at `School A`, and needs to add Users from `School B`.
 
-`Teacher A` is not allowed to see or add `Student B` from the other school. He can however add `Teacher B` from the other school (if that teacher is publicly visible), and give him the roomadmin role.
+`Teacher A` is not allowed to see or add `Student B` from the other school. He can however add `Teacher B` from the other school (if that teacher is publicly visible), and give him the RoomAdmin role.
 
 `Teacher B` can then add more users, including `Student B` from his own school to the Room.
 
