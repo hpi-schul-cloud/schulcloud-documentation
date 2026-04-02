@@ -52,11 +52,15 @@ In a school context, a teaching person should have at least the editor role.
 
 The viewer is a consumer of the room. That generally means he can't edit content within the room, though some content may allow viewers to do so.
 
+For example, a board can be configured to allow room viewers to edit.
+
 In a school context, this is the role a student is intended to have.
 
 ### Room Applicant
 
-The Applicant is not yet a member of the room, but needs to be confirmed by an admin.
+When a user uses a room invitation link that requires confirmation, he is added as a room applicant.
+
+he is not yet a member of the room, but needs to be confirmed by an admin.
 
 ## Cross-School Operation
 
