@@ -18,7 +18,7 @@ There are five Modules working together in Rooms.
 
 - The Room-Membership module essentially a Bridge between Groups and Rooms. It utilizes the Groups module to store the Users of a Room and their Roles, while containing any user related logic specific to rooms. Its Responsible to construct the RoomAuthorizable.do, which plays a major part in all authorization checks for the Room.
 
-- The [Boards](../board/) are a feature that allows the creation and collaborative work on structured content.
+- The Boards are a feature that allows the creation and collaborative work on structured content.
 
 - The Groups module provides an abstraction to store groups of users with their context-specific roles. Its used to store which roles a user has in what room.
 

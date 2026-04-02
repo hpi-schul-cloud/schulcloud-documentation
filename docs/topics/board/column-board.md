@@ -14,10 +14,10 @@ The `ColumnBoard` supports a wide and expanding list of element types, including
 
 - `RichTextElement` for both plain and rich text, based on the CKEditor 5.
 - `LinkElement` for links to any website, with a cached preview image for privacy reasons.
-- `FileElement` for storing files using our [FileStorage](category/files-storage).
+- `FileElement` for storing files using our [FileStorage](../files-storage/How%20it%20works.md).
 - `FileFolderElement` for storing a large number of files at once.
-- `VideoConferenceElement` for starting video conferences using [Big Blue Button](docs/category/bbb/)
-- `DrawingElement` for collaborative Whiteboards using [tldraw](../tldraw-server/)
-- `CollaborativeTextEditorElement` for using [Etherpad](../etherpad/)
-- `ExternalToolElement` for including [LTI Tools](../tools/)
-- `H5pElement` for including [h5p](../h5p/)
+- `VideoConferenceElement` for starting video conferences using Big Blue Button
+- `DrawingElement` for collaborative Whiteboards using tldraw
+- `CollaborativeTextEditorElement` for using Etherpad
+- `ExternalToolElement` for including LTI Tools
+- `H5pElement` for including h5p content
