@@ -32,7 +32,9 @@ The roles follow a linear hierarchy, meaning a higher role can do anything a low
 
 There can always be only one owner. The owner has to be a teacher, ensuring that there is at least one teacher in the room for supervision.
 
-The owner has all permissions within the room, but can not leave without passing ownership to another teacher first. Should a room ever be without owner, no other user is allowed to access the room, until a school administrator has assigned a new owner.
+The owner has all permissions within the room, but can not leave without passing ownership to another teacher first.
+
+Should a room ever be without owner, no other user is allowed to access the room, until a school administrator has assigned a new owner.
 
 ### Room Admin
 
