@@ -36,7 +36,7 @@ a `PreparedBoardContext` containing the boardRoles of the users, as well as the 
 Central to the authorization in the board is the `BoardNodeAuthorizable`, which can be built through the `boardNodeAuthorizableService`.
 It is constructed with a specific user in mind, and contains all information required for the authorization including the users permissions on that specific board, and the settings of the board.
 
-The `BoardNodeRule` can operate in two different ways. First, it implements our [rules interface](../authorization/), which allows any external services to determine basic read and write permissions for any boardNodes. This is for example used by the [fileStorage](../files-storage/) and other microservices to authorize access to external resources that belong to the board or one of its nodes.
+The `BoardNodeRule` can operate in two different ways. First, it implements our [rules interface](../authorization/concept.md), which allows any external services to determine basic read and write permissions for any boardNodes. This is for example used by the [fileStorage](../files-storage/How%20it%20works.md) and other microservices to authorize access to external resources that belong to the board or one of its nodes.
 
 Secondly, we use an extended interface within the boardModule that allows checking permissions for specific operations on nodes.
 
