@@ -38,12 +38,14 @@ Should a room ever be without owner, no other user is allowed to access the room
 
 ### Room Admin
 
-The admin can add and manage the users in the room, and the settings of the room.
+The admin can add and manage the users in the room and the settings of the room.
+
 To add students from another school to a room, it is necessary to grant a teacher from that school the Room Admin role, so that he can invite students from his school.
 
 ### Room Editor
 
 The editor is someone who is responsible for and can edit all content in the room.
+
 In a school context, a teaching person should have at least the editor role.
 
 ### Room Viewer
