@@ -16,7 +16,7 @@ There are five Modules working together in Rooms.
 
 - The Room module is responsible for the Room object itself. It contains the configuration of the room, and references to all content That belongs to the room.
 
-- The Room-Membership module essentially a Bridge between Groups and Rooms. It utilizes the Groups module to store the Users of a Room and their Roles, while containing any user related logic specific to rooms. Its Responsible to construct the RoomAuthorizable.do, which plays a major part in all authorization checks for the Room.
+- The Room-Membership module is essentially a bridge between `Groups` and `Rooms`. It utilizes the `Groups` module to store the users of a room and their roles, while containing any user related logic specific to rooms. It's responsible to construct the `RoomAuthorizable.do`, which plays a major part in all authorization checks for the room.
 
 - The Boards are a feature that allows the creation and collaborative work on structured content.
 
@@ -26,11 +26,11 @@ There are five Modules working together in Rooms.
 
 The Room uses its own roles, that can be assigned independently of school roles. Note however that there might be business restrictions on who can have which role based on their school role, such as students never being owner of a room.
 
-The roles follow a linear hirarchy, meaning a higher role can do anything a lower role is able to do. The roles are as follows:
+The roles follow a linear hierarchy, meaning a higher role can do anything a lower role is able to do. The roles are as follows:
 
 ### Room Owner
 
-There can always ever be one owner. The owner has to be a teacher, ensuring that there is at least one teacher in the room for supervision.
+There can always be only one owner. The owner has to be a teacher, ensuring that there is at least one teacher in the room for supervision.
 
 The owner has all permissions within the room, but can not leave without passing ownership to another teacher first. Should a room ever be without owner, no other user is allowed to access the room, until a school administrator has assigned a new owner.
 
@@ -46,7 +46,7 @@ In a school context, a teaching person should have at least the editor role.
 
 ### Room Viewer
 
-The viewer is a consumer of the room. That generally means he cant edit content within the room, though some content may allow viewers to do so.
+The viewer is a consumer of the room. That generally means he can't edit content within the room, though some content may allow viewers to do so.
 
 In a school context, this is the role a student is intended to have.
 
