@@ -79,7 +79,7 @@ The failure messages are only sent to the client that triggered them.
 
 All BoardNodes, no matter their type, are stored in a single collection through a single entity.
 
-Each `BoardNodeEntity` represents a single node of the tree, and stores the entire path of its ancestors as a string , as well as its own level within in tree and its position among its siblings. This structure allows for efficient retrieval both of the chain of ancestors for a specific node, as well as all descendants of a node (by searching for an id within the paths.)
+Each `BoardNodeEntity` represents a single node of the tree, and stores the entire path of its ancestors as a string (see [Materialized Paths](https://www.mongodb.com/docs/manual/tutorial/model-tree-structures-with-materialized-paths/)), as well as its own level within in tree and its position among its siblings. This structure allows for efficient retrieval both of the chain of ancestors for a specific node, as well as all descendants of a node (by searching for an id within the paths.)
 
 The `BoardNodeEntity` can store all properties of all types of BoardNode. When the node is loaded and the DO is constructed by the repo the data is also validated to ensure it matches its corresponding type.
 
