@@ -12,15 +12,15 @@ Each room has a number of members in various roles, and content in the form of c
 
 There are five Modules working together in Rooms.
 
-- The Rooms-API is the entrypoint for all Requests regarding the Room (note that the boards have their own API). Read more about [API Modules](../../backend-design-patterns/architecture.md#api-modules) for more information.
+- The Rooms-API is the entry point for all requests regarding the Room (note that the boards have their own API). Read more about [API Modules](../../backend-design-patterns/architecture.md#api-modules) for more information.
 
-- The Room module is responsible for the Room object itself. It contains the configuration of the room, and references to all content That belongs to the room.
+- The Room module is responsible for the Room object itself. It contains the configuration of the room, and references to all content that belongs to the room.
 
 - The Room-Membership module is essentially a bridge between `Groups` and `Rooms`. It utilizes the `Groups` module to store the users of a room and their roles, while containing any user related logic specific to rooms. It's responsible to construct the `RoomAuthorizable.do`, which plays a major part in all authorization checks for the room.
 
 - The Boards are a feature that allows the creation and collaborative work on structured content.
 
-- The Groups module provides an abstraction to store groups of users with their context-specific roles. Its used to store which roles a user has in what room.
+- The Groups module provides an abstraction to store groups of users with their context-specific roles. It is used to store which roles a user has in what room.
 
 ## Roles
 
@@ -64,7 +64,7 @@ A user is only allowed to add another user when he is either in the same school 
 
 Let's consider an example where `Teacher A` is owner of `Room A` at `School A`, and needs to add Users from `School B`.
 
-`Teacher A` is not allowed to see or add `Student B` from the other school. He can however add `Teacher B` from the other school (if that teacher is publicly visible), and give him the RoomAdmin role.
+`Teacher A` is not allowed to see or add `Student B` from the other school. He can however add `Teacher B` from the other school (if that teacher is publicly visible), and give him the Room Admin role.
 
 `Teacher B` can then add more users, including `Student B` from his own school to the Room.
 

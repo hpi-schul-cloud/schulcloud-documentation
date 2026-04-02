@@ -46,6 +46,8 @@ throwForbiddenIfFalse(this.boardNodeRule.can('findBoard', user, boardNodeAuthori
 
 The rule then contains the logic to authorize each operation against the boardNodeAuthorizable, and specifically what permissions are required for which operation.
 
+The rule can also provide the list of operations a specific user is authorized for on the board. This list is available to the frontend and used to show the user which operations he can perform.
+
 ## Websockets
 
 The Websocket interface is implemented using [NestJS Gateways](https://docs.nestjs.com/websockets/gateways), with [Socket.IO](https://socket.io/) underneath.
@@ -69,23 +71,23 @@ Each operation on the board can be triggered with a message of the form `${actio
 
 The response is given with `${action}-success` or `${action}-failure`.
 
-Success Messages are sent to all clients that are connected to the same board. To ensure this even when the clients are connected to different server instances, we use a MongoDB IO Adapter to synchronize messages.
+Success messages are sent to all clients that are connected to the same board. To ensure this even when the clients are connected to different server instances, we use a MongoDB IO Adapter to synchronize messages.
+
+The failure messages are only sent to the client that triggered them.
 
 ## Persistence Layer
 
 All BoardNodes, no matter their type, are stored in a single collection through a single entity.
 
-Each `BoardNodeEntity` represents a single node of the tree, and stores the entire path of its ancestors as a string, as well as its own level within in tree and its position among its siblings. This structure allows for efficient retrieval both of the chain of ancestors for a specific node, as well as all descendants of a node (by searching for an id within the paths.)
+Each `BoardNodeEntity` represents a single node of the tree, and stores the entire path of its ancestors as a string , as well as its own level within in tree and its position among its siblings. This structure allows for efficient retrieval both of the chain of ancestors for a specific node, as well as all descendants of a node (by searching for an id within the paths.)
 
-The `BoardNodeEntity` is also able to store any data that any type of BoardNode might need. Only when the node is loaded and the DO is constructed by the repo is the data also validated to ensure it matches its corresponding type.
+The `BoardNodeEntity` can store all properties of all types of BoardNode. When the node is loaded and the DO is constructed by the repo the data is also validated to ensure it matches its corresponding type.
 
 ## Loading
 
 Since Boards can contain a large amount of Content, it is designed to be loaded in multiple stages.
 
-At first, a `BoardSkeleton` is loaded, which contains only the structural nodes, ie. columns and cards. Each card stores its approximate height, allowing the frontend to render a loading stage where each card can be represented, without any content jumping around too much as the loading progresses.
-
-The frontend can then load the content of cards in batches, prioritizing the cards that are visible on the screen.
+At first, a `BoardSkeleton` is loaded, which contains only the structural nodes, ie. columns and cards. Each card stores its approximate height, allowing the frontend to render a loading stage where each card can be represented, without any content jumping around too much as the loading progresses. The cards themselves are loaded in batches as a second step
 
 Some Content Elements, like images, require data from a different source to be rendered, which is loaded separately.
 
