@@ -46,11 +46,40 @@ const boardNodeAuthorizable = await this.boardNodeAuthorizableService.getBoardAu
 throwForbiddenIfFalse(this.boardNodeRule.can('findBoard', user, boardNodeAuthorizable));
 ```
 
-This way, all logic necessary for authorization is contained within the rule (what permissions are required under which circumstances), and the boardNodeAuthorizable (what permissions does the user get under which circumstances).
+The rule then contains the logic to authorize each operation against the boardNodeAuthorizable, and specifically what permissions are required for which operation.
 
 ## Websockets
 
+The Websocket interface is implemented with using [NestJS Gateways](https://docs.nestjs.com/websockets/gateways), with [Socket.IO](https://socket.io/) underneath.
+
+``` typescript
+@SubscribeMessage('update-board-title-request')
+@EnsureRequestContext()
+public async updateBoardTitle(socket: Socket, data: UpdateBoardTitleMessageParams): Promise<void> {
+    const emitter = this.buildBoardSocketEmitter({ socket, action: 'update-board-title' });
+    const { userId } = this.getCurrentUser(socket);
+    try {
+        const board = await this.boardUc.updateBoardTitle(userId, data.boardId, data.newTitle);
+        emitter.emitToClientAndRoom(data, board);
+    } catch {
+        emitter.emitFailure(data);
+    }
+}
+```
+
+Each operation on the board can be triggered with a message of the form `${action}-request`, like in the example `update-board-title-request`.
+
+The response is given with `${action}-success` or `${action}-failure`.
+
+Success Messages are send to all clients that are connected to the same board. To ensure this even when the clients are connected to different server instances, we use a MongoDB IO Adapter to synchronize messages.
+
 ## Persistance Layer
+
+All BoardNodes, no matter their type, are stored in a single collection through a single entity.
+
+Each `BoardNodeEntity` represents a single node of the tree, and stores the entire path of its ancestors as a string, as well as its own level within in tree and its position among its siblings. This structure allows for efficient retrival both of the chain of ancestors for a specific node, as well as all descendents of a node (by searching for an id within the paths.)
+
+The `BoardNodeEntity` is also able to store any data that any type of BoardNode might need. Only when the node is loaded and the DO is constructed by the repo is the data also validated to ensure it matches its corresponding type.
 
 ## Loading
 
