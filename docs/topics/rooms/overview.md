@@ -16,9 +16,9 @@ There are five Modules working together in rooms.
 
 - The Room module is responsible for the Room object itself. It contains the configuration of the room, and references to all content that belongs to the room.
 
-- The Room-Membership module is essentially a bridge between `Groups` and `Rooms`. It utilizes the `Groups` module to store the users of a room and their roles, while containing any user related logic specific to rooms. It's responsible to construct the `RoomAuthorizable.do`, which plays a major part in all authorization checks for the room.
+- The Room-Membership module is essentially a bridge between `Groups` and `Rooms`. It utilizes the `Groups` module to store the users of a room and their roles, while containing any user related logic specific to rooms. It's responsible to construct the authorizables, which play a major part in the authorization checks for the room.
 
-- The Boards are a feature that allows the creation and collaborative work on structured content.
+- The [Boards Module](../board/introduction.md) is used to implement the content of the room.
 
 - The Groups module provides an abstraction to store groups of users with their context-specific roles. It is used to store which roles a user has in what room.
 
@@ -26,7 +26,7 @@ There are five Modules working together in rooms.
 
 The Room uses its own roles, that can be assigned independently of school roles. Note however that there might be business restrictions on who can have which role based on their school role, such as students never being owner of a room.
 
-The roles follow a linear hierarchy, meaning a higher role can do anything a lower role is able to do. The roles are as follows:
+The roles follow a linear hierarchy, meaning a higher role can do anything a lower role is able to do. The roles as defined by the requirements are as follows:
 
 ### Room Owner
 
