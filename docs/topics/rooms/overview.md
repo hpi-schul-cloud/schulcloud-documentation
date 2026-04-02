@@ -68,7 +68,7 @@ Each room is part of exactly one school. It is however possible to add users fro
 
 When a user from another school is added to a room, he is also added as a *guest* to the school. Only Users with any role on the room's school, including guests, may access a given room.
 
-A user is only allowed to add another user when he is either in the same school as that user, or if that user is a publicly visible teacher.
+A user is only allowed to add another user when he is either in the same school as that user or if that user is a publicly visible teacher (based on the visibility settings of the instance and the user).
 
 Let's consider an example where `Teacher A` is owner of `Room A` at `School A`, and needs to add Users from `School B`.
 
