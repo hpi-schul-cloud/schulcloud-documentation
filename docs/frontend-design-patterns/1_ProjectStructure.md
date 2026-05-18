@@ -14,11 +14,11 @@ Files should be consistently named like this:
 | file content   | style      | filename                                              | comment                                                                                                                             |
 |----------------|------------|-------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
 | Vue Components | PascalCase | `YourComponent.vue`<br/>`YourComponent.unit.ts`       | `<PascalCaseName>.<scope>.vue`<br/> `<PascalCaseName>.<scope>.unit.ts`.  <br/> Use the same name in html markup. <br/>`<TheBoard/>` |
-| TS/JS files    | KebabCase  | `board-view.store.ts`<br/> `board-view.store.unit.ts` | `<kebap-case-name>.<scope>.<ext>`<br/>`<kebap-case-name>.<scope>.unit.<ext>`                                                  |
+| TS/JS files    | kebab-case | `board-view.store.ts`<br/> `board-view.store.unit.ts` | `<kebap-case-name>.<scope>.<ext>`<br/>`<kebap-case-name>.<scope>.unit.<ext>`                                                  |
 
 ## Folders
 
-Folders are written in **KebabCase** (e.g. `feature-board`).
+Folders are written in **kebab-case** (e.g. `feature-board`).
 
 ## Building Blocks
 
@@ -26,15 +26,15 @@ The project's code is separated into building blocks.
 
 ### What is a building-block?
 
-A **building-block** is a "container" were we place most of our applications logic and components. Each building-block is defined by an `index.ts (Barrel-File)` describing it's exported content (public API of a building-block) and a `type`.
+A **building-block** is a "container" where application logic and components are put into. Each building-block is defined by an `index.ts (Barrel-File)` describing it's exported content (public API of a building-block).
 
-Utilizing linting rules and the index.ts we can ensure that each building-block only exposes files which are meant to be used application-wide. This way we achieve a strong separation of concern across the whole application.
+Utilizing linting rules and the index.ts, we can ensure that each building-block only exposes files which are meant to be used application-wide. This way, a strong separation of concerns across the whole application is achieved.
 
 Our linting rule is based on the following concept: [Enforce Project Boundaries | Nx](https://nx.dev/core-features/enforce-project-boundaries)
 
 _Note: in above documentation **libraries** are equivalent to building-blocks and **tags** represent the types defined below._
 
-**near future**: All newer modules, that already follow our naming convention (see link above), will move from "components/" into a central "modules/" folder with one subfolder for each type of module (`page/`, `data/`, `feature/`, `ui/`, `util/` ).
+**near future**: Newer modules following the given naming convention (see link above) will move from "components/" into a "modules/" folder with one subfolder for each type of module (`page/`, `data/`, `feature/`, `ui/`, `util/` ).
 
 ### Types of building-blocks
 
@@ -43,12 +43,10 @@ There are different types of building blocks each with a different purpose.
 | type    | example                                               | comment                                                                                                                                                                                            |
 |---------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Page    | modules / **`page`** / dashboard                      | Contains a subpage of the application. Orchestrates Feature and UI building-blocks.                                                                                                                |
-| Feature | modules / **`feature`** / calendar                    | Complex features with **stateful / smart components**. Usually specialized to fulfill specific roles in the App. Can also contain presentational components that are specialized for this feature. |
+| Feature | modules / **`feature`** / calendar                    | Complex features with **stateful / smart components**. Usually specialized to fulfill specific roles in the app. Can also contain presentational components that are specialized for this feature. |
 | UI      | modules / **`ui`** / forms                            | **Stateless / presentational components** which get their data via props and emit events. Usually less specialized.                                                                                |
 | Data    | modules / **`data`** / auth                           | State and API-access. Does not contain any visual components. They are the data-sources of all smart components.                                                                                   |
 | Util    | <nobr> modules / **`util`** / form-validators </nobr> | Contains shared low-level code.                                                                                                                                                                    |
-
-_**Hint**: currently the modules are all placed under /components/feature-... etc. and will be refactored to the above with this ticket: [BC-5513](https://ticketsystem.dbildungscloud.de/browse/BC-5513)_
 
 #### Matrix of allowed imports
 
@@ -78,21 +76,19 @@ A ui building-block mainly contains **Stateless / presentational components** wh
 
 #### Type: Data
 
-A data building-block contains **stores and api-services**. It does not contain any view components. They serve as data-sources for feature and page building blocks.
+A data building-block contains **stores and api-composables**. It does not contain any view components. They serve as data-sources for feature and page building blocks.
 
 #### Type: Util
 
 A utility building-block contains **low level code** used by many building-blocks. Often there is no framework-specific code and the building-block is simply a collection of types, utilities, pure functions, factories or composables.
 
-Placed in folder **util**
-
-### Life of a feature module
+### Structuring and maintaining modules
 
 #### Starting a new Feature module
 
 1. create a new subfolder inside of `modules/feature/`-folder and give it a speaking name
 2. place any files of different purposes (for ui, data and/or util) inside of it.
-3. provide a barrel-file **index.ts** that defines it's exposed API - the functionality that other modules are allowed to use. This should only export the bare minimum.
+3. provide a barrel-file **index.ts** that defines it's exposed API - the functionality that other modules are allowed to use.
 
 #### Another module needs access to the data of your feature
 
@@ -116,7 +112,7 @@ _Note: if you are sure that a part of your feature, will be reused in the projec
 
 ```mermaid
 flowchart TD
-    A[Your Task] --> B[Imagine the different requirements of the Task]
+    A[Your Task] --> B[Understand the different requirements of the Task]
     B --> C{Do I need a new subpage}
     C -->|Yes| D(type: page)
     C -->|No| E{Do I need UI?}
@@ -134,5 +130,5 @@ flowchart TD
     L -->|Yes| M[Happy Coding!]
     L -->|No| O[You need an additional building-block]
     O --> B
-    M -.-> P[Evaluate your choices as a part of your review and refactor when neccessary]
+    M -.-> P[Evaluate your choices as a part of your review and refactor when necessary]
 ```

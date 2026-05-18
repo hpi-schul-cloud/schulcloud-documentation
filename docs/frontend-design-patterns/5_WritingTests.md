@@ -18,17 +18,29 @@ and by that to:
 
 - **developer happiness** :-)
 
+### Test Filename Conventions
+
+Test files follow the same name as the file under test, with `.unit.ts` as an additional extension:
+
+```
+HelloWorld.vue          →       HelloWorld.unit.ts
+foo-bar.composable.ts   →       foo-bar.composable.unit.ts
+```
+
 ### Unit-Tests vs. Component-Tests
 
 #### Unit-Tests
 
-Unit-Tests are **WhiteBox-Tests**. So they may use knowledge of internals of the code. They are well suited for testing e.g. **composables** and **stores**.
+Unit-Tests are suited for testing isolated logic like **composables**, **stores** and **utils**.
+Test only input and output — do not rely on internal implementation details.
 
 #### Component-Tests
 
-Component-Tests are **BlackBox-Tests**. So they are not allowed to use any knowledge of the internals of the component.
-They ensure the stability of the **public interface** of the component (aka its methods, props, events etc.).
-The enable us to **refactor** the internals of our components later on.
+Component-Tests ensure the stability of the **public interface** of a component
+(props, events, slots, exposed methods). Test only input and output — do not rely
+on internal implementation details.
+
+This allows refactoring the internals of a component without breaking tests.
 
 ### Positive & negative Tests
 
@@ -43,40 +55,12 @@ The enable us to **refactor** the internals of our components later on.
 
 ### Use Vue-Test-Utils
 
-For testing our Vue-Components we use the **Vue Test Utils**. Vue Test Utils is a library that provides methods to help you write tests for your Vue components. It provides methods to mount, shallow mount, and render components, as well as methods to simulate events and find elements in the rendered output.
+For testing Vue-Components [**Vue Test Utils**](https://github.com/vuejs/test-utils) is in use and is recommended to be used.
+Have a look at their [**Getting Started Guide**](https://test-utils.vuejs.org/guide).
 
-Some functionality it provides:
+### Structure tests using (multiple) "describe"-blocks
 
-- **mount()**: create a wrapper around the component and instantiate it
-- **shallowMount()**: create a shallow wrapper of the component being tested with childcomponents being mocked
-- **setMethods()**: mock function on the component
-- **setProps()**: set a specific set of props on the component
-- **findComponent()**: finds a component by it's class, name or ref
-- **findAllComponents()**: finds all components by it's class, name or ref
-- **[find() / findAll()](https://v1.test-utils.vuejs.org/api/wrapper/#find)**: search for html elements using html-selectors
-  - **deprecated for finding Components**
-  - use findComponent() or findAllComponents() instead
-- **setData()**: set specific data on the component
-- **trigger()** + **emit()**: test events and the flow of data
-
-We think the **Vue Test Utils-documentation** is a valuable resource for learning how to test Vue-Components and a very good starting point on how to test certain aspects of your component. Please have a look at [https://test-utils.vuejs.org/guide](https://test-utils.vuejs.org/guide)
-
-### Use TypeScript
-
-Use TypeScript for your components and for your unit-tests. This way many errors can be prevented early on, as you can detect them already in your IDE.
-
-### Name your tests like your components
-
-Tests should be named after their Component using **.unit.ts** as the extension:
-
-```JavaScript
-HelloWorld.vue
-HelloWorld.unit.ts
-```
-
-### Structure your tests using (multiple) "describe"-blocks
-
-Especially in large test-files it is very helpful for the reader to have a tree-like structure grouping the tests. So use describe blocks to group tests that are related to the same aspect of your code/the functionality.
+Especially in large test-files it is very helpful for the reader to have a tree-like structure grouping the tests. Use describe blocks to group tests that are related to the same aspect of your code/the functionality.
 
 1. describe block that contains the filename in the root-level of the test-file
 2. sub-describe-blocks for groups of tests focussing the same aspects of your code
@@ -84,66 +68,34 @@ Especially in large test-files it is very helpful for the reader to have a tree-
 *Example:*
 
 ```TypeScript
-describe('@components/share/ImportModal', () => {
+describe('ImportModal', () => {
     describe('when action button is clicked', () => {
         // ...
     });
 
-    // ...
-
     describe("when backend returns an error", () => {
-
+        // ...
     });
 });
 ```
 
-Example taken from here [Vue NYC - Component Tests with Vue.js - Matt O'Connell](https://www.youtube.com/watch?v=OIpfWTThrK8)
+### Test Naming
 
-```TypeScript
-describe('@components/something/AddButton', () => {
-    describe(':props', () => {
-        it(':label - should render a button with the passed-in label text', () => { /* ... */ })
-    });
+Use `it` instead of `test` and phrase each test as a natural sentence starting with "should":
 
-    // ...
+```typescript
+// Bad
+it('name changes on button click', ...);
 
-    describe("@events", () => {
-        it('@add - should emit an "add" event when the button is clicked', () => { /* ... */ })
-    });
-});
-```
-
-**Hint**: *maybe you should extract functionality from your component if this is needed e.g. to find a certain test in your file*
-
-### Name the test like a sentence "it should..."
-
-There is a reason we use the it-alias for writing our code and not the test-method: we want to describe the aspect that is tested in a natural sentence. That's why it is best practice to start your test with: it('should ...');
-
-*Example:*
-
-```TypeScript
-Bad:
-it('name changes on button click')
-// ...
-
-Good:
-it('should display the info text', /* ... */ );
-it('should not render migration start button', /* ... */ );
-it('should return the translation', /* ... */ );
+// Good
+it('should display the info text', ...);
+it('should not render migration start button', ...);
+it('should return the translation', ...);
 ```
 
 ### data-testids
 
-Data-testids are attributes to HTML-elements that are solely used to enable tests to find and check a certain aspect of that tag (often to check the contained text against some expected value).
 
-We decided to unify the way data-testid's should be named in Frontend Arch Group: [Meeting 2022-11-04](https://docs.dbildungscloud.de/x/mYHADQ)
-
-Please use `<div ... data-testid="some-example" ...>` in your HTML-code if you want to define a data-testid.
-
-- do not use uppercase-characters
-- only use one dash - right after data
-
-You can later on check this using:
 
 ```TypeScript
 // CopyResultModal.unit.ts
