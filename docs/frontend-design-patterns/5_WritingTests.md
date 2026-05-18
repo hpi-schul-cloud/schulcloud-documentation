@@ -94,257 +94,168 @@ it('should return the translation', ...);
 ```
 
 ### data-testids
-
-
+Refer to code conventions at: [Integration and Unit Tests](./2_CodeConventions.md#integration-and-unit-tests) 
+and test only input and output of your component, not internal implementation details. Use data-testids to check for the presence of certain elements or their content, but do not check for internal variables or methods of the component.
 
 ```TypeScript
-// CopyResultModal.unit.ts
 expect(
-  wrapper.find('[data-testid="copy-result-notifications"]').text()
-).toContain(
-  wrapper.vm.$i18n.t("components.molecules.copyResult.fileCopy.error")
-);
+  wrapper.find('[data-testid="copy-result-notifications"]').text())
+        .toContain(  "components.molecules.copyResult.fileCopy.error");
 ```
 
-We also recommend to use refs instead of data-testids. But if you do that you ensure not to remove them once they are in the code... as they can be used in the component-code and for testing:
+### Setup Methods
 
-- [VueJs - template refs](https://vuejs.org/guide/essentials/template-refs.html)
-- [VueTestUtils - ref](https://v1.test-utils.vuejs.org/api/#ref)
+Separate test setup from actual tests by writing a `setup` function. Keep it
+reusable and configurable to avoid redundant code across test groups:
 
-### Setup-methods
+```typescript
+const setup = (props?: Partial<MyComponent['$props']>) => {
+    const wrapper = mount(MyComponent, {
+        props: {
+            label: "default label",
+            ...props,
+        },
+    });
+    return { wrapper };
+};
 
-Separate your setup from your actual tests: If you need a more complex setup to test something - write a scope method called "setup" for it. Write it in a reusable and configurable way, in order to reuse most of it in several groups of tests. You will get small and easily readable tests and no redudant setup-code inside your tests that contains small differences that are hard to detect.
+it('should display the label', () => {
+    const { wrapper } = setup({ label: "custom label" });
+    expect(wrapper.find('[data-testid="label"]').text()).toBe("custom label");
+});
+
+it('should not render the button', () => {
+    const { wrapper } = setup();
+    expect(wrapper.find('[data-testid="button"]').exists()).toBe(false);
+});
+```
 
 ## Testing
 
 ### Events
 
-Use the trigger()-method to simulate a events
-[Testing Key, Mouse and other DOM events](https://v1.test-utils.vuejs.org/guides/#testing-key-mouse-and-other-dom-events)
+Use `trigger()` to simulate DOM events:
 
-- **Mouse-Click**: [VueTestUtils - trigger events](https://v1.test-utils.vuejs.org/guides/#trigger-events)
-- **Keyboard-Input**: [VueTestUtils - keyboard example](https://v1.test-utils.vuejs.org/guides/#keyboard-example)
-- **Drag & Drop**: trigger the events (e.g. dragstart, drop) and check for emitted events as reaction to that
-- **Event from a child component**: [VueTestUtils - emitting from child component](https://v1.test-utils.vuejs.org/guides/#emitting-event-from-child-component)
+```typescript
+// Mouse click
+await wrapper.find('[data-testid="submit-button"]').trigger("click");
+
+// Keyboard input
+await wrapper.find('[data-testid="input"]').trigger("keydown.enter");
+
+// Drag & Drop — trigger the events and assert on emitted events
+await wrapper.find('[data-testid="card"]').trigger("dragstart");
+await wrapper.find('[data-testid="target"]').trigger("drop");
+expect(wrapper.emitted("item-dropped")).toBeTruthy();
+
+// Event from a child component
+await wrapper.findComponent(ChildComponent).vm.$emit("my-event", payload);
+```
 
 ### Testing Asynchronous Behavior
 
-You can test asynchronous behavior by using ***Vue.nextTick()***:
+Always `await` triggered events — VueTestUtils handles DOM updates automatically:
 
-```TypeScript
-await Vue.nextTick();
-// ...
+```typescript
+await wrapper.find('[data-testid="dialog-next"]').trigger("click");
+expect(wrapper.find('[data-testid="result"]').text()).toBe("expected");
 ```
 
-OR by ***trigger***ing an effect and ***await***ing this effect to take place:
+If you need to wait for the next DOM update cycle explicitly:
 
-```TypeScript
-const btnNext = wrapper.find(`[data-testid="dialog-next"]`);
-await btnNext.trigger("click");
-// ...
+```typescript
+await nextTick();
 ```
 
-**see also**: [VueTestUtils - Testing Asynchronous Behavior](https://v1.test-utils.vuejs.org/guides/#testing-asynchronous-behavior)
+Further reading: [VueTestUtils - Asynchronous Behavior](https://test-utils.vuejs.org/guide/advanced/async-suspense.html)
 
 ### Exceptions
 
 ```TypeScript
-await expect(() => copyModule.copy(payload)).rejects.toThrow(
+await expect(() => copyMock(payload)).rejects.toThrow(
     `CopyProcess unknown type: ${payload.type}`
 );
 ```
 
-### console.error
-
-```TypeScript
-// UserMigration.page.unit.ts
-const consoleErrorSpy = jest
-    .spyOn(console, "error")
-    .mockImplementation();
-
-// ...
-
-expect(consoleErrorSpy).toHaveBeenCalledWith(
-    expect.any(ApplicationError)
-);
-consoleErrorSpy.mockRestore();
-```
-
-### Testing Composables
-
-- [VueTestUtils - Testing composables](https://test-utils.vuejs.org/guide/advanced/reusability-composition.html#testing-composables)
-
 ## Mocking
 
-Replaces methods, instances of classes (e.g. stores) with some functionality, that e.g. simply returns a value you want to use in your test. By mocking you can easily simulate certain scenarios like failing requests or certain return values from any "external" (as in "not part of the code i am currently testing") functionality.
-Jest provides very helpful methods for that.
-Examples from our codebase:
+Replace external dependencies (stores, services, composables) with controlled
+implementations to simulate specific scenarios like failing requests or defined
+return values — without involving the real implementation.
 
-```TypeScript
-const mock = jest.fn().mockReturnValue(expectedTranslation);
-```
+```typescript
+// simple return value
+const mock = vi.fn().mockReturnValue(expectedTranslation);
 
-```TypeScript
-copyModuleMock.copyByShareToken = jest.fn()
-    .mockResolvedValue(copyResults);
-```
+// async return value
+copyModuleMock.copyByShareToken = vi.fn().mockResolvedValue(copyResults);
 
-They can easily be tested like this:
-
-```TypeScript
+// assert it was called
 expect(copyModuleMock.copyByShareToken).toHaveBeenCalled();
-```
 
-Or more specific like this:
-
-```TypeScript
+// assert it was called with specific arguments
 expect(addFileMetaDataSpy).toHaveBeenCalledWith(
-    expect.objectContaining<FileMetaListResponse>({ size: 2 } as FileMetaListResponse)
+        expect.objectContaining<FileMetaListResponse>({ size: 2 } as FileMetaListResponse)
 );
 ```
 
-See also here: [VueTestUtils mount - mocks and stubs are now in global](https://test-utils.vuejs.org/migration/)
+### Mocking composables
+
+[vitest-mock-extended](https://github.com/eratio08/vitest-mock-extended) is used for
+type-safe mocks. For mocking composables, a `mockComposable` helper is available:
+
+```typescript
+// mocking a composable with default mock values
+const mockUseMyComposable = mockComposable(useMyComposable);
+
+// mocking a composable with specific return values
+const mockUseMyComposable = mockComposable(useMyComposable, {
+    myValue: ref("some-value"),
+    myMethod: vi.fn().mockResolvedValue(result),
+});
+```
 
 ### Mocking injections
 
-- [Vue.js - Mocking injections](https://v1.test-utils.vuejs.org/guides/#mocking-injections)
-- [VueTestUtils - provide / inject](https://test-utils.vuejs.org/guide/advanced/reusability-composition.html#provide-inject)
+- [VueTestUtils - provide / inject](https://test-utils.vuejs.org/guide/advanced/reusability-composition.html#Provide-inject)
 
-### Mocking Vuex-Store
+### Mocking Pinia Stores
 
-#### Mocking a vuex-store in a component
+Set up Pinia in `beforeEach` using `createTestingPinia`:
 
-Example file: `src/components/administration/AdminMigrationSection.unit.ts`
-
-```TypeScript
-import { createModuleMocks } from "@/utils/mock-store-module";
-import YourModule from "@/store/YourModule";
-
-let yourModule: jest.Mocked<YourModule>;
-
-schoolsModule = createModuleMocks(YourModule, {
-    yourMethodName: {
-        // ...
-    },
-    ...yourGetters,
-}) as jest.Mocked<YourModule>;
-
-
-mount(YourComponentToBeTested, {
-    ...createComponentMocks({
-        // ...
-    }),
-    provide: {
-        yourModule,
-    },
-});
-
-expect(yourModule.yourMethodName).toHaveBeenCalledWith( /* ... */ );
-```
-
-#### Testing a store
-
-```TypeScript
-import YourModule from "./your-module";
-
-const yourModule = new YourModule({});
-
-// ...
-
-// using `jest.spyOn()`
-it("should call something", () => {
-    const yourActionNameMock = jest.spyOn(yourModule, "yourActionName");
-    yourModule.yourActionName();
-    expect(yourActionNameMock).toHaveBeenCalled();
-});
-
-// or using a method directly
-it("should set something", () => {
-    yourModule.setLoading(true);
-    expect(yourModule.getLoading).toBe(true);
+```typescript
+beforeEach(() => {
+    setActivePinia(createTestingPinia({ stubActions: true })); // set stubActions as needed
+    createTestEnvStore({ SC_THEME: SchulcloudTheme.DEFAULT });
 });
 ```
 
-### Mocking Composables
+`createTestEnvStore` is a test setup utility that initializes the env store with a
+defined configuration. Similar utilities should be provided for other stores that
+require a defined initial state.
 
-Sometimes - if a composable is simple and does not create sideeffects - it is okay to use it in the tests and avoid mocking it.
+To get a typed mock instance of a store, use `mockedPiniaStoreTyping`. All store
+actions are replaced by `vi.fn()` mock functions:
 
-That's beneficial as it let's us stick to the BlackBox-Idea: we should not know what the component is using internally.
-
-If you need to mock a composable, you can simple do this like in the following example. You only have to ensure to return everything the composable returns... but mocked versions of it.
-
-```TypeScript
-// ...
-jest.spyOn(ourExampleComposable, "useExample").mockReturnValue({
-  // return mocks of what the composable would have returned
-});
-// ...
-```
-
-### Mocking Pinia-Stores
-
-Using our internal function `mockedPinaStoreTyping(useExampleStore)` mocks the given store and returns a correctly typed mocked instance of this store. All actions of the store are replaced by jest.fn() mock-functions.
-
-All PiniaStores should be mocked using this functionality.
-
-For integration-tests we use the original stores.
-
-Example from RoomDetails.page.unit.ts:
-
-```TypeScript
+```typescript
 import { mockedPiniaStoreTyping } from "@@/tests/test-utils";
 
-// ...
+it("should call createBoard with correct params", () => {
 
-describe("...", ()=> {
-    const setup = (/* ... */) => {
-        // ...
-        const roomDetailsStore = mockedPiniaStoreTyping(useRoomDetailsStore);
-        // ...
-        return {
-            roomDetailsStore,
-            // ...
-        };
-    };
+  beforeEach(() => {
+    setActivePinia(createTestingPinia({ stubActions: true })); // set stubActions as needed
+  });
 
-    describe("...", () => {
-        it("should ...", async () => {
-            const { wrapper, roomDetailsStore, room } = setup();
+  const setup = () => {
+    const { envStore } = createTestEnvStore({ SC_THEME: SchulcloudTheme.DEFAULT });
+    return { envStore };
+  };
+    
 
-            // ...
-            expect(roomDetailsStore.createBoard).toHaveBeenCalledWith(
-                room.id,
-                serverApi.BoardLayout.Columns,
-                "pages.roomDetails.board.defaultName"
-            );
-        });
+    it("should call createBoard with correct params", () => {
+      const { envStore } = setup();
+  
+      expect(envStore.doFooBar).toHaveBeenCalled();
     });
 });
 ```
-
-## Components that are hard to test
-
-If you ever get into trouble to write good tests for your compents or code in general - this might be an indicator, that **maybe your code is not structured good enough**.
-
-Consider:
-
-- spliting your component into smaller sub-components with a small API
-- extracting functionality into one or mutliple composables
-- using an existing composable (from VueUse or an existing one in the project)
-- using an existing vuetify-component instead of writing it all yourself
-- reshaping the communication workflow (parameters, events, inject/provide, stores, composables)
-- (replacing a Vuex-store with a Pinia-store)
-
-For more details on how to write good components and how to split your components: have a look at this great article of Olli: (tbd)
-
-## End-To-End-Tests
-
-(aka Integration/Acceptance/System-Tests)
-
-End-to-End-Tests are developed in a seperate repository [end-to-end-tests](https://github.com/hpi-schul-cloud/end-to-end-tests)
-
-[Documentation of e2e tests](https://docs.dbildungscloud.de/x/tAgrCg)
-
-## Code-Coverage
-
-For monitoring our code-coverage we are using [Codacy](https://www.codacy.com). The current status can be seen on this [Dashboard](https://app.codacy.com/gh/hpi-schul-cloud/nuxt-client/dashboard/).

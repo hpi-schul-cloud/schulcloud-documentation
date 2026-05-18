@@ -3,6 +3,66 @@ sidebar_position: 11
 ---
 # Component Development Guidelines
 
+This guide describes how components are structured and categorized in this project,
+and provides recommendations on when and how to split them.
+
+## Component Categories
+
+### Svs-Components (`Svs` prefix)
+Cross-feature components that ensure consistent look and feel across the application.
+They wrap Vuetify or are standalone and define the application-wide defaults.
+Use them as the foundation wherever possible.
+
+> **Note:** The `Svs` prefix convention is relatively new and not yet consistently
+> applied across the codebase. Components of this kind may therefore exist without
+> the prefix. All components of this category — with or without prefix — should be
+> located in a `ui` building-block under the module structure. The prefix primarily
+> serves to distinguish library-like components from feature components in markup.
+
+```html
+<SvsDialog></SvsDialog>
+```
+
+### Feature-Scoped Base Components (no prefix)
+Components within a feature that wrap Vuetify components or are standalone to enforce consistent
+behavior and appearance within that feature's scope.
+
+```html
+<!-- within a feature -->
+<RoomBoardCard />
+```
+
+### Feature Components
+The majority of components fall into this category. They implement specific
+functionality within a feature and do not need to follow strict composition patterns.
+
+---
+
+## When to split a component
+
+Splitting a component is not primarily about reuse — it is about keeping code
+readable, testable and maintainable. Consider splitting when:
+
+- **The template becomes hard to read** — if you need to scroll or mentally parse
+  a lot of nesting to understand what a template does, it is too large
+- **A part of the template has a clear, isolated responsibility** — if a section
+  of a template clearly "does one thing", it deserves its own component
+- **Testing becomes difficult** — if setting up a test requires a lot of unrelated
+  context, the component is likely doing too much
+- **A piece of state only belongs to part of the template** — isolating it into a
+  child component keeps state management focused
+
+There is no strict rule on size, but a template that exceeds ~100 lines is usually
+a signal to reconsider.
+
+---
+
+
+
+
+
+# Component Development Guidelines
+
 ## HTML is not a string {#html-is-not-a-string}
 
 Imagine writing a basic component to add reusable buttons to your app.

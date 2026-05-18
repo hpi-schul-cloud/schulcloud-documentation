@@ -2,6 +2,13 @@
 sidebar_position: 8
 ---
 
+# Style Guide
+
+TODO: Colors
+TODO: Typography
+TODO: Spacing
+TODO: Icons
+
 # Colors
 In the [Material Design system](https://m2.material.io/design/color/the-color-system.html) (the foundation of our component library), colors and color schemes are used to create a visual hierarchy, direct focus, and enhance the user experience.
 
