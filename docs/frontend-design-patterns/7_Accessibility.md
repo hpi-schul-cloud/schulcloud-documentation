@@ -1,7 +1,3 @@
----
-sidebar_position: 7
----
-
 # Accessibility (A11y)
 
 The product should be usable by anyone — including people with disabilities, slow

@@ -1,7 +1,3 @@
----
-sidebar_position: 10
----
-
 # Open Issues
 
 Please collect open issues and workarounds that need to be removed in future in here. Make sure to link to the corresponding tickets.

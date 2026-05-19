@@ -1,7 +1,3 @@
----
-sidebar_position: 4
----
-
 # Git Conventions
 
 Every change, no matter how small, must be tracked in a ticket.
