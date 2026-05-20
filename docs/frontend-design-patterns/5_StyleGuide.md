@@ -149,10 +149,10 @@ background-color: rgba(var(--v-theme-on-surface), 0.6);
 |---|---|---|---|---|
 | `h1` | `--heading-1` | `2.0625rem` (33 px) | normal | `--line-height-body` (1.3) |
 | `h2` | `--heading-2` | `1.75rem` (28 px) | normal | `--line-height-body` (1.3) |
-| `h3` | `--heading-3` | `1.4375rem` (23 px) | **bold** | `--line-height-body` (1.3) |
-| `h4` | `--heading-4` | `1.1875rem` (19 px) | **bold** | `--line-height-lg` (1.4) |
-| `h5` | `--heading-5` | `1.0rem` (16 px) | **bold** | `--line-height-lg` (1.4) |
-| `h6` | `--heading-6` | `0.875rem` (14 px) | **bold** | `--line-height-lg` (1.4) |
+| `h3` | `--heading-3` | `1.4375rem` (23 px) | bold | `--line-height-body` (1.3) |
+| `h4` | `--heading-4` | `1.1875rem` (19 px) | bold | `--line-height-lg` (1.4) |
+| `h5` | `--heading-5` | `1.0rem` (16 px) | bold | `--line-height-lg` (1.4) |
+| `h6` | `--heading-6` | `0.875rem` (14 px) | bold | `--line-height-lg` (1.4) |
 
 #### Vuetify Typography
 
