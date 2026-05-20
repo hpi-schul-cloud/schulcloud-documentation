@@ -17,6 +17,12 @@ Folders are written in **kebab-case** (e.g. `feature-board`).
 
 The project's code is separated into building blocks.
 
+:::warning Circular Dependencies
+
+When working with building-blocks, be careful about circular dependencies between modules. If you run into issues, check the [Troubleshooting page](./9_TroubleShooting.md#circular-dependencies) for guidance on identifying and resolving circular dependencies.
+
+:::
+
 ### What is a building-block?
 
 A **building-block** is a "container" where application logic and components are put into. Each building-block is defined by an `index.ts (Barrel-File)` describing it's exported content (public API of a building-block).
@@ -69,7 +75,7 @@ A ui building-block mainly contains **Stateless / presentational components** wh
 
 #### Type: Data
 
-A data building-block contains **stores and api-composables**. It does not contain any view components. They serve as data-sources for feature and page building blocks.
+A data building-block contains **pinia stores or composables**. It does not contain any view components. They serve as data-sources for feature and page building blocks.
 
 #### Type: Util
 

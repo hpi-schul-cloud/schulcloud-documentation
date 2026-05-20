@@ -1,6 +1,6 @@
-# Trouble Shooting
+# Troubleshooting
 
-## Identifying and Resolving Circular Dependencies
+## Identifying and Resolving Circular Dependencies {#circular-dependencies}
 
 ### What is a circular dependency?
 Circular depencies are a common issue when working with barrel-files (index.ts).

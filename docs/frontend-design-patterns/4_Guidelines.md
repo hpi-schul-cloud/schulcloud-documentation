@@ -1,6 +1,6 @@
 # Coding Guidelines
 
-These guides describe how to face various aspects of the SchulCloud and how to treat or solve them.
+This page covers patterns and guides for common development tasks in the Vue-Frontend.
 
 ## Using generated API and its types
 
@@ -104,10 +104,11 @@ if (useEnvConfig().value.FEATURE_COPY_SERVICE_ENABLED) {
 
 ## Exception Handling
 
-Errors should be communicated to the user via `notifyError`, using a translation key:
+Errors should be communicated to the user via `notifyError` or at least using `notifyWarning`, using a translation key:
 
 ```typescript
 notifyError("your.error.translation.key");
+notifyWarning("your.warning.translation.key");
 ```
 
 If it is necessary to redirect the user away from the current page to an error page, raise an application error instead:
@@ -333,7 +334,7 @@ Let's add more requirements to get closer to a real world menu.
 <good-luck>😅</good-luck>
 ```
 
-> **Rule:** Use Slots and small subcomponents to create robust and flexible features.
+> **Rule:** Use `slot` and small subcomponents to create robust and flexible features.
 
 > **Rule:** Do not use datastructures to represent HTML.
 
@@ -359,7 +360,7 @@ const users: User[] = [
 ```
 :::note
 **Requirements**
-* Display the User Array in a table
+* Display the user array in a table
   :::
 ```html
 <table>
@@ -629,6 +630,13 @@ If you need to wait for the next DOM update cycle explicitly:
 
 ```typescript
 await nextTick();
+```
+
+Sometimes you may want to ensure other, non Vue-related asynchronous behavior is completed, too.
+This can be achieved using `flushPromises()`.
+
+```typescript
+await flushPromises();
 ```
 
 Further reading: [VueTestUtils - Asynchronous Behavior](https://test-utils.vuejs.org/guide/advanced/async-suspense.html)
