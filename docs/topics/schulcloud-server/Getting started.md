@@ -6,7 +6,7 @@ sidebar_position: 1
 
 Make sure to have the following software installed
 
-- node 22
+- node 24
 - MongoDB 6.0+
 - Redis
 - RabbitMQ
