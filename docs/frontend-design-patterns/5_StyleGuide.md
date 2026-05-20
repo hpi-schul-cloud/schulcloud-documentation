@@ -80,6 +80,8 @@ background-color: rgba(var(--v-theme-on-surface), 0.6);
 
 `src/utils/color.utils.ts`
 
+> **Note:** Hex values are computed at runtime via `colors[color]["lighten5"]` from Vuetify's color palette and are shown here for reference only. Use the `Colors` enum in code.
+
 | Color | `Colors` Enum | Hex |
 |---|---|---|
 | <span class="swatch swatch-ffffff"></span> | `transparent` | `#ffffff` |
@@ -127,6 +129,82 @@ background-color: rgba(var(--v-theme-on-surface), 0.6);
 | <span class="swatch swatch-ffecb3"></span> | Yellow | `#FFECB3` |
 
 ## Typography
+
+### Fonts
+
+`src/styles/css-variables/_typography.scss`
+
+| Variable | Font Family | Usage |
+|---|---|---|
+| `--font-primary` | `PT Sans`, System Fallback | Body text, UI elements |
+| `--font-accent` | `PT Sans Narrow`, System Fallback | Headings (`h1`–`h6`) |
+
+### Typographic Scale
+
+#### Headings
+
+`src/styles/utility/_typography.scss`
+
+| Element | CSS Variable | Size | Weight | Line-Height |
+|---|---|---|---|---|
+| `h1` | `--heading-1` | `2.0625rem` (33 px) | normal | `--line-height-body` (1.3) |
+| `h2` | `--heading-2` | `1.75rem` (28 px) | normal | `--line-height-body` (1.3) |
+| `h3` | `--heading-3` | `1.4375rem` (23 px) | **bold** | `--line-height-body` (1.3) |
+| `h4` | `--heading-4` | `1.1875rem` (19 px) | **bold** | `--line-height-lg` (1.4) |
+| `h5` | `--heading-5` | `1.0rem` (16 px) | **bold** | `--line-height-lg` (1.4) |
+| `h6` | `--heading-6` | `0.875rem` (14 px) | **bold** | `--line-height-lg` (1.4) |
+
+#### Vuetify Typography
+
+Vuetify provides its own text classes that can be used independently of the HTML element:
+
+| Class | Size | Usage |
+|---|---|---|
+| `.text-h1` – `.text-h6` | `--heading-1` – `--heading-6` (see Headings table) | Heading style without semantic `h` element |
+| `.text-subtitle-1` | 1 rem | Section labels, form labels |
+| `.text-subtitle-2` | 0.875 rem | Secondary labels, due dates |
+| `.text-body-1` | 1 rem | Default body text, card titles |
+| `.text-body-2` | 0.875 rem | Secondary text, hint text |
+| `.text-caption` | 0.75 rem | Metadata, file attributes |
+
+#### Font Size Classes
+
+`src/styles/utility/_typography.scss`
+
+| Class | CSS Variable | Size |
+|---|---|---|
+| `.text-xs` | `--text-xs` | `0.694rem` (≈ 11 px) |
+| `.text-sm` | `--text-sm` | `0.833rem` (≈ 13 px) |
+| `.text-md` | `--text-md` | `1rem` (16 px) |
+| `.text-lg` | `--text-lg` | `1.2rem` (≈ 19 px) |
+
+### Line-Heights
+
+| Variable | Value | Usage |
+|---|---|---|
+| `--line-height-md` | `1.2` | Board title |
+| `--line-height-body` | `1.3` | `h1`–`h3`, Body text |
+| `--line-height-lg` | `1.4` | `h4`–`h6` |
+
+### Examples
+
+```html
+<!-- Room abbreviation in avatar (RoomGridItem.vue) e.g. for Math 5a -->
+<span class="text-h1 text-white">Ma</span>
+
+<!-- Board file element: Metadata (FileAttributes.vue) -->
+<span class="text-caption">3 Files · 1.2 MB</span>
+```
+
+### SCSS Usage
+
+```scss
+// Accent font directly in components (e.g. BoardHeader.vue, BoardAnyTitleInput.vue)
+.board-title {
+  font-family: var(--font-accent);
+  font-size: var(--heading-1);
+}
+```
 
 ## Spacing
 
