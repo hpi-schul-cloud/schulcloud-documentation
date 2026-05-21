@@ -25,7 +25,6 @@ Try to avoid `// @ts-ignore` and try to define the types of variables everytime.
 If you write a composable:
 
 - its file name follows the pattern `<name>.composable.ts`, e.g. `foo-bar.composable.ts`
-- place it in a feature or data building block
 - place it in `/src/composables` only if it is used across multiple building blocks
 
 ## Test Conventions
