@@ -1,49 +1,161 @@
----
-sidebar_position: 3
----
-
 # Code Conventions
 
-<!-- vscode-markdown-toc -->
+## Accessing Elements
 
-- [Code Conventions](CodeConventions)
-  - [data-testids](#data-testids)
-  - [ts-ignore-comments](#ts-ignore-comments)
-  - [composables](#composables)
+### Template Refs
+Use [Vue template refs](https://vuejs.org/guide/essentials/template-refs.html) to
+access elements within component code.
 
-<!-- vscode-markdown-toc-config
-	numbering=false
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
+### Integration and Unit Tests
+Use `data-testid` attributes for integration or unit tests.
 
-## data-testids
-
-Please use `<div ... data-testid="some-example" ...>` in your HTML-code if you want to define a data-testid.
-
-- do not use uppercase-characters
-- only use one dash - right after data
-
-We also recommend to use **ref**s instead of data-testids. But if you do that, you need to be careful when removing them... as they could be used in the component-code AND in tests:
-
-- [VueJs - template refs](https://vuejs.org/guide/essentials/template-refs.html)
-- [VueTestUtils - ref](https://v1.test-utils.vuejs.org/api/#ref)
-
-Also look here: _Frontend Arc Group: Meeting Notes 2022-11-04_
+- the attribute must be written as `data-testid` (no double dashes, no underscores)
+- do not use uppercase characters
+- use kebab-case for the value (e.g. `data-testid="submit-button"`)
 
 ## ts-ignore-comments
 
-Everybody should try to avoid `// @ts-ignore` and try his/her best to define the types of variables in TypeScript files.
+Try to avoid `// @ts-ignore` and try to define the types of variables everytime.
 
-Also look here: _Frontend Arc Group: Meeting Notes 2022-10-28_
+## Composables
 
-## composables
-
-Composables are a great way to make our code more reusable and to extract code from components. If you want to write a composable, consider using one of these well documented and well tested ones:
+[Composables](https://vuejs.org/guide/reusability/composables.html) are a great way to make the code shareable among components or other composables. If you want to write a composable, consider using one of these well documented and well tested ones:
 [VueUse - Collection of Vue Composition Utilities](https://vueuse.org/)
 
 If you write a composable:
 
-- it should have the extension `.composable.ts`
-- should be placed in your feature folder (see section "directory structure" above), if it is only used inside of your feature
-- should be placed in the global folder `/ src / composables`, if it is used in multiple features
+- its file name follows the pattern `<name>.composable.ts`, e.g. `foo-bar.composable.ts`
+- place it in `/src/composables` only if it is used across multiple building blocks
+
+## CSS / Styling
+
+- Global styles live in a central `styles/` directory, imported via `main.ts`
+- Use **scoped styles** by default in page and module components:
+
+  ```html
+  <style scoped lang="scss">
+  .card-header {
+    font-size: var(--heading-3);
+  }
+  </style>
+  ```
+
+- Font sizes via CSS custom properties defined in `src/styles/css-variables/_typography.scss` — do not use hardcoded pixel values:
+
+  ```scss
+  // Bad
+  font-size: 22px;
+
+  // Good
+  font-size: var(--heading-3);
+  ```
+
+- z-index values via CSS custom properties in `src/styles/css-variables/_z-index.scss` — no magic numbers:
+
+  ```scss
+  // Bad
+  z-index: 9999;
+
+  // Good
+  z-index: var(--z-overlay);
+  ```
+
+- Colors come from the Vuetify theme / `src/themes/` — no hardcoded color values in component styles:
+
+  ```scss
+  // Bad
+  color: #9e292b;
+
+  // Good
+  color: rgba(var(--v-theme-primary));
+  ```
+
+- Font changes exclusively in `src/styles/utility/_fonts.scss`
+- Refer to the official [Vue Style Guide](https://vuejs.org/style-guide/) for component conventions
+
+## Test Conventions
+
+### Test Filename Conventions
+
+Test files follow the same name as the file under test, with `.unit.ts` as an additional extension:
+
+```
+HelloWorld.vue          →       HelloWorld.unit.ts
+foo-bar.composable.ts   →       foo-bar.composable.unit.ts
+```
+
+
+### Setup Methods
+
+Separate test setup from actual tests by writing a `setup` function. Keep it
+reusable and configurable to avoid redundant code across test groups:
+
+```typescript
+const setup = (props?: Partial<MyComponent['$props']>) => {
+    const wrapper = mount(MyComponent, {
+        props: {
+            label: "default label",
+            ...props,
+        },
+    });
+    return { wrapper };
+};
+
+it('should display the label', () => {
+    const { wrapper } = setup({ label: "custom label" });
+    // ...
+});
+
+it('should not render the button', () => {
+    const { wrapper } = setup();
+    // ...
+});
+```
+
+### Structure tests using "describe"-blocks
+
+Especially in large test-files it is very helpful for the reader to have a tree-like structure grouping the tests. Use describe blocks to group tests that are related to the same aspect of your code/the functionality.
+
+1. describe block that contains the filename in the root-level of the test-file
+2. sub-describe-blocks for groups of tests focussing the same aspects of your code
+
+*Example:*
+
+```TypeScript
+describe('ImportModal', () => {
+    describe('when action button is clicked', () => {
+        // ...
+    });
+
+    describe("when backend returns an error", () => {
+        // ...
+    });
+});
+```
+
+### Test Naming
+
+Use `it` instead of `test` and phrase each test as a natural sentence starting with "should":
+
+```typescript
+// Bad
+it('name changes on button click', ...);
+
+// Good
+it('should display the info text', ...);
+it('should not render migration start button', ...);
+it('should return the translation', ...);
+```
+
+### data-testids
+
+Refer to [Integration and Unit Tests](#integration-and-unit-tests) for the naming convention.
+Test only input and output of your component, not internal implementation details. Use data-testids to check for the presence of certain elements or their content, but do not check for internal variables or methods of the component.
+
+```TypeScript
+it('should display the label', () => {
+    const { wrapper } = setup({ label: "custom label" });
+    expect(wrapper.find('[data-testid="label"]').text()).toBe("custom label");
+});
+```
+

@@ -1,10 +1,8 @@
----
-sidebar_position: 9
----
+# Troubleshooting
 
-# Identifying and Resolving Circular Dependencies
+## Identifying and Resolving Circular Dependencies {#circular-dependencies}
 
-## What is a circular dependency?
+### What is a circular dependency?
 Circular depencies are a common issue when working with barrel-files (index.ts).
 
 Let's look at a common dependency pattern:
@@ -15,7 +13,7 @@ In this example there are two **Building-Blocks** (e.g. folders that have a barr
 
 That basically means that the compiler can not resolve the order to load the Building-Blocks which causes an error.
 
-## Resolving Circular Dependencies
+### Resolving Circular Dependencies
 
 The basic gist is: **break the circle** and separate the shared dependency in a separate module.
 
@@ -23,7 +21,7 @@ The basic gist is: **break the circle** and separate the shared dependency in a 
 
 In this configuration the compiler can find an order to resolve the building-blocks correctly.
 
-## How to identify Circular Dependencies in Vue
+### How to identify Circular Dependencies in Vue
 
 I recreated the first example error in Vue. When Vue tries to render ComponentA I see the following Error in the console:
 
