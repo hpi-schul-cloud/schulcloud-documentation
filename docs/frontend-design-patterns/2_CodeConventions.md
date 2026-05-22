@@ -27,6 +27,52 @@ If you write a composable:
 - its file name follows the pattern `<name>.composable.ts`, e.g. `foo-bar.composable.ts`
 - place it in `/src/composables` only if it is used across multiple building blocks
 
+## CSS / Styling
+
+- Global styles live in a central `styles/` directory, imported via `main.ts`
+- Use **scoped styles** by default in page and module components:
+
+  ```html
+  <style scoped lang="scss">
+  .card-header {
+    font-size: var(--heading-3);
+  }
+  </style>
+  ```
+
+- Font sizes via CSS custom properties defined in `src/styles/css-variables/_typography.scss` — do not use hardcoded pixel values:
+
+  ```scss
+  // Bad
+  font-size: 22px;
+
+  // Good
+  font-size: var(--heading-3);
+  ```
+
+- z-index values via CSS custom properties in `src/styles/css-variables/_z-index.scss` — no magic numbers:
+
+  ```scss
+  // Bad
+  z-index: 9999;
+
+  // Good
+  z-index: var(--z-overlay);
+  ```
+
+- Colors come from the Vuetify theme / `src/themes/` — no hardcoded color values in component styles:
+
+  ```scss
+  // Bad
+  color: #9e292b;
+
+  // Good
+  color: rgba(var(--v-theme-primary));
+  ```
+
+- Font changes exclusively in `src/styles/utility/_fonts.scss`
+- Refer to the official [Vue Style Guide](https://vuejs.org/style-guide/) for component conventions
+
 ## Test Conventions
 
 ### Test Filename Conventions

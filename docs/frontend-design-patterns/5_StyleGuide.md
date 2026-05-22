@@ -1,5 +1,36 @@
 # Style Guide
 
+## How Styles are applied
+
+All application-wide styles — colors, component defaults, and theme variables — are configured through Vuetify's plugin interface. The `createVuetify()` call receives a theme definition and component defaults that apply globally:
+
+```ts
+export const createVuetifyPlugin = (i18n: ReturnType<typeof createI18n>) =>
+  createVuetify({
+    ...(useEnvConfig().value.SC_THEME === SchulcloudTheme.DEFAULT
+      ? dbcThemeOptions
+      : federalStateThemeOptions),
+    defaults: {
+      VTextField: { variant: "underlined", color: "primary" },
+      // ...
+    },
+  });
+```
+
+The theme itself is built on a **base theme** (`base-vuetify-theme.options.ts`) that defines colors, surface tokens, and CSS variables for the entire application:
+
+```ts
+const baseTheme: ThemeDefinition = {
+  dark: false,
+  colors: {
+    primary: "#9e292b",
+    // ...
+  }
+};
+```
+
+Instance-specific themes (e.g. for federal states) extend or override values from this base. Vuetify then generates CSS variables (e.g. `--v-theme-primary`) from these definitions, making them available everywhere via `rgba(var(--v-theme-primary))`.
+
 ## Colors
 
 Colors are included as CSS properties, often with transparency:
@@ -247,7 +278,7 @@ Layout sizes are defined as CSS variables for consistent structural dimensions a
 The **outline variant** is preferred (e.g. `mdiAccountOutline` instead of `mdiAccount`). Icons are imported and passed as a prop to components or as a property in configuration objects:
 
 ```ts
-import { mdiNewspaperVariantOutline, mdiFolderOpenOutline } from "@mdi/js";
+import { mdiNewspaperVariantOutline, mdiFolderOpenOutline } from "@icons/material";
 ```
 
 ```html
