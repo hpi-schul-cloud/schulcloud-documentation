@@ -19,7 +19,7 @@ The project's code is separated into building blocks.
 
 :::warning Circular Dependencies
 
-When working with building-blocks, be careful about circular dependencies between modules. If you run into issues, check the [Troubleshooting page](./9_TroubleShooting.md#circular-dependencies) for guidance on identifying and resolving circular dependencies.
+When working with building-blocks, be careful about circular dependencies between modules. If you run into issues, check the [Troubleshooting page](./9_Troubleshooting.md#circular-dependencies) for guidance on identifying and resolving circular dependencies.
 
 :::
 
