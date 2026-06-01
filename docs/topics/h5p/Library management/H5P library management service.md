@@ -47,7 +47,7 @@ Checks all libraries for consistency and removes any that fail.
 - **Error Handling**: Handles timeouts, consistency errors, and missing files.
 
 ## Configuration
-Uses values from `IH5PLibraryManagementConfig` for settings like lock times and library list paths.
+Uses values from `H5PEditorConfig` for settings like lock times and library list paths.
 
 ## Library Versioning
 - Library versions are tracked using the format: `machineName-major.minor.patch`.
@@ -79,7 +79,6 @@ export class SomeModule {
 
 ## Related Files
 - `h5p-library-management.service.ts`: Main service implementation (in [h5p-server](https://github.com/hpi-schul-cloud/h5p-server))
-- `h5p-library-management.config.ts`: Configuration interface
 - `h5p-library-management.service.spec.ts`: Unit tests
 
 ## References

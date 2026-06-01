@@ -22,7 +22,7 @@ To run the `package-h5p-libraries.ts` script using default options, you'll just 
 npm run h5p:package-h5p-libraries
 ```
 
-This will compile the script from TypeScript to JavaScript and then execute the compiled JavaScript file.
+This will compile the script from TypeScript to JavaScript using SWC and then execute the compiled JavaScript file with environment variables loaded from `.env` via dotenv.
 
 ## Usage from Command Line
 
@@ -30,20 +30,20 @@ To use the `package-h5p-libraries.ts` script directly from the command line, fol
 
 ### 1. Compile the Script from TypeScript to JavaScript
 
-First, compile the TypeScript script to JavaScript using the TypeScript compiler:
+First, compile the TypeScript scripts to JavaScript using SWC:
 
 ```bash
-npx tsc package-h5p-libraries.ts --esModuleInterop
+npm run h5p:build
 ```
 
-This will generate a JavaScript file at `scripts/h5p/package-h5p-libraries.js`.
+This will generate JavaScript files in `scripts/h5p/`.
 
 ### 2. Run the Compiled JavaScript Script
 
-Next, run the compiled JavaScript file with Node.js:
+Next, run the compiled JavaScript file with Node.js (using dotenv to load environment variables):
 
 ```bash
-node ./scripts/h5p/package-h5p-libraries.js [options]
+dotenv -- node ./scripts/h5p/package-h5p-libraries.js [options]
 ```
 
 #### Command-Line Options
@@ -57,16 +57,15 @@ If no options are provided, defaults are used for input and map files.
 ### Usage Example
 
 ```bash
-npx tsc scripts/h5p/package-h5p-libraries.ts --esModuleInterop
-source .env
-node ./scripts/h5p/package-h5p-libraries.js
+npm run h5p:build
+dotenv -- node ./scripts/h5p/package-h5p-libraries.js
 ```
 
 ## Prerequisites
 
 Before running `package-h5p-libraries.ts`, ensure the following requirements are met:
 
-- **Node.js**: The script itself should be run with the latest LTS version (current: version 22) of Node.js.
+- **Node.js**: The script itself should be run with Node.js version 24 (as specified in the h5p-server package.json).
 - **nvm (Node Version Manager)**: Some older H5P libraries require older Node.js versions (e.g., Node 8, 10, 14). The script uses `nvm` to switch Node.js versions as needed for building these libraries.  
   > Install nvm and ensure required Node.js versions are available:  
   > [nvm installation guide](https://github.com/nvm-sh/nvm)
