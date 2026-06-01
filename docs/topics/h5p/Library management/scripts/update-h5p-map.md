@@ -2,7 +2,7 @@
 
 ## Overview
 
-`update-h5p-map.ts` is a Node.js script that generates a mapping of H5P library machine names to their corresponding GitHub repositories for a given organization. The output is saved to a specified file, typically in YAML format. This mapping is useful for automating H5P library management and integration in schulcloud-server.
+`update-h5p-map.ts` is a Node.js script located in the [h5p-server](https://github.com/hpi-schul-cloud/h5p-server) repository that generates a mapping of H5P library machine names to their corresponding GitHub repositories for a given organization. The output is saved to a specified file, typically in YAML format. This mapping is useful for automating H5P library management and integration.
 
 ## How It Works
 1. **Argument Parsing:**
@@ -49,7 +49,7 @@ node ./scripts/h5p/update-h5p-map.js [options]
 #### Command-Line Options
 - `--help` or `-h`: Show usage information.
 - `--organization` or `-o`: GitHub organization name. Default: `h5p`
-- `--target` or `-t`: Path to the output file. Default: `config/h5p-library-repo-map.yaml`
+- `--target` or `-t`: Path to the output file. Default: `scripts/h5p/config/h5p-library-repo-map.yaml`
 
 If no options are provided, defaults are used for input and map files.
 

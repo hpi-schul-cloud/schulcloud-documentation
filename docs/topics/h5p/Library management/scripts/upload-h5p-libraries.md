@@ -2,7 +2,7 @@
 
 ## Overview
 
-`upload-h5p-libraries.ts` is a Node.js script designed to upload H5P libraries from a specified temporary folder to their target destination (such as a server or cloud storage). It uses the `H5pLibraryUploaderService` to handle the upload process for all libraries found in the folder.
+`upload-h5p-libraries.ts` is a Node.js script located in the [h5p-server](https://github.com/hpi-schul-cloud/h5p-server) repository, designed to upload H5P libraries from a specified temporary folder to their target destination (such as a server or cloud storage). It uses the `H5pLibraryUploaderService` to handle the upload process for all libraries found in the folder.
 
 ## How It Works
 1. **Argument Parsing:**

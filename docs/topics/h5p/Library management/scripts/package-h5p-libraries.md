@@ -2,7 +2,7 @@
 
 ## Overview
 
-`package-h5p-libraries.js` is a Node.ts script used to automate the process of building H5P libraries from their respective GitHub repositories. It reads a list of desired libraries and a mapping of library names to repositories, then downloads and packages each library into a specified temporary folder.
+`package-h5p-libraries.js` is a Node.ts script located in the [h5p-server](https://github.com/hpi-schul-cloud/h5p-server) repository, used to automate the process of building H5P libraries from their respective GitHub repositories. It reads a list of desired libraries and a mapping of library names to repositories, then downloads and packages each library into a specified temporary folder.
 
 ## How It Works
 1. **Argument Parsing:**
@@ -75,7 +75,7 @@ Before running `package-h5p-libraries.ts`, ensure the following requirements are
 - **H5P CLI**: The script uses `h5p validate`, which requires the H5P CLI to be installed globally. Install it with:`npm install -g h5p`.
 - **YAML Files**: Ensure the following configuration files exist and are correctly formatted:
   - `scripts/h5p/config/h5p-library-repo-map.yaml` (library-to-repository map)
-  - `config/h5p-libraries.yaml` (list of libraries to package)
+  - A list of libraries to package (provided via `--input` argument or environment variable)
 - **Permissions**: Make sure you have read/write access to the temporary and output folders specified by the script. The default path is: `/tmp/h5p-libraries`.
 
 ## Required Environment Variable
