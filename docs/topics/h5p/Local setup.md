@@ -26,17 +26,8 @@ docker run \
   -e "MINIO_ROOT_PASSWORD=miniouser" \
   quay.io/minio/minio server /data --console-address ":9001"
 ```
-If the ports 9000 or 9001 are not available for your local machine, then use (pay special attention to the ports here!):
+If the ports 9000 or 9001 are not available for your local machine, then redirect them to other ports.
 
-```bash
-docker run \
-  --name minioS3storage \
-  -p 9100:9000 \
-  -p 9101:9001 \
-  -e "MINIO_ROOT_USER=miniouser" \
-  -e "MINIO_ROOT_PASSWORD=miniouser" \
-  quay.io/minio/minio server /data --console-address ":9001"
-```
 Or if you have a docker-compose file, add the service and volume for minio:
 
 **docker-compose.yml**
@@ -59,27 +50,7 @@ volumes:
   minio:
 ```
 
-If the ports 9000 or 9001 are not available for your local machine, then use (pay special attention to the ports here!):
-
-**docker-compose.yml**
-```yml
-services:
-  minio-s3-storage:
-    image: quay.io/minio/minio:latest
-    command: server /data --console-address ":9001"
-    restart: always
-    ports:
-      - '9100:9000'
-      - '9101:9001'
-    environment:
-      - MINIO_ROOT_USER=miniouser
-      - MINIO_ROOT_PASSWORD=miniouser
-    volumes:
-      - 'minio:/data'
- 
-volumes:
-  minio:
-```
+If the ports 9000 or 9001 are not available for your local machine, then redirect them to other ports.
 
 See also: [Local Project Setup](https://docs.dbildungscloud.de/pages/viewpage.action?pageId=203882620#LocalProjectSetup/Projektlokaleinrichten(WIP)-LokalesFileSystem)
 
@@ -106,9 +77,10 @@ note that the default s3 region for minio is **us-east-1**.
 
 ![Minio-Configuration-Region](./assets/h5p-img-003.png)
 
-### Configuring h5p for the schulcloud-server
-Several environment variables are needed for both the h5p-editor and h5p-library management to run. Add the following 
-variables to the local .env file
+### Configuring h5p for the h5p-server
+Several environment variables are needed for both the h5p-editor and h5p-library management to run. Copy the 
+[.env.development](https://github.com/hpi-schul-cloud/h5p-server/blob/main/.env.development) file to `.env` and adapt the 
+values according to your local setup:
 
 **.env**
 ```
@@ -123,29 +95,29 @@ H5P_EDITOR__S3_BUCKET_LIBRARIES=h5p-library-bucket
 H5P_EDITOR__LIBRARIES_S3_ACCESS_KEY_ID=<LOCAL_S3_KEY_ID>
 H5P_EDITOR__LIBRARIES_S3_SECRET_ACCESS_KEY=<LOCAL_S3_KEY_SECRET>
 ```
-Make sure to adapt the values of the variables according to what you have.
-
-Alternatively, you can also just change the values in the [development.json](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/config/development.json) 
-file. However, the development config file may not contain all the required fields. You will need to add the missing values 
-to the file locally. Also, note that the values from the environment variables will override those in the development config file.
+Make sure to adapt the values of the variables according to what you have. The `.env.development` file provides sensible 
+defaults for local development that you can use as a starting point.
 
 ### Testing the h5p-library-management app
-At this point, you have nearly everything for the library management app. You just need to specific which libraries to 
-install in the schulcloud-server `config/h5p-libraries.yaml`. For example:
+At this point, you have nearly everything for the library management app. The list of H5P libraries to install is 
+configured via the `H5P_EDITOR__LIBRARY_LIST` environment variable. The default list can be found in 
+[h5p-core.const.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-core/h5p-core.const.ts). 
+You can override this list via ansible variables, `.env` files, or direct environment variables.
 
-**h5p-libraries.yaml**
-```yaml
-h5p_libraries:
-  - H5P.ArithmeticQuiz
-  - H5P.Chart
+For example, to install only specific libraries, add to your `.env`:
+
+```
+H5P_EDITOR__LIBRARY_LIST=H5P.ArithmeticQuiz,H5P.Chart
 ```
 
-This [misc.yml](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/all/misc.yml#L15) in dof-app 
-provides a list of possible h5p libraries. After configuring the libraries, you can run the library management app with 
-the command (or via your IDE using the package.json):
+Deployment configuration for H5P libraries can be found in the 
+[ansible/group_vars](https://github.com/hpi-schul-cloud/h5p-server/tree/main/ansible/group_vars) directory of the h5p-server 
+repository.
+
+You can run the library management app with the command (or via your IDE using the package.json):
 
 ```bash
-npm run nest:start:h5p:library-management
+npm run start:h5p:library-management
 ```
 
 After the app had finished running, check in the h5p-library-bucket, if the library files are successfully installed.
@@ -160,17 +132,12 @@ If you remove any of the folders in the bucket, remember to remove the correspon
 To run the h5p-editor from lumi-education in the client, a static file server is needed. 
 See [H5P-Nodejs-Library-Serving static H5P core files for the client](https://docs.lumi.education/usage/integrating#serving-static-h5p-core-files-for-the-client)
 
-Clone/pull the latest repo of the [h5p-staticfiles-server](https://github.com/hpi-schul-cloud/h5p-staticfiles-server)
+The static files server is now part of the [h5p-server](https://github.com/hpi-schul-cloud/h5p-server) repository. 
+Build the docker image using the dedicated Dockerfile:
 
 ```bash
-git clone https://github.com/hpi-schul-cloud/h5p-staticfiles-server.git
-```
-
-Build with docker an image of the h5p-staticfiles-server:
-
-```bash
-cd ./h5p-staticfiles-server
-docker build --network=host -t=h5p-staticfiles-server .
+cd ./h5p-server
+docker build --network=host -t=h5p-staticfiles-server -f Dockerfile.static-files-server .
 ```
 
 The --network option is to avoid any possible problems regarding dns resolution which often occurs with docker in wsl. 
@@ -189,7 +156,8 @@ Or if you have a docker compose file. Add the following service:
 services:
   h5p-staticfiles-server:
     build:
-      context: .
+      context: ./h5p-server
+      dockerfile: Dockerfile.static-files-server
     image: h5p-staticfiles-server
     restart: always
     ports:
@@ -206,16 +174,16 @@ Open a browser and test that the static files server is working correctly with t
 
 The first url should show you the text "pong", the second a picture of a green plus.
 
-**IMPORTANT** : Each time the h5p-staticfiles-server repo is updated, you will have to redo the steps here to make sure 
-the h5p-editor works properly.
+**IMPORTANT** : Each time the h5p-server repo is updated, you should rebuild the docker image to ensure the 
+h5p-editor works properly.
 
 
 ### Testing the h5p-editor app
 Before starting the h5p-editor app, make sure to:
 
-**Run the latest schulcloud-server, -client and nuxt-client**
+**Run the latest h5p-server, schulcloud-server, -client and nuxt-client**
 
-Update or clone the latest version of the schulcloud-server, client and nuxt-client.
+Update or clone the latest version of the h5p-server, schulcloud-server, client and nuxt-client.
 See: [Local Project Setup](https://docs.dbildungscloud.de/pages/viewpage.action?pageId=203882620#LocalProjectSetup/Projektlokaleinrichten(WIP)-InstallationinWindows)
 
 Enable the feature flag "FEATURE_COLUMN_BOARD_H5P_ENABLED" in the `.env` of the schulcloud-server
@@ -231,10 +199,10 @@ This should already be done in the previous step.
 If you changed the port number of the h5p-staticfiles-server, you will need to change it in the [dev-server-config.js](https://github.com/hpi-schul-cloud/nuxt-client/blob/main/config/webpack/dev-server-config.js#L45) of the nuxt-client as well
 
 ### Start and test the h5p-editor
-You can start the h5p-editor app via the command (or via package.json):
+You can start the h5p-editor app from the h5p-server directory via the command (or via package.json):
 
 ```bash
-npm run nest:start:h5p
+npm run start:h5p
 ```
 
 To test if the h5p-editor works:
@@ -293,8 +261,8 @@ Error: package-validation-failed:api-version-unsupported (component: H5P.MarkThe
 
 The message is confusing, but it means that the @lumieducation/h5p-server version that is currently installed is incompatible 
 with the library (here above shown as component) you specified. The only solutions here are either install a compatible 
-version of `@lumieducation/h5p-server` (usually by updating its version number in the package.json) or remove the incompatible 
-library from the [schulcloud-server/config/h5p-libraries.yaml](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/config/h5p-libraries.yaml).
+version of `@lumieducation/h5p-server` (usually by updating its version number in the package.json of h5p-server) or remove the incompatible 
+library from the `H5P_EDITOR__LIBRARY_LIST` environment variable in your `.env` file or change the default value in the [h5p-core.const.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-core/h5p-core.const.ts) accordingly.
 
 ### The library-management-app runs without error, but I see no library files installed in the bucket
 The app does not read from s3 which files or folders already exist. It records an entry in the "h5p-library" collection 
@@ -303,5 +271,5 @@ library A exists in the collection, but the files for library A does not exist i
 in s3. To solve this, you can either:
 
 - remove all library files and folders from s3 and clear the "h5p-library" collections, run the library-management app
-- remove all the specified library in [schulcloud-server/config/h5p-libraries.yaml](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/config/h5p-libraries.yaml) ,run the library-management app, 
+- temporarily remove some libraries from the `H5P_EDITOR__LIBRARY_LIST` environment variable or change the default value in the [h5p-core.const.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-core/h5p-core.const.ts) accordingly, run the library-management app, 
 - add your list of libraries again, run the library-management app

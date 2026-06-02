@@ -2,7 +2,7 @@
 
 ## Overview
 
-`package-h5p-libraries.js` is a Node.ts script used to automate the process of building H5P libraries from their respective GitHub repositories. It reads a list of desired libraries and a mapping of library names to repositories, then downloads and packages each library into a specified temporary folder.
+`package-h5p-libraries.js` is a Node.ts script located in the [h5p-server](https://github.com/hpi-schul-cloud/h5p-server) repository, used to automate the process of building H5P libraries from their respective GitHub repositories. It reads a list of desired libraries and a mapping of library names to repositories, then downloads and packages each library into a specified temporary folder.
 
 ## How It Works
 1. **Argument Parsing:**
@@ -22,7 +22,7 @@ To run the `package-h5p-libraries.ts` script using default options, you'll just 
 npm run h5p:package-h5p-libraries
 ```
 
-This will compile the script from TypeScript to JavaScript and then execute the compiled JavaScript file.
+This will compile the script from TypeScript to JavaScript using SWC and then execute the compiled JavaScript file with environment variables loaded from `.env` via dotenv.
 
 ## Usage from Command Line
 
@@ -30,43 +30,42 @@ To use the `package-h5p-libraries.ts` script directly from the command line, fol
 
 ### 1. Compile the Script from TypeScript to JavaScript
 
-First, compile the TypeScript script to JavaScript using the TypeScript compiler:
+First, compile the TypeScript scripts to JavaScript using SWC:
 
 ```bash
-npx tsc package-h5p-libraries.ts --esModuleInterop
+npm run h5p:build
 ```
 
-This will generate a JavaScript file at `scripts/h5p/package-h5p-libraries.js`.
+This will generate JavaScript files in `scripts/h5p/`.
 
 ### 2. Run the Compiled JavaScript Script
 
-Next, run the compiled JavaScript file with Node.js:
+Next, run the compiled JavaScript file with Node.js (using dotenv to load environment variables):
 
 ```bash
-node ./scripts/h5p/package-h5p-libraries.js [options]
+dotenv -- node ./scripts/h5p/package-h5p-libraries.js [options]
 ```
 
 #### Command-Line Options
 - `--help`, `-h`: Show help and usage information.
-- `--input <file>`, `-i <file>`: Specify the file containing the list of libraries to be installed. Default: `config/h5p-libraries.yaml`
 - `--map <file>`, `-m <file>`: Specify the file containing the library-to-repository map. Default: `scripts/h5p/config/h5p-library-repo-map.yaml`
-- `--tmp <folder>`, `-t <folder>`: Specify the temporary folder to use for building libraries. Default: `/tmp/h5p-libraries`
+- `--tmp <folder>`, `-t <folder>`: Specify the temporary folder to use for building libraries. Default: System temp directory + `/h5p-libraries`
+- `--verbose`, `-v`: Enable verbose/debug output.
 
-If no options are provided, defaults are used for input and map files.
+If no options are provided, defaults are used.
 
 ### Usage Example
 
 ```bash
-npx tsc scripts/h5p/package-h5p-libraries.ts --esModuleInterop
-source .env
-node ./scripts/h5p/package-h5p-libraries.js
+npm run h5p:build
+dotenv -- node ./scripts/h5p/package-h5p-libraries.js
 ```
 
 ## Prerequisites
 
 Before running `package-h5p-libraries.ts`, ensure the following requirements are met:
 
-- **Node.js**: The script itself should be run with the latest LTS version (current: version 22) of Node.js.
+- **Node.js**: The script itself should be run with the latest LTS version of Node.js.
 - **nvm (Node Version Manager)**: Some older H5P libraries require older Node.js versions (e.g., Node 8, 10, 14). The script uses `nvm` to switch Node.js versions as needed for building these libraries.  
   > Install nvm and ensure required Node.js versions are available:  
   > [nvm installation guide](https://github.com/nvm-sh/nvm)
@@ -75,16 +74,16 @@ Before running `package-h5p-libraries.ts`, ensure the following requirements are
 - **H5P CLI**: The script uses `h5p validate`, which requires the H5P CLI to be installed globally. Install it with:`npm install -g h5p`.
 - **YAML Files**: Ensure the following configuration files exist and are correctly formatted:
   - `scripts/h5p/config/h5p-library-repo-map.yaml` (library-to-repository map)
-  - `config/h5p-libraries.yaml` (list of libraries to package)
-- **Permissions**: Make sure you have read/write access to the temporary and output folders specified by the script. The default path is: `/tmp/h5p-libraries`.
+- **Permissions**: Make sure you have read/write access to the temporary and output folders specified by the script. The default path is: `<system temp directory>/h5p-libraries`.
 
-## Required Environment Variable
+## Required Environment Variables
 
-To package H5P libraries using `package-h5p-libraries.js`, you only need the following environment variable:
+To package H5P libraries using `package-h5p-libraries.js`, you need the following environment variables:
 
-- `GITHUB_PERSONAL_ACCESS_TOKEN`: Required if you need to access private repositories or increase GitHub API rate limits. Set this variable to a valid GitHub personal access token.
+- `GITHUB_PERSONAL_ACCESS_TOKEN`: **Required.** A valid GitHub personal access token used to authenticate API requests when fetching library repositories and tags.
+- `H5P_EDITOR__LIBRARY_LIST`: **Required.** A comma-separated list of H5P library machine names to package (e.g., `H5P.Blanks,H5P.DragQuestion,H5P.MultiChoice`).
 
-Set this variable in your environment before running the script to avoid authentication or permission errors.
+Set these variables in your environment (e.g., in a `.env` file) before running the script. The script will fail if either variable is missing or empty.
 
 ## Special Handling for H5P Library Versions During Packaging
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-`update-h5p-map.ts` is a Node.js script that generates a mapping of H5P library machine names to their corresponding GitHub repositories for a given organization. The output is saved to a specified file, typically in YAML format. This mapping is useful for automating H5P library management and integration in schulcloud-server.
+`update-h5p-map.ts` is a Node.js script located in the [h5p-server](https://github.com/hpi-schul-cloud/h5p-server) repository that generates a mapping of H5P library machine names to their corresponding GitHub repositories for given organizations and users. The output is saved to a specified file, typically in YAML format. This mapping is useful for automating H5P library management and integration.
 
 ## How It Works
 1. **Argument Parsing:**
@@ -22,7 +22,7 @@ To run the `update-h5p-map.ts` script using default options, you'll just have to
 npm run h5p:update-h5p-map
 ```
 
-This will compile the script from TypeScript to JavaScript and then execute the compiled JavaScript file.
+This will compile the script from TypeScript to JavaScript using SWC and then execute the compiled JavaScript file with environment variables loaded from `.env` via dotenv.
 
 ## Usage from Command Line
 
@@ -30,39 +30,38 @@ To use the `update-h5p-map.ts` script directly from the command line, follow the
 
 ### 1. Compile the Script from TypeScript to JavaScript
 
-First, compile the TypeScript script to JavaScript using the TypeScript compiler:
+First, compile the TypeScript scripts to JavaScript using SWC:
 
 ```bash
-npx tsc scripts/h5p/update-h5p-map.ts --esModuleInterop
+npm run h5p:build
 ```
 
-This will generate a JavaScript file at `scripts/h5p/update-h5p-map.js`.
+This will generate JavaScript files in `scripts/h5p/`.
 
 ### 2. Run the Compiled JavaScript Script
 
-Next, run the compiled JavaScript file with Node.js:
+Next, run the compiled JavaScript file with Node.js (using dotenv to load environment variables):
 
 ```bash
-node ./scripts/h5p/update-h5p-map.js [options]
+dotenv -- node ./scripts/h5p/update-h5p-map.js [options]
 ```
 
 #### Command-Line Options
 - `--help` or `-h`: Show usage information.
 - `--organization` or `-o`: GitHub organization name. Default: `h5p`
-- `--target` or `-t`: Path to the output file. Default: `config/h5p-library-repo-map.yaml`
+- `--target` or `-t`: Path to the output file. Default: `scripts/h5p/config/h5p-library-repo-map.yaml`
 
 If no options are provided, defaults are used for input and map files.
 
 ### Usage Example
 
 ```bash
-npx tsc scripts/h5p/update-h5p-map.ts --esModuleInterop
-source .env
-node ./scripts/h5p/update-h5p-map.js
+npm run h5p:build
+dotenv -- node ./scripts/h5p/update-h5p-map.js
 ```
 
 ## Prerequisites
-- Node.js installed
+- Latest LTS version of Node.js
 - Environment variable `GITHUB_PERSONAL_ACCESS_TOKEN` set with a valid GitHub token
 - Required dependencies installed (run `npm ci` in the project root)
 

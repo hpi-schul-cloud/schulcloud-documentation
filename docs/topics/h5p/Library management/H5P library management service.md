@@ -2,7 +2,7 @@
 
 ## Overview
 
-`H5PLibraryManagementService` is a NestJS service responsible for managing H5P libraries in the schulcloud-server application. It automates the installation, synchronization, and removal of H5P libraries based on a configurable wish list, ensuring that only the desired libraries and their latest versions are available in the system.
+`H5PLibraryManagementService` is a NestJS service responsible for managing H5P libraries in the h5p-server application. It automates the installation, synchronization, and removal of H5P libraries based on a configurable wish list, ensuring that only the desired libraries and their latest versions are available in the system.
 
 ## Responsibilities
 - **Install libraries** from a configured wish list, always fetching the latest version from H5P Hub.
@@ -12,8 +12,9 @@
 - **Log all operations** for monitoring and debugging.
 
 ## Configuration
-- The wish list of libraries is defined in a YAML file, whose path is set via the `H5P_EDITOR__LIBRARY_LIST_PATH` configuration property.
-- The service reads this file at startup and uses it to determine which libraries should be installed or removed.
+- The wish list of libraries is defined via the `H5P_EDITOR__LIBRARY_LIST` environment variable (comma-separated list of library names).
+- The default list can be found in [h5p-core.const.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-core/h5p-core.const.ts).
+- This can be overwritten via ansible variables, `.env` files, or direct environment variables.
 
 ## Main Methods
 
@@ -46,7 +47,7 @@ Checks all libraries for consistency and removes any that fail.
 - **Error Handling**: Handles timeouts, consistency errors, and missing files.
 
 ## Configuration
-Uses values from `IH5PLibraryManagementConfig` for settings like lock times and library list paths.
+Uses values from `H5PEditorConfig` for settings like lock times and library list paths.
 
 ## Library Versioning
 - Library versions are tracked using the format: `machineName-major.minor.patch`.
@@ -77,8 +78,7 @@ export class SomeModule {
 ```
 
 ## Related Files
-- `h5p-library-management.service.ts`: Main service implementation
-- `h5p-library-management.config.ts`: Configuration interface
+- `h5p-library-management.service.ts`: Main service implementation (in [h5p-server](https://github.com/hpi-schul-cloud/h5p-server))
 - `h5p-library-management.service.spec.ts`: Unit tests
 
 ## References
