@@ -130,7 +130,7 @@ defaults for local development that you can use as a starting point.
 ### Testing the h5p-library-management app
 At this point, you have nearly everything for the library management app. The list of H5P libraries to install is 
 configured via the `H5P_EDITOR__LIBRARY_LIST` environment variable. The default list can be found in 
-[h5p-editor.config.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-content-management/h5p-editor.config.ts). 
+[h5p-core.const.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-core/h5p-core.const.ts). 
 You can override this list via ansible variables, `.env` files, or direct environment variables.
 
 For example, to install only specific libraries, add to your `.env`:
@@ -291,7 +291,7 @@ Error: package-validation-failed:api-version-unsupported (component: H5P.MarkThe
 The message is confusing, but it means that the @lumieducation/h5p-server version that is currently installed is incompatible 
 with the library (here above shown as component) you specified. The only solutions here are either install a compatible 
 version of `@lumieducation/h5p-server` (usually by updating its version number in the package.json of h5p-server) or remove the incompatible 
-library from the `H5P_EDITOR__LIBRARY_LIST` environment variable in your `.env` file or change the default value in the [h5p-editor.config.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-content-management/h5p-editor.config.ts) accordingly.
+library from the `H5P_EDITOR__LIBRARY_LIST` environment variable in your `.env` file or change the default value in the [h5p-core.const.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-core/h5p-core.const.ts) accordingly.
 
 ### The library-management-app runs without error, but I see no library files installed in the bucket
 The app does not read from s3 which files or folders already exist. It records an entry in the "h5p-library" collection 
@@ -300,5 +300,5 @@ library A exists in the collection, but the files for library A does not exist i
 in s3. To solve this, you can either:
 
 - remove all library files and folders from s3 and clear the "h5p-library" collections, run the library-management app
-- temporarily remove some libraries from the `H5P_EDITOR__LIBRARY_LIST` environment variable or change the default value in the [h5p-editor.config.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-content-management/h5p-editor.config.ts) accordingly, run the library-management app, 
+- temporarily remove some libraries from the `H5P_EDITOR__LIBRARY_LIST` environment variable or change the default value in the [h5p-core.const.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-core/h5p-core.const.ts) accordingly, run the library-management app, 
 - add your list of libraries again, run the library-management app

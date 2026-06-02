@@ -13,7 +13,7 @@
 
 ## Configuration
 - The wish list of libraries is defined via the `H5P_EDITOR__LIBRARY_LIST` environment variable (comma-separated list of library names).
-- The default list can be found in [h5p-editor.config.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-content-management/h5p-editor.config.ts).
+- The default list can be found in [h5p-core.const.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-core/h5p-core.const.ts).
 - This can be overwritten via ansible variables, `.env` files, or direct environment variables.
 
 ## Main Methods

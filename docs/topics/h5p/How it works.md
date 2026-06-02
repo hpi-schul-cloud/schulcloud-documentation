@@ -25,4 +25,4 @@ The cronjob is defined in the [ansible folder](https://github.com/hpi-schul-clou
 The schedule is configurable via the `SERVER_H5P_LIBRARY_MANAGEMENT_CRONJOB` ansible variable and defaults to `"0 2 * * *"` (daily at 2:00 AM).
 
 The list of libraries to be installed and updated is configured via the `H5P_EDITOR__LIBRARY_LIST` environment variable. 
-The default list can be found in [h5p-editor.config.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-content-management/h5p-editor.config.ts) and can be overwritten via ansible variables, `.env` files, or direct environment variables.
+The default list can be found in [h5p-core.const.ts](https://github.com/hpi-schul-cloud/h5p-server/blob/main/src/modules/h5p-core/h5p-core.const.ts) and can be overwritten via ansible variables, `.env` files, or direct environment variables.
