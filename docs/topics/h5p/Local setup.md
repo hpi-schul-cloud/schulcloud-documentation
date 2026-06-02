@@ -26,17 +26,8 @@ docker run \
   -e "MINIO_ROOT_PASSWORD=miniouser" \
   quay.io/minio/minio server /data --console-address ":9001"
 ```
-If the ports 9000 or 9001 are not available for your local machine, then use (pay special attention to the ports here!):
+If the ports 9000 or 9001 are not available for your local machine, then redirect them to other ports.
 
-```bash
-docker run \
-  --name minioS3storage \
-  -p 9100:9000 \
-  -p 9101:9001 \
-  -e "MINIO_ROOT_USER=miniouser" \
-  -e "MINIO_ROOT_PASSWORD=miniouser" \
-  quay.io/minio/minio server /data --console-address ":9001"
-```
 Or if you have a docker-compose file, add the service and volume for minio:
 
 **docker-compose.yml**
@@ -59,27 +50,7 @@ volumes:
   minio:
 ```
 
-If the ports 9000 or 9001 are not available for your local machine, then use (pay special attention to the ports here!):
-
-**docker-compose.yml**
-```yml
-services:
-  minio-s3-storage:
-    image: quay.io/minio/minio:latest
-    command: server /data --console-address ":9001"
-    restart: always
-    ports:
-      - '9100:9000'
-      - '9101:9001'
-    environment:
-      - MINIO_ROOT_USER=miniouser
-      - MINIO_ROOT_PASSWORD=miniouser
-    volumes:
-      - 'minio:/data'
- 
-volumes:
-  minio:
-```
+If the ports 9000 or 9001 are not available for your local machine, then redirect them to other ports.
 
 See also: [Local Project Setup](https://docs.dbildungscloud.de/pages/viewpage.action?pageId=203882620#LocalProjectSetup/Projektlokaleinrichten(WIP)-LokalesFileSystem)
 
