@@ -61,7 +61,7 @@ dotenv -- node ./scripts/h5p/update-h5p-map.js
 ```
 
 ## Prerequisites
-- Node.js version 24 (as specified in the h5p-server package.json)
+- Latest LTS version of Node.js
 - Environment variable `GITHUB_PERSONAL_ACCESS_TOKEN` set with a valid GitHub token
 - Required dependencies installed (run `npm ci` in the project root)
 

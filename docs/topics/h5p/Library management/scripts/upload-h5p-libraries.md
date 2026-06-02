@@ -57,7 +57,7 @@ dotenv -- node ./scripts/h5p/upload-h5p-libraries.js
 ```
 
 ## Prerequisites
-- Node.js version 24 (as specified in the h5p-server package.json)
+- Latest LTS version of Node.js
 - Required dependencies installed (run `npm ci` in the project root)
 - Temporary folder containing built H5P libraries
 
