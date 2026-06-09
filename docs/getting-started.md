@@ -666,15 +666,6 @@ If Redis is to be used locally, the following steps are necessary for setup:
 2. In the server, enter the URL of Redis as default under `REDIS_URI` in `default.schema.json` (normally: `redis://localhost:6379`).
 3. In the Legacy Client, enter the URL of Redis as default for `REDIS_URI` in `config/global.js`.
 
-### Set up SuperHero Dashboard
+### Set up superhero-dashboard
 
-Prerequisite: clone the repo from https://github.com/hpi-schul-cloud/superhero-dashboard
-
-To work with the SuperHero Dashboard (SHD) - which is basically used as a database layer for editing user data for non-devs - there are a few things to consider since using Node version 20.
-
-**Under Windows:** Many packages used in the SHD are very outdated and require the installation of additional C++ packages to install the dependencies of the repository. Here it is best to work along the error log and install the respective packages afterwards.
-
-**Under Mac:** For the same reason, the package "distutils" is used here, which is normally covered by the Python installation, but has not been included there since Python 3.12. Here you have to go a separate way to get the necessary functionalities. It is best to use one of the following ways using homebrew under macOS.
-
-1. The installation of `brew install python-setuptools`, in the hope that everything necessary was installed there.
-2. If 1. doesn't work, you should use the old Python version using `brew install python@3.11` then the corresponding Env Var must be set in ".zshrc". Either with `export PYTHON=3.11` or `export npm_config_python=/opt/homebrew/bin/python3.11`, if necessary, both can be used at the same time, nothing can break for now.
+See https://documentation.dbildungscloud.dev/docs/topics/superhero-dashboard/overview.
