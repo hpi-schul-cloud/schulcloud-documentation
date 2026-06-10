@@ -668,4 +668,4 @@ If Redis is to be used locally, the following steps are necessary for setup:
 
 ### Set up superhero-dashboard
 
-See https://documentation.dbildungscloud.dev/docs/topics/superhero-dashboard/overview.
+See [Superhero Dashboard overview](./topics/superhero-dashboard/Overview.md).
