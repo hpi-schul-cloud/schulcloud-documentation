@@ -24,7 +24,7 @@ flowchart LR
   end
 ```
 
-Like shown above the superhero-dashboard communicates with the following schucloud-apps:
+Like shown above the superhero-dashboard communicates with the following schulcloud-apps:
 - [schulcloud-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/apps/server.app.ts)
 - [admin-api-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/main/apps/server/src/apps/admin-api-server.app.ts) (for user-batch-deletion)
 - [file-storage](https://github.com/hpi-schul-cloud/file-storage/blob/main/src/apps/files-storage.app.ts) (for school-files-deletion)
