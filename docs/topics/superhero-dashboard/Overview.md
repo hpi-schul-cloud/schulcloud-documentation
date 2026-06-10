@@ -29,7 +29,7 @@ Like shown above the superhero-dashboard communicates with the following schulcl
 - [admin-api-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/33ffddf7aca4a0118ee312f53efbb616a1dcc630/package.json#L53) (for user-batch-deletion)
 - [file-storage](https://github.com/hpi-schul-cloud/file-storage/blob/cb9e6345b120a76667ed80df0056f338c930e827/package.json#L23) (for school-files-deletion)
 
-All communucation is via HTTP inside the kubernetes-cluster.
+All communication is via HTTP inside the kubernetes-cluster.
 
 ## HTTP Basic Auth
 Unlike other schulcloud-apps the superhero-dashboard is protected by [HTTP Basic Auth](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Authentication) on deployed instances like configured [here](https://github.com/hpi-schul-cloud/superhero-dashboard/blob/b4d7f1fcc1dd6862b5cc7f0837654c25abd0bdd6/ansible/roles/superhero-dashboard/templates/ingress.yml.j2#L10).
