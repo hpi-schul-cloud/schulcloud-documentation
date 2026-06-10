@@ -8,7 +8,7 @@ The superhero-dashboard (short SHD) is the UI for instance-wide configuration an
 
 It is a client-server application based on [Handlebars](https://handlebarsjs.com/) and [Express.js](https://expressjs.com/en/). 
 
-The integration of Handlebars with Express is done with handlebars-wax like described in [this paragraph from the handlebars-wax-docs](https://github.com/shannonmoeller/handlebars-wax#enginefile-data-callback-handlebarswax).
+The integration of Handlebars with Express is done with handlebars-wax as described in [this paragraph from the handlebars-wax-docs](https://github.com/shannonmoeller/handlebars-wax#enginefile-data-callback-handlebarswax).
 
 Static files are built with [gulp.js](https://gulpjs.com/).
 
