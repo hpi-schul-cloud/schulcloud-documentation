@@ -46,7 +46,7 @@ Unlike other schulcloud-apps the superhero-dashboard is protected by [HTTP Basic
 - FEATURE_MEDIA_SHELF_ENABLED
 - FEATURE_USER_LOGIN_MIGRATION_ENABLED
 - FEATURE_SHOW_OUTDATED_USERS
-- FEATURE_ENABLE_LDAP_SYNC_DURING_MIGRATION 
+- FEATURE_ENABLE_LDAP_SYNC_DURING_MIGRATION
 
 Defaults are set where the variables are used in the code.
 
