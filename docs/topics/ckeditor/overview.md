@@ -4,12 +4,14 @@
 
 ## Einsatzorte
 
-CKEditor wird in folgenden Kontexten des nuxt-client verwendet:
+CKEditor wird in folgenden Kontexten verwendet:
 
-| Kontext | Beschreibung                                          |
-|---------|-------------------------------------------------------|
-| **Raum-Board-Cards** | Textelemente innerhalb von Board-Karten in Räumen     |
-| **News-Erstellung** | Erstellen und Bearbeiten von Neuigkeiten |
+| Kontext | Client | Beschreibung                                      |
+|---------|--------|---------------------------------------------------|
+| **Raum-Board-Cards** | Nuxt Client | Textelemente innerhalb von Board-Karten in Räumen |
+| **News-Erstellung** | Nuxt Client | Erstellen und Bearbeiten von Neuigkeiten          |
+| **Aufgaben** | Legacy Client | Aufgabenerstellung und -bearbeitung               |
+| **Themen** | Legacy Client | Themenerstellung und -bearbeitung                 |
 
 Der Editor ist in zwei Client-Anwendungen integriert:
 
@@ -71,5 +73,5 @@ Die offizielle Alternative von CKEditor – das [Math Equations Feature](https:/
 | Custom Build | [hpi-schul-cloud/ckeditor](https://github.com/hpi-schul-cloud/ckeditor) |
 | Updates möglich? | Nein – durch Breaking Changes blockiert |
 | Offizielle Mathe-Alternative | Kostenpflichtig |
-| Einsatz | Board-Cards, News |
+| Einsatz | Board-Cards, News (Nuxt Client); Aufgaben, Themen (Legacy Client) |
 | Clients | Legacy Client, Nuxt Client |
