@@ -1,5 +1,18 @@
 # Code Conventions
 
+## Filenames
+
+Files should be consistently named like this:
+
+| file content   | style      | filename                                              | comment                                                                                                                             |
+|----------------|------------|-------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| Vue Components | PascalCase | `YourComponent.vue`<br/>`YourComponent.unit.ts`       | `<PascalCaseName>.<scope>.vue`<br/> `<PascalCaseName>.<scope>.unit.ts`.  <br/> Use the same name in html markup. <br/>`<TheBoard/>` |
+| TS/JS files    | kebab-case | `board-view.store.ts`<br/> `board-view.store.unit.ts` | `<kebap-case-name>.<scope>.<ext>`<br/>`<kebap-case-name>.<scope>.unit.<ext>`                                                  |
+
+## Folders
+
+Folders are written in **kebab-case** (e.g. `feature-board`).
+
 ## Accessing Elements
 
 ### Template Refs
