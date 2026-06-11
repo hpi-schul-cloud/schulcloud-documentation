@@ -56,4 +56,5 @@ Clone the [repository](https://github.com/hpi-schul-cloud/superhero-dashboard) a
 
 For a minimal setup the [schulcloud-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/33ffddf7aca4a0118ee312f53efbb616a1dcc630/package.json#L49) must be running, for a full setup also the [admin-api-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/33ffddf7aca4a0118ee312f53efbb616a1dcc630/package.json#L53) and the [file-storage](https://github.com/hpi-schul-cloud/file-storage/blob/cb9e6345b120a76667ed80df0056f338c930e827/package.json#L23) (see [Integration in the Schulcloud](#integration-in-the-schulcloud) above). 
 
-The defaults of the environment variables are fine for the normal local setup.
+The defaults of the env vars are fine for the normal local setup. If you want to change an env var, you have to set it in your local environment. Let's say you want to override the title that is displayed in the navigation, then you start the app with `SC_NAV_TITLE=foo npm start`. 
+
