@@ -49,6 +49,7 @@ background-color: rgba(var(--v-theme-on-surface), 0.6);
 |---|---|---|---|
 | <span class="swatch swatch-2370cb"></span> | `primary` | `#2370CB` | Button, Toolbar, Switch, Checkbox, Select, Progress Bar |
 | <span class="swatch swatch-1e599c"></span> | `primary-darken-1` | `#1e599c` | DataTable Header, Sort Icon |
+| <span class="swatch swatch-00489a"></span> | `primary-darken-2` | `#00489a` | Link in boards |
 | <span class="swatch swatch-e9f1fa"></span> | `primary-lighten` | `#e9f1fa` | Card Header (e.g. News) |
 | <span class="swatch swatch-0f3551"></span> | `on-surface-light` / `on-surface` /<br /> `on-background` / `on-white` | `#0f3551` | Text, Icons, Chip Text, Alert Text |
 | <span class="swatch swatch-f2f5f9"></span> | `surface-light` | `#f2f5f9` | Boards (in Rooms), Filters (in Tasks) |
@@ -133,15 +134,15 @@ background-color: rgba(var(--v-theme-on-surface), 0.6);
 
 | Color | Label | Hex |
 |---|---|---|
-| <span class="swatch swatch-827717"></span> | Olive Green | `#827717` |
-| <span class="swatch swatch-388e3c"></span> | Green | `#388E3C` |
-| <span class="swatch swatch-00838f"></span> | Turquoise | `#00838F` |
-| <span class="swatch swatch-1976d2"></span> | Blue | `#1976D2` |
-| <span class="swatch swatch-3f51b5"></span> | Indigo | `#3F51B5` |
-| <span class="swatch swatch-673ab7"></span> | Dark Purple | `#673AB7` |
-| <span class="swatch swatch-9c27b0"></span> | Purple | `#9C27B0` |
-| <span class="swatch swatch-d81b60"></span> | Pink | `#D81B60` |
-| <span class="swatch swatch-d32f2f"></span> | Red | `#D32F2F` |
+| <span class="swatch swatch-625a11"></span> | Olive Green | `#625A11` |
+| <span class="swatch swatch-1b5e20"></span> | Green | `#1B5E20` |
+| <span class="swatch swatch-006064"></span> | Turquoise | `#006064` |
+| <span class="swatch swatch-0d47a1"></span> | Blue | `#0D47A1` |
+| <span class="swatch swatch-303f9f"></span> | Indigo | `#303F9F` |
+| <span class="swatch swatch-5e35b1"></span> | Dark Purple | `#5E35B1` |
+| <span class="swatch swatch-7b1fa2"></span> | Purple | `#7B1FA2` |
+| <span class="swatch swatch-ac1457"></span> | Pink | `#AC1457` |
+| <span class="swatch swatch-af1b1b"></span> | Red | `#AF1B1B` |
 
 #### Text Highlighting in CK5 Editor
 
@@ -347,6 +348,7 @@ Custom SVG icons as Vue components, registered as Vuetify aliases in `base-vueti
 .swatch-f7f7f8 { background-color: #F7F7F8; border: 1px solid #cccccc; }
 .swatch-2370cb { background-color: #2370CB; }
 .swatch-1e599c { background-color: #1e599c; }
+.swatch-00489a { background-color: #00489a; }
 .swatch-e9f1fa { background-color: #e9f1fa; }
 .swatch-0f3551 { background-color: #0f3551; }
 .swatch-f2f5f9 { background-color: #f2f5f9; }
@@ -375,13 +377,15 @@ Custom SVG icons as Vue components, registered as Vuetify aliases in `base-vueti
 .swatch-fbe9e7 { background-color: #fbe9e7; }
 .swatch-fff8e1 { background-color: #fff8e1; }
 .swatch-eceff1 { background-color: #eceff1; }
-.swatch-388e3c { background-color: #388E3C; }
-.swatch-00838f { background-color: #00838F; }
-.swatch-1976d2 { background-color: #1976D2; }
-.swatch-3f51b5 { background-color: #3F51B5; }
-.swatch-673ab7 { background-color: #673AB7; }
-.swatch-d81b60 { background-color: #D81B60; }
-.swatch-d32f2f { background-color: #D32F2F; }
+.swatch-625a11 { background-color: #625A11; }
+.swatch-1b5e20 { background-color: #1B5E20; }
+.swatch-006064 { background-color: #006064; }
+.swatch-0d47a1 { background-color: #0D47A1; }
+.swatch-303f9f { background-color: #303F9F; }
+.swatch-5e35b1 { background-color: #5E35B1; }
+.swatch-7b1fa2 { background-color: #7B1FA2; }
+.swatch-ac1457 { background-color: #AC1457; }
+.swatch-af1b1b { background-color: #AF1B1B; }
 .swatch-dcedc8 { background-color: #DCEDC8; }
 .swatch-c8e6c9 { background-color: #C8E6C9; }
 .swatch-b2ebf2 { background-color: #B2EBF2; }
