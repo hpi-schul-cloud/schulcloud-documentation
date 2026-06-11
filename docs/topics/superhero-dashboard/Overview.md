@@ -25,9 +25,9 @@ flowchart LR
 ```
 
 Like shown above the superhero-dashboard communicates with the following schulcloud-apps:
-- [schulcloud-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/33ffddf7aca4a0118ee312f53efbb616a1dcc630/package.json#L49)
-- [admin-api-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/33ffddf7aca4a0118ee312f53efbb616a1dcc630/package.json#L53) (for user-batch-deletion)
-- [file-storage](https://github.com/hpi-schul-cloud/file-storage/blob/cb9e6345b120a76667ed80df0056f338c930e827/package.json#L23) (for school-files-deletion)
+- schulcloud-server
+- admin-api-server (for user-batch-deletion)
+- file-storage (for school-files-deletion)
 
 All communication is via HTTP inside the kubernetes-cluster.
 
@@ -54,6 +54,6 @@ Defaults are set where the variables are used in the code.
 
 Clone the [repository](https://github.com/hpi-schul-cloud/superhero-dashboard) and proceed like described in the README.
 
-For a minimal setup the schulcloud-server must be running, for a full setup also the admin-api-server and the file-storage (see "Integration in the Schulcloud" above). 
+For a minimal setup the [schulcloud-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/33ffddf7aca4a0118ee312f53efbb616a1dcc630/package.json#L49) must be running, for a full setup also the [admin-api-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/33ffddf7aca4a0118ee312f53efbb616a1dcc630/package.json#L53) and the [file-storage](https://github.com/hpi-schul-cloud/file-storage/blob/cb9e6345b120a76667ed80df0056f338c930e827/package.json#L23) (see [Integration in the Schulcloud](#integration-in-the-schulcloud) above). 
 
 The defaults of the environment variables are fine for the normal local setup.
