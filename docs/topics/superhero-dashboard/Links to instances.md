@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Links to the deployed instances
+# Links to the instances
 
 ## Dev-cluster
 - https://shd-main.dbc.dbildungscloud.dev/login
