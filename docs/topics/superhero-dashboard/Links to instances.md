@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Links to the deployed instances of the superhero-dashboard
 
 ## Dev-cluster
