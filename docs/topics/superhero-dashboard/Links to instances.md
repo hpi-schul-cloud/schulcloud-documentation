@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Links to the deployed instances of the superhero-dashboard
+# Links to the deployed instances
 
 ## Dev-cluster
 - https://shd-main.dbc.dbildungscloud.dev/login
