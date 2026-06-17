@@ -135,7 +135,6 @@
 }
 
 .modalBody :global(svg) {
-  display: block;
   background: var(--mermaid-fullscreen-surface);
 }
 

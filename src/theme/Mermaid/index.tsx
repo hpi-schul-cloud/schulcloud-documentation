@@ -80,13 +80,28 @@ export default function Mermaid(props: Props): ReactNode {
       }
       svg.removeAttribute('width');
       svg.removeAttribute('height');
-      svg.style.width = '100%';
+
+      // Use aspect-ratio + max constraints for proper contain-fit centering
+      const viewBox = svg.getAttribute('viewBox');
+      if (viewBox) {
+        const parts = viewBox.split(/[\s,]+/);
+        const vbWidth = parseFloat(parts[2]);
+        const vbHeight = parseFloat(parts[3]);
+        if (vbWidth > 0 && vbHeight > 0) {
+          svg.style.aspectRatio = `${vbWidth} / ${vbHeight}`;
+        }
+      }
+      svg.style.maxWidth = '100%';
+      svg.style.maxHeight = '100%';
+      svg.style.width = 'auto';
       svg.style.height = 'auto';
-      // Also remove inline max-width from parent wrapper
+      svg.style.display = 'block';
+
+      // Remove inline max-width from parent wrapper
       const parent = svg.parentElement;
       if (parent) {
         parent.style.maxWidth = 'none';
-        parent.style.width = '100%';
+        parent.style.display = 'contents';
       }
     }
 
