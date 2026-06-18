@@ -16,7 +16,7 @@ interface Props {
   value: string;
 }
 
-const MIN_ZOOM = 0.5;
+const MIN_ZOOM = 0.25;
 const MAX_ZOOM = 2.5;
 const ZOOM_STEP = 0.25;
 
