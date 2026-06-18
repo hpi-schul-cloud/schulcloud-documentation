@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # Saga Module Usage Guide
 
 The **Saga Module** provides a pattern for executing cross-module workflows (scripts) in a coordinated and type-safe manner. It allows modules to register steps that can be orchestrated by sagas to perform complex operations that span multiple domain boundaries.
@@ -12,25 +16,69 @@ The Saga pattern is used when you need to:
 
 ## Architecture
 
+```mermaid
+graph TB
+    subgraph SagaModule["Saga Module"]
+        SagaService["SagaService<br/><i>public facade</i>"]
+        SagaRegistryService["SagaRegistryService<br/><i>Map&lt;name → Saga&gt;</i>"]
+        SagaStepRegistryService["SagaStepRegistryService<br/><i>Map&lt;ModuleName → Map&lt;stepName → Step&gt;&gt;</i>"]
+        ConcreteSaga["Concrete Saga<br/><i>e.g. UserDeletionSaga</i>"]
+
+        SagaService -->|"executeSaga(name, params)"| SagaRegistryService
+        SagaService -->|"registerStep(module, step)"| SagaStepRegistryService
+        SagaRegistryService -->|"saga.execute(params)"| ConcreteSaga
+        ConcreteSaga -->|"executeStep(module, stepName, params)"| SagaStepRegistryService
+        ConcreteSaga -.->|"constructor: registerSaga(this)"| SagaRegistryService
+    end
+
+    subgraph TypeSystem["Type Contracts"]
+        SagaBase["«abstract» Saga&lt;T&gt;<br/>name · execute(params)"]
+        SagaStepBase["«abstract» SagaStep&lt;T&gt;<br/>name · execute(params)"]
+        SagaTypeIF["SagaType interface<br/><i>maps saga names → params/result</i>"]
+        StepTypeIF["StepType interface<br/><i>maps step names → params/result</i>"]
+    end
+
+    ConcreteSaga -.->|extends| SagaBase
+
+    subgraph DomainModuleA["Domain Module A"]
+        StepA["ConcreteStep<br/>extends SagaStep&lt;T&gt;"]
+    end
+
+    subgraph DomainModuleB["Domain Module B"]
+        StepB["ConcreteStep<br/>extends SagaStep&lt;T&gt;"]
+    end
+
+    subgraph DomainModuleN["Domain Module N …"]
+        StepN["ConcreteStep<br/>extends SagaStep&lt;T&gt;"]
+    end
+
+    StepA -->|"constructor:<br/>sagaService.registerStep(moduleA, this)"| SagaService
+    StepB -->|"constructor:<br/>sagaService.registerStep(moduleB, this)"| SagaService
+    StepN -->|"constructor:<br/>sagaService.registerStep(moduleN, this)"| SagaService
+
+    StepA -.->|extends| SagaStepBase
+    StepB -.->|extends| SagaStepBase
+    StepN -.->|extends| SagaStepBase
+
+    Caller["Caller<br/><i>(e.g. API controller / UC)</i>"] -->|"sagaService.executeSaga(name, params)"| SagaService
+
+    classDef abstract fill:#f9f,stroke:#333
+    classDef service fill:#bbf,stroke:#333
+    classDef saga fill:#bfb,stroke:#333
+    classDef step fill:#ffb,stroke:#333
+
+    class SagaBase,SagaStepBase abstract
+    class SagaService,SagaRegistryService,SagaStepRegistryService service
+    class ConcreteSaga saga
+    class StepA,StepB,StepN step
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                         SagaService                                 │
-│  (Public API: registerStep(), executeSaga())                        │
-└─────────────────┬───────────────────────────────────┬───────────────┘
-                  │                                   │
-                  ▼                                   ▼
-┌─────────────────────────────┐     ┌─────────────────────────────────┐
-│   SagaStepRegistryService   │     │      SagaRegistryService        │
-│   (stores module steps)     │     │      (stores saga instances)    │
-└─────────────────────────────┘     └─────────────────────────────────┘
-                  ▲                                   ▲
-                  │                                   │
-    ┌─────────────┴─────────────┐       ┌────────────┴────────────┐
-    │    Module SagaSteps       │       │         Sagas           │
-    │  (DeleteUserAccountData,  │       │  (UserDeletionSaga,     │
-    │   CopyRoomStep, etc.)     │       │   RoomCopySaga, etc.)   │
-    └───────────────────────────┘       └─────────────────────────┘
-```
+
+**How it works:**
+
+1. **Domain modules** implement concrete `SagaStep<T>` subclasses that self-register with `SagaService` in their constructor.
+2. **Concrete Sagas** (inside the saga module) self-register with `SagaRegistryService` and orchestrate step execution order by calling `SagaStepRegistryService.executeStep(moduleName, stepName, params)`.
+3. **A caller** triggers a saga via `sagaService.executeSaga(name, params)` — the registry looks up the saga and invokes it.
+4. **Type safety** is enforced through `SagaType` and `StepType` interfaces that map names to their `params`/`result` types via generics.
 
 ## Core Concepts
 

@@ -1,3 +1,7 @@
+---
+sidebar_position: 7
+---
+
 # Event Mechanism
 
 This document describes the event-based communication mechanism used in the schulcloud-server to decouple modules and handle cross-cutting concerns.
