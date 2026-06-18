@@ -54,6 +54,9 @@ Provides two console command groups:
 
 The CLI does **not** access the database directly. It communicates exclusively with the Admin API via DeletionClient using HTTP + `X-Api-Key` authentication.
 
+In practice, we only trigger the execution from the cron job
+ansible/roles/schulcloud-server-core/templates/data-deletion-trigger-cronjob.yml.j2
+
 ---
 
 ### `DeletionApiModule` — Admin API Layer
