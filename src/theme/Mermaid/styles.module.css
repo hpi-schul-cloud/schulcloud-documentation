@@ -135,6 +135,7 @@
   transform-origin: center center;
   user-select: none;
   touch-action: none;
+  pointer-events: none;
 }
 
 .modalBody :global(.theme-mermaid) {
