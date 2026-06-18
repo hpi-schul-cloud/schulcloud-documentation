@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # Saga Module Usage Guide
 
 The **Saga Module** provides a pattern for executing cross-module workflows (scripts) in a coordinated and type-safe manner. It allows modules to register steps that can be orchestrated by sagas to perform complex operations that span multiple domain boundaries.
