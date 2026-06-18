@@ -12,6 +12,9 @@
 .closeButton,
 .zoomButton,
 .zoomValue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 999px;
   background: var(--ifm-color-emphasis-100);
@@ -22,6 +25,10 @@
   font-weight: 600;
   line-height: 1;
   padding: 0.65rem 0.95rem;
+}
+
+.openButton {
+  padding: 0.5rem;
 }
 
 .openButton:hover,

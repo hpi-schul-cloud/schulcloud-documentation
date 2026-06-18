@@ -202,8 +202,15 @@ export default function Mermaid(props: Props): ReactNode {
           <button
             type="button"
             className={styles.openButton}
-            onClick={openModal}>
-            Open fullscreen
+            onClick={openModal}
+            aria-label="Open fullscreen"
+            title="Open fullscreen">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="10 2 14 2 14 6" />
+              <polyline points="6 14 2 14 2 10" />
+              <line x1="14" y1="2" x2="9.5" y2="6.5" />
+              <line x1="2" y1="14" x2="6.5" y2="9.5" />
+            </svg>
           </button>
         </div>
 
@@ -247,8 +254,16 @@ export default function Mermaid(props: Props): ReactNode {
                   <button
                     type="button"
                     className={styles.zoomButton}
-                    onClick={fitToViewport}>
-                    Fit
+                    onClick={fitToViewport}
+                    aria-label="Fit to viewport"
+                    title="Fit to viewport">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="4 2 2 2 2 4" />
+                      <polyline points="12 2 14 2 14 4" />
+                      <polyline points="4 14 2 14 2 12" />
+                      <polyline points="12 14 14 14 14 12" />
+                      <rect x="5" y="5" width="6" height="6" rx="1" />
+                    </svg>
                   </button>
                   <button
                     type="button"
@@ -267,8 +282,13 @@ export default function Mermaid(props: Props): ReactNode {
                 <button
                   type="button"
                   className={styles.closeButton}
-                  onClick={closeModal}>
-                  Close
+                  onClick={closeModal}
+                  aria-label="Close"
+                  title="Close">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="3" y1="3" x2="13" y2="13" />
+                    <line x1="13" y1="3" x2="3" y2="13" />
+                  </svg>
                 </button>
               </div>
             </div>
