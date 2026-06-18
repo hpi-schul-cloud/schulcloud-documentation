@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Overview
 
-The superhero-dashboard (short SHD) is the UI for instance-wide configuration and data manipulation. It is used by users with the role "superhero", which is basically the support team.
+The superhero-dashboard (short SHD) is the UI for instance-wide configuration and data manipulation. It is used by users with the role "superhero".
 
 ![screenshot of landing page of the superhero-dashboard](shd-screenshot.png)
 
