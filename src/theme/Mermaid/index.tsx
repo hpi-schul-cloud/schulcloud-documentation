@@ -30,6 +30,7 @@ export default function Mermaid(props: Props): ReactNode {
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isGrabbing, setIsGrabbing] = useState(false);
   const titleId = useId();
+  const modalBodyRef = useRef<HTMLDivElement>(null);
   const modalDiagramRef = useRef<HTMLDivElement>(null);
   const isPanning = useRef(false);
   const panStart = useRef({ x: 0, y: 0 });
@@ -147,8 +148,8 @@ export default function Mermaid(props: Props): ReactNode {
       return;
     }
 
-    const container = modalDiagramRef.current;
-    if (!container) {
+    const body = modalBodyRef.current;
+    if (!body) {
       return;
     }
 
@@ -158,10 +159,10 @@ export default function Mermaid(props: Props): ReactNode {
       setZoom((z) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z + direction * ZOOM_STEP)));
     }
 
-    container.addEventListener('wheel', onWheel, { passive: false });
+    body.addEventListener('wheel', onWheel, { passive: false });
 
     return () => {
-      container.removeEventListener('wheel', onWheel);
+      body.removeEventListener('wheel', onWheel);
     };
   }, [isOpen]);
 
@@ -296,7 +297,14 @@ export default function Mermaid(props: Props): ReactNode {
               </div>
             </div>
 
-            <div className={styles.modalBody}>
+            <div
+              ref={modalBodyRef}
+              className={styles.modalBody}
+              style={{ cursor: isGrabbing ? 'grabbing' : 'grab' }}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}>
               <div
                 ref={modalDiagramRef}
                 className={styles.modalDiagram}
@@ -304,12 +312,7 @@ export default function Mermaid(props: Props): ReactNode {
                   '--mermaid-modal-zoom': String(zoom),
                   '--mermaid-pan-x': `${pan.x}px`,
                   '--mermaid-pan-y': `${pan.y}px`,
-                  cursor: isGrabbing ? 'grabbing' : 'grab',
-                } as CSSProperties}
-                onPointerDown={handlePointerDown}
-                onPointerMove={handlePointerMove}
-                onPointerUp={handlePointerUp}
-                onPointerCancel={handlePointerUp}>
+                } as CSSProperties}>
                 <OriginalMermaid {...props} />
               </div>
             </div>
