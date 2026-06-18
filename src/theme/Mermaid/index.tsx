@@ -28,6 +28,7 @@ export default function Mermaid(props: Props): ReactNode {
   const [isOpen, setIsOpen] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isGrabbing, setIsGrabbing] = useState(false);
   const titleId = useId();
   const modalDiagramRef = useRef<HTMLDivElement>(null);
   const isPanning = useRef(false);
@@ -178,6 +179,7 @@ export default function Mermaid(props: Props): ReactNode {
   function handlePointerDown(event: React.PointerEvent<HTMLDivElement>): void {
     if (event.button !== 0) return;
     isPanning.current = true;
+    setIsGrabbing(true);
     panStart.current = { x: event.clientX, y: event.clientY };
     panOffset.current = { x: pan.x, y: pan.y };
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -192,6 +194,7 @@ export default function Mermaid(props: Props): ReactNode {
 
   function handlePointerUp(event: React.PointerEvent<HTMLDivElement>): void {
     isPanning.current = false;
+    setIsGrabbing(false);
     event.currentTarget.releasePointerCapture(event.pointerId);
   }
 
@@ -301,7 +304,7 @@ export default function Mermaid(props: Props): ReactNode {
                   '--mermaid-modal-zoom': String(zoom),
                   '--mermaid-pan-x': `${pan.x}px`,
                   '--mermaid-pan-y': `${pan.y}px`,
-                  cursor: isPanning.current ? 'grabbing' : 'grab',
+                  cursor: isGrabbing ? 'grabbing' : 'grab',
                 } as CSSProperties}
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
