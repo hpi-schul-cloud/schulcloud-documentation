@@ -304,7 +304,8 @@ export default function Mermaid(props: Props): ReactNode {
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
-              onPointerCancel={handlePointerUp}>
+              onPointerCancel={handlePointerUp}
+              onDoubleClick={fitToViewport}>
               <div
                 ref={modalDiagramRef}
                 className={styles.modalDiagram}
