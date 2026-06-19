@@ -45,10 +45,10 @@
     {
       "id": "client-label",
       "type": "text",
-      "x": 264.82674916585296,
+      "x": 267.1367619832358,
       "y": 298.77777099609375,
-      "width": 111.67991638183594,
-      "height": 25,
+      "width": 107.05989074707031,
+      "height": 27,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -61,22 +61,22 @@
       "frameId": null,
       "roundness": null,
       "seed": 101,
-      "version": 129,
-      "versionNonce": 125640378,
+      "version": 131,
+      "versionNonce": 703949882,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1781782876648,
+      "updated": 1781783188201,
       "link": null,
       "locked": false,
       "text": "Client (Vue)",
       "fontSize": 20,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": "client-box",
       "originalText": "Client (Vue)",
       "autoResize": true,
-      "lineHeight": 1.25,
+      "lineHeight": 1.35,
       "index": "a1"
     },
     {
@@ -409,10 +409,10 @@
     {
       "id": "server-label",
       "type": "text",
-      "x": 792.5400695800781,
+      "x": 793.9500961303711,
       "y": 205,
-      "width": 164.91986083984375,
-      "height": 25,
+      "width": 162.0998077392578,
+      "height": 27,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -425,22 +425,22 @@
       "frameId": null,
       "roundness": null,
       "seed": 201,
-      "version": 13,
-      "versionNonce": 169613558,
+      "version": 15,
+      "versionNonce": 1611685414,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1781699357247,
+      "updated": 1781783190349,
       "link": null,
       "locked": false,
       "text": "schulcloud-server",
       "fontSize": 20,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": "server-box",
       "originalText": "schulcloud-server",
       "autoResize": true,
-      "lineHeight": 1.25,
+      "lineHeight": 1.35,
       "index": "aB"
     },
     {
@@ -520,8 +520,8 @@
       "type": "rectangle",
       "x": 630,
       "y": 354.4373956848568,
-      "width": 250,
-      "height": 148.56260431514315,
+      "width": 226.44216766323441,
+      "height": 148.56260431514318,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -536,8 +536,8 @@
         "type": 3
       },
       "seed": 204,
-      "version": 13,
-      "versionNonce": 1168688554,
+      "version": 44,
+      "versionNonce": 453766650,
       "isDeleted": false,
       "boundElements": [
         {
@@ -545,7 +545,7 @@
           "id": "uc-label"
         }
       ],
-      "updated": 1781699359576,
+      "updated": 1781783015424,
       "link": null,
       "locked": false,
       "index": "aE"
@@ -569,11 +569,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 205,
-      "version": 28,
-      "versionNonce": 1436253370,
+      "version": 30,
+      "versionNonce": 405326778,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1781782749306,
+      "updated": 1781783015324,
       "link": null,
       "locked": false,
       "text": "\n    Use Cases\n    \n    - CreateUc: createIfNotRunning\n    - JoinUc: join\n    - InfoUc: getMeetingInfo\n    - EndUc: end",
@@ -592,7 +592,7 @@
       "type": "rectangle",
       "x": 629.5999755859375,
       "y": 529.2000122070312,
-      "width": 250,
+      "width": 219.58895393152102,
       "height": 124.35885668356455,
       "angle": 0,
       "strokeColor": "#2f9e44",
@@ -608,8 +608,8 @@
         "type": 3
       },
       "seed": 206,
-      "version": 26,
-      "versionNonce": 1239943654,
+      "version": 44,
+      "versionNonce": 1440840934,
       "isDeleted": false,
       "boundElements": [
         {
@@ -617,7 +617,7 @@
           "id": "service-label"
         }
       ],
-      "updated": 1781782745788,
+      "updated": 1781783012710,
       "link": null,
       "locked": false,
       "index": "aG"
@@ -662,8 +662,8 @@
     {
       "id": "bbb-service-box",
       "type": "rectangle",
-      "x": 906.1289836715372,
-      "y": 370,
+      "x": 862.4398605067728,
+      "y": 356.29363789366334,
       "width": 223.87101632846284,
       "height": 180,
       "angle": 0,
@@ -680,8 +680,8 @@
         "type": 3
       },
       "seed": 208,
-      "version": 44,
-      "versionNonce": 543727270,
+      "version": 113,
+      "versionNonce": 813146278,
       "isDeleted": false,
       "boundElements": [
         {
@@ -693,7 +693,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1781782770986,
+      "updated": 1781783022074,
       "link": null,
       "locked": false,
       "index": "aI"
@@ -701,8 +701,8 @@
     {
       "id": "bbb-service-label",
       "type": "text",
-      "x": 911.1289836715372,
-      "y": 375,
+      "x": 867.4398605067728,
+      "y": 361.29363789366334,
       "width": 168.5837860107422,
       "height": 157.95000000000002,
       "angle": 0,
@@ -717,11 +717,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 209,
-      "version": 50,
-      "versionNonce": 1841558010,
+      "version": 119,
+      "versionNonce": 256416742,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1781782753257,
+      "updated": 1781783022074,
       "link": null,
       "locked": false,
       "text": "    BBBService\n    \n    - create(config)\n    - join(config) -> URL\n    - getMeetingInfo(config)\n    - end(config)\n    \n    Builds URL with SHA-512\n    checksum from salt",
@@ -738,10 +738,10 @@
     {
       "id": "bbb-server-box",
       "type": "rectangle",
-      "x": 1285.4203072217715,
-      "y": 362.7306946221405,
+      "x": 1242.1596651383275,
+      "y": 355.0208455132356,
       "width": 260,
-      "height": 204,
+      "height": 334,
       "angle": 0,
       "strokeColor": "#e8590c",
       "backgroundColor": "#fff9db",
@@ -756,8 +756,8 @@
         "type": 3
       },
       "seed": 300,
-      "version": 101,
-      "versionNonce": 861122214,
+      "version": 230,
+      "versionNonce": 1772940070,
       "isDeleted": false,
       "boundElements": [
         {
@@ -769,7 +769,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1781782797218,
+      "updated": 1781783213332,
       "link": null,
       "locked": false,
       "index": "aK"
@@ -777,10 +777,10 @@
     {
       "id": "bbb-server-label",
       "type": "text",
-      "x": 1290.4203072217715,
-      "y": 367.7306946221405,
-      "width": 190.77474975585938,
-      "height": 193.05,
+      "x": 1247.1596651383275,
+      "y": 360.0208455132356,
+      "width": 234.79983520507812,
+      "height": 237.60000000000002,
       "angle": 0,
       "strokeColor": "#e8590c",
       "backgroundColor": "transparent",
@@ -793,15 +793,15 @@
       "frameId": null,
       "roundness": null,
       "seed": 301,
-      "version": 106,
-      "versionNonce": 930277862,
+      "version": 239,
+      "versionNonce": 894888698,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1781782797218,
+      "updated": 1781783214410,
       "link": null,
       "locked": false,
       "text": "    \n    BBB Server (external)\n    Operated by Dataport (DOPS)\n    \n    API: /bigbluebutton/api/\n      - create\n      - join\n      - getMeetingInfo\n      - end\n    \n    Responds with XML",
-      "fontSize": 13,
+      "fontSize": 16,
       "fontFamily": 6,
       "textAlign": "left",
       "verticalAlign": "top",
@@ -814,8 +814,8 @@
     {
       "id": "db-box",
       "type": "rectangle",
-      "x": 906.2221950954859,
-      "y": 620,
+      "x": 862.9614222978621,
+      "y": 606.2936378936633,
       "width": 210,
       "height": 100,
       "angle": 0,
@@ -832,8 +832,8 @@
         "type": 3
       },
       "seed": 400,
-      "version": 5,
-      "versionNonce": 2054118886,
+      "version": 72,
+      "versionNonce": 160651878,
       "isDeleted": false,
       "boundElements": [
         {
@@ -841,7 +841,7 @@
           "id": "db-label"
         }
       ],
-      "updated": 1781782808751,
+      "updated": 1781783022074,
       "link": null,
       "locked": false,
       "index": "aM"
@@ -849,8 +849,8 @@
     {
       "id": "db-label",
       "type": "text",
-      "x": 911.2221950954859,
-      "y": 625,
+      "x": 867.9614222978621,
+      "y": 611.2936378936633,
       "width": 180.55674743652344,
       "height": 87.75,
       "angle": 0,
@@ -865,11 +865,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 401,
-      "version": 9,
-      "versionNonce": 1440133414,
+      "version": 76,
+      "versionNonce": 1212620198,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1781782808751,
+      "updated": 1781783022074,
       "link": null,
       "locked": false,
       "text": "    MongoDB\n    \n    Collection: videoconferences\n    { target, targetModel,\n      options, salt }",
@@ -974,10 +974,10 @@
     {
       "id": "arrow-bbbservice-bbbserver",
       "type": "arrow",
-      "x": 1133.3027747726258,
-      "y": 458.3453401480219,
-      "width": 146.50944535351505,
-      "height": 0.6619029240633267,
+      "x": 1089.6136516078616,
+      "y": 445.899503228456,
+      "width": 146.93792643483494,
+      "height": 2.898403157446751,
       "angle": 0,
       "strokeColor": "#e8590c",
       "backgroundColor": "transparent",
@@ -992,8 +992,8 @@
         "type": 2
       },
       "seed": 502,
-      "version": 199,
-      "versionNonce": 1116257574,
+      "version": 397,
+      "versionNonce": 1704157094,
       "isDeleted": false,
       "boundElements": [
         {
@@ -1001,7 +1001,7 @@
           "id": "arrow-bbb-label"
         }
       ],
-      "updated": 1781782797218,
+      "updated": 1781783207842,
       "link": null,
       "locked": false,
       "points": [
@@ -1010,8 +1010,8 @@
           0
         ],
         [
-          146.50944535351505,
-          0.6619029240633267
+          146.93792643483494,
+          2.898403157446751
         ]
       ],
       "startBinding": {
@@ -1033,8 +1033,8 @@
     {
       "id": "arrow-bbb-label",
       "type": "text",
-      "x": 1198.3828875834624,
-      "y": 450.5023913180767,
+      "x": 1122.4126471739119,
+      "y": 437.82398938083435,
       "width": 81.33993530273438,
       "height": 18.900000000000002,
       "angle": 0,
@@ -1049,11 +1049,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 503,
-      "version": 9,
-      "versionNonce": 16955642,
+      "version": 12,
+      "versionNonce": 637994234,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1781782787410,
+      "updated": 1781783207842,
       "link": null,
       "locked": false,
       "text": "HTTP + XML",
@@ -1070,8 +1070,8 @@
     {
       "id": "arrow-service-db",
       "type": "arrow",
-      "x": 1011.2221950954859,
-      "y": 555,
+      "x": 967.9614222978621,
+      "y": 541.2936378936633,
       "width": 0,
       "height": 60,
       "angle": 0,
@@ -1088,11 +1088,11 @@
         "type": 2
       },
       "seed": 504,
-      "version": 5,
-      "versionNonce": 1198627942,
+      "version": 56,
+      "versionNonce": 1512077542,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1781782808751,
+      "updated": 1781783022074,
       "link": null,
       "locked": false,
       "points": [
@@ -1288,7 +1288,7 @@
     {
       "id": "note-meetingid",
       "type": "rectangle",
-      "x": 1268.791980380896,
+      "x": 1233.241056692177,
       "y": 166.4650206580592,
       "width": 280,
       "height": 177.89030083484502,
@@ -1306,8 +1306,8 @@
         "type": 3
       },
       "seed": 700,
-      "version": 185,
-      "versionNonce": 1241903206,
+      "version": 196,
+      "versionNonce": 1768550138,
       "isDeleted": false,
       "boundElements": [
         {
@@ -1315,7 +1315,7 @@
           "id": "note-meetingid-label"
         }
       ],
-      "updated": 1781782959777,
+      "updated": 1781783029590,
       "link": null,
       "locked": false,
       "index": "aX"
@@ -1323,7 +1323,7 @@
     {
       "id": "note-meetingid-label",
       "type": "text",
-      "x": 1273.791980380896,
+      "x": 1238.241056692177,
       "y": 171.4650206580592,
       "width": 214.78768920898438,
       "height": 145.8,
@@ -1339,11 +1339,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 701,
-      "version": 173,
-      "versionNonce": 1240920998,
+      "version": 184,
+      "versionNonce": 1661337530,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1781782959777,
+      "updated": 1781783029590,
       "link": null,
       "locked": false,
       "text": "\n        Key implementation details:\n        \n        - meetingID = scopeId + salt\n          (salt regenerated each start)\n        - checksum = SHA-512(\n          callName + params + SALT)\n        - guestPolicy = ASK_MODERATOR\n          when waitingRoom enabled",

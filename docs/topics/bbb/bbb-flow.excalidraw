@@ -1,15 +1,15 @@
 {
   "type": "excalidraw",
   "version": 2,
-  "source": "https://excalidraw.com",
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
   "elements": [
     {
       "id": "title",
       "type": "text",
-      "x": 300,
+      "x": 375.154052734375,
       "y": 20,
-      "width": 500,
-      "height": 35,
+      "width": 323.76385498046875,
+      "height": 37.800000000000004,
       "angle": 0,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
@@ -22,22 +22,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 1,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 5,
+      "versionNonce": 1998914821,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783080991,
       "link": null,
       "locked": false,
       "text": "BBB Conference Lifecycle",
       "fontSize": 28,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": null,
       "originalText": "BBB Conference Lifecycle",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "a0"
     },
     {
       "id": "lane-teacher",
@@ -56,23 +57,26 @@
       "opacity": 30,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 10,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 73231877,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "a1"
     },
     {
       "id": "lane-teacher-label",
       "type": "text",
-      "x": 90,
+      "x": 89.64704895019531,
       "y": 90,
-      "width": 140,
-      "height": 25,
+      "width": 129.49191284179688,
+      "height": 24.3,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -85,22 +89,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 11,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 5,
+      "versionNonce": 339266859,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783074364,
       "link": null,
       "locked": false,
       "text": "Teacher (Client)",
       "fontSize": 18,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": null,
       "originalText": "Teacher (Client)",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "a2"
     },
     {
       "id": "lane-server",
@@ -119,23 +124,26 @@
       "opacity": 30,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 20,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 1760257381,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "a3"
     },
     {
       "id": "lane-server-label",
       "type": "text",
-      "x": 380,
+      "x": 395.7860641479492,
       "y": 90,
-      "width": 180,
-      "height": 25,
+      "width": 145.88992309570312,
+      "height": 24.3,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -148,22 +156,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 21,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 5,
+      "versionNonce": 1638494917,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783084756,
       "link": null,
       "locked": false,
       "text": "schulcloud-server",
       "fontSize": 18,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": null,
       "originalText": "schulcloud-server",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "a4"
     },
     {
       "id": "lane-bbb",
@@ -182,23 +191,26 @@
       "opacity": 30,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 30,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 5,
+      "versionNonce": 830874347,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783104511,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "a5"
     },
     {
       "id": "lane-bbb-label",
       "type": "text",
-      "x": 700,
+      "x": 699.6660461425781,
       "y": 90,
-      "width": 160,
-      "height": 25,
+      "width": 140.8139190673828,
+      "height": 24.3,
       "angle": 0,
       "strokeColor": "#e8590c",
       "backgroundColor": "transparent",
@@ -211,22 +223,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 31,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 5,
+      "versionNonce": 1851699461,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783092606,
       "link": null,
       "locked": false,
       "text": "BBB Server (ext.)",
       "fontSize": 18,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": null,
       "originalText": "BBB Server (ext.)",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "a6"
     },
     {
       "id": "step1",
@@ -245,23 +258,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 100,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 700649509,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step1-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step1-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "a7"
     },
     {
       "id": "step1-label",
       "type": "text",
-      "x": 80,
-      "y": 148,
-      "width": 160,
-      "height": 40,
+      "x": 101.11605834960938,
+      "y": 148.6,
+      "width": 117.76788330078125,
+      "height": 37.800000000000004,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -274,22 +295,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 101,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 873836779,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783076408,
       "link": null,
       "locked": false,
       "text": "Teacher clicks\n\"Start Conference\"",
       "fontSize": 14,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step1",
       "originalText": "Teacher clicks\n\"Start Conference\"",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "a8"
     },
     {
       "id": "step2",
@@ -308,23 +330,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 102,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 832029573,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step2-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step2-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "a9"
     },
     {
       "id": "step2-label",
       "type": "text",
-      "x": 80,
-      "y": 228,
-      "width": 160,
-      "height": 40,
+      "x": 82.55909729003906,
+      "y": 229.95,
+      "width": 154.88180541992188,
+      "height": 35.1,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -337,22 +367,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 103,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 2137310379,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783078191,
       "link": null,
       "locked": false,
       "text": "Configures options:\nmute / waiting room / mod",
       "fontSize": 13,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step2",
       "originalText": "Configures options:\nmute / waiting room / mod",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aA"
     },
     {
       "id": "arrow-1",
@@ -371,21 +402,34 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 2 },
+      "roundness": {
+        "type": 2
+      },
       "seed": 200,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 2000620261,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783071407,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [90, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          90,
+          0
+        ]
+      ],
       "startBinding": null,
       "endBinding": null,
       "startArrowhead": null,
       "endArrowhead": "arrow",
-      "elbowed": false
+      "elbowed": false,
+      "lastCommittedPoint": null,
+      "index": "aB"
     },
     {
       "id": "step3",
@@ -404,23 +448,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 104,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 1748451819,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step3-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step3-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aC"
     },
     {
       "id": "step3-label",
       "type": "text",
-      "x": 360,
-      "y": 298,
-      "width": 220,
-      "height": 40,
+      "x": 384.0506134033203,
+      "y": 299.95,
+      "width": 171.89877319335938,
+      "height": 35.1,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -433,22 +485,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 105,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 791723333,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783083057,
       "link": null,
       "locked": false,
       "text": "Checks permission: user\nmust have MODERATOR role",
       "fontSize": 13,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step3",
       "originalText": "Checks permission: user\nmust have MODERATOR role",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aD"
     },
     {
       "id": "step4",
@@ -467,23 +520,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 106,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 1064160395,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step4-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step4-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aE"
     },
     {
       "id": "step4-label",
       "type": "text",
-      "x": 360,
-      "y": 378,
-      "width": 220,
-      "height": 40,
+      "x": 383.29663848876953,
+      "y": 379.95,
+      "width": 173.40672302246094,
+      "height": 35.1,
       "angle": 0,
       "strokeColor": "#862e9c",
       "backgroundColor": "transparent",
@@ -496,22 +557,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 107,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 678943493,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783086757,
       "link": null,
       "locked": false,
       "text": "Generates random salt, saves\nconfig + options to MongoDB",
       "fontSize": 13,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step4",
       "originalText": "Generates random salt, saves\nconfig + options to MongoDB",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aF"
     },
     {
       "id": "arrow-2",
@@ -530,21 +592,34 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 2 },
+      "roundness": {
+        "type": 2
+      },
       "seed": 202,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 280625963,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783071407,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [90, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          90,
+          0
+        ]
+      ],
       "startBinding": null,
       "endBinding": null,
       "startArrowhead": null,
       "endArrowhead": "arrow",
-      "elbowed": false
+      "elbowed": false,
+      "lastCommittedPoint": null,
+      "index": "aG"
     },
     {
       "id": "step5",
@@ -563,23 +638,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 108,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 1916492037,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step5-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step5-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aH"
     },
     {
       "id": "step5-label",
       "type": "text",
-      "x": 360,
-      "y": 453,
-      "width": 220,
-      "height": 40,
+      "x": 380.4106216430664,
+      "y": 454.95,
+      "width": 179.1787567138672,
+      "height": 35.1,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -592,22 +675,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 109,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 367727429,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783088855,
       "link": null,
       "locked": false,
       "text": "Sends create request to BBB\n(meetingID, guestPolicy, mute)",
       "fontSize": 13,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step5",
       "originalText": "Sends create request to BBB\n(meetingID, guestPolicy, mute)",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aI"
     },
     {
       "id": "step5b",
@@ -626,23 +710,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 110,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 1507061861,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step5b-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step5b-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aJ"
     },
     {
       "id": "step5b-label",
       "type": "text",
-      "x": 700,
-      "y": 453,
-      "width": 160,
-      "height": 40,
+      "x": 728.9630508422852,
+      "y": 453.6,
+      "width": 102.07389831542969,
+      "height": 37.800000000000004,
       "angle": 0,
       "strokeColor": "#e8590c",
       "backgroundColor": "transparent",
@@ -655,22 +747,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 111,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 1009195909,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783090889,
       "link": null,
       "locked": false,
       "text": "BBB creates the\nmeeting room",
       "fontSize": 14,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step5b",
       "originalText": "BBB creates the\nmeeting room",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aK"
     },
     {
       "id": "step6",
@@ -689,23 +782,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 112,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 623025093,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step6-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step6-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aL"
     },
     {
       "id": "step6-label",
       "type": "text",
-      "x": 360,
-      "y": 543,
-      "width": 220,
-      "height": 40,
+      "x": 371.7786102294922,
+      "y": 544.95,
+      "width": 196.44277954101562,
+      "height": 35.1,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -718,22 +819,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 113,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 1465940363,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783095538,
       "link": null,
       "locked": false,
       "text": "Builds signed join URL\n(role=MODERATOR, no BBB call)",
       "fontSize": 13,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step6",
       "originalText": "Builds signed join URL\n(role=MODERATOR, no BBB call)",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aM"
     },
     {
       "id": "arrow-3",
@@ -752,21 +854,34 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 2 },
+      "roundness": {
+        "type": 2
+      },
       "seed": 204,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 474274597,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783071407,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [-90, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -90,
+          0
+        ]
+      ],
       "startBinding": null,
       "endBinding": null,
       "startArrowhead": null,
       "endArrowhead": "arrow",
-      "elbowed": false
+      "elbowed": false,
+      "lastCommittedPoint": null,
+      "index": "aN"
     },
     {
       "id": "step7",
@@ -785,23 +900,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 114,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 1533384107,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step7-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step7-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aO"
     },
     {
       "id": "step7-label",
       "type": "text",
-      "x": 80,
-      "y": 628,
-      "width": 160,
-      "height": 40,
+      "x": 104.13307189941406,
+      "y": 628.6,
+      "width": 111.73385620117188,
+      "height": 37.800000000000004,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -814,22 +937,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 115,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 946378059,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783097189,
       "link": null,
       "locked": false,
       "text": "Browser redirects\nto BBB join URL",
       "fontSize": 14,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step7",
       "originalText": "Browser redirects\nto BBB join URL",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aP"
     },
     {
       "id": "sep-line",
@@ -850,27 +974,38 @@
       "frameId": null,
       "roundness": null,
       "seed": 300,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 689678411,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783071407,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [840, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          840,
+          0
+        ]
+      ],
       "startBinding": null,
       "endBinding": null,
       "startArrowhead": null,
       "endArrowhead": null,
-      "elbowed": false
+      "elbowed": false,
+      "lastCommittedPoint": null,
+      "index": "aQ"
     },
     {
       "id": "sep-label",
       "type": "text",
       "x": 60,
       "y": 718,
-      "width": 300,
-      "height": 20,
+      "width": 237.11769104003906,
+      "height": 18.900000000000002,
       "angle": 0,
       "strokeColor": "#868e96",
       "backgroundColor": "transparent",
@@ -883,22 +1018,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 301,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 5,
+      "versionNonce": 413800395,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783100003,
       "link": null,
       "locked": false,
       "text": "Student / External Person joins later...",
       "fontSize": 14,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
       "originalText": "Student / External Person joins later...",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aR"
     },
     {
       "id": "step8",
@@ -917,23 +1053,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 116,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 129394411,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step8-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step8-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aS"
     },
     {
       "id": "step8-label",
       "type": "text",
-      "x": 80,
-      "y": 763,
-      "width": 160,
-      "height": 40,
+      "x": 98.05005645751953,
+      "y": 763.6,
+      "width": 123.89988708496094,
+      "height": 37.800000000000004,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -946,22 +1090,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 117,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 871793547,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783101705,
       "link": null,
       "locked": false,
       "text": "Student clicks on\nconference element",
       "fontSize": 14,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step8",
       "originalText": "Student clicks on\nconference element",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aT"
     },
     {
       "id": "arrow-4",
@@ -980,27 +1125,40 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 2 },
+      "roundness": {
+        "type": 2
+      },
       "seed": 206,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 1304449419,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783071407,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [90, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          90,
+          0
+        ]
+      ],
       "startBinding": null,
       "endBinding": null,
       "startArrowhead": null,
       "endArrowhead": "arrow",
-      "elbowed": false
+      "elbowed": false,
+      "lastCommittedPoint": null,
+      "index": "aU"
     },
     {
       "id": "step9",
       "type": "rectangle",
-      "x": 350,
-      "y": 755,
+      "x": 349.60003662109375,
+      "y": 754.2000732421875,
       "width": 240,
       "height": 75,
       "angle": 0,
@@ -1013,23 +1171,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 118,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 6,
+      "versionNonce": 1525284709,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step9-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step9-label"
+        }
+      ],
+      "updated": 1781783106994,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aV"
     },
     {
       "id": "step9-label",
       "type": "text",
-      "x": 360,
-      "y": 762,
-      "width": 220,
-      "height": 60,
+      "x": 393.5441436767578,
+      "y": 759.3000732421875,
+      "width": 152.11178588867188,
+      "height": 64.80000000000001,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -1042,28 +1208,29 @@
       "frameId": null,
       "roundness": null,
       "seed": 119,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 13,
+      "versionNonce": 807445733,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783109923,
       "link": null,
       "locked": false,
       "text": "Determines role -> VIEWER\nIf external -> guest=true\nIf guest + no waiting room\n-> 403 REJECTED",
       "fontSize": 12,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step9",
       "originalText": "Determines role -> VIEWER\nIf external -> guest=true\nIf guest + no waiting room\n-> 403 REJECTED",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aW"
     },
     {
       "id": "step10",
       "type": "rectangle",
-      "x": 350,
-      "y": 860,
+      "x": 348.79998779296875,
+      "y": 868,
       "width": 240,
       "height": 40,
       "angle": 0,
@@ -1076,23 +1243,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 120,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 6,
+      "versionNonce": 1505457637,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step10-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step10-label"
+        }
+      ],
+      "updated": 1781783148317,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aX"
     },
     {
       "id": "step10-label",
       "type": "text",
-      "x": 360,
-      "y": 868,
-      "width": 220,
-      "height": 25,
+      "x": 398.0475845336914,
+      "y": 879.225,
+      "width": 141.5048065185547,
+      "height": 17.55,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -1105,22 +1280,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 121,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 11,
+      "versionNonce": 419262789,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783148317,
       "link": null,
       "locked": false,
       "text": "Returns signed join URL",
       "fontSize": 13,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step10",
       "originalText": "Returns signed join URL",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aY"
     },
     {
       "id": "step11",
@@ -1139,23 +1315,31 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 122,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 1094810469,
       "isDeleted": false,
-      "boundElements": [{ "type": "text", "id": "step11-label" }],
-      "updated": 1,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "step11-label"
+        }
+      ],
+      "updated": 1781783071407,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aZ"
     },
     {
       "id": "step11-label",
       "type": "text",
-      "x": 700,
-      "y": 933,
-      "width": 160,
-      "height": 40,
+      "x": 712.4975967407227,
+      "y": 934.95,
+      "width": 135.0048065185547,
+      "height": 35.1,
       "angle": 0,
       "strokeColor": "#e8590c",
       "backgroundColor": "transparent",
@@ -1168,22 +1352,23 @@
       "frameId": null,
       "roundness": null,
       "seed": 123,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 7,
+      "versionNonce": 1697349861,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783154085,
       "link": null,
       "locked": false,
       "text": "If waiting room:\nuser waits for approval",
       "fontSize": 13,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "step11",
       "originalText": "If waiting room:\nuser waits for approval",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "aa"
     },
     {
       "id": "arrow-5",
@@ -1202,29 +1387,42 @@
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
-      "roundness": { "type": 2 },
+      "roundness": {
+        "type": 2
+      },
       "seed": 208,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 2,
+      "versionNonce": 2091304645,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783071407,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [525, 45]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          525,
+          45
+        ]
+      ],
       "startBinding": null,
       "endBinding": null,
       "startArrowhead": null,
       "endArrowhead": "arrow",
-      "elbowed": false
+      "elbowed": false,
+      "lastCommittedPoint": null,
+      "index": "ab"
     },
     {
       "id": "arrow-5-label",
       "type": "text",
-      "x": 300,
-      "y": 910,
-      "width": 200,
-      "height": 20,
+      "x": 93.67313385009766,
+      "y": 880.4000244140625,
+      "width": 142.60983276367188,
+      "height": 17.55,
       "angle": 0,
       "strokeColor": "#e8590c",
       "backgroundColor": "transparent",
@@ -1237,28 +1435,76 @@
       "frameId": null,
       "roundness": null,
       "seed": 302,
-      "version": 1,
-      "versionNonce": 1,
+      "version": 113,
+      "versionNonce": 908937701,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1,
+      "updated": 1781783119618,
       "link": null,
       "locked": false,
       "text": "Browser redirect to BBB",
       "fontSize": 13,
-      "fontFamily": 5,
+      "fontFamily": 6,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": null,
       "originalText": "Browser redirect to BBB",
       "autoResize": true,
-      "lineHeight": 1.25
+      "lineHeight": 1.35,
+      "index": "ac"
+    },
+    {
+      "id": "ahP9QYF7aBrxlG-huoisV",
+      "type": "arrow",
+      "x": 337.7999267578125,
+      "y": 890.5000305175781,
+      "width": 90,
+      "height": 0,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 272496645,
+      "version": 24,
+      "versionNonce": 312771403,
+      "isDeleted": false,
+      "boundElements": [],
+      "updated": 1781783145717,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -90,
+          0
+        ]
+      ],
+      "startBinding": null,
+      "endBinding": null,
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false,
+      "lastCommittedPoint": null,
+      "index": "ad"
     }
   ],
   "appState": {
-    "gridSize": null,
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
     "viewBackgroundColor": "#ffffff"
   },
   "files": {}
 }
-
