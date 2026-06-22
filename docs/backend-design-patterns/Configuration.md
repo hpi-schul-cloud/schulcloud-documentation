@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # ConfigurationModule Usage Guide
 
 The `ConfigurationModule` provides a flexible and type-safe way to manage application configuration. It supports environment variables, validation, and custom decorators for easy access to configuration values.
