@@ -1,0 +1,163 @@
+.wrapper {
+  margin: 1rem 0 1.5rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.openButton,
+.closeButton,
+.zoomButton,
+.zoomValue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.65rem 0.95rem;
+}
+
+.openButton {
+  padding: 0.5rem;
+}
+
+.openButton:hover,
+.closeButton:hover,
+.zoomButton:hover,
+.zoomValue:hover {
+  background: var(--ifm-color-emphasis-200);
+}
+
+.zoomButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.zoomValue {
+  min-width: 4.75rem;
+}
+
+.preview {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 1rem;
+  background: var(--ifm-background-surface-color);
+  cursor: zoom-in;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.preview:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 4px;
+}
+
+.preview :global(svg) {
+  display: block;
+  margin: 0 auto;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mermaid-fullscreen-backdrop);
+  padding: 0;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+  border-radius: 0;
+  background: var(--mermaid-fullscreen-surface);
+  box-shadow: none;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+  padding: 1rem 1rem 0.75rem;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.modalActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.zoomControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modalBody {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background: var(--mermaid-fullscreen-surface);
+  padding: 1.25rem;
+}
+
+.modalDiagram {
+  --mermaid-modal-zoom: 1;
+  --mermaid-pan-x: 0px;
+  --mermaid-pan-y: 0px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(var(--mermaid-pan-x), var(--mermaid-pan-y)) scale(var(--mermaid-modal-zoom));
+  transform-origin: center center;
+  user-select: none;
+  touch-action: none;
+  pointer-events: none;
+}
+
+.modalBody :global(.theme-mermaid) {
+  background: var(--mermaid-fullscreen-surface);
+}
+
+.modalBody :global(svg) {
+  background: var(--mermaid-fullscreen-surface);
+}
+
+@media (max-width: 768px) {
+  .modalHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .modalActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .modalBody {
+    padding: 1rem;
+  }
+}

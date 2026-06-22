@@ -1,79 +1,132 @@
-# Getting started with BigBlueButton (BBB)
+# BigBlueButton (BBB) – Video Conferencing
+
+The dBildungscloud integrates [BigBlueButton](https://bigbluebutton.org/) as its video conferencing solution. Teachers can start conferences within courses or board elements, students and external persons can join them. Communication with BBB runs exclusively through the server – the client only manages the lifecycle (create, join, check status) and ultimately redirects to the BBB URL.
 
 ## Features
 
-- guestPolicy functionality
-  - e.g. External Expert can join a meeting and will be marked as guest
-- muteOnStart functionality
-  - Moderator can mute all participants on start of video conference
-- allowModsToUnmuteUsers functionality
-  - Moderator can allow moderators to unmute users if they want to
-- welcome functionality
-  - Moderator can write a welcome message for the Waiting room
+- **muteOnStart** – Moderator can mute all participants when they enter
+- **everybodyJoinsAsModerator** – Moderator can grant moderator rights to all participants
+- **Waiting Room (moderatorMustApproveJoinRequests)** – Participants must be approved by a moderator before joining the conference
+- **External Persons** – Can participate in conferences, but only when the waiting room is enabled (see [Access Logic for External Persons](#access-logic-for-external-persons))
 
+## Where is BBB integrated?
 
-## Local Setup for using the features above in BBB
+BBB can be used in different contexts ("scopes"):
 
-Add the BBB credentials **HOST** and **SALT** to your env. file, you can find them in the password vault.
+| Scope | Description | Entry Point |
+| --- | --- | --- |
+| `course` | Video conference within a course room | `RoomVideoConferenceSection.vue` |
+| `video-conference-element` | Video conference as a board element (column board) | `VideoConferenceContentElement.vue` |
+| `room` | Room (available in API) | – |
+| `event` | Calendar event (available in API) | – |
 
-Add `FEATURE_VIDEOCONFERENCE_ENABLED=true` in **client** and **server** and
-`FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED=true` to your env. file in the client.
+> **For extensions:** If BBB needs to be integrated in a new context, the existing composable `useVideoConference(scope, scopeId)` can be reused – it is scope-agnostic.
 
-Add the right permissions to the role. Permissions needed are `START_MEETING, JOIN_MEETING`.
+## Board-Element Integration
 
-Add "videoconference" to School property 'features' array (table 'schools') in MongoDB.
+The board element (`VideoConferenceContentElement.vue`) is the primary integration point. Key behaviors:
 
-Make sure you started the server with the following env values:
+- Opens BBB in a new tab (`_blank`)
+- Prefetches the join URL on mount when a conference is already running – for faster join experience
+- Start permission is controlled via `allowedOperations.manageVideoConference` (board-specific)
+- Join permission is role-based: Student, Teacher, or External Person with waiting room active
+- Requires both `FEATURE_VIDEOCONFERENCE_ENABLED` and `FEATURE_COLUMN_BOARD_VIDEOCONFERENCE_ENABLED`, plus the server-side board feature flag
 
-> ```
-> FEATURE_VIDEOCONFERENCE_ENABLED=true
-> VIDEOCONFERENCE_HOST=https://bbb.staging.messenger.schule/bigbluebutton
-> VIDEOCONFERENCE_SALT (from password vault)
-> FEATURE_COLUMN_BOARD_VIDEOCONFERENCE_ENABLED=true (to make the option BBB visible within Boards)
-> ```
+> **Note:** BBB is also still used in the legacy course-room context (`RoomVideoConferenceSection.vue`), which opens BBB in the same tab and uses `Permission.START_MEETING` / `Permission.JOIN_MEETING` directly.
 
-When a videoconference is created (e.g. when a teacher activates the feature for a course) within the database (table 'videoconferences')
-an object is created with the following structure:
+## Access Logic for External Persons
 
-> **💡 Tip**
-> 
-> ```
-> {
->     "_id" : ObjectId("ID"),
->     "createdAt" : ISODate("2026-02-02T10:01:25.075+0000"),
->     "updatedAt" : ISODate("2026-02-02T10:02:00.127+0000"),
->     "target" : "COURSE_ID",
->     "targetModel" : "courses",
->     "options" : {
->         "everyAttendeJoinsMuted" : true,
->         "everybodyJoinsAsModerator" : false,
->         "moderatorMustApproveJoinRequests" : false
->     },
->     "salt" : "SALT_VALUE"
-> }
-> ```
+External persons may only join a BBB conference under certain conditions. The client-side logic:
 
-A similar structure would be present in case the videoconference is added as a board element but of course 'target' would refer to a different object (board) and for 'targetModel' we would have the value "video-conference-elements".
+```
+canJoin = canJoinMeeting && (!isExternalPerson || userRoles.length > 1 || isWaitingRoomActive)
+```
 
-## External Experts Waiting room
+This means: An external person can only join if:
 
-### Introduction
+- the waiting room is enabled (so the moderator can manually approve them), or
+- the person has additional roles (i.e. is not solely `EXTERNAL_PERSON`)
 
-External experts are currently forbidden from entering BBB conferences due to data protection reasons. However if there is a waiting room and explicit permissions from a moderator (usually a teacher) then they are allowed into such rooms to participate in a video conference.
+## Architecture Overview
 
-### Research Results
+### Overview
 
-BBB has built in features to allow for such constellations. It has a waiting room for guests that can be activated and only allows participants to join after a moderator approves it.
+![BBB Architecture](./bbb-architecture.svg)
 
-These features are currently deactivated in dBildungscloud, but can be activated. In a POC we could confirm that it works as imagined, it just needs to be properly implemented now.
+### Sequence Flow
 
-The following changes are necessary:
+![BBB Flow](./bbb-flow.svg)
 
-**Client:**
-- Add an option on room creation, that allows external experts, but puts them in a waiting room
+### Communication Flow
 
-**Server:**
-- Add the correct parameters on room creation to allow guests only after moderator permission
-- Add a check for external experts to give them the BBB role "Guest"
+```
+Client                          Server                              BBB Server (ext.)
+──────                          ──────                              ─────────────────
+GET  .../info  ───────────────► checks BBB status ─── GET /api/getMeetingInfo ──► XML response
+PUT  .../start {options} ─────► permission check → save to DB → POST /api/create ──► creates room
+GET  .../join  ───────────────► determines role + guest → builds signed URL (no BBB call)
+                ◄── { url } ──
+window.open(url) ──────────────────────────────────────────────────────────────────► BBB Web UI
+```
 
-Those changes will most likely be done in the legacy code due to delivery timeline reasons.
+### Key Server Internals
+
+- **meetingID** = `scopeId + salt` (salt is a random 16-byte hex, regenerated on each start)
+- **Checksum**: SHA-512 of `callName + queryParams + VIDEOCONFERENCE_SALT` (env variable)
+- **BBB communication**: HTTP GET/POST, responses are XML (parsed with `xml2json`)
+- **join()** does NOT call BBB – it only constructs a signed URL that the browser opens directly
+- **Role mapping**:
+
+  | dBildungscloud Role                       | BBB Role    | guest flag |
+    | ----------------------------------------- | ----------- | ---------- |
+  | Teacher / RoomAdmin / BoardAdmin          | `MODERATOR` | false      |
+  | Student / RoomViewer / BoardReader/Editor | `VIEWER`    | false      |
+  | ExternalPerson / TeamExpert               | `VIEWER`    | **true**   |
+
+- **Guest blocking**: guest + no waiting room → 403 `GUESTS_CANNOT_JOIN_CONFERENCE`
+- **GuestPolicy**: waiting room enabled → `guestPolicy=ASK_MODERATOR` sent to BBB create
+- **everybodyJoinsAsModerator**: on join, if enabled AND user is not guest → role overridden to `MODERATOR`
+- **allowModsToUnmuteUsers**: always `true` in the create config
+
+## Local Setup
+
+### Prerequisites
+
+- BBB credentials **HOST** and **SALT** (from the password vault)
+- Role permissions: `START_MEETING`, `JOIN_MEETING`
+- School feature `videoconference` in the `features` array of the school (DB: table `schools`)
+
+### Server Env
+
+```
+FEATURE_VIDEOCONFERENCE_ENABLED=true
+VIDEOCONFERENCE_HOST=https://bbb.staging.messenger.schule/bigbluebutton
+VIDEOCONFERENCE_SALT=<from password vault>
+FEATURE_COLUMN_BOARD_VIDEOCONFERENCE_ENABLED=true
+```
+
+### Client Env
+
+```
+FEATURE_VIDEOCONFERENCE_ENABLED=true
+```
+
+### Database Structure
+
+When a video conference is created (e.g. a teacher activates the feature for a course), an object is created in the `videoconferences` table:
+
+```json
+{
+	"_id": "ObjectId(...)",
+	"target": "<COURSE_ID>",
+	"targetModel": "courses",
+	"options": {
+		"everyAttendeJoinsMuted": true,
+		"everybodyJoinsAsModerator": false,
+		"moderatorMustApproveJoinRequests": false
+	},
+	"salt": "<SALT_VALUE>"
+}
+```
+
+For board elements, `target` refers to the board element and `targetModel` is `"video-conference-elements"`.
