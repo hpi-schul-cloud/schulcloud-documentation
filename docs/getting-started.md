@@ -137,26 +137,7 @@ Successful if [http://localhost:3030/](http://localhost:3030/) shows the feather
 
 ### 4. Set up Legacy Client (schulcloud-client)
 
-- Install packages
-
-  ```bash
-  npm i -g nodemon
-  cd schulcloud-client && npm ci
-  ```
-
-- Build client
-
-  ```bash
-  npm run build
-  ```
-
-- Start client
-
-  ```bash
-  npm run watch
-  ```
-
-Successful if [http://localhost:3100/](http://localhost:3100/) shows the Bildungscloud start page.
+See [Local Setup for schulcloud-client](./topics/schulcloud-client/overview.md).
 
 ### 5. Set up Nuxt Client
 
