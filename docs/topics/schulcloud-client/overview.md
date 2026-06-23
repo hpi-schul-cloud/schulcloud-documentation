@@ -1,6 +1,6 @@
 # Overview
 
-The schulcloud-client is the Schulcloud's legacy frontend. Most pages are already migrated to the [vue-client](../vue-client/) and all new work should happen there.
+The schulcloud-client is the Schulcloud's legacy frontend (and thus often called "legacy client"). Most pages are already migrated to the [vue-client](../vue-client/) and all new work should happen there.
 
 ## Technical Overview
 
@@ -23,7 +23,7 @@ flowchart LR
   end
 ```
 
-As shown above the ingress-controller of the kubernetes-cluster routes to the respective client based on the path, see the [config for the ingress](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/8cdc7455d60fdbb74d048f68116cb3b98d46b4b1/ansible/group_vars/all/x_ingress.yml).
+As shown above the ingress-controller of the kubernetes-cluster routes to the respective client based on the path. The current routing can be found in the [config for the ingress-controller](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/8cdc7455d60fdbb74d048f68116cb3b98d46b4b1/ansible/group_vars/all/x_ingress.yml).
 
 The schulcloud-client communicates with schulcloud-server and file-storage inside the cluster. All communication is via HTTP and authenticated via JWT.
 
