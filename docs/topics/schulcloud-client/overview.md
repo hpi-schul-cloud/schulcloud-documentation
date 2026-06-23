@@ -1,6 +1,6 @@
 # Overview
 
-The schulcloud-client is the Schulcloud's legacy frontend (and thus often called "legacy client"). Most pages are already migrated to the [vue-client](../vue-client/) and all new work should happen there.
+The schulcloud-client is the Schulcloud's legacy frontend (and thus often called "legacy client"). Most pages are already migrated to the [vue-client](../vue-client/0_GettingStarted.md) and all new work should happen there.
 
 ## Technical Overview
 
