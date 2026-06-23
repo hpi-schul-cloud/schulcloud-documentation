@@ -649,4 +649,4 @@ If Redis is to be used locally, the following steps are necessary for setup:
 
 ### Set up superhero-dashboard
 
-See [Superhero Dashboard overview](./topics/superhero-dashboard/overview.md).
+See [Local Setup for superhero-dashboard](./topics/superhero-dashboard/overview.md).
