@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Overview
 
-The superhero-dashboard (short SHD) is the UI for instance-wide configuration and data manipulation. It is used by users with the role "superhero", which is basically the support team.
+The superhero-dashboard (short SHD) is the UI for instance-wide configuration and data manipulation. It is used by users with the role "superhero".
 
 ![screenshot of landing page of the superhero-dashboard](shd-screenshot.png)
 
@@ -20,20 +20,20 @@ Static files are built with [gulp.js](https://gulpjs.com/).
 
 ```mermaid
 flowchart LR
-  browser --> superhero-dashboard
+  browser -->|HTTP + JWT| superhero-dashboard
   subgraph schulcloud-kubernetes-cluster
-    superhero-dashboard --> schulcloud-server
-    superhero-dashboard --> admin-api-server
-    superhero-dashboard --> file-storage
+    superhero-dashboard -->|HTTP + JWT| schulcloud-server
+    superhero-dashboard -->|HTTP + API-Key| admin-api-server
+    superhero-dashboard -->|HTTP + JWT| file-storage
   end
 ```
 
-Like shown above the superhero-dashboard communicates with the following schulcloud-apps:
+As shown above the superhero-dashboard communicates with the following schulcloud-apps:
 - schulcloud-server
 - admin-api-server (for user-batch-deletion)
 - file-storage (for school-files-deletion)
 
-All communication is via HTTP inside the kubernetes-cluster.
+All communication is via HTTP inside the kubernetes-cluster and authenticated by the methods mentioned in the diagram.
 
 ## HTTP Basic Auth
 Unlike other schulcloud-apps the superhero-dashboard is protected by [HTTP Basic Auth](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Authentication) on deployed instances like configured [here](https://github.com/hpi-schul-cloud/superhero-dashboard/blob/b4d7f1fcc1dd6862b5cc7f0837654c25abd0bdd6/ansible/roles/superhero-dashboard/templates/ingress.yml.j2#L10).
