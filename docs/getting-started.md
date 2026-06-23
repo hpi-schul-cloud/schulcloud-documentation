@@ -137,7 +137,7 @@ Successful if [http://localhost:3030/](http://localhost:3030/) shows the feather
 
 ### 4. Set up Legacy Client (schulcloud-client)
 
-See [Local Setup for schulcloud-client](./topics/schulcloud-client/overview.md).
+See [Local setup for schulcloud-client](./topics/schulcloud-client/overview.md).
 
 ### 5. Set up Nuxt Client
 
@@ -649,4 +649,4 @@ If Redis is to be used locally, the following steps are necessary for setup:
 
 ### Set up superhero-dashboard
 
-See [Local Setup for superhero-dashboard](./topics/superhero-dashboard/overview.md).
+See [Local setup for superhero-dashboard](./topics/superhero-dashboard/overview.md).
