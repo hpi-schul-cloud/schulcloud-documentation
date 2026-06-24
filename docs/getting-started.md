@@ -646,6 +646,8 @@ The File Storage Service uses Imagemagick to generate preview images. For previe
 
 [This script](https://gist.github.com/hurricup/e14ae5bc47705fca6b1680e7a1fb6580) installs Imagemagick with support for heic files (also works under WSL).
 
+Note for macOS and Windows developers: The service hardcodes a Linux PATH (/usr/local/bin:/usr/bin:/bin) when invoking ImageMagick. On macOS (especially Apple Silicon), magick is typically installed via Homebrew at bin, which is not in this path. On Windows, the path format is incompatible entirely. To work around this locally, just remove the PATH param in the ImageMagickAdapter.
+
 **p.s.:** If no preview is displayed - because it is still blocked by virus scan -, then in MongoDB: `fileRecord.securityCheck.status` can be overwritten with `verified`.
 
 ### Local antivirus via Docker
