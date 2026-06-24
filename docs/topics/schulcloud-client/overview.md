@@ -21,15 +21,13 @@ flowchart LR
   browser --> ingress-controller
   subgraph schulcloud-kubernetes-cluster
     ingress-controller -->|path-based routing| schulcloud-client
-    schulcloud-client -->|HTTP + JWT| schulcloud-server
-    schulcloud-client -->|HTTP + JWT| file-storage
+    schulcloud-client --> schulcloud-server
+    schulcloud-client --> file-storage
     ingress-controller -->|path-based routing| vue-client
   end
 ```
 
 As shown above, the ingress-controller of the kubernetes-cluster routes to the respective client based on the path. The current routing can be found in the [config for the ingress-controller](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/8cdc7455d60fdbb74d048f68116cb3b98d46b4b1/ansible/group_vars/all/x_ingress.yml).
-
-The schulcloud-client communicates with schulcloud-server and file-storage inside the cluster. All communication is via HTTP and is authenticated via JWT.
 
 ## Theming
 
