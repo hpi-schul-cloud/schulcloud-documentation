@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.1">
 <title data-rh="true">Getting started | Schulcloud-Verbund-Software Documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://documentation.dbildungscloud.dev/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://documentation.dbildungscloud.dev/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://documentation.dbildungscloud.dev/docs/getting-started"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Getting started | Schulcloud-Verbund-Software Documentation"><meta data-rh="true" name="description" content="Glossary / Quick Links"><meta data-rh="true" property="og:description" content="Glossary / Quick Links"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://documentation.dbildungscloud.dev/docs/getting-started"><link data-rh="true" rel="alternate" href="https://documentation.dbildungscloud.dev/docs/getting-started" hreflang="en"><link data-rh="true" rel="alternate" href="https://documentation.dbildungscloud.dev/docs/getting-started" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Getting started","item":"https://documentation.dbildungscloud.dev/docs/getting-started"}]}</script><link rel="stylesheet" href="/assets/css/styles.30f3b4ff.css">
-<script src="/assets/js/runtime~main.3c43deff.js" defer="defer"></script>
-<script src="/assets/js/main.9690b5bf.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.0e83a812.js" defer="defer"></script>
+<script src="/assets/js/main.dc8cb48c.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -145,6 +145,7 @@
 <p>Install <a href="https://www.rabbitmq.com/" target="_blank" rel="noopener noreferrer" class="">RabbitMQ</a> (<a href="https://www.rabbitmq.com/install-windows.html" target="_blank" rel="noopener noreferrer" class="">Installation Guide</a>)</p>
 </li>
 </ul>
+<p>Erlang is only needed if you want to start RabbitMQ outside of docker!</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="start-server">Start server<a href="#start-server" class="hash-link" aria-label="Direct link to Start server" title="Direct link to Start server" translate="no">​</a></h4>
 <ul>
 <li class="">
@@ -160,10 +161,6 @@
 <p>Successful if <a href="http://localhost:3030/" target="_blank" rel="noopener noreferrer" class="">http://localhost:3030/</a> shows the feathers start page.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-set-up-legacy-client-schulcloud-client">4. Set up Legacy Client (schulcloud-client)<a href="#4-set-up-legacy-client-schulcloud-client" class="hash-link" aria-label="Direct link to 4. Set up Legacy Client (schulcloud-client)" title="Direct link to 4. Set up Legacy Client (schulcloud-client)" translate="no">​</a></h3>
 <ul>
-<li class="">
-<p>Install packages</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">npm i -g nodemon</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">cd schulcloud-client &amp;&amp; npm ci</span><br></div></code></pre></div></div>
-</li>
 <li class="">
 <p>Build client</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">npm run build</span><br></div></code></pre></div></div>
