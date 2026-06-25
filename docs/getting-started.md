@@ -117,6 +117,8 @@ Add each to PATH, log out/log in if necessary or at least reopen CMD if already 
 - Install [Docker](https://www.docker.com/get-started/) (or [Colima](https://github.com/abiosoft/colima) via **brew install colima docker**)
 - Install [RabbitMQ](https://www.rabbitmq.com/) ([Installation Guide](https://www.rabbitmq.com/install-windows.html))
 
+Erlang is only needed if you want to start RabbitMQ outside of docker!
+
 #### Start server
 
 - Start RabbitMQ
@@ -136,13 +138,6 @@ Add each to PATH, log out/log in if necessary or at least reopen CMD if already 
 Successful if [http://localhost:3030/](http://localhost:3030/) shows the feathers start page.
 
 ### 4. Set up Legacy Client (schulcloud-client)
-
-- Install packages
-
-  ```bash
-  npm i -g nodemon
-  cd schulcloud-client && npm ci
-  ```
 
 - Build client
 
