@@ -27,7 +27,7 @@ flowchart LR
   end
 ```
 
-As shown above, the ingress-controller of the kubernetes-cluster routes to the respective client based on the path. The current routing can be found in the [config for the ingress-controller](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/8cdc7455d60fdbb74d048f68116cb3b98d46b4b1/ansible/group_vars/all/x_ingress.yml).
+As shown above, the ingress-controller of the kubernetes-cluster routes to the respective client based on the path. The current routing can be found in the [config for the ingress-controller](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/all/x_ingress.yml).
 
 ## Theming
 
