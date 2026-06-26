@@ -8,7 +8,7 @@ The schulcloud-client is the Schulcloud's legacy frontend (and thus often called
 
 ## Technical Overview
 
-It is a client-server application based on [Handlebars](https://handlebarsjs.com/) and [Express.js](https://expressjs.com/en/). 
+It uses server-side rendering with [Handlebars](https://handlebarsjs.com/) templates served by an [Express.js](https://expressjs.com/en/) backend. 
 
 The integration of Handlebars with Express is done with handlebars-wax as described in [this paragraph from the handlebars-wax-docs](https://github.com/shannonmoeller/handlebars-wax#enginefile-data-callback-handlebarswax).
 
