@@ -139,19 +139,7 @@ Successful if [http://localhost:3030/](http://localhost:3030/) shows the feather
 
 ### 4. Set up Legacy Client (schulcloud-client)
 
-- Build client
-
-  ```bash
-  npm run build
-  ```
-
-- Start client
-
-  ```bash
-  npm run watch
-  ```
-
-Successful if [http://localhost:3100/](http://localhost:3100/) shows the Bildungscloud start page.
+See [Local setup for schulcloud-client](./topics/schulcloud-client/overview.md).
 
 ### 5. Set up Nuxt Client
 
@@ -665,4 +653,4 @@ If Redis is to be used locally, the following steps are necessary for setup:
 
 ### Set up superhero-dashboard
 
-See [Superhero Dashboard overview](./topics/superhero-dashboard/Overview.md).
+See [Local setup for superhero-dashboard](./topics/superhero-dashboard/overview.md).
