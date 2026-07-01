@@ -1,0 +1,40 @@
+---
+sidebar_position: 0
+---
+
+# Overview
+
+The schulcloud-client is the Schulcloud's legacy frontend (and thus often called "legacy client"). Most pages are already migrated to the [vue-client](../vue-client/0_GettingStarted.md) and all new work should happen there.
+
+## Technical Overview
+
+It uses server-side rendering with [Handlebars](https://handlebarsjs.com/) templates served by an [Express.js](https://expressjs.com/en/) backend. 
+
+The integration of Handlebars with Express is done with handlebars-wax as described in [this paragraph from the handlebars-wax-docs](https://github.com/shannonmoeller/handlebars-wax#enginefile-data-callback-handlebarswax).
+
+Static files are built with [gulp.js](https://gulpjs.com/).
+
+## Integration in the Schulcloud
+
+```mermaid
+flowchart LR
+  browser --> ingress-controller
+  subgraph schulcloud-kubernetes-cluster
+    ingress-controller -->|path-based routing| schulcloud-client
+    schulcloud-client --> schulcloud-server
+    schulcloud-client --> file-storage
+    ingress-controller -->|path-based routing| vue-client
+  end
+```
+
+As shown above, the ingress-controller of the kubernetes-cluster routes to the respective client based on the path. The current routing can be found in the [config for the ingress-controller](https://github.com/hpi-schul-cloud/dof_app_deploy/blob/main/ansible/group_vars/all/x_ingress.yml).
+
+## Theming
+
+The client can display the site with different themes. The files for each theme are placed in the `/themes` directory. The theme is selected with the env var `SC_THEME`.
+
+## Local Setup
+
+Clone the [repository](https://github.com/hpi-schul-cloud/schulcloud-client) and proceed like described in the README.
+
+For a minimal setup the [schulcloud-server](https://github.com/hpi-schul-cloud/schulcloud-server/blob/33ffddf7aca4a0118ee312f53efbb616a1dcc630/package.json#L49) and the [vue-client](https://github.com/hpi-schul-cloud/nuxt-client/blob/c10852e7cf9cd8646b8511a534b5c4eb7ee3e9e1/package.json#L8) must be running, for a full setup also the [file-storage](https://github.com/hpi-schul-cloud/file-storage/blob/cb9e6345b120a76667ed80df0056f338c930e827/package.json#L23).

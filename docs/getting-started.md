@@ -117,6 +117,8 @@ Add each to PATH, log out/log in if necessary or at least reopen CMD if already 
 - Install [Docker](https://www.docker.com/get-started/) (or [Colima](https://github.com/abiosoft/colima) via **brew install colima docker**)
 - Install [RabbitMQ](https://www.rabbitmq.com/) ([Installation Guide](https://www.rabbitmq.com/install-windows.html))
 
+Erlang is only needed if you want to start RabbitMQ outside of docker!
+
 #### Start server
 
 - Start RabbitMQ
@@ -137,26 +139,7 @@ Successful if [http://localhost:3030/](http://localhost:3030/) shows the feather
 
 ### 4. Set up Legacy Client (schulcloud-client)
 
-- Install packages
-
-  ```bash
-  npm i -g nodemon
-  cd schulcloud-client && npm ci
-  ```
-
-- Build client
-
-  ```bash
-  npm run build
-  ```
-
-- Start client
-
-  ```bash
-  npm run watch
-  ```
-
-Successful if [http://localhost:3100/](http://localhost:3100/) shows the Bildungscloud start page.
+See [Local setup for schulcloud-client](./topics/schulcloud-client/overview.md).
 
 ### 5. Set up Nuxt Client
 
@@ -647,6 +630,8 @@ The File Storage Service uses Imagemagick to generate preview images. For previe
 
 [This script](https://gist.github.com/hurricup/e14ae5bc47705fca6b1680e7a1fb6580) installs Imagemagick with support for heic files (also works under WSL).
 
+Note for macOS and Windows developers: The service hardcodes a Linux PATH (/usr/local/bin:/usr/bin:/bin) when invoking ImageMagick. On macOS (especially Apple Silicon), magick is typically installed via Homebrew at bin, which is not in this path. On Windows, the path format is incompatible entirely. To work around this locally, just remove the PATH param in the ImageMagickAdapter.
+
 **p.s.:** If no preview is displayed - because it is still blocked by virus scan -, then in MongoDB: `fileRecord.securityCheck.status` can be overwritten with `verified`.
 
 ### Local antivirus via Docker
@@ -669,4 +654,4 @@ If Redis is to be used locally, the following steps are necessary for setup:
 
 ### Set up superhero-dashboard
 
-See [Superhero Dashboard overview](./topics/superhero-dashboard/Overview.md).
+See [Local setup for superhero-dashboard](./topics/superhero-dashboard/overview.md).
