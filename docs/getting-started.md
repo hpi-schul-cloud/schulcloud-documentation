@@ -612,7 +612,8 @@ Minio must be set up, see "Local Files Storage"
    }
    ```
    
-   **Note:** You can use `<workspace>/scripts/secret.js` to generate a valid secret key. Please note that your Minio account is also linked up.
+      **Note:** You can use `<workspace>/scripts/secret.js` to generate a valid secret key. The params are the S3_KEY env var and the minio password.
+   `node ./scripts/secret.js -s [S3_KEY] -e [MINIO_PASSWROD]`
 
 2. For this to be used, the appropriate provider must be entered in the "schools" collection in the respective school being used. Let's assume we want to use the user "lehrer@schul-cloud", then we go to the school named "Paul-Gerhardt-Gymnasium" and supplement the document there with the additional attribute and appropriate value from the storageprovider document created above:
 
