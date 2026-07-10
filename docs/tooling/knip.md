@@ -64,6 +64,7 @@ A `.knip.json` file is placed at the project root. Key options:
 | `ignore`             | Glob patterns for files/directories to exclude from analysis.                                                  |
 | `ignoreDependencies` | Package names to exclude from unused dependency checks.                                                        |
 | `ignoreBinaries`     | Binary names to exclude from checks.                                                                           |
+| `ignoreMembers`      | Regex patterns for class/enum members to exclude from unused member checks.                                    |
 
 See the [full configuration docs](https://knip.dev/reference/configuration) for all options.
 
@@ -170,6 +171,12 @@ See the [full configuration docs](https://knip.dev/reference/configuration) for 
   - `apps/server/src/core/**/*` — Core infrastructure code (too tightly coupled to trace cleanly)
   - `apps/server/src/infra/**/*` — Infrastructure code (same reason)
   - `src/**/*` — Legacy source code (not yet migrated to NestJS)
+- **ignoreMembers**: Regex patterns for enum/class members excluded from unused member checks:
+  - `^ROLE$` — Role-related enum value used via dynamic access
+  - `^BLOCKED$`, `^WONT_CHECK$`, `^PENDING$`, `^PASSED$`, `^FAILED$` — Status enum values consumed externally or via dynamic lookups
+  - `^PUBLIC$` — Visibility enum value used at runtime
+  - `^CLIENT_SECRET_POST$`, `^PRIVATE_KEY_JWT$` — OAuth authentication method enum values used in configuration
+  - `^BRANDENBURG$`, `^NIEDERSACHSEN$`, `^THUERINGEN$` — Federal state enum values referenced in external configuration
 
 ---
 
