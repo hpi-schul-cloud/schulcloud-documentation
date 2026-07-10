@@ -139,8 +139,23 @@ See the [full configuration docs](https://knip.dev/reference/configuration) for 
 		"scripts/**/*.{js,ts}!"
 	],
 	"project": ["**/*.{js,ts}!"],
-	"ignore": ["apps/server/src/core/**/*", "apps/server/src/infra/**/*", "src/**/*"]
+	"ignore": ["apps/server/src/core/**/*", "apps/server/src/infra/**/*", "src/**/*"],
+	"ignoreMembers": [
+		"^ROLE$",
+		"^BLOCKED$",
+		"^WONT_CHECK$",
+		"^PENDING$",
+		"^PASSED$",
+		"^FAILED$",
+		"^PUBLIC$",
+		"^CLIENT_SECRET_POST$",
+		"^PRIVATE_KEY_JWT$",
+		"^BRANDENBURG$",
+		"^NIEDERSACHSEN$",
+		"^THUERINGEN$"
+	]
 }
+
 ```
 
 ### Explanation
