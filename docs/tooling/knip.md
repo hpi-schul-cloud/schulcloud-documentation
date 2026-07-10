@@ -153,7 +153,24 @@ See the [full configuration docs](https://knip.dev/reference/configuration) for 
 		"^PRIVATE_KEY_JWT$",
 		"^BRANDENBURG$",
 		"^NIEDERSACHSEN$",
-		"^THUERINGEN$"
+		"^THUERINGEN$",
+		"^UNKNOWN$",
+		"^STUDENT_COUNT$",
+		"^READ$",
+		"^DEMOSTUDENT$",
+		"^DEMOTEACHER$",
+		"^PINK$",
+		"^PURPLE$",
+		"^NEXTCLOUD$",
+		"^SHOW_OUTDATED_USERS$",
+		"^AI_TUTOR$",
+		"^TEST$",
+		"^MINT_EC$",
+		"^NAME$",
+		"^HIDDEN$",
+		"^DEACTIVATED$",
+		"^SKIP_CONSENT$",
+		"^ALWAYS_DENY$"
 	]
 }
 
@@ -168,15 +185,67 @@ See the [full configuration docs](https://knip.dev/reference/configuration) for 
   - `scripts/**/*.{js,ts}` — Project scripts
 - **project**: All JS/TS files in the workspace are considered part of the project.
 - **ignore**: Directories excluded from analysis:
-  - `apps/server/src/core/**/*` — Core infrastructure code (too tightly coupled to trace cleanly)
-  - `apps/server/src/infra/**/*` — Infrastructure code (same reason)
+  - `apps/server/src/core/**/*` — Core infrastructure code
+  - `apps/server/src/infra/**/*` — Infrastructure code
   - `src/**/*` — Legacy source code (not yet migrated to NestJS)
 - **ignoreMembers**: Regex patterns for enum/class members excluded from unused member checks:
-  - `^ROLE$` — Role-related enum value used via dynamic access
-  - `^BLOCKED$`, `^WONT_CHECK$`, `^PENDING$`, `^PASSED$`, `^FAILED$` — Status enum values consumed externally or via dynamic lookups
-  - `^PUBLIC$` — Visibility enum value used at runtime
-  - `^CLIENT_SECRET_POST$`, `^PRIVATE_KEY_JWT$` — OAuth authentication method enum values used in configuration
-  - `^BRANDENBURG$`, `^NIEDERSACHSEN$`, `^THUERINGEN$` — Federal state enum values referenced in external configuration
+  - `^ROLE$`
+    - **Location:** `FilePermissionReferenceModel` in file-permission-reference-model.enum.ts
+    - **Reason:** Role-related enum value used via dynamic access
+  - `^BLOCKED$`, `^WONT_CHECK$`, `^PENDING$`, `^PASSED$`, `^FAILED$`
+    - **Location:** `FileSecurityCheckStatus` in file-security-check-status.enum.ts
+    - **Reason:** Security scan status enum values consumed externally by the file storage service
+  - `^PUBLIC$`
+    - **Location:** `SubjectType` in subject-type.enum.ts and `LtiPrivacyPermission` in lti-privacy-permission.enum.ts
+    - **Reason:** Visibility/privacy enum values used at runtime
+  - `^CLIENT_SECRET_POST$`, `^PRIVATE_KEY_JWT$`
+    - **Location:** `TokenEndpointAuthMethod` in token-endpoint-auth-method.enum.ts
+    - **Reason:** OAuth authentication method enum values used in configuration
+  - `^BRANDENBURG$`, `^NIEDERSACHSEN$`, `^THUERINGEN$`
+    - **Location:** `SchulcloudTheme` in schulcloud-theme.enum.ts
+    - **Reason:** Federal state/theme enum values referenced in external configuration
+  - `^UNKNOWN$`
+    - **Location:** `CommonCartridgeResourceType` in common-cartridge.enums.ts
+    - **Reason:** Fallback/default enum value used in switch statements and error handling
+  - `^STUDENT_COUNT$`
+    - **Location:** `ClassSortQueryType` in class-sort-query-type.enum.ts
+    - **Reason:** Sort/filter enum value used via query parameters
+  - `^READ$`
+    - **Location:** `CrudOperation` in crud-operation.enum.ts
+    - **Reason:** CRUD operation enum value resolved dynamically at runtime
+  - `^DEMOSTUDENT$`, `^DEMOTEACHER$`
+    - **Location:** `RoleName` in rolename.enum.ts
+    - **Reason:** Demo role enum values used in seeding/configuration
+  - `^PINK$`, `^PURPLE$`
+    - **Location:** `RoomColor` in room-color.enum.ts
+    - **Reason:** Color enum values consumed by the frontend via API responses
+  - `^NEXTCLOUD$`
+    - **Location:** `SchoolFeature` in school-feature.enum.ts
+    - **Reason:** Storage provider enum value used in feature flag configuration
+  - `^SHOW_OUTDATED_USERS$`
+    - **Location:** `SchoolFeature` in school-feature.enum.ts
+    - **Reason:** Feature flag enum value toggled via school settings
+  - `^AI_TUTOR$`
+    - **Location:** `SchoolFeature` in school-feature.enum.ts
+    - **Reason:** Feature enum value used in feature flag configuration
+  - `^TEST$`
+    - **Location:** `SchoolPurpose` in school-purpose.enum.ts
+    - **Reason:** School purpose enum value used in conditional logic
+  - `^MINT_EC$`
+    - **Location:** `SchoolPurpose` in school-purpose.enum.ts
+    - **Reason:** School purpose enum value referenced in external configuration
+  - `^NAME$`
+    - **Location:** `ExternalToolSortBy` in external-tool-sort.params.ts
+    - **Reason:** Sort/filter enum value used via query parameters
+  - `^HIDDEN$`, `^DEACTIVATED$`
+    - **Location:** `ExternalToolParameterDatasheetTemplateProperty` in external-tool-parameter-datasheet-template-property.ts
+    - **Reason:** Visibility/status enum values used in admin workflows
+  - `^SKIP_CONSENT$`
+    - **Location:** `ExternalToolParameterDatasheetTemplateProperty` in external-tool-parameter-datasheet-template-property.ts
+    - **Reason:** Consent policy enum value used in tool configuration
+  - `^ALWAYS_DENY$`
+    - **Location:** `GuestPolicy` in bbb-create.config.ts
+    - **Reason:** Guest access policy enum value used in video conference configuration
 
 ---
 
