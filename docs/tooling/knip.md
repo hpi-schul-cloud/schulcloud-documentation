@@ -140,7 +140,16 @@ See the [full configuration docs](https://knip.dev/reference/configuration) for 
 		"scripts/**/*.{js,ts}!"
 	],
 	"project": ["**/*.{js,ts}!"],
-	"ignore": ["apps/server/src/core/**/*", "apps/server/src/infra/**/*", "src/**/*"],
+	"ignore": [
+		"apps/server/src/core/**/*",
+		"apps/server/src/infra/**/*",
+		"apps/server/src/modules/deletion-console/index.ts",
+		"apps/server/src/shared/controller/index.ts",
+		"apps/server/src/shared/domain/index.ts",
+		"apps/server/src/shared/index.ts",
+		"apps/server/src/shared/repo/index.ts",
+		"src/**/*"
+	],
 	"ignoreMembers": [
 		"^ROLE$",
 		"^BLOCKED$",
@@ -184,9 +193,14 @@ See the [full configuration docs](https://knip.dev/reference/configuration) for 
   - `apps/server/src/migrations/**/*.ts` — Database migrations
   - `scripts/**/*.{js,ts}` — Project scripts
 - **project**: All JS/TS files in the workspace are considered part of the project.
-- **ignore**: Directories excluded from analysis:
+- **ignore**: Directories and files excluded from analysis:
   - `apps/server/src/core/**/*` — Core infrastructure code
   - `apps/server/src/infra/**/*` — Infrastructure code
+  - `apps/server/src/modules/deletion-console/index.ts` — Empty barrel file containing only a comment warning not to export from here; Knip flags it as unused
+  - `apps/server/src/shared/controller/index.ts` — Empty barrel file containing only a comment warning not to export from here; Knip flags it as unused
+  - `apps/server/src/shared/domain/index.ts` — Empty barrel file containing only a comment warning not to export from here; Knip flags it as unused
+  - `apps/server/src/shared/index.ts` — Empty barrel file containing only a comment warning not to export from here; Knip flags it as unused
+  - `apps/server/src/shared/repo/index.ts` — Empty barrel file containing only a comment warning not to export from here; Knip flags it as unused
   - `src/**/*` — Legacy source code (not yet migrated to NestJS)
 - **ignoreMembers**: Regex patterns for enum/class members excluded from unused member checks:
   - `^ROLE$`
