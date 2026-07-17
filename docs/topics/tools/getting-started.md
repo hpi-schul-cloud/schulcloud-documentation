@@ -8,27 +8,27 @@
       - [Configuration:](#configuration)
       - [Transmitted parameters:](#transmitted-parameters)
     - [Custom parameters](#custom-parameters)
-  - [CTL configuration in SHD](#ctl-configuration-in-shd)
-    - [Introduction](#introduction)
-  - [Glossary](#glossary)
-  - [Error messages](#error-messages)
-    - [Tool name ambiguity](#tool-name-ambiguity)
-    - [Automatically ensure unique names](#automatically-ensure-unique-names)
-      - [Metadata sync](#metadata-sync)
-      - [Tool provisioning](#tool-provisioning)
-    - [Logo and preview images](#logo-and-preview-images)
-      - [Display logic](#display-logic)
-      - [Storage](#storage)
-    - [Metadata update](#metadata-update)
-      - [SVG images](#svg-images)
-    - [Medium](#medium)
-      - [CTL-Template](#ctl-template)
-      - [CTL-Draft](#ctl-draft)
-    - [Preferred tools](#preferred-tools)
-    - [Contexts](#contexts)
-    - [Base URL](#base-url)
-    - [OAuth2](#oauth2)
-  - [CTL tools import endpoint](#ctl-tools-import-endpoint)
+- [CTL configuration in SHD](#ctl-configuration-in-shd)
+  - [Introduction](#introduction)
+- [Glossary](#glossary)
+- [Error messages](#error-messages)
+- [Tool name ambiguity](#tool-name-ambiguity)
+  - [Automatically ensure unique names](#automatically-ensure-unique-names)
+    - [Metadata sync](#metadata-sync)
+    - [Tool provisioning](#tool-provisioning)
+- [Logo and preview images](#logo-and-preview-images)
+  - [Display logic](#display-logic)
+  - [Storage](#storage)
+- [Metadata update](#metadata-update)
+  - [SVG images](#svg-images)
+- [Medium](#medium)
+  - [CTL-Template](#ctl-template)
+  - [CTL-Draft](#ctl-draft)
+- [Preferred tools](#preferred-tools)
+- [Contexts](#contexts)
+- [Base URL](#base-url)
+- [OAuth2](#oauth2)
+- [CTL tools import endpoint](#ctl-tools-import-endpoint)
 
 ## Parameter Overview
 
@@ -84,7 +84,8 @@ The following parameters are available for tools that supports the LTI 1.1 stand
 |-----------|-------------|
 | Key | This is a **required parameter** that **identifies the Tool Consumer that is launching the tool** (e.g. SVS). The value of this parameter is a string that is agreed upon by the Tool Consumer and the Tool Provider.<br /><br />The Tool Provider uses this parameter to verify the authenticity and integrity of the launch request. |
 | Secret | This is a **required parameter** that is **used together with the key parameter to sign the launch request**.<br /><br />The value of this parameter is a string that is agreed upon by the Tool Consumer and the Tool Provider.<br /><br />The Tool Provider uses this parameter to verify the authenticity and integrity of the launch request. |
-| Message Type | This parameter indicates the **purpose and format of the launch request** from the platform to the tool. There are two main types of messages in LTI 1.1:<br /><br />**basic-lti-launch-request**<br />This is the most common type of message, which initiates a basic launch of the tool with the user's context and role information.<br />The tool can then provide a personalized and interactive experience for the user.<br /><br />**LtiResourcelinkrequest**<br />Initiates a launch of the tool with the user's context and role information, and provides a personalized and interactive experience for the user.<br /><br />**LtiDeepLinkingRequest**<br />Initiates a process where the tool provides a list of content items that the platform can embed or link to in its user interface.<br />The content items can be files, images, videos, quizzes, assignments, or any other resources that the tool supports.<br />The platform can then present the content items to the user in a way that is consistent with its own design and functionality. |
+| Message Type | This parameter indicates the **purpose and format of the launch request** from the platform to the tool. There are two main types of messages in LTI 1.1:<br /><br />**basic-lti-launch-request**<br />This is the most common type of message, which initiates a basic launch of the tool with the user's context and role information.<br />The tool can then provide a personalized and interactive experience for the user.
+<br /><br />**ContentItemSelectionRequest**<br /> Initiates a process where the tool provides a list of content items that the platform can embed or link to in its user interface.<br />The content items can be files, images, videos, quizzes, assignments, or any other resources that the tool supports.<br />The platform can then present the content items to the user in a way that is consistent with its own design and functionality. |
 | Resource Link Id | A Resource Link Id is identifier for a placement of an LTI resource link within a context that is stable and locally unique to the deployment_id.<br /><br />This value must change if the link is copied or exported from one system or context and imported into another system or context.<br /><br />This allows the Tool Provider to differentiate among different links within the same context. |
 | Language | The language parameter in LTI 1.1 is launch_presentation_locale. It is an **optional parameter** that indicates the locale preference of the user launching the tool.<br /><br />The value should be a language tag as defined by RFC 5646. For example, en-US for American English, fr-CA for Canadian French, or de-DE for German.<br /><br />The Tool Provider can use this parameter to localize the user interface of the tool according to the user's preference. |
 | Privacy | The privacy parameter in LTI 1.1 is a custom parameter that allows the Tool Consumer to control the level of personal information that is sent to the Tool Provider.<br />The possible values are:<br /><br />**Anonymous**<br />No personal information is sent, only a unique and consistent user ID.<br /><br />**Pseudonym**<br />Users pseudonym is sent.<br /><br />**Name**<br />User's full name is sent, but not the email address.<br /><br />**Email**<br />User's email address is sent, but not the full name.<br /><br />**Public**<br />Both the user's full name and email address are sent.<br /><br />The privacy parameter is optional and the default value is public. The Tool Provider can specify the minimum level of privacy it requires in the launch request.<br />If the Tool Consumer does not meet the minimum level, the launch request will fail. |
@@ -246,6 +247,10 @@ School admin can configure provisioning behavior within SVS-Client on the follow
 School-Management > Authentication, edit the "moin.schule" system  
 *(Administration > Manage school > Data synchronization options)*
 :::
+
+### Licenses
+
+Certain external media may require a license to be used. The license information is provided by the external source and can be allocated per user or per school.
 
 #### CTL-Draft
 
