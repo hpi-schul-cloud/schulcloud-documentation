@@ -8,7 +8,7 @@ However, users must be authorized for a specific medium in order to be able to a
 Here SVS distinguishes between **user-related-authorization-data** and **school-wide-authorization-data**.
 
 The integration of Bildungslogin is based on user-related-authorization-data.
-The authorization-data for Bildungslogin media  is transferred from moin.schule to the SVS during the ad-hoc provisioning.
+The authorization-data for Bildungslogin media is transferred from moin.schule to the SVS during the ad-hoc provisioning.
 
 The integration of VIDIS is based on school-wide-authorization-data.
 VIDIS-media must be queried via an external VIDIS-interface.

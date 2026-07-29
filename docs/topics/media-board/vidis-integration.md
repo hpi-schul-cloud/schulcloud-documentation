@@ -20,7 +20,7 @@ The following general pre-conditions must be met:
 * A basic CTL-tool (→ Vidis-Tool) that refers to a VIDIS-content (medium) must be defined within a SVS-instance.
 
 * For non-public media available via VIDIS
-  * Vidis-Tool must contain the following parameters so that SVS can determine whether an user is allowed to access the medium:
+  * Vidis-Tool must contain the following parameters so that SVS can determine whether a user is allowed to access the medium:
     * Medium-Id
     This attribute represents a medium with a specific id (offerId) within VIDIS and identifies uniquely a content.
     * Medienkatalog-Id

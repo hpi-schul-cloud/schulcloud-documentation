@@ -140,7 +140,7 @@ License information is loaded in the same way as the provisioned data. In fact i
 
 UserLicenses should be handled by their own module though which has initially no API module, only a Domain-Module
 
-The /lizenz-info Endpoint will be supporting ETags for checking if the requested resource has been altered.
+The /lizenz-info endpoint supports ETags for checking if the requested resource has been altered.
 
 If there was no change it will send a 304 Response and no action is required.
 

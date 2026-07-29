@@ -2,7 +2,7 @@
 
 ### Backend
 
-Media-Shelf is a type of board, which is attached to a user.
+Media-Shelf is a type of board which is attached to a user.
 
 We have can take 3 types of boardnodes:
 * media-board

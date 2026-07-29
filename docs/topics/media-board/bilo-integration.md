@@ -1,4 +1,4 @@
-# Bilo Integration
+# BiLo Integration
 
 This integration requires the following components in SVS:
 
