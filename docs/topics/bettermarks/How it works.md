@@ -65,7 +65,7 @@ Bettermaks external tool is automatically added to 2 namespaces. Check the [depl
 
 It can be challenging to actually properly debug, because the calls are triggered by a 3rd party. Therefor, it can be useful to debug remotely, so directly on a development environment fully deployed with Bettermaks integration, on the dev cluster. As mentioned above, you can use main branch or a branch called `betternarsks_test`.
 
-Remove Debugging can be done using telepresence:
+Remote Debugging can be done using telepresence:
 `telepresence connect -n bettermarks-test --mapped-namespaces bettermarks-test --kubeconfig ~/.kube/sc-dev-nbc.yaml`
 `telepresence replace api-deployment --env-file .env`
 Start local server in debug mode, and happy debugging.
