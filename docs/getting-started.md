@@ -93,6 +93,14 @@ Add each to PATH, log out/log in if necessary or at least reopen CMD if already 
   "C:\Program Files\MongoDB\Server\5.0\bin\mongod" --dbpath "D:\apps\SchulCloud\db"
   ```
 
+- Install [RabbitMQ](https://www.rabbitmq.com/) ([Installation Guide](https://www.rabbitmq.com/install-windows.html))
+
+- Start RabbitMQ (it is needed to seed the database; see next step)
+
+  ```bash
+  docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8.9-management
+  ```
+
 - Fill database with test data
 
   In the schulcloud-server folder:
@@ -115,24 +123,17 @@ Add each to PATH, log out/log in if necessary or at least reopen CMD if already 
 
 - Install [Erlang](https://www.erlang.org/) (not necessarily required)
 - Install [Docker](https://www.docker.com/get-started/) (or [Colima](https://github.com/abiosoft/colima) via **brew install colima docker**)
-- Install [RabbitMQ](https://www.rabbitmq.com/) ([Installation Guide](https://www.rabbitmq.com/install-windows.html))
 
 Erlang is only needed if you want to start RabbitMQ outside of docker!
 
 #### Start server
-
-- Start RabbitMQ
-
-  ```bash
-  docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8.9-management
-  ```
 
 - Start server
 
   ```bash
   npm run nest:start:dev
   ```
-  
+
   (or `npm run nest:start:debug`)
 
 Successful if [http://localhost:3030/](http://localhost:3030/) shows the feathers start page.
@@ -161,7 +162,6 @@ Successful if [http://localhost:4000/](http://localhost:4000/) shows the Bildung
 
 - [Install support for C and C++ in Visual Studio](https://docs.microsoft.com/de-de/cpp/build/vscpp-step-0-installation?view=msvc-170)
   - There can be problems with the 2022 version, then you can install the [2019 version](https://visualstudio.microsoft.com/de/vs/older-downloads/)
-
 
 ## Installation for MacOS (Intel & Apple M1 Chip)
 
@@ -242,7 +242,21 @@ Successful if [http://localhost:4000/](http://localhost:4000/) shows the Bildung
 
 10. be happy and use your wished database software (e.g. Studio 3T), connect to your local db and check if `db.version()` suits your desired version
 
-11. (beforehand of course seed your local database with e.g. `npm run setup:db:seed` in server)
+#### 2.2 Seed the MongoDB database
+
+- Install [RabbitMQ](https://www.rabbitmq.com/) (via [Homebrew](https://www.rabbitmq.com/install-homebrew.html))
+
+  ```bash
+  brew install rabbitmq
+  ```
+
+- Start RabbitMQ
+
+  ```bash
+  docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8.9-management
+  ```
+
+- Seed your local MongoDB database by running `npm run setup:db:seed` in `schulcloud-server`
 
 ### 3. Set up server
 
@@ -263,11 +277,6 @@ Successful if [http://localhost:4000/](http://localhost:4000/) shows the Bildung
   ```
 
 - Install [Docker](https://www.docker.com/get-started/)
-- Install [RabbitMQ](https://www.rabbitmq.com/) (via [Homebrew](https://www.rabbitmq.com/install-homebrew.html))
-
-  ```bash
-  brew install rabbitmq
-  ```
 
 #### Start server
 
@@ -277,18 +286,12 @@ Successful if [http://localhost:4000/](http://localhost:4000/) shows the Bildung
   brew services start mongodb-community@5.0
   ```
 
-- Start RabbitMQ
-
-  ```bash
-  docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8.9-management
-  ```
-
 - Start server (automatic reload after saving changes)
 
   ```bash
   npm run nest:start:dev
   ```
-  
+
   (or `npm run nest:start:debug`)
 
 Successful if [http://localhost:3030/](http://localhost:3030/) shows the feathers start page.
