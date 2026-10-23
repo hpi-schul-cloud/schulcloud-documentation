@@ -13,7 +13,7 @@ sidebar_position: 2
 Also on all other dev-instances you get to the SHD by prepending the domain with "shd-".
 
 ## Staging
-http://staging.niedersachsen.schulcloud-verbund.org/
+- https://dashboard.staging.dbildungscloud.org/
 - https://dashboard.staging.niedersachsen.schulcloud-verbund.org/
 - https://dashboard.staging.brandenburg.schulcloud-verbund.org/
 - https://dashboard.test.schulcloud-thueringen.de/
