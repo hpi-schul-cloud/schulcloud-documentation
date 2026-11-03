@@ -10,7 +10,7 @@ This document describes the event-based communication mechanism used in the schu
 
 We use the NestJS CQRS module (`@nestjs/cqrs`) to implement a publish-subscribe pattern for events. This allows modules to communicate without direct dependencies, which is essential for:
 
-- **Cross-module operations**: When a change in one module needs to trigger actions in other modules (e.g., user changes school → update classes, courses, teams)
+- **Cross-module operations**: When a change in one module needs to trigger actions in other modules (e.g., user changes school → update classes, courses, groups)
 - **Database lifecycle hooks**: Reacting to entity changes via MikroORM EventSubscribers
 - **Decoupled architecture**: Modules can react to events without knowing about each other
 
@@ -223,7 +223,7 @@ export class ClassModule {}
 
 | Event | Published By | Handlers |
 |-------|--------------|----------|
-| `UserChangedSchoolEvent` | `UserEventSubscriber` (afterUpdate) | `ClassModule`, `CourseModule`, `TaskModule`, `TeamModule`, `GroupModule` |
+| `UserChangedSchoolEvent` | `UserEventSubscriber` (afterUpdate) | `ClassModule`, `CourseModule`, `TaskModule`, `GroupModule` |
 | `GroupDeletedEvent` | `GroupService.delete()` | `CourseModule` (GroupDeletedHandlerService) |
 | `SystemDeletedEvent` | `SystemUc` | `SchoolModule` (SystemDeletedHandler) |
 | `RoomBoardCreatedEvent` | `BoardNodeEventSubscriber` (afterCreate) | `RoomModule` (RoomBoardCreatedHandler) |
