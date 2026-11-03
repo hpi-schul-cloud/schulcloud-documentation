@@ -10,7 +10,7 @@ The `ConfigurationModule` provides a flexible and type-safe way to manage applic
 
 The ConfigurationModule offers several key advantages over traditional configuration approaches:
 
-- **Module Encapsulation Principle**: Environment variables should be defined in the modules they belong to (e.g., board features in `board.config.ts`, team features in `team.config.ts`). This ensures better encapsulation, clearer ownership, and easier maintenance. Only add general server-wide configuration to `server.config.ts` if it doesn't belong to any specific module.
+- **Module Encapsulation Principle**: Environment variables should be defined in the modules they belong to (e.g., board features in `board.config.ts`, course features in `course.config.ts`). This ensures better encapsulation, clearer ownership, and easier maintenance. Only add general server-wide configuration to `server.config.ts` if it doesn't belong to any specific module.
 
 - **Type Safety**: Configuration values are strongly typed with TypeScript, preventing runtime errors caused by type mismatches.
 
