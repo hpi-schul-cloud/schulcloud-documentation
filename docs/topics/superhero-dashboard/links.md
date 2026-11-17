@@ -14,8 +14,8 @@ Also on all other dev-instances you get to the SHD by prepending the domain with
 
 ## Staging
 - https://dashboard.staging.dbildungscloud.org/
-- https://dashboard.staging.niedersachsen.dbildungscloud.org/
-- https://dashboard.staging.brandenburg.dbildungscloud.org/
+- https://dashboard.staging.niedersachsen.schulcloud-verbund.org/
+- https://dashboard.staging.brandenburg.schulcloud-verbund.org/
 - https://dashboard.test.schulcloud-thueringen.de/
 
 ## Prod
